@@ -1,1 +1,1 @@
-Collection of tools for GI creation
+Collection of tools for GUI creation

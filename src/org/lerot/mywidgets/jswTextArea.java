@@ -16,15 +16,11 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
 {
 
     private static final long serialVersionUID = 1L;
-   // private final static String newline = "\n";
-
     public JTextArea textbox;
 
-
-
-    public jswTextArea(String inLabel)
+    public jswTextArea(String inLabel, boolean label)
     {
-        super(inLabel,true);
+        super(inLabel,label);
         textbox = new JTextArea("Enter text",20,30);
         JScrollPane scrollPane = new JScrollPane(textbox);
         textbox.setEditable(true);
@@ -33,25 +29,45 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
         textbox.setEnabled(true);
         scrollPane.setEnabled(true);
         setEnabled(true);
-        //setStyle("");
         add("FILLH", scrollPane);
         textbox.setPreferredSize(new Dimension(100, 100));
         setPreferredSize(new Dimension(100, 100));
     }
 
+    public jswTextArea(String inLabel)
+	{
+    	super(inLabel,true);
+        textbox = new JTextArea("Enter text",20,30);
+        JScrollPane scrollPane = new JScrollPane(textbox);
+        textbox.setEditable(true);
+        textbox.setLineWrap(true);
+        textbox.setWrapStyleWord(true);
+        textbox.setEnabled(true);
+        scrollPane.setEnabled(true);
+        setEnabled(true);
+        add("FILLH", scrollPane);
+        textbox.setPreferredSize(new Dimension(100, 100));
+        setPreferredSize(new Dimension(100, 100));
+	}
 
-
-    @Override
+	@Override
 	public void actionPerformed(ActionEvent evt) {
 //        String text = textbox.getText();
 //        textbox.append(text + newline);
 //        textbox.selectAll();
 //
-//        //Make sure the new text is visible, even if there
-//        //was a selection in the text area.
+//Make sure the new text is visible, even if there
+//was a selection in the text area.
 //        textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 
+	public void addText(String text)
+	{		
+		 String atext = textbox.getText();
+		 String btext = atext+"\n"+text;
+         textbox.setText(btext);		
+	}
+	
     public String getText()
     {
         return textbox.getText();
@@ -62,8 +78,6 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
     {
         return false;
     }
-
-
 
     @Override
 	public void setEnabled(boolean e)
@@ -91,8 +105,15 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
         textbox.setText(t);
     }
 
-
-
+	public void setText(String[] hhelp)
+	{
+		String alltext ="";
+		for(String astring : hhelp)
+		{
+			alltext = alltext +"/n"+astring;
+		}
+		textbox.setText(alltext);		
+	}
 
 
 }

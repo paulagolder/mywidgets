@@ -1,6 +1,8 @@
 package org.lerot.mywidgets;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 //import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -87,6 +89,7 @@ public class jswOptionset extends jswPanel implements ActionListener
 	{
 		jswOption on = new jswOption(text, vertical);
 		on.getButton().addActionListener(al);
+		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
 		bg.add(on.getButton());
 		options[no] = on;
 		on.setTag(text);
@@ -154,6 +157,17 @@ public class jswOptionset extends jswPanel implements ActionListener
 	{
 		jswOption on = options[i];
 		on.setSelected();
+	}
+
+	public void doStyling(jswStyle style)
+	{
+		Font sfont = style.getFont();
+		this.setFont(sfont);
+		this.setBorder(style.getBorder());
+		this.setForeground(style.getColor("foregroundColor", Color.blue));
+		this.setBackground(style.getColor("backgroundColor", Color.red));
+
+		
 	}
 
 }

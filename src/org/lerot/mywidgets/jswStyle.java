@@ -1,6 +1,7 @@
 package org.lerot.mywidgets;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -13,10 +14,55 @@ import javax.swing.border.MatteBorder;
 public class jswStyle
 {
 	protected static int counter = 0;
+	public static jswStyle getDefaultStyle()
+	{
+		jswStyle newstyle = new jswStyle();
+		newstyle.setDefaultStyle();
+		return newstyle;
+		
+	}
+	public static Border makeborder()
+	{
+		return BorderFactory.createEmptyBorder(5, 5, 5, 5);
+	}
+	public static Border makecborder(String label)
+	{
+		return BorderFactory.createCompoundBorder(
+				BorderFactory.createTitledBorder(label),
+				BorderFactory.createEmptyBorder(5, 5, 5, 5));
+	}
+	public static  MatteBorder makeCellBorder(Color col, int w)
+	{
+		return BorderFactory.createMatteBorder(0, 0, w, w, col);
+	}
+	public static Border makeLineBorder()
+	{
+		return BorderFactory.createLineBorder(Color.BLACK, 1);
+	}
+
+	public static Border makeLineBorder(Color col, int w)
+	{
+		return BorderFactory.createLineBorder(col, w);
+	}
+
+	public static Border makeLineBorder(int w)
+	{
+		return BorderFactory.createLineBorder(Color.BLACK, w);
+	}
+
+	public static Color transparentColor()
+	{
+		return new Color(0, 0, 0, 0);
+	}
+
 	private String defaultfontname;
+
 	private int defaultfontsize;
+
 	private int defaultfontstyle;
+
 	private String stylename="anon";
+
 	Map<String, String> styles = new HashMap<>();
 
 	public jswStyle()
@@ -31,20 +77,9 @@ public class jswStyle
 		this.setStyleName(name);
 	}
 
-	public String getStyleName()
-	{
-		  return stylename;
-	}
-
-	public void setStyleName(String aname)
-	{
-		  stylename=aname;
-	}
-
 	public void copyAll(jswStyle basestyles)
 	{
 		if (basestyles == null) return;
-
 		for (Map.Entry<String, String> entry : basestyles.styles.entrySet())
 		{
 			String key = entry.getKey();
@@ -53,12 +88,22 @@ public class jswStyle
 			{
 				putAttribute(key, value);
 			}
-
 		}
 		setStyleName(basestyles.getStyleName());
-
 	}
 
+	public Color getBackgroundcolor()
+	{
+		return getColor("backgroundcolor", Color.pink);
+	}
+
+	
+	public Color getForegroundcolor()
+	{
+		return getColor("foregroundcolor", Color.blue);
+	}
+	
+	
 	public boolean getBooleanStyle(String stylename)
 	{
 		return getBooleanStyle(stylename, false);
@@ -161,7 +206,7 @@ public class jswStyle
 		} else
 			return null;
 	}
-
+	
 	public Integer getIntegerStyle(String stylename, int defaultint)
 	{
 		stylename = stylename.toLowerCase();
@@ -207,6 +252,13 @@ public class jswStyle
 			return defaultstyle;
 	}
 
+	public String getStyleName()
+	{
+		  return stylename;
+	}
+
+
+
 	public void overlay(jswStyle style)
 	{
 		copyAll(style);
@@ -215,10 +267,10 @@ public class jswStyle
 
 	public void putAttribute(String attribute, int value)
 	{
-		putAttribute(attribute, (new Integer(value)).toString());
+		putAttribute(attribute, (Integer.toString(value)));
 
 	}
-
+	
 	public void putAttribute(String attribute, String value)
 	{
 		styles.put(attribute.toLowerCase(), value);
@@ -229,11 +281,6 @@ public class jswStyle
 		putAttribute("backgroundColor", backgroundcolor);
 	}
 
-	public static Border makeborder()
-	{
-		return BorderFactory.createEmptyBorder(5, 5, 5, 5);
-	}
-
 	public void setBordercolor(String bordercolor)
 	{
 		putAttribute("borderColor", bordercolor);
@@ -241,26 +288,18 @@ public class jswStyle
 
 	public void setBorderWidth(int border)
 	{
-		putAttribute("borderWidth", (new Integer(border)).toString());
-	}
-
-
-
-	public static  MatteBorder makeCellBorder(Color col, int w)
-	{
-		return BorderFactory.createMatteBorder(0, 0, w, w, col);
+		putAttribute("borderWidth", (Integer.toString(border)));
 	}
 
 	public void setColspan(int colspan)
 	{
-		putAttribute("colspan", (new Integer(colspan)).toString());
+		putAttribute("colspan", (Integer.toString(colspan)));
 
 	}
 
 	public void setDefaultStyle()
 	{
 		putAttribute("backgroundcolor", null);
-
 		putAttribute("borderColor", "black");
 		putAttribute("borderWidth", "-1");
 		putAttribute("cellborderColor", "black");
@@ -270,17 +309,14 @@ public class jswStyle
 		putAttribute("fontname", "SansSerif");
 		putAttribute("fontsize", "10");
 		putAttribute("fontstyle", Font.PLAIN);
-		putAttribute("foregroundColor", null);
-		putAttribute("backgroundColor", null);
+		putAttribute("foregroundColor", "black");
 		putAttribute("headingborder", "1");
 		putAttribute("horizontalAlign", null);
 		putAttribute("interblockspacing", "0");
 		putAttribute("layout", null);
 		putAttribute("myHeight", "0");
 		putAttribute("myWidth", "0");
-
 		putAttribute("padding", "0");
-
 		putAttribute("rowcount", "0");
 		putAttribute("rowspan", "1");
 		putAttribute("verticalAlign", null);
@@ -291,6 +327,8 @@ public class jswStyle
 	{
 		putAttribute("direction", direction.toLowerCase());
 	}
+	
+	
 
 	public void setFontname(String fontname)
 	{
@@ -299,7 +337,7 @@ public class jswStyle
 
 	public void setFontsize(int fontsize)
 	{
-		putAttribute("fontsize", (new Integer(fontsize)).toString());
+		putAttribute("fontsize", (Integer.toString(fontsize)));
 
 	}
 
@@ -315,7 +353,7 @@ public class jswStyle
 
 	public void setHeadingborder(int headingborder)
 	{
-		putAttribute("headingborder", (new Integer(headingborder)).toString());
+		putAttribute("headingborder", (Integer.toString(headingborder)));
 
 	}
 
@@ -333,7 +371,7 @@ public class jswStyle
 	public void setInterblockspacing(int interblockspacing)
 	{
 		putAttribute("interblockspacing",
-				(new Integer(interblockspacing)).toString());
+				(Integer.toString(interblockspacing)));
 
 	}
 
@@ -342,41 +380,17 @@ public class jswStyle
 		putAttribute("layout", layout);
 	}
 
-	public static Border makecborder(String label)
-	{
-		return BorderFactory.createCompoundBorder(
-				BorderFactory.createTitledBorder(label),
-				BorderFactory.createEmptyBorder(5, 5, 5, 5));
-	}
-
-	public static Border makeLineBorder()
-	{
-		return BorderFactory.createLineBorder(Color.BLACK, 1);
-	}
-
-	public static Border makeLineBorder(Color col, int w)
-	{
-		return BorderFactory.createLineBorder(col, w);
-	}
-
-	public static Border makeLineBorder(int w)
-	{
-		return BorderFactory.createLineBorder(Color.BLACK, w);
-	}
-
 	public void setMyHeight(int myHeight)
 	{
-		putAttribute("myHeight", (new Integer(myHeight)).toString());
+		putAttribute("myHeight", (Integer.toString(myHeight)));
 
 	}
 
 	public void setMyWidth(int myWidth)
 	{
-		putAttribute("myWidth", (new Integer(myWidth)).toString());
+		putAttribute("myWidth", (Integer.toString(myWidth)));
 
 	}
-
-
 
 	public void setPadding(int padding)
 	{
@@ -396,6 +410,11 @@ public class jswStyle
 
 	}
 
+	public void setStyleName(String aname)
+	{
+		  stylename=aname;
+	}
+
 	public void setVerticalAlign(String averticalAlign)
 	{
 		String va = averticalAlign.toLowerCase();
@@ -406,10 +425,16 @@ public class jswStyle
 			verticalAlign = "MIDDLE";
 		putAttribute("verticalAlign", verticalAlign);
 	}
-
-	public static Color transparentColor()
+	public Dimension getDimension(int i, int j)
 	{
-		return new Color(0, 0, 0, 0);
+		// TODO Auto-generated method stub
+		return new Dimension(50,20);
 	}
+	
+	
+
+	
+
+	
 
 }

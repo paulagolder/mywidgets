@@ -1,8 +1,10 @@
 package org.lerot.mywidgets;
 
+import java.awt.Color;
 //import java.awt.Component;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
@@ -23,17 +25,19 @@ public class jswOption extends jswPanel
 		super(text);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		setButton(new JRadioButton(text));
-		getButton().setSelected(false);
-		add(getButton());
+		button = new JRadioButton(text);
+		button.setSelected(false);
+		add(button);
 		this.vertical = vertical;
-		getButton().setAlignmentX(Component.LEFT_ALIGNMENT);
+		button.setAlignmentX(Component.LEFT_ALIGNMENT);
+		this.getStyle().setBackgroundcolor("transparent");		
 		box = new JPanel();
 		box.setAlignmentX(Component.LEFT_ALIGNMENT);
 		if (vertical) box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
 		else
 			box.setLayout(new BoxLayout(box, BoxLayout.X_AXIS));
 		add(box);
+		
 	}
 
 	public void addComponent(jswPanel c)
@@ -103,6 +107,15 @@ public class jswOption extends jswPanel
 
 	public void setButton(JRadioButton button) {
 		this.button = button;
+	}
+
+	public void doStyling(jswStyle style)
+	{	
+			Font sfont = style.getFont();
+			button.setFont(sfont);
+			button.setBorder(style.getBorder());
+			button.setForeground(style.getColor("foregroundColor", Color.blue));
+			button.setBackground(style.getColor("backgroundColor", Color.red));			
 	}
 
 }

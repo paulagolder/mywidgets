@@ -1,5 +1,6 @@
 package org.lerot.mywidgets;
 
+import java.awt.Color;
 //import java.awt.Component;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -55,4 +56,6 @@ public class jswHorizontalPanel extends jswContainer
 		// TODO Auto-generated method stub
 
 	}
+
+	
 }

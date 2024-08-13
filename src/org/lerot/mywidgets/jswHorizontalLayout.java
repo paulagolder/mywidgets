@@ -234,4 +234,12 @@ public class jswHorizontalLayout extends jswLayout // implements LayoutManager
 				+ insets.bottom + h);
 	}
 
+	public static String[] help()
+	{
+		String[] helpstring=new String[2];
+		helpstring[0] = "line 1";
+		helpstring[1] = "line 2";
+		return helpstring;
+	}
+
 }

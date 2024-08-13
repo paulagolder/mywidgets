@@ -50,7 +50,7 @@ public abstract class jswPanel extends JPanel
 	private String panelname;
 
 	private int setHeight = 0, setWidth = 0;
-	jswStyle styles;
+	private jswStyle style;
 
 	private String tag = "";
 	private String marker = "";
@@ -78,7 +78,7 @@ public abstract class jswPanel extends JPanel
 
 	public void applyStyles(JComponent label)
 	{
-		applyStyles(label, styles);
+		applyStyles(label, getStyles());
 	}
 
 	@Override
@@ -98,6 +98,9 @@ public abstract class jswPanel extends JPanel
 	{
 		setInsets(5);
 	}
+	
+	
+	
 	public void applyStyles(JComponent label, jswStyle usestyles)
 	{
 		if (label == null) return;
@@ -272,20 +275,20 @@ public abstract class jswPanel extends JPanel
 
 	private void setStyle(String stylename)
 	{
-		styles = new jswStyle();
-		styles.setDefaultStyle();
+		setStyles(new jswStyle());
+		getStyles().setDefaultStyle();
 		jswStyle basestyle = jswStyles.getDefaultStyles().getStyle(stylename);
-		styles.overlay(basestyle);
+		getStyles().overlay(basestyle);
 	}
 
 	public void setStyleParameter(String attribute, int value)
 	{
-		styles.putAttribute(attribute, value);
+		getStyles().putAttribute(attribute, value);
 	}
 
 	public void setStyleParameter(String attribute, String value)
 	{
-		styles.putAttribute(attribute, value);
+		getStyles().putAttribute(attribute, value);
 	}
 
 	public void setTag(String tag)
@@ -333,6 +336,32 @@ public abstract class jswPanel extends JPanel
 	public void setMarker(String marker)
 	{
 		this.marker = marker;
+	}
+
+	public jswStyle getStyles()
+	{
+		return getStyle();
+	}
+
+	public void setStyles(jswStyle styles)
+	{
+		this.setStyle(styles);
+	}
+
+	public void addStyle(String attname, String avalue)
+	{
+		getStyle().putAttribute(attname,avalue);
+		
+	}
+
+	public jswStyle getStyle()
+	{
+		return style;
+	}
+
+	public void setStyle(jswStyle style)
+	{
+		this.style = style;
 	}
 
 }

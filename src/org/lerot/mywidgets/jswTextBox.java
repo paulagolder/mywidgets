@@ -8,6 +8,7 @@ package org.lerot.mywidgets;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 
@@ -49,6 +50,14 @@ public class jswTextBox extends jswPanel
 		textbox.addFocusListener(fl);
 	}
 
+	
+	public void addActionListener(ActionListener al)
+	{
+		textbox.addActionListener(al);
+		
+	}
+	
+	
 	@Override
 	public void addKeyListener(KeyListener kl)
 	{
@@ -143,4 +152,6 @@ public class jswTextBox extends jswPanel
 	{
 		textbox.setText(t);
 	}
+
+
 }

@@ -99,10 +99,10 @@ public abstract class jswLayout implements LayoutManager
 			{
 				i += 9;
 				nsetting.putBoolean("MINHEIGHT", true);
-			} else if (tag.startsWith("WIDE", i))
+			} else if (tag.startsWith("WIDTH", i))
 			{
-				i += 4;
-				if (tag.startsWith("*", i))
+				i += 5;
+				if (tag.startsWith("=", i))
 				{
 					i++;
 					n = countDigits(tag, i);
@@ -110,11 +110,11 @@ public abstract class jswLayout implements LayoutManager
 					i += n;
 				} else
 					harg = 0;
-				nsetting.putInt("WIDE", harg);
-			} else if (tag.startsWith("TALL", i))
+				nsetting.putInt("WIDTH", harg);
+			} else if (tag.startsWith("HEIGHT", i))
 			{
-				i += 4;
-				if (tag.startsWith("*", i))
+				i += 6;
+				if (tag.startsWith("=", i))
 				{
 					i++;
 					n = countDigits(tag, i);
@@ -122,26 +122,50 @@ public abstract class jswLayout implements LayoutManager
 					i += n;
 				} else
 					varg = 0;
-				nsetting.putInt("TALL", varg);
+				nsetting.putInt("HEIGHT", varg);
 			} else if (tag.startsWith("FILLW", i))
 			{
 				i += 5;
+				if (tag.startsWith("=", i))
+				{
+					i++;
+					n = countDigits(tag, i);
+					harg = parseArg(tag, i, n);
+					i += n;
+				} else
+					varg = 0;
 				harg = 1;
-				nsetting.putBoolean("FILLW", true);
+				nsetting.putInt("FILLW",harg);
 			} else if (tag.startsWith("FILLH", i))
 			{
 				i += 5;
-				varg = 1;
-				nsetting.putBoolean("FILLH", true);
+				if (tag.startsWith("=", i))
+				{
+					i++;
+					n = countDigits(tag, i);
+					harg = parseArg(tag, i, n);
+					i += n;
+				} else
+					harg = 0;
+				harg = 1;
+				nsetting.putInt("FILLH",harg);
 			} else if (tag.startsWith("SCROLLH", i))
 			{
 				i += 7;
-				varg = 1;
-				nsetting.putBoolean("SCROLLH", true);
+				if (tag.startsWith("=", i))
+				{
+					i++;
+					n = countDigits(tag, i);
+					harg = parseArg(tag, i, n);
+					i += n;
+				} else
+					harg = 0;
+				harg = 1;
+				nsetting.putInt("SCROLLH",harg);
 			} else if (tag.startsWith("FILLB", i))
 			{
 				i += 5;
-				if (tag.startsWith("*", i))
+				if (tag.startsWith("=", i))
 				{
 					i++;
 					n = countDigits(tag, i);

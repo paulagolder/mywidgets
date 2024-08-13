@@ -73,12 +73,23 @@ public class jswPushButton extends jswPanel
 	public void setStyle()
 	{
 
-		Font sfont = styles.getFont();
+		Font sfont = getStyles().getFont();
 		button.setFont(sfont);
-		button.setBorder(styles.getBorder());
-		button.setForeground(styles.getColor("foregroundColor", Color.blue));
-		button.setBackground(styles.getColor("backgroundColor", Color.red));
+		button.setBorder(getStyles().getBorder());
+		button.setForeground(getStyles().getColor("foregroundColor", Color.blue));
+		button.setBackground(getStyles().getColor("backgroundColor", Color.red));
 
+	}
+
+	public void doStyling(jswStyle style)
+	{
+		Font sfont = style.getFont();
+		button.setFont(sfont);
+		button.setBorder(style.getBorder());
+		button.setForeground(style.getColor("foregroundColor", Color.blue));
+		button.setBackground(style.getColor("backgroundColor", Color.red));
+
+		
 	}
 
 }

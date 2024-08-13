@@ -7,11 +7,12 @@
 package org.lerot.mywidgets;
 
 import java.awt.Dimension;
-
+import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeListener;
 
 public class jswThumbwheel extends jswPanel
 {
@@ -44,6 +45,14 @@ public class jswThumbwheel extends jswPanel
 		add(value);
 		setMinimumSize(new Dimension(width, 42));
 	}
+	
+	public void addChangeListener(ChangeListener cl)
+	{
+		value.addChangeListener(cl);
+
+	}
+
+	
 
 	public int getValue()
 	{

@@ -6,17 +6,19 @@ public class jswTable extends jswPanel
 {
 	private static final long serialVersionUID = 1L;
 
-	jswStyles tablestyles = null;
+	jswStyles tablestyles = new jswStyles();
 
 
 	public jswTable(String name, jswStyles styles)
 	{
 		super(name);
-		tablestyles = jswStyles.clone("table",styles);
-		jswStyle tablestyle = tablestyles.getStyle("table");
+		
+		//jswStyle tablestyle = jswStyles.getTableStyles() ;//tablestyles.getStyle("table");
+		tablestyles.copyStyles(styles);
+		jswStyle tablestyle = styles.getStyle("table");
 		setLayout(new jswTableLayout());
-		//Color bcolor = tablestyle.getColor("backgroundColor", Color.BLUE);
-		//setBackground(bcolor);
+		Color bcolor = tablestyle.getColor("backgroundColor", Color.BLUE);
+		setBackground(bcolor);
 		int borderwidth = tablestyle.getIntegerStyle("borderWidth", 0);
 		if (borderwidth > 0)
 		{
@@ -49,7 +51,10 @@ public class jswTable extends jswPanel
 
 	public void addCell(jswPanel cont, String setting, int row, int col)
 	{
-
+         if(row == 4 & col ==3)
+         {
+        	 System.out.println("here");
+         }
 		jswStyle cellstyle = getCellStyle(row, col);
 		jswCell acell = new jswCell(row, col);
 		acell.applyStyles(cellstyle);
@@ -58,9 +63,10 @@ public class jswTable extends jswPanel
 		if (setting != null) settings += " " + setting + " ";
 		add(acell);
 		jswStyle cellcontentstyle = getCellContentStyle(row, col);
-		acell.applyStyles(cont, cellcontentstyle);
+		acell.applyStyles(cont, cellstyle);
+		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
 		cont.setBackground(new Color(0, 0, 0, 0));
-		cont.setBorder(null);
+		//cont.setBorder(null);
 		acell.add(settings, cont);
 	}
 
@@ -90,6 +96,7 @@ public class jswTable extends jswPanel
 	public jswStyle getColStyle(int col)
 	{
 		jswStyle colstyle = new jswStyle();
+		colstyle.overlay(tablestyles.getStyle("col"));
 		colstyle.overlay(tablestyles.getStyle("col_" + col));
 		return colstyle;
 	}

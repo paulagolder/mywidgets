@@ -10,6 +10,8 @@ public class jswButton extends jswPanel
 {
 	private static final long serialVersionUID = 1L;
 	JButton button;
+	int bh=16;
+	int bl=30;
 
 	public jswButton(ActionListener al, String label)
 	{
@@ -22,6 +24,7 @@ public class jswButton extends jswPanel
 		button = new JButton(label);
 		button.setFont(new Font("SansSerif", Font.BOLD, 9));
 		int l = label.length() * 8 + 30;
+		if(l>bl)bl=l;
 		Dimension d = new Dimension(l, 16);
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
@@ -55,6 +58,22 @@ public class jswButton extends jswPanel
 	{
 		button.setEnabled(b);
 		super.setEnabled(b);
+	}
+
+	public void doStyling(jswStyle style)
+	{
+		button.setFont(style.getFont());
+		button.setBackground(style.getBackgroundcolor());
+		button.setForeground(style.getForegroundcolor());
+		int wd =style.getIntegerStyle("mywidth",bl);
+		if(wd > bl) bl= wd;
+		int ht =style.getIntegerStyle( "myheight",bh);
+		if(ht > bh ) bh=ht;
+		Dimension d = new Dimension(bl, bh);
+		button.setPreferredSize(d);
+		button.setMaximumSize(d);
+		button.setMinimumSize(d);
+		button.setPreferredSize(d);
 	}
 
 }

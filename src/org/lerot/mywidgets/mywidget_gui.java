@@ -45,9 +45,6 @@ implements ActionListener, TreeModelListener, TreeSelectionListener
 		mframe.setVisible(true);
 	}
 
-
-
-
 	public mywidget_gui(int w, int h) {
 		jswContainer apanel = new jswContainer("dummy");
 		jswStyles defstyles = jswStyles.getDefaultStyles();
@@ -215,8 +212,6 @@ implements ActionListener, TreeModelListener, TreeSelectionListener
 			}
 		});
 	}
-
-
 
 
 	public void actionPerformed(ActionEvent e) {

@@ -2,6 +2,7 @@ package org.lerot.mywidgets;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 
 	public jswDropDownBox(String inLabel, boolean haslabel, boolean hasborder)
 	{
+		super(inLabel,haslabel);
 		if (haslabel)
 		{
 			label = new JLabel();
@@ -35,6 +37,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 		datalist = new JComboBox<>(listModel);
 		datalist.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		datalist.setPreferredSize(new Dimension(100, 30));
+		datalist.addActionListener(this);
 		setName(inLabel);
 		if (hasborder)
 		{
@@ -44,21 +47,18 @@ public class jswDropDownBox extends jswHorizontalPanel
 		} else
 			setBorder(jswStyle.makeborder());
 		add("FILLW", datalist);
-		// applyStyles(datalist);
-		// applyStyles(label);
-
 	}
 
 	public jswDropDownBox(ActionListener c,String inlabel)
 	{
 		this(inlabel,false,false);
-		this.addActionListener(c,inlabel);
+		this.addActionListener(c);
 	}
 
 	public jswDropDownBox(ActionListener c,String inlabel, String action)
 	{
 		this(inlabel,true,true);
-		this.addActionListener(c,action);
+		this.addActionListener(c);
 	}
 
 
@@ -69,23 +69,19 @@ public class jswDropDownBox extends jswHorizontalPanel
 
 	public void addActionListener(ActionListener c)
 	{
-		datalist.addActionListener(c);
+		actionlistener = c;
 	}
-
-	public void removeActionListener(ActionListener c)
-	{
-		datalist.removeActionListener(c);
-		datalist.removeActionListener(c);
-		int n = datalist.getActionListeners().length;
 		
-	}
-
-	public void addActionListener(ActionListener c, String actionlabel)
+	public void actionPerformed(ActionEvent e)
 	{
-		datalist.addActionListener(c);
-		datalist.setActionCommand(actionlabel);
+		String mess ="";	    
+	    mess = getSelectedValue();
+		Long t = System.currentTimeMillis() / 10000;
+		int uniqueId = t.intValue();
+		ActionEvent event = new ActionEvent(this, uniqueId, label+":"+mess);
+		actionlistener.actionPerformed(event);
 	}
-
+	
 	public void addList(Vector<String> list)
 	{
 		ActionListener[] al = datalist.getActionListeners();
@@ -98,8 +94,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 			}
 			datalist.setSelectedIndex(0);
 		}
-		if(al.length>0)datalist.addActionListener(al[0]);
-		
+		if(al.length>0)datalist.addActionListener(al[0]);	
 	}
 	
 
@@ -111,8 +106,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 				listModel.addElement(element);
 			}
 			datalist.setSelectedIndex(0);
-		}
-		
+		}		
 	}
 	
 	public void addItem(String listelement)
@@ -202,8 +196,6 @@ public class jswDropDownBox extends jswHorizontalPanel
 
 	public void addList(Map<String,Integer> list)
 	{
-
-
 		if (list.size() > 0)
 		{
 			for ( Entry<String, Integer> entry : list.entrySet())
@@ -212,7 +204,6 @@ public class jswDropDownBox extends jswHorizontalPanel
 			}
 			datalist.setSelectedIndex(0);
 		}
-
 	}
 
 	public void setList(Map<String,Integer> list)
@@ -237,7 +228,6 @@ public class jswDropDownBox extends jswHorizontalPanel
 
 	public void setPreferredize(Dimension dim)
 	{
-
 		datalist.setPreferredSize(dim);
 	}
 

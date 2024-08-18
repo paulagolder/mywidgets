@@ -6,21 +6,28 @@
  */
 package org.lerot.mywidgets;
 
+import java.awt.AWTEvent;
 import java.awt.Dimension;
+//import java.awt.Event;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class jswThumbwheel extends jswPanel
+public class jswThumbwheel extends jswPanel implements ChangeListener
 {
 
 	private static final long serialVersionUID = 1L;
 	int mheight = 60;
 	// JCheckBox check;
 	JSpinner value;
+	int currentvalue=-1;
+	ActionListener al=null;
 
 	public jswThumbwheel(String text, int inmin, int inmax)
 	{
@@ -33,26 +40,51 @@ public class jswThumbwheel extends jswPanel
 		add(label);
 		int width = text.length() * 12 + 60;
 		value = new JSpinner();
-		Integer current = new Integer(inmin);
-		Integer min = new Integer(inmin);
-		Integer max = new Integer(inmax);
-		Integer step = new Integer(1);
+		Integer current = inmin;
+		Integer min = inmin;
+		Integer max = inmax;
+		Integer step =1;
 		SpinnerNumberModel m_numberSpinnerModel = new SpinnerNumberModel(
 				current, min, max, step);
 		value = new JSpinner(m_numberSpinnerModel);
 		value.setMaximumSize(new Dimension(60, 30));
-		value.setValue(new Integer(inmax));
+		value.setValue(inmax);
+	    value.addChangeListener(this);
 		add(value);
 		setMinimumSize(new Dimension(width, 42));
 	}
 	
+	public jswThumbwheel(ActionListener cl,String text, int inmin, int inmax)
+	{
+		super(text);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		// check = new JCheckBox(text);
+		// check.setSelected(false);
+		// add(check);
+		JLabel label = new JLabel("    " + text);
+		add(label);
+		int width = text.length() * 12 + 60;
+		value = new JSpinner();
+		Integer current = inmin;
+		Integer min = inmin;
+		Integer max = inmax;
+		Integer step =1;
+		SpinnerNumberModel m_numberSpinnerModel = new SpinnerNumberModel(
+				current, min, max, step);
+		value = new JSpinner(m_numberSpinnerModel);
+		value.setMaximumSize(new Dimension(60, 30));
+		value.setValue(inmax);
+		add(value);
+		value.addChangeListener(this);
+		al = cl;
+		setMinimumSize(new Dimension(width, 42));
+	}
+
 	public void addChangeListener(ChangeListener cl)
 	{
 		value.addChangeListener(cl);
 
 	}
-
-	
 
 	public int getValue()
 	{
@@ -76,5 +108,15 @@ public class jswThumbwheel extends jswPanel
 	{
 		value.setValue(new Integer(v));
 	}
+
+	@Override
+	 public void stateChanged(ChangeEvent e)
+    {
+		Long t = System.currentTimeMillis() / 10000;
+	    int uniqueId = t.intValue();
+        System.out.println(value.getValue() + " ++" );
+        ActionEvent event = new ActionEvent(this, uniqueId,"value ="+value.getValue());
+        al.actionPerformed(event);
+    }
 
 }

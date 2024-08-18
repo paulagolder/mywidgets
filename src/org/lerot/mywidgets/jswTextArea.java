@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 public class jswTextArea extends jswVerticalPanel   implements ActionListener
 {
@@ -28,15 +29,18 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
         textbox.setWrapStyleWord(true);
         textbox.setEnabled(true);
         scrollPane.setEnabled(true);
+        DefaultCaret caret = (DefaultCaret)textbox.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         setEnabled(true);
         add("FILLH", scrollPane);
-        textbox.setPreferredSize(new Dimension(100, 100));
+        //textbox.setPreferredSize(new Dimension(100, 100));
         setPreferredSize(new Dimension(100, 100));
     }
 
     public jswTextArea(String inLabel)
 	{
-    	super(inLabel,true);
+    	this(inLabel,true);
+    	/*super(inLabel,true);
         textbox = new JTextArea("Enter text",20,30);
         JScrollPane scrollPane = new JScrollPane(textbox);
         textbox.setEditable(true);
@@ -47,18 +51,18 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
         setEnabled(true);
         add("FILLH", scrollPane);
         textbox.setPreferredSize(new Dimension(100, 100));
-        setPreferredSize(new Dimension(100, 100));
+        setPreferredSize(new Dimension(100, 100));*/
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-//        String text = textbox.getText();
-//        textbox.append(text + newline);
-//        textbox.selectAll();
-//
+       String text = textbox.getText();
+       textbox.append(text + "/n");   
+       textbox.selectAll();
+
 //Make sure the new text is visible, even if there
 //was a selection in the text area.
-//        textArea.setCaretPosition(textArea.getDocument().getLength());
+        textbox.setCaretPosition(textbox.getDocument().getLength());
     }
 
 	public void addText(String text)

@@ -3,6 +3,7 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JToggleButton;
@@ -27,36 +28,27 @@ public class jswPushButton extends jswPanel
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
-		button.addActionListener(al);
+		button.addActionListener(this);
+		actionlistener = al;
 		button.setActionCommand(command);
 		add(button);
 		setStyle();
 		button.setVisible(true);
 	}
 
-	public void addActionListener(ActionListener al)
-	{
-		button.addActionListener(al);
+	
 
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+			 
+		Long t = System.currentTimeMillis() / 10000;
+		int uniqueId = t.intValue();
+		ActionEvent event = new ActionEvent(this, uniqueId, "value = buttonpressed ");
+		actionlistener.actionPerformed(event);
+		
 	}
 
-	public void addActionListener(ActionListener al, String actionmessage)
-	{
-		button.addActionListener(al);
-		button.setActionCommand(actionmessage);
-	}
-
-	public String getText()
-	{
-		// TODO Auto-generated method stub
-		return button.getText();
-	}
-
-	public void setActionCommand(String command)
-	{
-		button.setActionCommand(command);
-
-	}
 
 	public void setSelected()
 	{
@@ -91,5 +83,12 @@ public class jswPushButton extends jswPanel
 
 		
 	}
+
+	public String getLabel()
+	{
+		return button.getText();
+	}
+
+	
 
 }

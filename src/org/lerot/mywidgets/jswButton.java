@@ -2,12 +2,14 @@ package org.lerot.mywidgets;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class jswButton extends jswPanel
+public class jswButton extends jswPanel implements ActionListener
 {
+
 	private static final long serialVersionUID = 1L;
 	JButton button;
 	int bh=16;
@@ -29,29 +31,19 @@ public class jswButton extends jswPanel
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
-		button.addActionListener(al);
+		button.addActionListener(this);
+		actionlistener = al;
 		button.setActionCommand(command);
 		add(button);
 		applyStyles(button);
 		button.setVisible(true);
 	}
 
-	public void addActionListener(ActionListener al)
-	{
-		button.addActionListener(al);
 
-	}
 
-	public void addActionListener(ActionListener al, String actionmessage)
-	{
-		button.addActionListener(al);
-		button.setActionCommand(actionmessage);
-	}
+	
 
-	public void setActionCommand(String command)
-	{
-		button.setActionCommand(command);
-	}
+	
 
 	@Override
 	public void setEnabled(boolean b)
@@ -74,6 +66,17 @@ public class jswButton extends jswPanel
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
 		button.setPreferredSize(d);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+			 
+		Long t = System.currentTimeMillis() / 10000;
+		int uniqueId = t.intValue();
+		ActionEvent event = new ActionEvent(this, uniqueId, "value = buttonpressed ");
+		actionlistener.actionPerformed(event);
+		
 	}
 
 }

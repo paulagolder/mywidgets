@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
@@ -20,7 +21,7 @@ public class jswOption extends jswPanel
 	int compheight = 0;
 	boolean vertical = true;
 
-	public jswOption(String text, boolean vertical)
+	public jswOption(ActionListener al,String text, boolean vertical)
 	{
 		super(text);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -28,39 +29,17 @@ public class jswOption extends jswPanel
 		button = new JRadioButton(text);
 		button.setSelected(false);
 		add(button);
+		button.addActionListener(this);
+		actionlistener = al;
 		this.vertical = vertical;
 		button.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.getStyle().setBackgroundcolor("transparent");		
-		box = new JPanel();
-		box.setAlignmentX(Component.LEFT_ALIGNMENT);
-		if (vertical) box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
-		else
-			box.setLayout(new BoxLayout(box, BoxLayout.X_AXIS));
-		add(box);
-		
+
 	}
 
-	public void addComponent(jswPanel c)
-	{
-		box.add(c);
-		c.setAlignmentX(Component.LEFT_ALIGNMENT);
-		if (vertical)
-		{
-			compheight += c.jswGetHeight();
-			setPreferredSize(new Dimension(0, compheight));
-		} else
-		{
-			if (c.jswGetHeight() > compheight) compheight = c.jswGetHeight();
-			setPreferredSize(new Dimension(0, compheight));
-		}
-	}
 
-	public void addActionListener(ActionListener al, String command)
-	{
-		getButton().addActionListener(al);
-		getButton().setActionCommand(command);
-	}
 
+	
 	public String getText()
 	{
 		return getButton().getText();
@@ -116,6 +95,26 @@ public class jswOption extends jswPanel
 			button.setBorder(style.getBorder());
 			button.setForeground(style.getColor("foregroundColor", Color.blue));
 			button.setBackground(style.getColor("backgroundColor", Color.red));			
+	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		String mess ="";
+	    if (button.isSelected())  
+	    {
+           // button.setText("OFF");  
+            mess = "option ON";
+	    }
+        else  
+        {
+           // button.setText("ON");  
+            mess = "option OFF";
+        }	 
+		Long t = System.currentTimeMillis() / 10000;
+		int uniqueId = t.intValue();
+		ActionEvent event = new ActionEvent(this, uniqueId, "value =" + button.getActionCommand()+mess);
+		actionlistener.actionPerformed(event);
+
 	}
 
 }

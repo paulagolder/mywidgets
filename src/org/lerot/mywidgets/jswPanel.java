@@ -6,7 +6,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Rectangle;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -15,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
-public abstract class jswPanel extends JPanel
+public abstract class jswPanel extends JPanel  implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 
@@ -48,20 +49,15 @@ public abstract class jswPanel extends JPanel
 
 	private int borderOffset = 1;
 	private String panelname;
-
 	private int setHeight = 0, setWidth = 0;
 	private jswStyle style;
-
 	private String tag = "";
 	private String marker = "";
-
 	private int itop;
-
 	private int ileft;
-
 	private int ibottom;
-
 	private int iright;
+	ActionListener actionlistener = null;
 
 	public jswPanel(String name)
 	{
@@ -99,7 +95,11 @@ public abstract class jswPanel extends JPanel
 		setInsets(5);
 	}
 	
-	
+	public void addActionListener(ActionListener al)
+	{
+		actionlistener = al;
+
+	}
 	
 	public void applyStyles(JComponent label, jswStyle usestyles)
 	{
@@ -364,4 +364,13 @@ public abstract class jswPanel extends JPanel
 		this.style = style;
 	}
 
+
+	public void actionPerformed(ActionEvent e)
+	{
+		Long t = System.currentTimeMillis() / 10000;
+		int uniqueId = t.intValue();
+		ActionEvent event = new ActionEvent(this, uniqueId, "jswPanel action");
+		actionlistener.actionPerformed(event);
+		
+	}
 }

@@ -17,19 +17,18 @@ public class jswOptionset extends jswPanel implements ActionListener
 	ButtonGroup bg;
 	int no = 0;
 	jswOption[] options;
-	ActionListener al;
+	String commandroot;
 
 
-
-	public jswOptionset(String name, boolean isvertical, ActionListener al)
+	public jswOptionset(ActionListener parentListener,String name, boolean isvertical)
 	{
 		super(name);
-		this.al = al;
+		commandroot = name;
+		actionlistener = parentListener;
 		if (!isvertical)
 		{
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			setAlignmentY(Component.TOP_ALIGNMENT);
-			// setMaximumSize(new Dimension(0, 45));
 		} else
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -42,14 +41,13 @@ public class jswOptionset extends jswPanel implements ActionListener
 		setName(name);
 	}
 
-	public jswOptionset(String name, boolean isvertical, boolean border)
+/*	public jswOptionset(String name, boolean isvertical, boolean border)
 	{
 		super(name);
 		if (!isvertical)
 		{
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			setAlignmentY(Component.TOP_ALIGNMENT);
-			// setMaximumSize(new Dimension(0, 45));
 		} else
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -66,29 +64,30 @@ public class jswOptionset extends jswPanel implements ActionListener
 		bg = new ButtonGroup();
 		options = new jswOption[10];
 		setName(name);
-	}
+	}*/
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// Object action = e.getSource();
 		for (int i = 0; i < no; i++)
 		{
 			jswOption on = options[i];
 			if (on.isSelected())
 			{
-				on.setEnabled(true);
+				//on.setEnabled(true);
 			} else
 			{
-				on.setEnabled(false);
+				//on.setEnabled(false);
 			}
 		}
+		actionlistener.actionPerformed(e);
 	}
-
+	
 	public jswOption addNewOption(String text, boolean vertical)
 	{
-		jswOption on = new jswOption(text, vertical);
-		on.getButton().addActionListener(al);
+		jswOption on = new jswOption(this,text, vertical);		
+		on.getButton().setActionCommand(commandroot + ":" + text);
+		on.getButton().addActionListener(this);
 		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
 		bg.add(on.getButton());
 		options[no] = on;
@@ -165,9 +164,7 @@ public class jswOptionset extends jswPanel implements ActionListener
 		this.setFont(sfont);
 		this.setBorder(style.getBorder());
 		this.setForeground(style.getColor("foregroundColor", Color.blue));
-		this.setBackground(style.getColor("backgroundColor", Color.red));
-
-		
+		this.setBackground(style.getColor("backgroundColor", Color.red));	
 	}
 
 }

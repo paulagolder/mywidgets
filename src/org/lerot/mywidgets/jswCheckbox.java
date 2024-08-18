@@ -8,6 +8,7 @@ package org.lerot.mywidgets;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
@@ -32,7 +33,7 @@ public class jswCheckbox extends jswPanel
 		setMinimumSize(new Dimension(width, 40));
 	}
 
-	public jswCheckbox(ActionListener c, String label)
+	public jswCheckbox(ActionListener al, String label)
 	{
 		super(label);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -41,16 +42,29 @@ public class jswCheckbox extends jswPanel
 		check = new JCheckBox(label);
 		check.setSelected(false);
 		check.setAlignmentX(Component.LEFT_ALIGNMENT);
-		check.addActionListener(c);
+		check.addActionListener(this);
+		actionlistener = al;
 		check.setActionCommand(label);
 		add(check);
 		setMinimumSize(new Dimension(width, 40));
 	}
 
-	public void addActionListener(ActionListener c, String actionlabel)
+	public void actionPerformed(ActionEvent e)
 	{
-		check.addActionListener(c);
-		check.setActionCommand(actionlabel);
+		String mess ="";
+	    if (check.isSelected())  
+	    {
+            mess = "checked";
+	    }
+        else  
+        {  
+            mess = "unchecked";
+        }	 
+		Long t = System.currentTimeMillis() / 10000;
+		int uniqueId = t.intValue();
+		ActionEvent event = new ActionEvent(this, uniqueId, getPanelname() + ":"+mess);
+		actionlistener.actionPerformed(event);
+
 	}
 
 	@Override

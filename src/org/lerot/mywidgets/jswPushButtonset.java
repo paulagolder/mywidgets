@@ -104,7 +104,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		for (int i = 0; i < no; i++)
 		{
 			jswPushButton on = options[i];
-			if (on.isSelected()) return on.getText();
+			if (on.isSelected()) return on.getLabel();
 		}
 		return "";
 	}
@@ -138,7 +138,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		for (int i = 0; i < no; i++)
 		{
 			jswPushButton on = options[i];
-			if (on.getText().equalsIgnoreCase(value))
+			if (on.getLabel().equalsIgnoreCase(value))
 			{
 				on.setSelected(true);
 				on.setEnabled(true);

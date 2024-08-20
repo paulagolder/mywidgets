@@ -111,10 +111,14 @@ public class jswCell extends jswHorizontalPanel
 	public void applyStyles(jswStyle usestyles)
 	{
 		jswStyle styles = usestyles;
+<<<<<<< HEAD
 		//this.setBorder(styles.getCellBorder());
 		this.setBorder(styles.getBorder());
 		Font afont = styles.getFont();
 		this.setFont(afont);
+=======
+		this.setBorder(styles.getCellBorder());
+>>>>>>> master
 		this.setForeground(styles.getColor("foregroundColor", Color.BLACK));
 		this.setBackground(styles.getColor("backgroundColor", new Color(0, 0,
 				0, 0)));

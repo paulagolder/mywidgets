@@ -1,8 +1,12 @@
 package org.lerot.mywidgets;
 
+<<<<<<< HEAD
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+=======
+import java.awt.Component;
+>>>>>>> master
 //import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +21,7 @@ public class jswOptionset extends jswPanel implements ActionListener
 	ButtonGroup bg;
 	int no = 0;
 	jswOption[] options;
+<<<<<<< HEAD
 	String commandroot;
 
 
@@ -25,10 +30,24 @@ public class jswOptionset extends jswPanel implements ActionListener
 		super(name);
 		commandroot = name;
 		actionlistener = parentListener;
+=======
+	ActionListener al;
+
+
+
+	public jswOptionset(String name, boolean isvertical, ActionListener al)
+	{
+		super(name);
+		this.al = al;
+>>>>>>> master
 		if (!isvertical)
 		{
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			setAlignmentY(Component.TOP_ALIGNMENT);
+<<<<<<< HEAD
+=======
+			// setMaximumSize(new Dimension(0, 45));
+>>>>>>> master
 		} else
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -41,13 +60,21 @@ public class jswOptionset extends jswPanel implements ActionListener
 		setName(name);
 	}
 
+<<<<<<< HEAD
 /*	public jswOptionset(String name, boolean isvertical, boolean border)
+=======
+	public jswOptionset(String name, boolean isvertical, boolean border)
+>>>>>>> master
 	{
 		super(name);
 		if (!isvertical)
 		{
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			setAlignmentY(Component.TOP_ALIGNMENT);
+<<<<<<< HEAD
+=======
+			// setMaximumSize(new Dimension(0, 45));
+>>>>>>> master
 		} else
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -64,16 +91,25 @@ public class jswOptionset extends jswPanel implements ActionListener
 		bg = new ButtonGroup();
 		options = new jswOption[10];
 		setName(name);
+<<<<<<< HEAD
 	}*/
+=======
+	}
+>>>>>>> master
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+<<<<<<< HEAD
+=======
+		// Object action = e.getSource();
+>>>>>>> master
 		for (int i = 0; i < no; i++)
 		{
 			jswOption on = options[i];
 			if (on.isSelected())
 			{
+<<<<<<< HEAD
 				//on.setEnabled(true);
 			} else
 			{
@@ -89,6 +125,20 @@ public class jswOptionset extends jswPanel implements ActionListener
 		on.getButton().setActionCommand(commandroot + ":" + text);
 		on.getButton().addActionListener(this);
 		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
+=======
+				on.setEnabled(true);
+			} else
+			{
+				on.setEnabled(false);
+			}
+		}
+	}
+
+	public jswOption addNewOption(String text, boolean vertical)
+	{
+		jswOption on = new jswOption(text, vertical);
+		on.getButton().addActionListener(al);
+>>>>>>> master
 		bg.add(on.getButton());
 		options[no] = on;
 		on.setTag(text);
@@ -158,6 +208,7 @@ public class jswOptionset extends jswPanel implements ActionListener
 		on.setSelected();
 	}
 
+<<<<<<< HEAD
 	public void doStyling(jswStyle style)
 	{
 		Font sfont = style.getFont();
@@ -167,4 +218,6 @@ public class jswOptionset extends jswPanel implements ActionListener
 		this.setBackground(style.getColor("backgroundColor", Color.red));	
 	}
 
+=======
+>>>>>>> master
 }

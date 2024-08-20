@@ -6,12 +6,17 @@ public class jswTable extends jswPanel
 {
 	private static final long serialVersionUID = 1L;
 
+<<<<<<< HEAD
 	jswStyles tablestyles = new jswStyles();
+=======
+	jswStyles tablestyles = null;
+>>>>>>> master
 
 
 	public jswTable(String name, jswStyles styles)
 	{
 		super(name);
+<<<<<<< HEAD
 		
 		//jswStyle tablestyle = jswStyles.getTableStyles() ;//tablestyles.getStyle("table");
 		tablestyles.copyStyles(styles);
@@ -19,6 +24,13 @@ public class jswTable extends jswPanel
 		setLayout(new jswTableLayout());
 		Color bcolor = tablestyle.getColor("backgroundColor", Color.BLUE);
 		setBackground(bcolor);
+=======
+		tablestyles = jswStyles.clone("table",styles);
+		jswStyle tablestyle = tablestyles.getStyle("table");
+		setLayout(new jswTableLayout());
+		//Color bcolor = tablestyle.getColor("backgroundColor", Color.BLUE);
+		//setBackground(bcolor);
+>>>>>>> master
 		int borderwidth = tablestyle.getIntegerStyle("borderWidth", 0);
 		if (borderwidth > 0)
 		{
@@ -51,10 +63,14 @@ public class jswTable extends jswPanel
 
 	public void addCell(jswPanel cont, String setting, int row, int col)
 	{
+<<<<<<< HEAD
          if(row == 4 & col ==3)
          {
         	 System.out.println("here");
          }
+=======
+
+>>>>>>> master
 		jswStyle cellstyle = getCellStyle(row, col);
 		jswCell acell = new jswCell(row, col);
 		acell.applyStyles(cellstyle);
@@ -63,10 +79,16 @@ public class jswTable extends jswPanel
 		if (setting != null) settings += " " + setting + " ";
 		add(acell);
 		jswStyle cellcontentstyle = getCellContentStyle(row, col);
+<<<<<<< HEAD
 		acell.applyStyles(cont, cellstyle);
 		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
 		cont.setBackground(new Color(0, 0, 0, 0));
 		//cont.setBorder(null);
+=======
+		acell.applyStyles(cont, cellcontentstyle);
+		cont.setBackground(new Color(0, 0, 0, 0));
+		cont.setBorder(null);
+>>>>>>> master
 		acell.add(settings, cont);
 	}
 
@@ -96,7 +118,10 @@ public class jswTable extends jswPanel
 	public jswStyle getColStyle(int col)
 	{
 		jswStyle colstyle = new jswStyle();
+<<<<<<< HEAD
 		colstyle.overlay(tablestyles.getStyle("col"));
+=======
+>>>>>>> master
 		colstyle.overlay(tablestyles.getStyle("col_" + col));
 		return colstyle;
 	}

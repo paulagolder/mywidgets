@@ -2,11 +2,15 @@ package org.lerot.mywidgets;
 
 import java.awt.Dimension;
 import java.awt.Font;
+<<<<<<< HEAD
 import java.awt.event.ActionEvent;
+=======
+>>>>>>> master
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+<<<<<<< HEAD
 public class jswButton extends jswPanel implements ActionListener
 {
 
@@ -14,6 +18,12 @@ public class jswButton extends jswPanel implements ActionListener
 	JButton button;
 	int bh=16;
 	int bl=30;
+=======
+public class jswButton extends jswPanel
+{
+	private static final long serialVersionUID = 1L;
+	JButton button;
+>>>>>>> master
 
 	public jswButton(ActionListener al, String label)
 	{
@@ -26,24 +36,50 @@ public class jswButton extends jswPanel implements ActionListener
 		button = new JButton(label);
 		button.setFont(new Font("SansSerif", Font.BOLD, 9));
 		int l = label.length() * 8 + 30;
+<<<<<<< HEAD
 		if(l>bl)bl=l;
+=======
+>>>>>>> master
 		Dimension d = new Dimension(l, 16);
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
+<<<<<<< HEAD
 		button.addActionListener(this);
 		actionlistener = al;
+=======
+		button.addActionListener(al);
+>>>>>>> master
 		button.setActionCommand(command);
 		add(button);
 		applyStyles(button);
 		button.setVisible(true);
 	}
 
+<<<<<<< HEAD
 
 
 	
 
 	
+=======
+	public void addActionListener(ActionListener al)
+	{
+		button.addActionListener(al);
+
+	}
+
+	public void addActionListener(ActionListener al, String actionmessage)
+	{
+		button.addActionListener(al);
+		button.setActionCommand(actionmessage);
+	}
+
+	public void setActionCommand(String command)
+	{
+		button.setActionCommand(command);
+	}
+>>>>>>> master
 
 	@Override
 	public void setEnabled(boolean b)
@@ -52,6 +88,7 @@ public class jswButton extends jswPanel implements ActionListener
 		super.setEnabled(b);
 	}
 
+<<<<<<< HEAD
 	public void doStyling(jswStyle style)
 	{
 		button.setFont(style.getFont());
@@ -79,4 +116,6 @@ public class jswButton extends jswPanel implements ActionListener
 		
 	}
 
+=======
+>>>>>>> master
 }

@@ -11,17 +11,32 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+<<<<<<< HEAD
 import javax.swing.text.DefaultCaret;
+=======
+>>>>>>> master
 
 public class jswTextArea extends jswVerticalPanel   implements ActionListener
 {
 
     private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
     public JTextArea textbox;
 
     public jswTextArea(String inLabel, boolean label)
     {
         super(inLabel,label);
+=======
+   // private final static String newline = "\n";
+
+    public JTextArea textbox;
+
+
+
+    public jswTextArea(String inLabel)
+    {
+        super(inLabel,true);
+>>>>>>> master
         textbox = new JTextArea("Enter text",20,30);
         JScrollPane scrollPane = new JScrollPane(textbox);
         textbox.setEditable(true);
@@ -29,6 +44,7 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
         textbox.setWrapStyleWord(true);
         textbox.setEnabled(true);
         scrollPane.setEnabled(true);
+<<<<<<< HEAD
         DefaultCaret caret = (DefaultCaret)textbox.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         setEnabled(true);
@@ -72,6 +88,28 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
          textbox.setText(btext);		
 	}
 	
+=======
+        setEnabled(true);
+        //setStyle("");
+        add("FILLH", scrollPane);
+        textbox.setPreferredSize(new Dimension(100, 100));
+        setPreferredSize(new Dimension(100, 100));
+    }
+
+
+
+    @Override
+	public void actionPerformed(ActionEvent evt) {
+//        String text = textbox.getText();
+//        textbox.append(text + newline);
+//        textbox.selectAll();
+//
+//        //Make sure the new text is visible, even if there
+//        //was a selection in the text area.
+//        textArea.setCaretPosition(textArea.getDocument().getLength());
+    }
+
+>>>>>>> master
     public String getText()
     {
         return textbox.getText();
@@ -83,6 +121,11 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
         return false;
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
     @Override
 	public void setEnabled(boolean e)
     {
@@ -109,6 +152,7 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
         textbox.setText(t);
     }
 
+<<<<<<< HEAD
 	public void setText(String[] hhelp)
 	{
 		String alltext ="";
@@ -118,6 +162,10 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
 		}
 		textbox.setText(alltext);		
 	}
+=======
+
+
+>>>>>>> master
 
 
 }

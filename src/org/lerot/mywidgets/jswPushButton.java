@@ -3,7 +3,10 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+<<<<<<< HEAD
 import java.awt.event.ActionEvent;
+=======
+>>>>>>> master
 import java.awt.event.ActionListener;
 
 import javax.swing.JToggleButton;
@@ -28,14 +31,19 @@ public class jswPushButton extends jswPanel
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
+<<<<<<< HEAD
 		button.addActionListener(this);
 		actionlistener = al;
+=======
+		button.addActionListener(al);
+>>>>>>> master
 		button.setActionCommand(command);
 		add(button);
 		setStyle();
 		button.setVisible(true);
 	}
 
+<<<<<<< HEAD
 	
 
 	@Override
@@ -49,6 +57,31 @@ public class jswPushButton extends jswPanel
 		
 	}
 
+=======
+	public void addActionListener(ActionListener al)
+	{
+		button.addActionListener(al);
+
+	}
+
+	public void addActionListener(ActionListener al, String actionmessage)
+	{
+		button.addActionListener(al);
+		button.setActionCommand(actionmessage);
+	}
+
+	public String getText()
+	{
+		// TODO Auto-generated method stub
+		return button.getText();
+	}
+
+	public void setActionCommand(String command)
+	{
+		button.setActionCommand(command);
+
+	}
+>>>>>>> master
 
 	public void setSelected()
 	{
@@ -65,6 +98,7 @@ public class jswPushButton extends jswPanel
 	public void setStyle()
 	{
 
+<<<<<<< HEAD
 		Font sfont = getStyles().getFont();
 		button.setFont(sfont);
 		button.setBorder(getStyles().getBorder());
@@ -91,4 +125,14 @@ public class jswPushButton extends jswPanel
 
 	
 
+=======
+		Font sfont = styles.getFont();
+		button.setFont(sfont);
+		button.setBorder(styles.getBorder());
+		button.setForeground(styles.getColor("foregroundColor", Color.blue));
+		button.setBackground(styles.getColor("backgroundColor", Color.red));
+
+	}
+
+>>>>>>> master
 }

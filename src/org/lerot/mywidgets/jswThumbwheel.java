@@ -6,28 +6,41 @@
  */
 package org.lerot.mywidgets;
 
+<<<<<<< HEAD
 import java.awt.AWTEvent;
 import java.awt.Dimension;
 //import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Action;
+=======
+import java.awt.Dimension;
+
+>>>>>>> master
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+<<<<<<< HEAD
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class jswThumbwheel extends jswPanel implements ChangeListener
+=======
+
+public class jswThumbwheel extends jswPanel
+>>>>>>> master
 {
 
 	private static final long serialVersionUID = 1L;
 	int mheight = 60;
 	// JCheckBox check;
 	JSpinner value;
+<<<<<<< HEAD
 	int currentvalue=-1;
 	ActionListener al=null;
+=======
+>>>>>>> master
 
 	public jswThumbwheel(String text, int inmin, int inmax)
 	{
@@ -40,14 +53,22 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 		add(label);
 		int width = text.length() * 12 + 60;
 		value = new JSpinner();
+<<<<<<< HEAD
 		Integer current = inmin;
 		Integer min = inmin;
 		Integer max = inmax;
 		Integer step =1;
+=======
+		Integer current = new Integer(inmin);
+		Integer min = new Integer(inmin);
+		Integer max = new Integer(inmax);
+		Integer step = new Integer(1);
+>>>>>>> master
 		SpinnerNumberModel m_numberSpinnerModel = new SpinnerNumberModel(
 				current, min, max, step);
 		value = new JSpinner(m_numberSpinnerModel);
 		value.setMaximumSize(new Dimension(60, 30));
+<<<<<<< HEAD
 		value.setValue(inmax);
 	    value.addChangeListener(this);
 		add(value);
@@ -85,6 +106,12 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 		value.addChangeListener(cl);
 
 	}
+=======
+		value.setValue(new Integer(inmax));
+		add(value);
+		setMinimumSize(new Dimension(width, 42));
+	}
+>>>>>>> master
 
 	public int getValue()
 	{
@@ -109,6 +136,7 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 		value.setValue(new Integer(v));
 	}
 
+<<<<<<< HEAD
 	@Override
 	 public void stateChanged(ChangeEvent e)
     {
@@ -119,4 +147,6 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
         al.actionPerformed(event);
     }
 
+=======
+>>>>>>> master
 }

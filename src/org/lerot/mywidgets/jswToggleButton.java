@@ -2,23 +2,11 @@ package org.lerot.mywidgets;
 
 import java.awt.Dimension;
 import java.awt.Font;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.ButtonModel;
 import javax.swing.JToggleButton;
-import javax.swing.JToggleButton.ToggleButtonModel;
-import javax.swing.border.BevelBorder;
 
 public class jswToggleButton extends jswPanel implements ActionListener
-=======
-import java.awt.event.ActionListener;
-
-import javax.swing.JToggleButton;
-
-public class jswToggleButton extends jswPanel
->>>>>>> master
 {
 	private static final long serialVersionUID = 1L;
 	JToggleButton button;

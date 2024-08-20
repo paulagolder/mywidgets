@@ -8,10 +8,8 @@ package org.lerot.mywidgets;
 
 import java.awt.Color;
 import java.awt.Font;
-<<<<<<< HEAD
+
 import java.awt.event.ActionListener;
-=======
->>>>>>> master
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 

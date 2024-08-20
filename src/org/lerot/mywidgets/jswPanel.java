@@ -6,12 +6,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Rectangle;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
-
->>>>>>> master
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;

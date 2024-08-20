@@ -1,10 +1,9 @@
 package org.lerot.mywidgets;
 
 import java.awt.Color;
-<<<<<<< HEAD
+
 import java.awt.Dimension;
-=======
->>>>>>> master
+
 import java.awt.Font;
 import java.lang.reflect.Field;
 import java.util.HashMap;

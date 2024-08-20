@@ -8,12 +8,8 @@ package org.lerot.mywidgets;
 
 import java.awt.Component;
 import java.awt.Dimension;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
-=======
->>>>>>> master
 import java.awt.event.ActionListener;
-
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 

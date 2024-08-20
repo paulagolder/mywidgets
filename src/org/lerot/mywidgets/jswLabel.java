@@ -7,11 +7,8 @@
 package org.lerot.mywidgets;
 
 import java.awt.Dimension;
-<<<<<<< HEAD
-import java.awt.event.ActionEvent;
-=======
 
->>>>>>> master
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 

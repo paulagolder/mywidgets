@@ -2,10 +2,7 @@ package org.lerot.mywidgets;
 
 import java.awt.Dimension;
 import java.awt.Font;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
-=======
->>>>>>> master
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;

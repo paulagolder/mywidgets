@@ -28,10 +28,9 @@ public class jswDropDownBox extends jswHorizontalPanel
 
 	public jswDropDownBox(String inLabel, boolean haslabel, boolean hasborder)
 	{
-<<<<<<< HEAD
+
 		super(inLabel,haslabel);
-=======
->>>>>>> master
+
 		if (haslabel)
 		{
 			label = new JLabel();
@@ -43,10 +42,8 @@ public class jswDropDownBox extends jswHorizontalPanel
 		datalist = new JComboBox<>(listModel);
 		datalist.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		datalist.setPreferredSize(new Dimension(100, 30));
-<<<<<<< HEAD
 		datalist.addActionListener(this);
-=======
->>>>>>> master
+
 		setName(inLabel);
 		if (hasborder)
 		{
@@ -56,32 +53,19 @@ public class jswDropDownBox extends jswHorizontalPanel
 		} else
 			setBorder(jswStyle.makeborder());
 		add("FILLW", datalist);
-<<<<<<< HEAD
-=======
-		// applyStyles(datalist);
-		// applyStyles(label);
 
->>>>>>> master
 	}
 
 	public jswDropDownBox(ActionListener c,String inlabel)
 	{
 		this(inlabel,false,false);
-<<<<<<< HEAD
 		this.addActionListener(c);
-=======
-		this.addActionListener(c,inlabel);
->>>>>>> master
 	}
 
 	public jswDropDownBox(ActionListener c,String inlabel, String action)
 	{
 		this(inlabel,true,true);
-<<<<<<< HEAD
 		this.addActionListener(c);
-=======
-		this.addActionListener(c,action);
->>>>>>> master
 	}
 
 
@@ -92,7 +76,6 @@ public class jswDropDownBox extends jswHorizontalPanel
 
 	public void addActionListener(ActionListener c)
 	{
-<<<<<<< HEAD
 		actionlistener = c;
 	}
 		
@@ -106,25 +89,8 @@ public class jswDropDownBox extends jswHorizontalPanel
 		actionlistener.actionPerformed(event);
 	}
 	
-=======
-		datalist.addActionListener(c);
-	}
 
-	public void removeActionListener(ActionListener c)
-	{
-		datalist.removeActionListener(c);
-		datalist.removeActionListener(c);
-		int n = datalist.getActionListeners().length;
-		
-	}
-
-	public void addActionListener(ActionListener c, String actionlabel)
-	{
-		datalist.addActionListener(c);
-		datalist.setActionCommand(actionlabel);
-	}
-
->>>>>>> master
+	
 	public void addList(Vector<String> list)
 	{
 		ActionListener[] al = datalist.getActionListeners();
@@ -137,12 +103,9 @@ public class jswDropDownBox extends jswHorizontalPanel
 			}
 			datalist.setSelectedIndex(0);
 		}
-<<<<<<< HEAD
+
 		if(al.length>0)datalist.addActionListener(al[0]);	
-=======
-		if(al.length>0)datalist.addActionListener(al[0]);
-		
->>>>>>> master
+
 	}
 	
 
@@ -154,12 +117,9 @@ public class jswDropDownBox extends jswHorizontalPanel
 				listModel.addElement(element);
 			}
 			datalist.setSelectedIndex(0);
-<<<<<<< HEAD
+
 		}		
-=======
-		}
-		
->>>>>>> master
+
 	}
 	
 	public void addItem(String listelement)
@@ -249,11 +209,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 
 	public void addList(Map<String,Integer> list)
 	{
-<<<<<<< HEAD
-=======
 
-
->>>>>>> master
 		if (list.size() > 0)
 		{
 			for ( Entry<String, Integer> entry : list.entrySet())
@@ -262,10 +218,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 			}
 			datalist.setSelectedIndex(0);
 		}
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 	}
 
 	public void setList(Map<String,Integer> list)
@@ -290,10 +243,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 
 	public void setPreferredize(Dimension dim)
 	{
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 		datalist.setPreferredSize(dim);
 	}
 

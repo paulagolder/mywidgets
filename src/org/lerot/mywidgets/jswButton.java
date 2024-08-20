@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-<<<<<<< HEAD
+
 public class jswButton extends jswPanel implements ActionListener
 {
 
@@ -18,13 +18,6 @@ public class jswButton extends jswPanel implements ActionListener
 	JButton button;
 	int bh=16;
 	int bl=30;
-=======
-public class jswButton extends jswPanel
-{
-	private static final long serialVersionUID = 1L;
-	JButton button;
->>>>>>> master
-
 	public jswButton(ActionListener al, String label)
 	{
 		this(al, label, label);
@@ -36,33 +29,20 @@ public class jswButton extends jswPanel
 		button = new JButton(label);
 		button.setFont(new Font("SansSerif", Font.BOLD, 9));
 		int l = label.length() * 8 + 30;
-<<<<<<< HEAD
 		if(l>bl)bl=l;
-=======
->>>>>>> master
 		Dimension d = new Dimension(l, 16);
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
-<<<<<<< HEAD
 		button.addActionListener(this);
 		actionlistener = al;
-=======
-		button.addActionListener(al);
->>>>>>> master
 		button.setActionCommand(command);
 		add(button);
 		applyStyles(button);
 		button.setVisible(true);
 	}
 
-<<<<<<< HEAD
 
-
-	
-
-	
-=======
 	public void addActionListener(ActionListener al)
 	{
 		button.addActionListener(al);
@@ -79,7 +59,7 @@ public class jswButton extends jswPanel
 	{
 		button.setActionCommand(command);
 	}
->>>>>>> master
+
 
 	@Override
 	public void setEnabled(boolean b)
@@ -88,7 +68,6 @@ public class jswButton extends jswPanel
 		super.setEnabled(b);
 	}
 
-<<<<<<< HEAD
 	public void doStyling(jswStyle style)
 	{
 		button.setFont(style.getFont());
@@ -116,6 +95,5 @@ public class jswButton extends jswPanel
 		
 	}
 
-=======
->>>>>>> master
+
 }

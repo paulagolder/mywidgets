@@ -18,7 +18,7 @@ import java.util.Hashtable;
 public abstract class jswLayout implements LayoutManager
 {
 
-<<<<<<< HEAD
+
 	class layout
 	{
 		int cindex = -1;
@@ -50,8 +50,6 @@ public abstract class jswLayout implements LayoutManager
 	}
 
 	
-=======
->>>>>>> master
 	class settings extends HashMap<String, Integer>
 	{
 
@@ -133,17 +131,12 @@ public abstract class jswLayout implements LayoutManager
 			{
 				i += 9;
 				nsetting.putBoolean("MINHEIGHT", true);
-<<<<<<< HEAD
+
 			} else if (tag.startsWith("WIDTH", i))
 			{
 				i += 5;
 				if (tag.startsWith("=", i))
-=======
-			} else if (tag.startsWith("WIDE", i))
-			{
-				i += 4;
-				if (tag.startsWith("*", i))
->>>>>>> master
+
 				{
 					i++;
 					n = countDigits(tag, i);
@@ -151,19 +144,13 @@ public abstract class jswLayout implements LayoutManager
 					i += n;
 				} else
 					harg = 0;
-<<<<<<< HEAD
+
 				nsetting.putInt("WIDTH", harg);
 			} else if (tag.startsWith("HEIGHT", i))
 			{
 				i += 6;
 				if (tag.startsWith("=", i))
-=======
-				nsetting.putInt("WIDE", harg);
-			} else if (tag.startsWith("TALL", i))
-			{
-				i += 4;
-				if (tag.startsWith("*", i))
->>>>>>> master
+
 				{
 					i++;
 					n = countDigits(tag, i);
@@ -171,7 +158,7 @@ public abstract class jswLayout implements LayoutManager
 					i += n;
 				} else
 					varg = 0;
-<<<<<<< HEAD
+
 				nsetting.putInt("HEIGHT", varg);
 			} else if (tag.startsWith("FILLW", i))
 			{
@@ -216,28 +203,7 @@ public abstract class jswLayout implements LayoutManager
 			{
 				i += 5;
 				if (tag.startsWith("=", i))
-=======
-				nsetting.putInt("TALL", varg);
-			} else if (tag.startsWith("FILLW", i))
-			{
-				i += 5;
-				harg = 1;
-				nsetting.putBoolean("FILLW", true);
-			} else if (tag.startsWith("FILLH", i))
-			{
-				i += 5;
-				varg = 1;
-				nsetting.putBoolean("FILLH", true);
-			} else if (tag.startsWith("SCROLLH", i))
-			{
-				i += 7;
-				varg = 1;
-				nsetting.putBoolean("SCROLLH", true);
-			} else if (tag.startsWith("FILLB", i))
-			{
-				i += 5;
-				if (tag.startsWith("*", i))
->>>>>>> master
+
 				{
 					i++;
 					n = countDigits(tag, i);

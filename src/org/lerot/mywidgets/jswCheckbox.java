@@ -36,11 +36,9 @@ public class jswCheckbox extends jswPanel
 		setMinimumSize(new Dimension(width, 40));
 	}
 
-<<<<<<< HEAD
+
 	public jswCheckbox(ActionListener al, String label)
-=======
-	public jswCheckbox(ActionListener c, String label)
->>>>>>> master
+
 	{
 		super(label);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -49,18 +47,14 @@ public class jswCheckbox extends jswPanel
 		check = new JCheckBox(label);
 		check.setSelected(false);
 		check.setAlignmentX(Component.LEFT_ALIGNMENT);
-<<<<<<< HEAD
 		check.addActionListener(this);
 		actionlistener = al;
-=======
-		check.addActionListener(c);
->>>>>>> master
 		check.setActionCommand(label);
 		add(check);
 		setMinimumSize(new Dimension(width, 40));
 	}
 
-<<<<<<< HEAD
+
 	public void actionPerformed(ActionEvent e)
 	{
 		String mess ="";
@@ -76,13 +70,6 @@ public class jswCheckbox extends jswPanel
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId, getPanelname() + ":"+mess);
 		actionlistener.actionPerformed(event);
-
-=======
-	public void addActionListener(ActionListener c, String actionlabel)
-	{
-		check.addActionListener(c);
-		check.setActionCommand(actionlabel);
->>>>>>> master
 	}
 
 	@Override

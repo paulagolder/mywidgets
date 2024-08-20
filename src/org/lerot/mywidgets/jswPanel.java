@@ -20,11 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
-<<<<<<< HEAD
+
 public abstract class jswPanel extends JPanel  implements ActionListener
-=======
-public abstract class jswPanel extends JPanel
->>>>>>> master
+
 {
 	private static final long serialVersionUID = 1L;
 
@@ -57,7 +55,7 @@ public abstract class jswPanel extends JPanel
 
 	private int borderOffset = 1;
 	private String panelname;
-<<<<<<< HEAD
+
 	private int setHeight = 0, setWidth = 0;
 	private jswStyle style;
 	private String tag = "";
@@ -67,22 +65,6 @@ public abstract class jswPanel extends JPanel
 	private int ibottom;
 	private int iright;
 	ActionListener actionlistener = null;
-=======
-
-	private int setHeight = 0, setWidth = 0;
-	jswStyle styles;
-
-	private String tag = "";
-	private String marker = "";
-
-	private int itop;
-
-	private int ileft;
-
-	private int ibottom;
-
-	private int iright;
->>>>>>> master
 
 	public jswPanel(String name)
 	{
@@ -99,11 +81,7 @@ public abstract class jswPanel extends JPanel
 
 	public void applyStyles(JComponent label)
 	{
-<<<<<<< HEAD
 		applyStyles(label, getStyles());
-=======
-		applyStyles(label, styles);
->>>>>>> master
 	}
 
 	@Override
@@ -123,16 +101,14 @@ public abstract class jswPanel extends JPanel
 	{
 		setInsets(5);
 	}
-<<<<<<< HEAD
-	
+
 	public void addActionListener(ActionListener al)
 	{
 		actionlistener = al;
 
 	}
 	
-=======
->>>>>>> master
+
 	public void applyStyles(JComponent label, jswStyle usestyles)
 	{
 		if (label == null) return;
@@ -307,35 +283,22 @@ public abstract class jswPanel extends JPanel
 
 	private void setStyle(String stylename)
 	{
-<<<<<<< HEAD
 		setStyles(new jswStyle());
 		getStyles().setDefaultStyle();
 		jswStyle basestyle = jswStyles.getDefaultStyles().getStyle(stylename);
 		getStyles().overlay(basestyle);
-=======
-		styles = new jswStyle();
-		styles.setDefaultStyle();
-		jswStyle basestyle = jswStyles.getDefaultStyles().getStyle(stylename);
-		styles.overlay(basestyle);
->>>>>>> master
 	}
 
 	public void setStyleParameter(String attribute, int value)
 	{
-<<<<<<< HEAD
 		getStyles().putAttribute(attribute, value);
-=======
-		styles.putAttribute(attribute, value);
->>>>>>> master
 	}
 
 	public void setStyleParameter(String attribute, String value)
 	{
-<<<<<<< HEAD
+
 		getStyles().putAttribute(attribute, value);
-=======
-		styles.putAttribute(attribute, value);
->>>>>>> master
+
 	}
 
 	public void setTag(String tag)
@@ -385,7 +348,7 @@ public abstract class jswPanel extends JPanel
 		this.marker = marker;
 	}
 
-<<<<<<< HEAD
+
 	public jswStyle getStyles()
 	{
 		return getStyle();
@@ -421,6 +384,5 @@ public abstract class jswPanel extends JPanel
 		actionlistener.actionPerformed(event);
 		
 	}
-=======
->>>>>>> master
+
 }

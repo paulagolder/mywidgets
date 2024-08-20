@@ -59,9 +59,5 @@ public class jswHorizontalPanel extends jswContainer
 		// TODO Auto-generated method stub
 
 	}
-<<<<<<< HEAD
-
-	
-=======
->>>>>>> master
+ster
 }

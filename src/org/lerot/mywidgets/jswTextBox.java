@@ -53,7 +53,7 @@ public class jswTextBox extends jswPanel
 		textbox.addFocusListener(fl);
 	}
 
-<<<<<<< HEAD
+
 	
 	public void addActionListener(ActionListener al)
 	{
@@ -62,8 +62,7 @@ public class jswTextBox extends jswPanel
 	}
 	
 	
-=======
->>>>>>> master
+
 	@Override
 	public void addKeyListener(KeyListener kl)
 	{
@@ -158,9 +157,5 @@ public class jswTextBox extends jswPanel
 	{
 		textbox.setText(t);
 	}
-<<<<<<< HEAD
 
-
-=======
->>>>>>> master
 }

@@ -234,7 +234,7 @@ public class jswHorizontalLayout extends jswLayout // implements LayoutManager
 				+ insets.bottom + h);
 	}
 
-<<<<<<< HEAD
+
 	public static String[] help()
 	{
 		String[] helpstring=new String[2];
@@ -243,6 +243,5 @@ public class jswHorizontalLayout extends jswLayout // implements LayoutManager
 		return helpstring;
 	}
 
-=======
->>>>>>> master
+
 }

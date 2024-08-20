@@ -71,11 +71,7 @@ public class jswLabel extends jswPanel
 	public int jswGetWidth()
 	{
 		System.out.println(" setin width  " + label.getText());
-<<<<<<< HEAD
 		int setwidth = getStyles().getIntegerStyle("mywidth", -1);
-=======
-		int setwidth = styles.getIntegerStyle("mywidth", -1);
->>>>>>> master
 		if (setwidth > 0) return setwidth;
 		System.out.println(" setwidth " + setwidth);
 		Dimension d = label.getPreferredSize();
@@ -118,9 +114,4 @@ public class jswLabel extends jswPanel
 		label.setText(t);
 	}
 
-<<<<<<< HEAD
-	
-
-=======
->>>>>>> master
 }

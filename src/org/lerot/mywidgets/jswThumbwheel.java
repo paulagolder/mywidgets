@@ -36,11 +36,8 @@ public class jswThumbwheel extends jswPanel
 	int mheight = 60;
 	// JCheckBox check;
 	JSpinner value;
-<<<<<<< HEAD
 	int currentvalue=-1;
 	ActionListener al=null;
-=======
->>>>>>> master
 
 	public jswThumbwheel(String text, int inmin, int inmax)
 	{
@@ -53,22 +50,15 @@ public class jswThumbwheel extends jswPanel
 		add(label);
 		int width = text.length() * 12 + 60;
 		value = new JSpinner();
-<<<<<<< HEAD
 		Integer current = inmin;
 		Integer min = inmin;
 		Integer max = inmax;
 		Integer step =1;
-=======
-		Integer current = new Integer(inmin);
-		Integer min = new Integer(inmin);
-		Integer max = new Integer(inmax);
-		Integer step = new Integer(1);
->>>>>>> master
 		SpinnerNumberModel m_numberSpinnerModel = new SpinnerNumberModel(
 				current, min, max, step);
 		value = new JSpinner(m_numberSpinnerModel);
 		value.setMaximumSize(new Dimension(60, 30));
-<<<<<<< HEAD
+
 		value.setValue(inmax);
 	    value.addChangeListener(this);
 		add(value);
@@ -106,12 +96,7 @@ public class jswThumbwheel extends jswPanel
 		value.addChangeListener(cl);
 
 	}
-=======
-		value.setValue(new Integer(inmax));
-		add(value);
-		setMinimumSize(new Dimension(width, 42));
-	}
->>>>>>> master
+
 
 	public int getValue()
 	{
@@ -136,7 +121,6 @@ public class jswThumbwheel extends jswPanel
 		value.setValue(new Integer(v));
 	}
 
-<<<<<<< HEAD
 	@Override
 	 public void stateChanged(ChangeEvent e)
     {
@@ -147,6 +131,5 @@ public class jswThumbwheel extends jswPanel
         al.actionPerformed(event);
     }
 
-=======
->>>>>>> master
+
 }

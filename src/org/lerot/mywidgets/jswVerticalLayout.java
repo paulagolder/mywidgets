@@ -8,39 +8,7 @@ import java.awt.Insets;
 import javax.swing.JComponent;
 import javax.swing.border.Border;
 
-<<<<<<< HEAD
 
-=======
-class layout
-{
-	int cindex = -1;
-	int x = 0;
-	int w = 0;
-	int fillh = 0;
-	int scrollh = 0;
-	int width = 0;
-	int maxwidth = 0;
-	int minwidth = 0;
-	int maxheight = 0;
-	int minheight = 0;
-	Dimension d = null;
-	Component comp = null;
-	boolean hasMiddle = false;
-	boolean hasBottom = false;
-	public int indent = 0;
-	public int height = 0;
-	public int y = 0;
-
-	public String sysprint()
-	{
-		String outline = comp.getClass().getName() + ":" + minheight + ":" + fillh + ":" + scrollh + ":" + height + " ";// TODO
-		// Auto-generated
-		// method
-		// stub
-		return outline;
-	}
-}
->>>>>>> master
 
 public class jswVerticalLayout extends jswLayout
 {
@@ -49,11 +17,7 @@ public class jswVerticalLayout extends jswLayout
 	private int vgap;
 	private layout[] clayout = new layout[10];
 	private int componentcount = 0;
-<<<<<<< HEAD
 	private boolean trace = false;
-=======
-	private boolean trace = true;
->>>>>>> master
 
 	public jswVerticalLayout()
 	{

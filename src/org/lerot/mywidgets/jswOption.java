@@ -27,16 +27,14 @@ public class jswOption extends jswPanel
 	int compheight = 0;
 	boolean vertical = true;
 
-<<<<<<< HEAD
+
 	public jswOption(ActionListener al,String text, boolean vertical)
-=======
-	public jswOption(String text, boolean vertical)
->>>>>>> master
+
 	{
 		super(text);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-<<<<<<< HEAD
+
 		button = new JRadioButton(text);
 		button.setSelected(false);
 		add(button);
@@ -51,42 +49,7 @@ public class jswOption extends jswPanel
 
 
 	
-=======
-		setButton(new JRadioButton(text));
-		getButton().setSelected(false);
-		add(getButton());
-		this.vertical = vertical;
-		getButton().setAlignmentX(Component.LEFT_ALIGNMENT);
-		box = new JPanel();
-		box.setAlignmentX(Component.LEFT_ALIGNMENT);
-		if (vertical) box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
-		else
-			box.setLayout(new BoxLayout(box, BoxLayout.X_AXIS));
-		add(box);
-	}
 
-	public void addComponent(jswPanel c)
-	{
-		box.add(c);
-		c.setAlignmentX(Component.LEFT_ALIGNMENT);
-		if (vertical)
-		{
-			compheight += c.jswGetHeight();
-			setPreferredSize(new Dimension(0, compheight));
-		} else
-		{
-			if (c.jswGetHeight() > compheight) compheight = c.jswGetHeight();
-			setPreferredSize(new Dimension(0, compheight));
-		}
-	}
-
-	public void addActionListener(ActionListener al, String command)
-	{
-		getButton().addActionListener(al);
-		getButton().setActionCommand(command);
-	}
-
->>>>>>> master
 	public String getText()
 	{
 		return getButton().getText();
@@ -135,7 +98,7 @@ public class jswOption extends jswPanel
 		this.button = button;
 	}
 
-<<<<<<< HEAD
+
 	public void doStyling(jswStyle style)
 	{	
 			Font sfont = style.getFont();
@@ -165,6 +128,5 @@ public class jswOption extends jswPanel
 
 	}
 
-=======
->>>>>>> master
+
 }

@@ -2,18 +2,15 @@ package org.lerot.mywidgets;
 
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
-import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -59,7 +56,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		panel1a.setBackground(Color.pink);
 
 		jswButton button1 = new jswButton(this, "button_1");
-		jswTextBox textbox1 = new jswTextBox("textbox_1");
+		jswTextField textbox1 = new jswTextField(this,"textbox_1");
 		textbox1.addActionListener(this);
 		jswDropDownBox dropdownbox1 = new jswDropDownBox(this, "dropdownbox 1");
 		Vector<String> list = new Vector<>();
@@ -69,7 +66,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		dropdownbox1.setList(list);
 		jswLabel label2 = new jswLabel("Label 2");
 		panel1a.add((Component) button1);
-		panel1a.add(" ", (Component) textbox1);
+		panel1a.add(" WIDTH=100 ", (Component) textbox1);
 		panel1a.add(" ", (Component) dropdownbox1);
 		panel1a.add(" ", (Component) label2);
 
@@ -126,9 +123,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		tabbedpanel1.addTab("TAB 1 C", (jswPanel) panel1c);
 		jswHorizontalPanel panel1d = new jswHorizontalPanel("Panel 1D", true);
 
-		jswButton button1d = new jswButton(this, "my buttonand");
+		jswButtonandTextBox button1d = new jswButtonandTextBox(this, "my button");
 
-		panel1d.add((Component) button1d);
+		panel1d.add(" FILLW ",(Component) button1d);
 
 		tabbedpanel1.addTab("TAB 1 D", (jswPanel) panel1d);
 		// ====end of panel1===
@@ -160,8 +157,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
 		panel2.add((Component) pushbuttonseta);
 		this.textarea = new jswTextArea("some input", true);
-
-		panel2.add(" WIDTH=300 FILLH ", (Component) this.textarea);
+		panel2.add(" WIDTH=300 FILLH INDENT=20 ", (Component) this.textarea);
 		jswTable table1 = makeTableExample();
 		panel2.add(" FILLW FILLH  ", (Component) table1);
 		mainpanel.add(" HEIGHT=400 ", (Component) panel2);

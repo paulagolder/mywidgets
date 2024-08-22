@@ -5,7 +5,6 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -26,6 +25,8 @@ import javax.swing.text.JTextComponent;
 	public class jswTextPrompt extends JLabel
 		implements FocusListener, DocumentListener
 	{
+		private static final long serialVersionUID = 1L;
+
 		public enum Show
 		{
 			ALWAYS,

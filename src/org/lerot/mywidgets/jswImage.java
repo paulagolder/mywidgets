@@ -8,11 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Base64;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
 //import org.apache.commons.codec.binary.Base64;
 import org.imgscalr.Scalr;
 

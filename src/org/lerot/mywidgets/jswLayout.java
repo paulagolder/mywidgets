@@ -38,6 +38,8 @@ public abstract class jswLayout implements LayoutManager
 		public int indent = 0;
 		public int height = 0;
 		public int y = 0;
+		public boolean hasRight;
+		public int fillw;
 
 		public String sysprint()
 		{
@@ -84,7 +86,7 @@ public abstract class jswLayout implements LayoutManager
 
 		public void putInt(String key, int value)
 		{
-			put(key, new Integer(value));
+			put(key, value);
 		}
 
 	}

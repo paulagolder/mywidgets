@@ -1,6 +1,5 @@
 package org.lerot.mywidgets;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;

@@ -3,9 +3,10 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
-
 import javax.swing.JTextField;
 
 public class jswTextField extends jswPanel
@@ -14,11 +15,13 @@ public class jswTextField extends jswPanel
 	private static final long serialVersionUID = 1L;
 	public JTextField textbox;
 
-	public jswTextField(String prompt)
+	public jswTextField(ActionListener al,String prompt)
 	{
 		super("TF:");
 		setLayout(new jswHorizontalLayout());
 		textbox = new JTextField();
+		textbox.addActionListener(this);
+		actionlistener= al;
 	    if(prompt==null || prompt.isEmpty())
 	    {
 	    	prompt=" ";
@@ -33,10 +36,7 @@ public class jswTextField extends jswPanel
 		textbox.setVisible(true);
 	}
 
-	public jswTextField()
-	{
-		this(null);
-	}
+	
 
 	@Override
 	public void addFocusListener(FocusListener fl)
@@ -121,4 +121,16 @@ public class jswTextField extends jswPanel
 		int width = text.length() * 10;
 		return new Dimension(width, 0);
 	}
+	
+	
+	    @Override
+	    public void actionPerformed(ActionEvent e)
+	    {
+	        System.out.println("some action:"+getText());
+	        Long t = System.currentTimeMillis() / 10000;
+		    int uniqueId = t.intValue();
+	        ActionEvent event = new ActionEvent(this, uniqueId,"value ="+getText());
+	        actionlistener.actionPerformed(event);
+	    }
+	
 }

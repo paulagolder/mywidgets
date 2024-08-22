@@ -1,14 +1,11 @@
 package org.lerot.mywidgets;
 
 import java.awt.Color;
-
 import java.awt.Dimension;
-
 import java.awt.Font;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -420,19 +417,19 @@ public class jswStyle
 
 	public void setPadding(int padding)
 	{
-		putAttribute("padding", (new Integer(padding)).toString());
+		putAttribute("padding", String.valueOf(padding) );
 
 	}
 
-	public void setRowcount(int rowcount)
+	public void setRowcount(int intvalue)
 	{
-		putAttribute("rowcount", (new Integer(rowcount)).toString());
+		putAttribute("rowcount", String.valueOf(intvalue));
 
 	}
 
-	public void setRowspan(int rowspan)
+	public void setRowspan(int intvalue)
 	{
-		putAttribute("rowspan", (new Integer(rowspan)).toString());
+		putAttribute("rowspan", String.valueOf(intvalue));
 
 	}
 

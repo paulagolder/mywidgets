@@ -7,18 +7,14 @@
 package org.lerot.mywidgets;
 
 
-import java.awt.AWTEvent;
 import java.awt.Dimension;
 //import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Action;
-
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -111,7 +107,7 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 
 	public void setValue(int v)
 	{
-		value.setValue(new Integer(v));
+		value.setValue(String.valueOf( v));
 	}
 
 	@Override

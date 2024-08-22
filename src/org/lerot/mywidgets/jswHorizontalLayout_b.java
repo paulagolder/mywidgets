@@ -5,20 +5,23 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
+import org.lerot.mywidgets.jswLayout.layout;
+import org.lerot.mywidgets.jswLayout.settings;
 
-public class jswHorizontalLayout extends jswLayout 
+public class jswHorizontalLayout_b extends jswLayout 
 {
 	private static final int DEFAULT_HGAP = 3;
 	String flag = "";
 	private int hgap;
 	boolean track = false;
+	private layout[] clayout;
 
-	public jswHorizontalLayout()
+	public jswHorizontalLayout_b()
 	{
 		this(DEFAULT_HGAP);
 	}
 
-	public jswHorizontalLayout(int hgap)
+	public jswHorizontalLayout_b(int hgap)
 	{
 		this.hgap = hgap;
 	}
@@ -26,20 +29,12 @@ public class jswHorizontalLayout extends jswLayout
 	@Override
 	public void layoutContainer(Container parent)
 	{
+		int componentcount = parent.getComponentCount();
+		clayout = new layout[componentcount];
 
-		if (parent instanceof jswPanel)
-		{
-			flag = ((jswPanel) parent).getTag();
-		}
 		int availableHeight = 0, cumwidth = -2 * hgap, fillweight = 0, prewidth = 0, cummiddle = 0, prefillweight = 0, postfillweight = 0, cumright = 0;
 		boolean hasRight = false, hasMiddle = false;
-		if ("trace".equalsIgnoreCase(flag))
-		{
-			System.out.println(" tracking");
-			track = true;
-		}
-		int ncomponents = parent.getComponentCount();
-		if (ncomponents < 2) this.hgap = 0;
+		if (componentcount < 2) this.hgap = 0;
 		Insets insets = parent.getInsets();
 
 		Dimension parentSize = parent.getSize();
@@ -50,7 +45,7 @@ public class jswHorizontalLayout extends jswLayout
 		useMinimum = preferredLayoutSize(parent).width > usableWidth;
 		// useMinimum=false;
 
-		if (ncomponents == 1)
+	/*	if (componentcount == 1)
 		{
 			Component comp = parent.getComponent(0);
 			Dimension d = comp.getMinimumSize();
@@ -68,46 +63,54 @@ public class jswHorizontalLayout extends jswLayout
 			}
 			comp.setBounds(x, insets.top, compwidth, availableHeight);
 		} else
+		{*/
+		
+		int j = 0;
+		for (int i = 0; i < componentcount; i++)
 		{
-			for (int i = 0; i < ncomponents; i++)
+			Component comp = parent.getComponent(i);
+			settings s = getSettings(comp);
+			if (comp.isVisible())
 			{
-				Component comp = parent.getComponent(i);
-				settings s = getSettings(comp);
-				if (comp.isVisible())
+				clayout[j] = new layout();
+				clayout[j].cindex = i;
+				clayout[j].comp = comp;
+				Dimension d = useMinimum(comp, useMinimum);
+
+				if (s.isTrue("FILLH"))
 				{
-					Dimension d = useMinimum(comp, useMinimum);
+					clayout[j].fillh = s.getInteger("FILLH");
+					clayout[j].minheight = d.height;
+				}
 					if (s.containsKey("WIDTH"))
 					{
-						d.width = s.getInteger("WIDTH");
+						clayout[j].width= s.getInteger("WIDTH");
 					}
-					if (track)
-						System.out.println(comp.getClass().getName()
-								+ " width=" + d.width + " height=" + d.height);
+				
 					if (s.isTrue("FILLW"))
 					{
-						cumwidth += this.hgap;
-						fillweight += d.width;
-					} else
-					{
-						cumwidth += d.width + this.hgap;
-					}
+						clayout[j].fillw = s.getInteger("FILLw");
+					} 
 					if (s.isTrue("MIDDLE"))
 					{
-						if (hasMiddle)
-						{
-							cummiddle += d.width + this.hgap;
-						} else
-						{
-							prewidth = cumwidth;
-							prefillweight = fillweight;
-							cummiddle = d.width + this.hgap;
-							hasMiddle = true;
-						}
-					} else if (hasMiddle) hasRight = true;
-					if (s.isTrue("RIGHT")) hasRight = true;
-					if (hasRight)
+						hasMiddle = true;
+						clayout[j].hasMiddle = true;
+					} else if (hasMiddle)
 					{
-						cumright += d.width + this.hgap;
+						clayout[j].hasBottom = true;
+					}
+					if (s.isTrue("RIGHT"))
+					{
+						hasRight = true;
+						clayout[j].hasRight = true;
+					}
+					if (s.containsKey("INDENT"))
+					{
+						clayout[j].indent = s.getInteger("INDENT");
+					}				
+					if (s.containsKey("WIDTH"))
+					{
+						clayout[j].width = s.getInteger("WIDTH");
 					}
 				}
 			}
@@ -126,7 +129,7 @@ public class jswHorizontalLayout extends jswLayout
 					/ (float) postfillweight;
 			int xright = parentSize.width - rightWidth - insets.right
 					- this.hgap;
-			for (int i = 0; i < ncomponents; i++)
+			for (int i = 0; i < componentcount; i++)
 			{
 				Component comp = parent.getComponent(i);
 				settings s = getSettings(comp);
@@ -178,7 +181,7 @@ public class jswHorizontalLayout extends jswLayout
 			}
 		}
 
-	}
+	
 
 	@Override
 	public Dimension minimumLayoutSize(Container parent)

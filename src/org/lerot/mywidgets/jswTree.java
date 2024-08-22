@@ -3,27 +3,24 @@ package org.lerot.mywidgets;
 
 
 
-	import java.awt.Color;
 	import java.awt.Component;
-	import java.awt.Dimension;
-	import java.awt.Font;
-	import java.awt.event.ActionEvent;
-	import java.awt.event.ComponentEvent;
-	import java.awt.event.ComponentListener;
-
-	import javax.swing.BorderFactory;
-	import javax.swing.BoxLayout;
-	import javax.swing.JLabel;
-	import javax.swing.JPanel;
-	import javax.swing.JScrollPane;
-	import javax.swing.JTree;
-	import javax.swing.ScrollPaneConstants;
-	import javax.swing.border.Border;
-	import javax.swing.event.TreeModelListener;
-	import javax.swing.event.TreeSelectionListener;
-	import javax.swing.tree.DefaultMutableTreeNode;
-	import javax.swing.tree.TreeCellRenderer;
-	import javax.swing.tree.TreeSelectionModel;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
+import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreeSelectionModel;
 
 
 

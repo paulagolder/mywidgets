@@ -4,11 +4,9 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-
 //import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 

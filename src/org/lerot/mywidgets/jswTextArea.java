@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultCaret;
@@ -26,7 +25,7 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
         super(inLabel,label);
 
         textbox = new JTextArea("Enter text",20,30);
-        JScrollPane scrollPane = new JScrollPane(textbox);
+        JScrollPane scrollPane = new JScrollPane(textbox);     
         textbox.setEditable(true);
         textbox.setLineWrap(true);
         textbox.setWrapStyleWord(true);
@@ -35,26 +34,14 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
         DefaultCaret caret = (DefaultCaret)textbox.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         setEnabled(true);
-        add("FILLH", scrollPane);
-        //textbox.setPreferredSize(new Dimension(100, 100));
+        add("FILLH MIDDLE INDENT=10 ", scrollPane);
         setPreferredSize(new Dimension(100, 100));
     }
 
     public jswTextArea(String inLabel)
 	{
     	this(inLabel,true);
-    	/*super(inLabel,true);
-        textbox = new JTextArea("Enter text",20,30);
-        JScrollPane scrollPane = new JScrollPane(textbox);
-        textbox.setEditable(true);
-        textbox.setLineWrap(true);
-        textbox.setWrapStyleWord(true);
-        textbox.setEnabled(true);
-        scrollPane.setEnabled(true);
-        setEnabled(true);
-        add("FILLH", scrollPane);
-        textbox.setPreferredSize(new Dimension(100, 100));
-        setPreferredSize(new Dimension(100, 100));*/
+    	
 	}
 
 	@Override

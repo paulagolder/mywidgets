@@ -4,8 +4,8 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
-
 import javax.swing.JComponent;
+import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 
@@ -17,7 +17,7 @@ public class jswVerticalLayout extends jswLayout
 	private int vgap;
 	private layout[] clayout = new layout[10];
 	private int componentcount = 0;
-	private boolean trace = false;
+	private boolean trace = true;
 
 	public jswVerticalLayout()
 	{
@@ -39,7 +39,6 @@ public class jswVerticalLayout extends jswLayout
 		if (componentcount == 0)
 			vgap = 0;
 		int availableHeight = 0;
-		// cumheight = -vgap, fillheight = 0, cumbottom = 0, scrollheight = 0;
 		boolean hasBottom = false, hasMiddle = false;
 		Insets insets = parent.getInsets();
 		if (parent instanceof jswPanel)
@@ -94,7 +93,6 @@ public class jswVerticalLayout extends jswLayout
 					clayout[j].maxheight = s.getInteger("MAXHEIGHT");
 					clayout[j].minheight = d.height;
 				}
-
 				if (s.isTrue("MIDDLE"))
 				{
 					hasMiddle = true;
@@ -143,7 +141,6 @@ public class jswVerticalLayout extends jswLayout
 				{
 					cumheight += clayout[j].height;
 				}
-
 			}
 
 			if (cumheight + fillheight + scrollheight < availableHeight)
@@ -195,10 +192,8 @@ public class jswVerticalLayout extends jswLayout
 				Component comp = clayout[j].comp;// parent.getComponent(clayout[j].cindex);
 				if (comp instanceof jswScrollPane)
 				{
-					// ((jswScrollPane) comp).setMyBounds(clayout[j].x + clayout[j].indent,
-					// clayout[j].y, usableWidth, clayout[j].height);
 					((jswScrollPane) comp).setBounds(clayout[j].x + clayout[j].indent, clayout[j].y, usableWidth,
-							clayout[j].height - 40);
+							clayout[j].height - 10);
 				} else
 					comp.setBounds(clayout[j].x + clayout[j].indent, clayout[j].y, usableWidth, clayout[j].height);
 			}
@@ -206,10 +201,10 @@ public class jswVerticalLayout extends jswLayout
 		} else  if (visiblecomponents == 1)
 		{
 			Component comp = clayout[0].comp;
-			if (comp instanceof jswScrollPane)
+			if (comp instanceof JScrollPane)
 			{
-				((jswScrollPane) comp).setBounds(clayout[0].x + clayout[0].indent, 0, usableWidth,
-						availableHeight - 40);
+				((JScrollPane) comp).setBounds(clayout[0].x + clayout[0].indent, 20, usableWidth,
+						availableHeight );
 			} else
 				comp.setBounds(clayout[0].x + clayout[0].indent, 0, usableWidth, availableHeight);
 		}
@@ -256,11 +251,8 @@ public class jswVerticalLayout extends jswLayout
 				h += this.vgap;
 			}
 		}
-		// return new Dimension(insets.left + insets.right + w, insets.top
-		// + insets.bottom + h + 20);
 		int prefwidth = insets.left + insets.right + binsets.left + binsets.right + w;
 		int prefheight = insets.top + insets.bottom + binsets.top + binsets.bottom + desiredheight;
-		// return new Dimension(prefwidth, prefheight + 50);
 		return new Dimension(prefwidth, prefheight + 5);
 	}
 
@@ -298,7 +290,6 @@ public class jswVerticalLayout extends jswLayout
 		}
 		int prefwidth = insets.left + insets.right + binsets.left + binsets.right + w;
 		int prefheight = insets.top + insets.bottom + binsets.top + binsets.bottom + h;
-		// return new Dimension(prefwidth, prefheight + 50);
 		return new Dimension(prefwidth, prefheight + 5);
 	}
 

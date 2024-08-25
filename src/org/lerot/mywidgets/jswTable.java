@@ -63,14 +63,15 @@ public class jswTable extends jswPanel
 
 		jswStyle cellstyle = getCellStyle(row, col);
 		jswCell acell = new jswCell(row, col);
-		acell.applyStyles(cellstyle);
+		acell.applyStyle(cellstyle);
 
 		String settings = cellstyle.getStringStyle("horizontalAlign");
 		if (setting != null) settings += " " + setting + " ";
 		add(acell);
 		jswStyle cellcontentstyle = getCellContentStyle(row, col);
 
-		acell.applyStyles(cont, cellstyle);
+		//acell.applyStyles(cont, cellstyle);
+		//todo cell content styling
 		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
 		cont.setBackground(new Color(0, 0, 0, 0));
 		//cont.setBorder(null);

@@ -97,7 +97,7 @@ public class jswImage
 			img.parseToImage();
 			if (targetheight > 0) img.ScaleImage(targetheight);
 			ImageIcon icon = new ImageIcon(img.image);
-			lbl = new jswLabel();
+			lbl = new jswLabel(null);
 			lbl.setIcon(icon);
 
 		} catch (Exception e)

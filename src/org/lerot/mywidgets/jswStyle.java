@@ -1,12 +1,15 @@
 package org.lerot.mywidgets;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
@@ -29,7 +32,7 @@ public class jswStyle
 	{
 		return BorderFactory.createCompoundBorder(
 				BorderFactory.createTitledBorder(label),
-				BorderFactory.createEmptyBorder(5, 5, 5, 5));
+				BorderFactory.createEmptyBorder(10, 5, 5, 5));
 	}
 	public static  MatteBorder makeCellBorder(Color col, int w)
 	{
@@ -264,7 +267,11 @@ public class jswStyle
 	}
 
 
-
+	public void applyStyle(JLabel label)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 	public void overlay(jswStyle style)
 	{
@@ -456,8 +463,25 @@ public class jswStyle
 		// TODO Auto-generated method stub
 		return new Dimension(50,20);
 	}
+	public boolean hasBorder()
+	{
+		int borderwidth = getBorderWidth();
+		if(borderwidth > 0) return true;
+		return false;
+	}
+	int getBorderWidth()
+	{
+		return getIntegerStyle("borderWidth", 0);
+	}
+
 	
-	
+	public FontMetrics getFontMetrics()
+	{
+		Font font = getFont( );
+		Canvas c = new Canvas();
+		FontMetrics fm = c.getFontMetrics(font);
+		return fm;
+	}
 
 	
 

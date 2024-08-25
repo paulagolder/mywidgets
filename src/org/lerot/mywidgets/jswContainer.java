@@ -11,10 +11,5 @@ public class jswContainer extends jswPanel
 		super("C:" + name);
 	}
 
-	@Override
-	public void setInsets()
-	{
-		// TODO Auto-generated method stub
-
-	}
+	
 }

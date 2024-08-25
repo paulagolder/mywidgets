@@ -93,7 +93,7 @@ import javax.swing.tree.TreeSelectionModel;
 			commandPanel = new JPanel();
 			commandPanel.setMaximumSize(new Dimension(panelwidth, 150));
 			commandPanel.setMinimumSize(new Dimension(panelwidth, 150));
-			commandPanel.setBorder(setcborder("Report Command Panel"));
+			commandPanel.setBorder(jswStyle.makecborder("Report Command Panel"));
 
 			this.add(reptreeView);
 			this.add(" HEIGTH=200 ",commandPanel);
@@ -153,12 +153,12 @@ import javax.swing.tree.TreeSelectionModel;
 		{
 		}
 
-		public Border setcborder(String label)
+		/*public Border setcborder(String label)
 		{
 			return BorderFactory.createCompoundBorder(
 					BorderFactory.createTitledBorder(label),
 					BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		}
+		}*/
 	}
 
 

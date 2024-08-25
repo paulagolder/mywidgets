@@ -27,15 +27,15 @@ public class jswTextBox extends jswPanel
 	public jswTextBox(String inLabel)
 	{
 		super(inLabel);
-		setLayout(new jswHorizontalLayout());
+		setLayout(new jswHorizontalLayout_b());
 		if (inLabel != null && inLabel.length() > 1)
 		{
 			setName(inLabel);
 			label = new JLabel(inLabel);
 			add("LEFT", label);
-			label.setFont(new Font("SansSerif", Font.BOLD, 12));
-			setBorder(jswStyle.makeborder());
-			applyStyles(label);
+			//label.setFont(new Font("SansSerif", Font.BOLD, 12));
+			//setBorder(jswStyle.makeborder());
+			applyStyle();
 		}
 		textbox = new JTextField();
 		add("FILLW", textbox);
@@ -43,6 +43,21 @@ public class jswTextBox extends jswPanel
 
 	}
 
+	void applyStyle()
+	{
+		setBorder(style.getBorder());
+		label.setFont(style.getFont());
+		label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+
+		label.setBackground(style.getColor("backgroundColor", Color.white));
+		//JTextField innerlabel = getTextField();
+		textbox.setFont(style.getFont());
+		textbox.setForeground(style.getColor("foregroundColor",
+				Color.BLACK));
+		textbox.setBackground(Color.pink);
+	}
+	
+	
 	@Override
 	public void addFocusListener(FocusListener fl)
 	{

@@ -1,5 +1,6 @@
 package org.lerot.mywidgets;
 
+import java.awt.Color;
 import java.awt.Component;
 //import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	{
 		super("PBS:" + name);
 		commandroot = name;
+		
 		actionlistener = parentListener;
 		if (!isvertical)
 		{
@@ -31,7 +33,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		} else
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-			setAlignmentX(Component.LEFT_ALIGNMENT);
+			setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
 		if (border)
 		{
@@ -41,30 +43,13 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		{
 
 		}
+		this.setBorder(jswStyle.makeLineBorder(Color.green, 3));
 		bg = new ButtonGroup();
 		options = new jswPushButton[10];
 		setName(name);
 	}
 
-	public jswPushButtonset(String name, boolean isvertical)
-	{
-		super("PBS:" + name);
-		if (!isvertical)
-		{
-			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			setAlignmentY(Component.TOP_ALIGNMENT);
-			// setMaximumSize(new Dimension(0, 45));
-		} else
-		{
-			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-			setAlignmentX(Component.LEFT_ALIGNMENT);
-		}
-		this.setBorder(jswStyle.makeLineBorder());
-		setBorder(jswStyle.makecborder(name));
-		bg = new ButtonGroup();
-		options = new jswPushButton[10];
-		setName(name);
-	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e)

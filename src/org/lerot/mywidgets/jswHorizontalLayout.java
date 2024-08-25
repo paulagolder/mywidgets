@@ -4,7 +4,7 @@ package org.lerot.mywidgets;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Insets;
+
 
 public class jswHorizontalLayout extends jswLayout 
 {
@@ -30,6 +30,7 @@ public class jswHorizontalLayout extends jswLayout
 		if (parent instanceof jswPanel)
 		{
 			flag = ((jswPanel) parent).getTag();
+			//padding bo = ((jswPanel) parent).getPadding();
 		}
 		int availableHeight = 0, cumwidth = -2 * hgap, fillweight = 0, prewidth = 0, cummiddle = 0, prefillweight = 0, postfillweight = 0, cumright = 0;
 		boolean hasRight = false, hasMiddle = false;
@@ -39,13 +40,15 @@ public class jswHorizontalLayout extends jswLayout
 			track = true;
 		}
 		int ncomponents = parent.getComponentCount();
+	
 		if (ncomponents < 2) this.hgap = 0;
-		Insets insets = parent.getInsets();
+		//padding padding = parent.getpadding();
+		padding =  ((jswPanel) parent).getPadding();
 
 		Dimension parentSize = parent.getSize();
-		int usableWidth = parentSize.width - insets.left - insets.right - 3;
+		int usableWidth = parentSize.width - padding.left - padding.right - 3;
 		// paul fix is border
-		availableHeight = parentSize.height - insets.top - insets.bottom;
+		availableHeight = parentSize.height - padding.top - padding.bottom;
 		boolean useMinimum;
 		useMinimum = preferredLayoutSize(parent).width > usableWidth;
 		// useMinimum=false;
@@ -56,17 +59,17 @@ public class jswHorizontalLayout extends jswLayout
 			Dimension d = comp.getMinimumSize();
 			int compwidth = d.width;
 			settings s = getSettings(comp);
-			int x = insets.left;
-			if (s.isTrue("RIGHT")) x = insets.left + usableWidth - compwidth;
+			int x = padding.left;
+			if (s.isTrue("RIGHT")) x = padding.left + usableWidth - compwidth;
 			else if (s.isTrue("MIDDLE"))
-				x = (int) (insets.left + (usableWidth - compwidth) / 2.0);
+				x = (int) (padding.left + (usableWidth - compwidth) / 2.0);
 
 			if (s.isTrue("FILLW"))
 			{
 				compwidth = usableWidth;
-				x = insets.left;
+				x = padding.left;
 			}
-			comp.setBounds(x, insets.top, compwidth, availableHeight);
+			comp.setBounds(x, padding.top, compwidth, availableHeight);
 		} else
 		{
 			for (int i = 0; i < ncomponents; i++)
@@ -112,9 +115,9 @@ public class jswHorizontalLayout extends jswLayout
 				}
 			}
 			hasRight = false;
-			int x = insets.left;
-			int y = insets.top;
-			int xmiddle = insets.left + (usableWidth - cummiddle) / 2;
+			int x = padding.left;
+			int y = padding.top;
+			int xmiddle = padding.left + (usableWidth - cummiddle) / 2;
 			boolean inMiddle = false, inRight = false;
 			postfillweight = fillweight - prefillweight;
 			int rightWidth = cumright;
@@ -124,7 +127,7 @@ public class jswHorizontalLayout extends jswLayout
 					/ (float) prefillweight;
 			float postfillratio = (float) (xmiddle - rightWidth)
 					/ (float) postfillweight;
-			int xright = parentSize.width - rightWidth - insets.right
+			int xright = parentSize.width - rightWidth - padding.right
 					- this.hgap;
 			for (int i = 0; i < ncomponents; i++)
 			{
@@ -185,7 +188,7 @@ public class jswHorizontalLayout extends jswLayout
 	{
 		int ncomponents = parent.getComponentCount();
 		if (ncomponents == 0) this.hgap = 0;
-		Insets insets = parent.getInsets();
+		padding = ((jswPanel) parent).getPadding();
 
 		int w = 0;
 		int h = 0;
@@ -205,8 +208,8 @@ public class jswHorizontalLayout extends jswLayout
 				w += this.hgap;
 			} // if
 		} // for
-		return new Dimension(insets.left + insets.right + w, insets.top
-				+ insets.bottom + h);
+		return new Dimension(padding.left + padding.right + w, padding.top
+				+ padding.bottom + h);
 	}
 
 	@Override
@@ -214,7 +217,7 @@ public class jswHorizontalLayout extends jswLayout
 	{
 		int ncomponents = parent.getComponentCount();
 		if (ncomponents == 0) this.hgap = 0;
-		Insets insets = parent.getInsets();
+		padding = ((jswPanel) parent).getPadding();;
 		int w = 0;
 		int h = 0;
 
@@ -233,8 +236,8 @@ public class jswHorizontalLayout extends jswLayout
 				w += this.hgap;
 			}
 		}
-		return new Dimension(insets.left + insets.right + w, insets.top
-				+ insets.bottom + h);
+		return new Dimension(padding.left + padding.right + w, padding.top
+				+ padding.bottom + h);
 	}
 
 

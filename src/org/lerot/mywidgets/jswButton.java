@@ -1,9 +1,12 @@
 package org.lerot.mywidgets;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
 
@@ -22,6 +25,8 @@ public class jswButton extends jswPanel implements ActionListener
 	public jswButton(ActionListener al, String label, String command)
 	{
 		super(label);
+		setAlignmentX(Component.LEFT_ALIGNMENT);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		button = new JButton(label);
 		button.setFont(new Font("SansSerif", Font.BOLD, 9));
 		int l = label.length() * 8 + 30;
@@ -34,15 +39,34 @@ public class jswButton extends jswPanel implements ActionListener
 		actionlistener = al;
 		button.setActionCommand(command);
 		add(button);
-		applyStyles(button);
+		applyStyle();
 		button.setVisible(true);
 	}
 
+	@Override
+	void applyStyle()
+	{	
+			
+		button.setFont(style.getFont());
+		button.setBackground(style.getBackgroundcolor());
+		button.setForeground(style.getForegroundcolor());
+		button.setBorder(style.getBorder());
+		int wd =style.getIntegerStyle("mywidth",bl);
+		if(wd > bl) bl= wd;
+		int ht =style.getIntegerStyle( "myheight",bh);
+		if(ht > bh ) bh=ht;
+		Dimension d = new Dimension(bl, bh);
+		button.setPreferredSize(d);
+		button.setMaximumSize(d);
+		button.setMinimumSize(d);
+		button.setPreferredSize(d);
+	}
 
+	
+	
 	public void addActionListener(ActionListener al)
 	{
 		button.addActionListener(al);
-
 	}
 
 	public void addActionListener(ActionListener al, String actionmessage)
@@ -64,22 +88,7 @@ public class jswButton extends jswPanel implements ActionListener
 		super.setEnabled(b);
 	}
 
-	public void doStyling(jswStyle style)
-	{
-		button.setFont(style.getFont());
-		button.setBackground(style.getBackgroundcolor());
-		button.setForeground(style.getForegroundcolor());
-		int wd =style.getIntegerStyle("mywidth",bl);
-		if(wd > bl) bl= wd;
-		int ht =style.getIntegerStyle( "myheight",bh);
-		if(ht > bh ) bh=ht;
-		Dimension d = new Dimension(bl, bh);
-		button.setPreferredSize(d);
-		button.setMaximumSize(d);
-		button.setMinimumSize(d);
-		button.setPreferredSize(d);
-	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{

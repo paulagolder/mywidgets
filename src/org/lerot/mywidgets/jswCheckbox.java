@@ -6,6 +6,7 @@
  */
 package org.lerot.mywidgets;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -19,22 +20,10 @@ public class jswCheckbox extends jswPanel
 	private static final long serialVersionUID = 1L;
 	JCheckBox check;
 
-	public jswCheckbox(String label)
-	{
-		super(label);
-		setAlignmentX(Component.LEFT_ALIGNMENT);
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		int width = label.length() * 12 + 30;
-		check = new JCheckBox(label);
-		check.setSelected(false);
-		check.setAlignmentX(Component.LEFT_ALIGNMENT);
-		add(check);
-		setMinimumSize(new Dimension(width, 40));
-	}
+	
 
 
 	public jswCheckbox(ActionListener al, String label)
-
 	{
 		super(label);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -47,6 +36,7 @@ public class jswCheckbox extends jswPanel
 		actionlistener = al;
 		check.setActionCommand(label);
 		add(check);
+		//this.setBorder(jswStyle.makeLineBorder(Color.red, 3));
 		setMinimumSize(new Dimension(width, 40));
 	}
 

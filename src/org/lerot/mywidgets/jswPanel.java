@@ -21,45 +21,12 @@ public abstract class jswPanel extends JPanel  implements ActionListener
 
 {
 	private static final long serialVersionUID = 1L;
-
-	/*public static Border setborder()
-	{
-		return BorderFactory.createEmptyBorder(5, 5, 5, 5);
-	}
-
-	public static Border setcborder(String label)
-	{
-		return BorderFactory.createCompoundBorder(
-				BorderFactory.createTitledBorder(label),
-				BorderFactory.createEmptyBorder(5, 5, 5, 5));
-	}
-
-	public static Border setLineBorder()
-	{
-		return BorderFactory.createLineBorder(Color.BLACK, 1);
-	}
-
-	public static Border setLineBorder(Color col, int w)
-	{
-		return BorderFactory.createLineBorder(col, w);
-	}
-
-	public static Border setLineBorder(int w)
-	{
-		return BorderFactory.createLineBorder(Color.BLACK, w);
-	}*/
-
-	private int borderOffset = 1;
 	private String panelname;
-
 	private int setHeight = 0, setWidth = 0;
-	private jswStyle style;
+	protected jswStyle style;
 	private String tag = "";
 	private String marker = "";
-	private int itop;
-	private int ileft;
-	private int ibottom;
-	private int iright;
+	private Insets padding = new Insets(1,1,1,1);
 	ActionListener actionlistener = null;
 
 	public jswPanel(String name)
@@ -75,27 +42,27 @@ public abstract class jswPanel extends JPanel  implements ActionListener
 		setStyle(this.getClass().getSimpleName());
 	}
 
-	public void applyStyles(JComponent label)
-	{
-		applyStyles(label, getStyles());
-	}
 
-	@Override
-	public Insets getInsets() {
-	     return new Insets(itop, ileft, ibottom, iright);
+
+	
+	public Insets getPadding() {
+	     return padding;
 	   }
 
-	public void setInsets(int in)
+	public void setPadding(int in)
 	{
-		itop =in;
-		ileft=in;
-		iright=in;
-		ibottom=in;
+		padding = new Insets(in,in,in,in);
 	}
 
-	public void setInsets()
+	public void setPadding()
 	{
-		setInsets(5);
+		setPadding(5);
+	}
+	
+	public void setPadding(int i, int j, int k, int l)
+	{
+		padding = new Insets(i,j,k,l);
+		
 	}
 
 	public void addActionListener(ActionListener al)
@@ -104,6 +71,28 @@ public abstract class jswPanel extends JPanel  implements ActionListener
 
 	}
 	
+	void applyStyle()
+	{		
+		applyStyle(style);		
+	}
+	
+	 void applyStyle(jswStyle astyle)
+	{
+		
+		Font sfont = astyle.getFont();
+		this.setFont(sfont);
+		this.setBorder(astyle.getBorder());
+		this.setForeground(astyle.getColor("foregroundColor", Color.BLACK));
+		this.setBackground(astyle.getColor("backgroundColor", Color.green));
+		
+	}
+	
+	
+	/*
+	public void applyStyles(JComponent label)
+	{
+		applyStyles(label, getStyles());
+	}
 
 	public void applyStyles(JComponent label, jswStyle usestyles)
 	{
@@ -222,6 +211,13 @@ public abstract class jswPanel extends JPanel  implements ActionListener
 		jswStyle styles = jswStyles.getDefaultStyles().getStyle(stylename);
 		applyStyles(this, styles);
 	}
+	
+	public void applyStyles()
+	{
+		//jswStyle styles = jswStyles.getDefaultStyles().getStyle(stylename);
+		applyStyles(this, style);
+	}
+*/
 
 	public String getPanelname()
 	{
@@ -316,23 +312,17 @@ public abstract class jswPanel extends JPanel  implements ActionListener
 
 	protected Rectangle getBorderBounds()
 	{
-		int x = borderOffset;
-		int y = borderOffset;
-		int width = getSize().width - borderOffset * 2;
-		int height = getSize().height - borderOffset * 2;
+		int x = padding.left;
+		int y = padding.top;
+		int width = getSize().width - padding.left - padding.right;
+		int height = getSize().height - padding.top - padding.bottom;
 		Rectangle bounds = new Rectangle(x, y, width, height);
 		return bounds;
 	}
 
-	int getBorderOffset()
-	{
-		return borderOffset;
-	}
 
-	public void setBorderOffset(int borderOffset)
-	{
-		this.borderOffset = borderOffset;
-	}
+
+	
 
 	public String getMarker()
 	{

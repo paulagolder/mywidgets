@@ -18,12 +18,11 @@ public class jswEditPanel extends jswHorizontalPanel implements ActionListener
 
 	public jswEditPanel(String title)
 	{
-		super(title, true);
+		super(title, true,true);
 		paneldimension = new Dimension(420, 320);
 		innerdimension = new Dimension(410, 310);
 		tabledimension = new Dimension(400, 300);
 		setPreferredSize(paneldimension);
-
 	}
 
 	public String getSelectedKEY()

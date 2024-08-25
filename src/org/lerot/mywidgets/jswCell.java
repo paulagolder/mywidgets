@@ -24,8 +24,8 @@ public class jswCell extends jswHorizontalPanel
 		col = icol;
 	}
 
-	@Override
-	public void applyStyles(JComponent label, jswStyle usestyles)
+	
+/*	public void applyStyle(JComponent label, jswStyle usestyles)
 	{
 		jswStyle styles = usestyles;
 		Font sfont = styles.getFont();
@@ -104,18 +104,18 @@ public class jswCell extends jswHorizontalPanel
 					+ label.getClass().getSimpleName());
 		}
 
-	}
+	}*/
 
 	@Override
-	public void applyStyles(jswStyle usestyles)
+	public void applyStyle()
 	{
-		jswStyle styles = usestyles;
+		//jswStyle styles = usestyles;
 		//this.setBorder(styles.getCellBorder());
-		this.setBorder(styles.getBorder());
-		Font afont = styles.getFont();
+		this.setBorder(style.getBorder());
+		Font afont = style.getFont();
 		this.setFont(afont);
-		this.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-		this.setBackground(styles.getColor("backgroundColor", new Color(0, 0,
+		this.setForeground(style.getColor("foregroundColor", Color.BLACK));
+		this.setBackground(style.getColor("backgroundColor", new Color(0, 0,
 				0, 0)));
 	}
 

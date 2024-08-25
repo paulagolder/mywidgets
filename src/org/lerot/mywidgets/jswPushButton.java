@@ -1,10 +1,12 @@
 package org.lerot.mywidgets;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
 import javax.swing.JToggleButton;
 
 public class jswPushButton extends jswPanel
@@ -20,6 +22,8 @@ public class jswPushButton extends jswPanel
 	public jswPushButton(ActionListener al, String label, String command)
 	{
 		super(label);
+		setAlignmentX(Component.LEFT_ALIGNMENT);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		button = new JToggleButton(label);
 		button.setFont(new Font("SansSerif", Font.BOLD, 11));
 		int l = label.length() * 8 + 30;
@@ -30,7 +34,7 @@ public class jswPushButton extends jswPanel
 
 		button.addActionListener(this);
 		actionlistener = al;
-
+		this.setBorder(jswStyle.makeLineBorder(Color.red, 3));
 		button.setActionCommand(command);
 		add(button);
 		setStyle();

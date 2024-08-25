@@ -17,7 +17,7 @@ public class jswVerticalLayout extends jswLayout
 	private int vgap;
 	private layout[] clayout = new layout[10];
 	private int componentcount = 0;
-	private boolean trace = true;
+	private boolean trace = false;
 
 	public jswVerticalLayout()
 	{
@@ -78,10 +78,12 @@ public class jswVerticalLayout extends jswLayout
 				if (s.isTrue("FILLH"))
 				{
 					clayout[j].fillh = s.getInteger("FILLH");
+					if(clayout[j].fillh < 1) clayout[j].fillh =100;
 					clayout[j].minheight = d.height;
 				} else if (s.isTrue("SCROLLH"))
 				{
 					clayout[j].scrollh = s.getInteger("SCROLLH");
+					if(clayout[j].scrollh< 1) clayout[j].scrollh =100;
 					clayout[j].minheight = d.height;
 				} else
 				{
@@ -91,7 +93,10 @@ public class jswVerticalLayout extends jswLayout
 				if (s.isTrue("MAXHEIGHT"))
 				{
 					clayout[j].maxheight = s.getInteger("MAXHEIGHT");
-					clayout[j].minheight = d.height;
+				}
+				if (s.isTrue("MINHEIGHT"))
+				{
+					clayout[j].minheight = s.getInteger("MINHEIGHT");
 				}
 				if (s.isTrue("MIDDLE"))
 				{
@@ -132,11 +137,11 @@ public class jswVerticalLayout extends jswLayout
 				if (clayout[j].fillh > 0)
 				{
 					fillheight += clayout[j].height;
-					filltotal = clayout[j].fillh;
+					filltotal += clayout[j].fillh;
 				} else if (clayout[j].scrollh > 0)
 				{
 					scrollheight += clayout[j].height;
-					scrolltotal = clayout[j].scrollh;
+					scrolltotal += clayout[j].scrollh;
 				} else
 				{
 					cumheight += clayout[j].height;

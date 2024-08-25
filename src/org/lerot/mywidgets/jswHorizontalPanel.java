@@ -1,7 +1,12 @@
 package org.lerot.mywidgets;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Insets;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 public class jswHorizontalPanel extends jswContainer
 {
@@ -10,21 +15,35 @@ public class jswHorizontalPanel extends jswContainer
 
 	public jswHorizontalPanel()
 	{
-		super("HP:");
-		setLayout(new jswHorizontalLayout());
-		// setBorder(setLineBorder(Color.pink, 2));
+		this("HP:",true,false);
 	}
 
-	public jswHorizontalPanel(String title, boolean titledborder)
+	public jswHorizontalPanel(String title, boolean border, boolean titledborder)
 	{
-		super("HP:" + title);
-		setLayout(new jswHorizontalLayout());
-		// if(title.length()>0)
+		super(title);
+		setLayout(new jswHorizontalLayout_b());
+		setName(title);
+		if(titledborder)
 		{
-			setName(title);
-			if (titledborder) setBorder(jswStyle.makecborder(title));
+			setBorder(jswStyle.makecborder(title));
+			//Insets pad = getBorderOffset();
+			this.setPadding(20,5,5,5);
+			//setBorder(BorderFactory.createEmptyBorder(pad.top, pad.left, pad.bottom, pad.right));	
+			//setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));	
+		}else if (border)
+		{
+			setBorder(jswStyle.makeLineBorder(Color.pink, 20));
+			Border thisborder = getBorder();
+			int thk = ((LineBorder)thisborder).getThickness();
+			this.setPadding(((LineBorder)thisborder).getThickness()+1);
+		}
+		else
+		{
+			setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		}
 	}
+
+	
 
 	public void addComponent(jswPanel c)
 	{

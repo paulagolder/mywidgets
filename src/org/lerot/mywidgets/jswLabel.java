@@ -6,6 +6,7 @@
  */
 package org.lerot.mywidgets;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,14 +17,7 @@ public class jswLabel extends jswPanel
 	private static final long serialVersionUID = 1L;
 	JLabel label;
 
-	public jswLabel()
-	{
-		super("L:");
-		label = new JLabel();
-		add("RIGHT", label);
-		applyStyles(label);
-		this.setEnabled(true);
-	}
+	
 
 	public jswLabel(String inLabel)
 	{
@@ -31,19 +25,24 @@ public class jswLabel extends jswPanel
 		label = new JLabel();
 		label.setText(inLabel);
 		add("RIGHT", label);
-		applyStyles(label);
+		applyStyle();
 		this.setEnabled(true);
 	}
 
+	
+	@Override
+	void applyStyle()
+	{	
+				label.setFont(style.getFont());
+				label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+				label.setBackground(style.getColor("backgroundColor", Color.white));
+	}
+	
+	
+	
 	public jswLabel(int count)
 	{
-		super(count);
-		String inlabel = String.valueOf(count);
-		label = new JLabel();
-		label.setText(inlabel);
-		add("RIGHT", label);
-		applyStyles(label);
-		this.setEnabled(true);
+		this(String.valueOf(count));		
 	}
 
 	public JLabel getLabel()

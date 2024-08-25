@@ -23,7 +23,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 	public jswDropDownBox(String inLabel, boolean haslabel, boolean hasborder)
 	{
 
-		super(inLabel,haslabel);
+		super(inLabel,hasborder, haslabel);
 
 		if (haslabel)
 		{

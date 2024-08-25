@@ -52,10 +52,12 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		// ====start of panel1===
 
 		jswTabbedPanel tabbedpanel1 = new jswTabbedPanel("tabbed panel 1");
-		jswHorizontalPanel panel1a = new jswHorizontalPanel("Panel 1 A", true);
+		jswHorizontalPanel panel1a = new jswHorizontalPanel("Panel 1 A", true,true);
 		panel1a.setBackground(Color.pink);
-
+	
 		jswButton button1 = new jswButton(this, "button_1");
+		button1.setBorder(jswStyle.makeLineBorder(Color.blue,2));
+		button1.applyStyle();
 		jswTextField textbox1 = new jswTextField(this,"textbox_1");
 		textbox1.addActionListener(this);
 		jswDropDownBox dropdownbox1 = new jswDropDownBox(this, "dropdownbox 1");
@@ -68,16 +70,16 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		panel1a.add((Component) button1);
 		panel1a.add(" WIDTH=100 ", (Component) textbox1);
 		panel1a.add(" ", (Component) dropdownbox1);
-		panel1a.add(" ", (Component) label2);
+		panel1a.add(" FILLW ", (Component) label2);
 
 		panel1a.repaint();
 		tabbedpanel1.addTab("TAB 1 A", (jswPanel) panel1a);
-		mainpanel.add("  ", (Component) tabbedpanel1);
-		jswHorizontalPanel panel1b = new jswHorizontalPanel("Panel 1B", true);
+		mainpanel.add(" FILLW  ", (Component) tabbedpanel1);
+		jswHorizontalPanel panel1b = new jswHorizontalPanel("Panel 1B", true,true);
 		panel1b.setBackground(Color.lightGray);
 
 
-		jswOptionset optionset = new jswOptionset(this,"my option list", false);
+		jswOptionset optionset = new jswOptionset(this,"option list 1", false);
 
 		jswOption ro = optionset.addNewOption("red", true);
 		ro.doStyling(mwdefstyles.getStyle("redoption"));
@@ -98,11 +100,11 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		panel1b.add((Component) pushbuttonset);
 
 		jswButton buttonl = new jswButton(this, "large button");
-		buttonl.doStyling(mwdefstyles.getStyle("largebutton"));
+		buttonl.applyStyle(mwdefstyles.getStyle("largebutton"));
 		jswButton buttonm = new jswButton(this, "medium button");
-		buttonm.doStyling(mwdefstyles.getStyle("mediumbutton"));
+		buttonm.applyStyle(mwdefstyles.getStyle("mediumbutton"));
 		jswButton buttons = new jswButton(this, "small");
-		buttons.doStyling(mwdefstyles.getStyle("smallbutton"));
+		buttons.applyStyle(mwdefstyles.getStyle("smallbutton"));
 
 		panel1b.add(" ", (Component) buttonl);
 		panel1b.add((Component) buttonm);
@@ -110,7 +112,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
 		tabbedpanel1.addTab("TAB 1 B", (jswPanel) panel1b);
 
-		jswHorizontalPanel panel1c = new jswHorizontalPanel("Panel 1C", true);
+		jswHorizontalPanel panel1c = new jswHorizontalPanel("Panel 1C", true,true);
 		panel1c.setBackground(Color.orange);
 		jswThumbwheel thumbwheel = new jswThumbwheel(this, "thumbwheel 1", 5, 10);
 		panel1c.add((Component) thumbwheel);
@@ -121,7 +123,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		jswTextBox textfield1 = new jswTextBox(" ");
 		textfield1.addActionListener(this);
 		tabbedpanel1.addTab("TAB 1 C", (jswPanel) panel1c);
-		jswHorizontalPanel panel1d = new jswHorizontalPanel("Panel 1D", true);
+		jswHorizontalPanel panel1d = new jswHorizontalPanel("Panel 1D", true,true);
 
 		jswButtonandTextBox button1d = new jswButtonandTextBox(this, "my button");
 
@@ -131,14 +133,14 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		// ====end of panel1===
 
 		// ====start of panel2===
-		jswHorizontalPanel panel2 = new jswHorizontalPanel("Panel 2", true);
+		jswHorizontalPanel panel2 = new jswHorizontalPanel("Panel 2", true,true);
 		panel2.setBackground(Color.cyan);
-		jswVerticalPanel padpanel = new jswVerticalPanel("padding", false);
-		panel2.add(" width=20 ", (Component) padpanel);
+		jswVerticalPanel padpanel = new jswVerticalPanel("padding", true);
+		panel2.add(" width=40 ", (Component) padpanel);
 		jswOptionset optionseta = new jswOptionset(this,"my option list", true);
-
-		optionseta.setInsets(20);
+		optionseta.setPadding(20);
 		optionseta.doStyling(mwdefstyles.getStyle("optionset"));
+		
 		jswOption ros = optionseta.addNewOption("red", true);
 		ros.doStyling(mwdefstyles.getStyle("redoption"));
 
@@ -164,14 +166,14 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		// ====end of panel2==
 
 		// ====start of panel3==
-		jswHorizontalPanel panel3 = new jswHorizontalPanel("Panel 3", true);
+		jswHorizontalPanel panel3 = new jswHorizontalPanel("Panel 3", true,true);
 		panel3.addStyle("backgroundColor", "green");
 
 		mainpanel.add(" FILLH MAXHEIGHT=200   ", (Component) panel3);
 		jswPanel treepanel = makeTreeExample();
 		jswTextArea textarea3 = new jswTextArea("textarea3");
 
-		String[] hhelp = jswHorizontalLayout.help();
+		String[] hhelp = jswHorizontalLayout_b.help();
 
 		textarea3.setText(hhelp);
 
@@ -185,11 +187,12 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		// panel3.add(" FILLW FILLH ", (Component)treepanel);
 		panel3.add(" FILLW FILLH ", (Component) textarea3);
 
-		jswHorizontalPanel panel4 = new jswHorizontalPanel("Panel 4", true);
+		jswHorizontalPanel panel4 = new jswHorizontalPanel("Panel 4", true, false);
 		panel4.setBackground(Color.yellow);
-
-		mainpanel.add(" FILLH", (Component) panel4);
-		add((Component) mainpanel);
+		
+   
+		mainpanel.add(" FILLH ", (Component) panel4);
+	
 
 		jswContainer jswContainer1 = new jswContainer("subpanel 1");
 		jswContainer1.setBackground(Color.red);
@@ -198,9 +201,12 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		jswContainer jswContainer3 = new jswContainer("sub panel 3");
 		jswContainer3.setBackground(Color.blue);
 
-		panel4.add("  FILLW ", (Component) jswContainer1);
-		panel4.add("  FILLW FILLH ", (Component) jswContainer2);
-		panel4.add("  FILLW ", (Component) jswContainer3);
+		panel4.add("  FILLW=30 ", jswContainer1);
+		panel4.add("  FILLW=10 ", (Component) jswContainer2);
+		panel4.add("  FILLW=30 ", (Component) jswContainer3);
+		
+		add((Component) mainpanel);
+		
 		pack();
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e)
@@ -325,7 +331,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		ostyle.putAttribute("backgroundColor", "transparent");
 
 		jswStyle rolstyle = defstyles.makeStyle("optionset");
-		rolstyle.putAttribute("backgroundColor", "#ff9f9f");
+		rolstyle.putAttribute("backgroundColor", "#e0ffde");
+		rolstyle.putAttribute("borderWidth", "1");
+		rolstyle.putAttribute("borderColor", "black");
 
 		jswStyle rostyle = defstyles.makeStyle("redoption");
 		rostyle.putAttribute("foregroundColor", "red");

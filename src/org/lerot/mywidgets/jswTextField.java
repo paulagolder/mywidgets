@@ -18,7 +18,7 @@ public class jswTextField extends jswPanel
 	public jswTextField(ActionListener al,String prompt)
 	{
 		super("TF:");
-		setLayout(new jswHorizontalLayout());
+		setLayout(new jswHorizontalLayout_b());
 		textbox = new JTextField();
 		textbox.addActionListener(this);
 		actionlistener= al;

@@ -38,11 +38,6 @@ public class jswVerticalPanel extends jswContainer
 		c.setPreferredSize(new Dimension(cwidth, cheight));
 	}
 
-	@Override
-	public void setInsets()
-	{
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }

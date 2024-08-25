@@ -11,13 +11,14 @@ package org.lerot.mywidgets;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.util.HashMap;
 import java.util.Hashtable;
 
 public abstract class jswLayout implements LayoutManager
 {
-
+    Insets padding = new Insets(1,1,1,1);
 
 	class layout
 	{
@@ -40,10 +41,11 @@ public abstract class jswLayout implements LayoutManager
 		public int y = 0;
 		public boolean hasRight;
 		public int fillw;
+		public int finalwidth;
 
 		public String sysprint()
 		{
-			String outline = comp.getClass().getName() + ":" + minheight + ":" + fillh + ":" + scrollh + ":" + height + " ";// TODO
+			String outline = comp.getClass().getName() + ":" + minwidth + ":" + fillw + ":" + scrollh + ":" + height + " ";// TODO
 			// Auto-generated
 			// method
 			// stub
@@ -172,8 +174,8 @@ public abstract class jswLayout implements LayoutManager
 					harg = parseArg(tag, i, n);
 					i += n;
 				} else
-					varg = 0;
-				harg = 1;
+					harg = 1;
+				
 				nsetting.putInt("FILLW",harg);
 			} else if (tag.startsWith("FILLH", i))
 			{

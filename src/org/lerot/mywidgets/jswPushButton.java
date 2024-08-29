@@ -13,7 +13,9 @@ public class jswPushButton extends jswPanel
 {
 	private static final long serialVersionUID = 1L;
 	JToggleButton button;
-
+	int bh=30;
+	int bl=30;
+	
 	public jswPushButton(ActionListener al, String label)
 	{
 		this(al, label, label);
@@ -25,19 +27,11 @@ public class jswPushButton extends jswPanel
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		button = new JToggleButton(label);
-		button.setFont(new Font("SansSerif", Font.BOLD, 11));
-		int l = label.length() * 8 + 30;
-		Dimension d = new Dimension(l, 24);
-		button.setPreferredSize(d);
-		button.setMaximumSize(d);
-		button.setMinimumSize(d);
-
 		button.addActionListener(this);
 		actionlistener = al;
-		this.setBorder(jswStyle.makeLineBorder(Color.red, 3));
 		button.setActionCommand(command);
 		add(button);
-		setStyle();
+		applyStyle();
 		button.setVisible(true);
 	}
 
@@ -69,28 +63,29 @@ public class jswPushButton extends jswPanel
 
 	}
 
-	public void setStyle()
-	{
-
-
-		Font sfont = getStyles().getFont();
-		button.setFont(sfont);
-		button.setBorder(getStyles().getBorder());
-		button.setForeground(getStyles().getColor("foregroundColor", Color.blue));
-		button.setBackground(getStyles().getColor("backgroundColor", Color.red));
-
-	}
-
-	public void doStyling(jswStyle style)
-	{
-		Font sfont = style.getFont();
-		button.setFont(sfont);
+	public void applyStyle(jswStyle style)
+	{	
+		int l = button.getText().length() * 8 + 30;
+		if(l>bl)bl=l;	
+		button.setFont(style.getFont());
+		button.setBackground(style.defaultwidgetcolor);
+		button.setForeground(style.getForegroundcolor());
 		button.setBorder(style.getBorder());
-		button.setForeground(style.getColor("foregroundColor", Color.blue));
-		button.setBackground(style.getColor("backgroundColor", Color.red));
-
-		
+		int wd =style.getIntegerStyle("mywidth",bl);
+		if(wd > bl) bl= wd;
+		int ht =style.getIntegerStyle( "myheight",bh);
+		if(ht > bh ) bh=ht;
+		Dimension d = new Dimension(bl, bh);
+		button.setPreferredSize(d);
+		button.setMaximumSize(d);
+		button.setMinimumSize(d);
+		setBackground(jswStyle.TRANSPARENT);
+		setPreferredSize(d);
+		setMaximumSize(d);
+		setMinimumSize(d);		
 	}
+
+	
 
 	public String getLabel()
 	{

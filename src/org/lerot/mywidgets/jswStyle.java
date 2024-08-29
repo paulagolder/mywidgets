@@ -59,21 +59,24 @@ public class jswStyle
 	}
 
 	private String defaultfontname;
-
 	private int defaultfontsize;
-
 	private int defaultfontstyle;
-
 	private String stylename="anon";
-
+	private Color defaultbackgroundcolor;
+	static Color defaultwidgetcolor;
+	static Color TRANSPARENT;
 
 	Map<String, String> styles = new HashMap<>();
+
 
 	public jswStyle()
 	{
 		defaultfontname = "SansSerif";
 		defaultfontstyle = Font.PLAIN;
-		defaultfontsize = 10;
+		defaultfontsize = 12;
+		defaultbackgroundcolor = new Color(0,0,0,125);
+		defaultwidgetcolor = new Color(200,240,240);
+		TRANSPARENT = new  Color(0,0,0,0);
 	}
 
 	public jswStyle(String name)
@@ -101,13 +104,18 @@ public class jswStyle
 
 	public Color getBackgroundcolor()
 	{
-		return getColor("backgroundcolor", Color.pink);
+		return getColor("backgroundcolor", defaultbackgroundcolor);
+	}
+	
+	public Color getWidgetcolor()
+	{
+		return getColor("backgroundcolor", defaultwidgetcolor);
 	}
 
 	
 	public Color getForegroundcolor()
 	{
-		return getColor("foregroundcolor", Color.blue);
+		return getColor("foregroundcolor", Color.black);
 	}
 	
 	
@@ -149,16 +157,11 @@ public class jswStyle
 		Color bordercolor = getColor("borderColor", Color.BLACK);
 		int borderwidth = getIntegerStyle("borderWidth", 1);
 		return makeCellBorder(bordercolor, borderwidth);
-		/*
-		 * if (borderwidth > 0) return setCellBorder(bordercolor, borderwidth);
-		 * else return null;
-		 */
 
 	}
 
 	public Color getColor(String attribute, Color defaultcolor)
 	{
-
 		Color color = defaultcolor;
 		try
 		{
@@ -178,11 +181,9 @@ public class jswStyle
 		{
 
 		}
-		return color;
-
-		// p1.setBackground(new Color(0,0,0,125));
+		return color;		
 	}
-
+	
 	public Font getFont()
 	{
 		int fontsize = getIntegerStyle("fontsize", defaultfontsize);
@@ -267,11 +268,7 @@ public class jswStyle
 	}
 
 
-	public void applyStyle(JLabel label)
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	public void overlay(jswStyle style)
 	{
@@ -290,6 +287,19 @@ public class jswStyle
 	public void putAttribute(String attribute, String value)
 	{
 		styles.put(attribute.toLowerCase(), value);
+	}
+	
+	public void putAttribute(String attribute, boolean b)
+	{
+		if(b) putAttribute(attribute, "true");
+		else putAttribute(attribute, "false");		
+	}
+
+	public void putAttribute(String attribute)
+	{
+
+		putAttribute(attribute, true);
+
 	}
 
 	public void setBackgroundcolor(String backgroundcolor)
@@ -321,7 +331,7 @@ public class jswStyle
 
 	public void setDefaultStyle()
 	{
-		putAttribute("backgroundcolor", null);
+		putAttribute("backgroundcolor", "transparent");
 
 		putAttribute("borderColor", "black");
 		putAttribute("borderWidth", "-1");

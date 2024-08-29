@@ -3,13 +3,18 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JToggleButton;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-public class jswToggleButton extends jswPanel implements ActionListener
+public class jswToggleButton extends jswPanel implements ActionListener, ChangeListener
 {
 	private static final long serialVersionUID = 1L;
 	JToggleButton button;
@@ -25,32 +30,34 @@ public class jswToggleButton extends jswPanel implements ActionListener
 	public jswToggleButton(ActionListener al, String alabel, String command)
 	{
 		super("TB" + alabel);
+		 UIDefaults dflts = UIManager.getLookAndFeelDefaults();
+	      dflts.put("ToggleButton.select", Color.GREEN);
 		label=alabel;
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		button = new JToggleButton(label);
-		button.setFont(new Font("SansSerif", Font.BOLD, 11));
-		int bl = label.length() * 8 + 30;
-		Dimension d = new Dimension(bl, 24);
-		button.setPreferredSize(d);
-		button.setMaximumSize(d);
-		button.setMinimumSize(d);
 		button.addActionListener(this);
+		button.addChangeListener(this);
 		actionlistener = al;
 		button.setActionCommand(command);
 		add(button);
-		//this.setBorder(jswStyle.makeLineBorder(Color.red, 3));
 		applyStyle();
 		button.setVisible(true);
 	}
 
   void applyStyle()
   {
+	 
+    //  EventQueue.invokeLater(new TogglTst());
 	  int bl = label.length() * 8 + 30;
-	  int bh= 5;
+	  int bh= 30;
 	  //to do fm
-	  button.setFont(style.getFont());
-		button.setBackground(style.getBackgroundcolor());
+	//	button.setFont(new Font("SansSerif", Font.BOLD, 11));
+		
+	
+	    button.setFont(style.getFont());
+		button.setBackground(style.defaultwidgetcolor);
+		
 		button.setForeground(style.getForegroundcolor());
 		button.setBorder(style.getBorder());
 		int wd =style.getIntegerStyle("mywidth",bl);
@@ -61,23 +68,27 @@ public class jswToggleButton extends jswPanel implements ActionListener
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
-		button.setPreferredSize(d);
+		setPreferredSize(d);
+		setMaximumSize(d);
+		setMinimumSize(d);
   }
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		String mess ="";
-	    if (button.isSelected())  
+	 /*   if (button.isSelected())  
 	    {
             button.setText("OFF");  
             mess = "Button Off";
 	    }
         else  
         {
-            button.setText("ON");  
+        	button.setText("      ");
+            button.setText(label);  
             mess = "Button On";
-        }	 
+        }	 */
+	    button.repaint();
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId, "value =" + button.getActionCommand()+mess);
@@ -85,5 +96,17 @@ public class jswToggleButton extends jswPanel implements ActionListener
 
 
 	}
+	
+	
+	        public void stateChanged(ChangeEvent event) {
+	            if (button.isSelected()){
+	                button.setText("ON");
+	            } else {
+	                button.setText("OFF");
+	            }
+	        }
+	    
 
 }
+
+	

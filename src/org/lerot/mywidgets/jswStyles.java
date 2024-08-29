@@ -72,7 +72,9 @@ public class jswStyles
 		jswStyle jswLabelStyles = panelstyles.makeStyle("jswLabel");
 
 		jswStyle jswButtonStyles = panelstyles.makeStyle("jswButton");
+		jswButtonStyles.putAttribute("backgroundColor", "#C0C0C0");
 		jswButtonStyles.putAttribute("fontsize", "10");
+		jswButtonStyles.putAttribute("foregroundColor", "black");
 
 		jswStyle jswToggleButtonStyles = panelstyles.makeStyle("jswToggleButton");
 		jswToggleButtonStyles.putAttribute("foregroundColor", "Red");
@@ -107,8 +109,8 @@ public class jswStyles
 		jswStyle pbStyle = panelstyles.makeStyle("jswPushButton");
 		pbStyle.putAttribute("backgroundColor", "#C0C0C0");
 		pbStyle.putAttribute("fontsize", "10");
-
 		pbStyle.putAttribute("foregroundColor", "black");
+		
 		jswStyle greenfont = panelstyles.makeStyle("greenfont");
 		greenfont.putAttribute("foregroundColor", "green");
 		panelstyles.name = "default";

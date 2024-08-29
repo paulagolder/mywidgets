@@ -107,7 +107,7 @@ public class jswTableLayout extends jswLayout
 		}
 	}
 
-	public Dimension maximumLayoutSize(Container parent)
+	public Dimension maximumLayoutSize(Container  parent)
 	{
 		return minimumLayoutSize(parent);
 	}
@@ -148,7 +148,7 @@ public class jswTableLayout extends jswLayout
 	}
 
 	@Override
-	public Dimension preferredLayoutSize(Container parent)
+	public Dimension preferredLayoutSize(Container  parent)
 	{
 		return minimumLayoutSize(parent);
 	}
@@ -362,5 +362,21 @@ public class jswTableLayout extends jswLayout
 		}
 
 	}
+
+/*	@Override
+	public Dimension preferredLayoutSize(Container parent)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Dimension minimumLayoutSize(Container parent)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+*/
+	
 
 }

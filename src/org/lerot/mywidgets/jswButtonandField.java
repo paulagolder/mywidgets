@@ -13,23 +13,30 @@ public class jswButtonandField extends jswHorizontalPanel
 	jswButton actionButton;
 	String command;
 
-	JLabel datafield;
+	jswLabel datafield;
 
 	public jswButtonandField(ActionListener apanel, String label)
 	{
 		command = label + " button";
 		actionButton = new jswButton(apanel, label, command);
 		actionButton.setPreferredSize(new Dimension(200, 30));
-		add(actionButton);
+		add(" MINWIDTH ",actionButton);
 		setPreferredSize(new Dimension(600, 40));
-		datafield = new JLabel(" ");
+		datafield = new jswLabel(" ");
 		datafield.setPreferredSize(new Dimension(400, 30));
 		datafield.setBorder(jswStyle.makeLineBorder());
 		datafield.setFont(new Font("SansSerif", Font.BOLD, 11));
-		datafield.setForeground(Color.black);
+		datafield.setForeground(Color.green);
 		datafield.setBackground(Color.blue);
 		// datafield.setText(jstatGui.projectroot);
 		add("FILLW", datafield);
+		applyStyle();
+	}
+	
+	void applyStyle()
+	{
+		actionButton.applyStyle(); 
+		datafield.applyStyle()	;
 	}
 
 	public String getCommand()

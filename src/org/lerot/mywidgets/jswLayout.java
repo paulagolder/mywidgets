@@ -42,6 +42,8 @@ public abstract class jswLayout implements LayoutManager
 		public boolean hasRight;
 		public int fillw;
 		public int finalwidth;
+		public int bdwidth;
+		public Insets insets;
 
 		public String sysprint()
 		{
@@ -94,6 +96,7 @@ public abstract class jswLayout implements LayoutManager
 	}
 
 	Hashtable<Object, settings> codeTable = new Hashtable<>();
+	private int hgap;
 
 	public void addTag(String tag, Component comp)
 	{
@@ -130,11 +133,33 @@ public abstract class jswLayout implements LayoutManager
 			} else if (tag.startsWith("MINWIDTH", i))
 			{
 				i += 8;
-				nsetting.putBoolean("MINWIDTH", true);
+				if (tag.startsWith("=", i))
+				{
+					i++;
+					n = countDigits(tag, i);
+					varg = parseArg(tag, i, n);
+					i += n;
+					nsetting.putInt("MINWIDTH", varg);
+				} else
+				{
+					varg = -1;
+					break;
+				}
 			} else if (tag.startsWith("MINHEIGHT", i))
 			{
 				i += 9;
-				nsetting.putBoolean("MINHEIGHT", true);
+				if (tag.startsWith("=", i))
+				{
+					i++;
+					n = countDigits(tag, i);
+					varg = parseArg(tag, i, n);
+					i += n;
+					nsetting.putInt("MINHEIGHT", varg);
+				} else
+				{
+					varg = -1;
+					break;
+				}
 
 			} else if (tag.startsWith("WIDTH", i))
 			{
@@ -401,8 +426,8 @@ public abstract class jswLayout implements LayoutManager
 		return num;
 	}
 
-	@Override
-	public abstract Dimension preferredLayoutSize(Container parent);
+
+	//public abstract Dimension preferredLayoutSize(jswPanel  parent);
 
 	/** Remove the specified component from the layout. */
 	@Override
@@ -419,6 +444,25 @@ public abstract class jswLayout implements LayoutManager
 		else
 			return comp.getPreferredSize();
 	}
+
+	protected int getHgap()
+	{
+		return hgap;
+	}
+
+	protected void setHgap(int hgap)
+	{
+		this.hgap = hgap;
+	}
+
+	public Dimension minimumLayoutSize(Component parent)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//public abstract Dimension minimumLayoutSize(jswPanel parent);
+	
 
 
 }

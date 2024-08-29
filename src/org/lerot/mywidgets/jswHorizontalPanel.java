@@ -21,8 +21,8 @@ public class jswHorizontalPanel extends jswContainer
 	public jswHorizontalPanel(String title, boolean border, boolean titledborder)
 	{
 		super(title);
-		setLayout(new jswHorizontalLayout_b());
-		setName(title);
+		setLayout(new jswHorizontalLayout());
+		setPanelname(title);
 		if(titledborder)
 		{
 			setBorder(jswStyle.makecborder(title));
@@ -32,7 +32,7 @@ public class jswHorizontalPanel extends jswContainer
 			//setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));	
 		}else if (border)
 		{
-			setBorder(jswStyle.makeLineBorder(Color.pink, 20));
+			setBorder(jswStyle.makeLineBorder(Color.pink, 2));
 			Border thisborder = getBorder();
 			int thk = ((LineBorder)thisborder).getThickness();
 			this.setPadding(((LineBorder)thisborder).getThickness()+1);

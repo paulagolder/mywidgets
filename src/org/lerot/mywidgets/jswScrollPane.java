@@ -18,7 +18,7 @@ public class jswScrollPane extends jswPanel
 		// setBorder(setLineBorder(Color.red, 4));
 		// jswScrollLayout arlayout = new jswScrollLayout(yshift, xshift, 0, 0);
 		// jswVerticalLayout arlayout = new jswVerticalLayout();// yshift,
-		jswHorizontalLayout_b arlayout = new jswHorizontalLayout_b();
+		jswHorizontalLayout arlayout = new jswHorizontalLayout();
 		// xshift,
 		// 0, 0);
 		this.setLayout(arlayout);
@@ -37,7 +37,7 @@ public class jswScrollPane extends jswPanel
 		// jswRectLayout arlayout = new jswRectLayout();
 		// jswVerticalLayout arlayout = new jswVerticalLayout();
 		// jswScrollLayout arlayout = new jswScrollLayout(0, 0, 0, 0);
-		jswHorizontalLayout_b arlayout = new jswHorizontalLayout_b();
+		jswHorizontalLayout arlayout = new jswHorizontalLayout();
 		// setBorder(setLineBorder(Color.red, 4));
 		this.setLayout(arlayout);
 		// this.setTag("trace");

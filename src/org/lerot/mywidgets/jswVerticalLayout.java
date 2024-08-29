@@ -216,7 +216,7 @@ public class jswVerticalLayout extends jswLayout
 	}
 
 	@Override
-	public Dimension minimumLayoutSize(Container parent)
+	public Dimension minimumLayoutSize(Container  parent)
 	{
 		Insets binsets = new Insets(0, 0, 0, 0);
 		int ncomponents = parent.getComponentCount();
@@ -262,7 +262,7 @@ public class jswVerticalLayout extends jswLayout
 	}
 
 	@Override
-	public Dimension preferredLayoutSize(Container parent)
+	public Dimension preferredLayoutSize(Container  parent)
 	{
 		Insets binsets = new Insets(0, 0, 0, 0);
 		int ncomponents = parent.getComponentCount();
@@ -305,4 +305,22 @@ public class jswVerticalLayout extends jswLayout
 		helpstring[1] = "line 2";
 		return helpstring;
 	}
+
+/*	@Override
+	public Dimension preferredLayoutSize(Container parent)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Dimension minimumLayoutSize(Container parent)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+*/
+	
+
+	
 }

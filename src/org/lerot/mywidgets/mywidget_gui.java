@@ -48,18 +48,21 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		// mwdefstyles.copyStyles(defstyles);
 		// apanel.setStyles(mwdefstyles);
 		jswVerticalPanel mainpanel = new jswVerticalPanel();
+		jswHorizontalPanel panel1 = new jswHorizontalPanel("Panel1", true,true);
 
 		// ====start of panel1===
 
+
 		jswTabbedPanel tabbedpanel1 = new jswTabbedPanel("tabbed panel 1");
 		jswHorizontalPanel panel1a = new jswHorizontalPanel("Panel 1 A", true,true);
-		panel1a.setBackground(Color.pink);
-	
+		//panel1a.setBackground(Color.pink);
 		jswButton button1 = new jswButton(this, "button_1");
-		button1.setBorder(jswStyle.makeLineBorder(Color.blue,2));
-		button1.applyStyle();
+		//button1.setBorder(jswStyle.makeLineBorder(Color.blue,2));
+		//button1.applyStyle();
 		jswTextField textbox1 = new jswTextField(this,"textbox_1");
 		textbox1.addActionListener(this);
+		textbox1.setBackground(Color.pink);
+		textbox1.applyStyle();
 		jswDropDownBox dropdownbox1 = new jswDropDownBox(this, "dropdownbox 1");
 		Vector<String> list = new Vector<>();
 		list.add("LEFT");
@@ -67,69 +70,80 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		list.add("RIGHT");
 		dropdownbox1.setList(list);
 		jswLabel label2 = new jswLabel("Label 2");
+		label2.style.setFontsize(18);
+		label2.applyStyle();
 		panel1a.add((Component) button1);
-		panel1a.add(" WIDTH=100 ", (Component) textbox1);
+		panel1a.add(" WIDTH=100 ", textbox1);
 		panel1a.add(" ", (Component) dropdownbox1);
 		panel1a.add(" FILLW ", (Component) label2);
 
 		panel1a.repaint();
-		tabbedpanel1.addTab("TAB 1 A", (jswPanel) panel1a);
-		mainpanel.add(" FILLW  ", (Component) tabbedpanel1);
+
+	
+		
 		jswHorizontalPanel panel1b = new jswHorizontalPanel("Panel 1B", true,true);
-		panel1b.setBackground(Color.lightGray);
-
-
+		//panel1b.setBackground(Color.lightGray);
 		jswOptionset optionset = new jswOptionset(this,"option list 1", false);
-
 		jswOption ro = optionset.addNewOption("red", true);
 		ro.doStyling(mwdefstyles.getStyle("redoption"));
 		jswOption bo = optionset.addNewOption("blue", true);
 		bo.doStyling(mwdefstyles.getStyle("blueoption"));
 		jswOption go = optionset.addNewOption("green", true);
 		go.doStyling(mwdefstyles.getStyle("greenoption"));
-
-		panel1b.add((Component) optionset);
+		panel1b.add("  ",optionset);
 		jswPushButtonset pushbuttonset = new jswPushButtonset(this, "my button list", false, true);
+		pushbuttonset.getStyle().putAttribute("distribute",true);
 		jswPushButton rb = pushbuttonset.addNewOption("red");
-		rb.doStyling(mwdefstyles.getStyle("redbutton"));
+		//rb.applyStyle(mwdefstyles.getStyle("redbutton"));
 		jswPushButton bb = pushbuttonset.addNewOption("blue");
-		bb.doStyling(mwdefstyles.getStyle("bluebutton"));
+		//bb.applyStyle(mwdefstyles.getStyle("bluebutton"));
 		jswPushButton gb = pushbuttonset.addNewOption("green");
-		gb.doStyling(mwdefstyles.getStyle("greenbutton"));
-
-		panel1b.add((Component) pushbuttonset);
-
+		//gb.applyStyle(mwdefstyles.getStyle("greenbutton"));
+		//panel1b.add((Component) pushbuttonset);
+		panel1b.add(" WIDTH=400 ",pushbuttonset);
 		jswButton buttonl = new jswButton(this, "large button");
 		buttonl.applyStyle(mwdefstyles.getStyle("largebutton"));
 		jswButton buttonm = new jswButton(this, "medium button");
 		buttonm.applyStyle(mwdefstyles.getStyle("mediumbutton"));
 		jswButton buttons = new jswButton(this, "small");
 		buttons.applyStyle(mwdefstyles.getStyle("smallbutton"));
-
 		panel1b.add(" ", (Component) buttonl);
 		panel1b.add((Component) buttonm);
 		panel1b.add((Component) buttons);
-
-		tabbedpanel1.addTab("TAB 1 B", (jswPanel) panel1b);
-
+		
+	
 		jswHorizontalPanel panel1c = new jswHorizontalPanel("Panel 1C", true,true);
-		panel1c.setBackground(Color.orange);
 		jswThumbwheel thumbwheel = new jswThumbwheel(this, "thumbwheel 1", 5, 10);
-		panel1c.add((Component) thumbwheel);
+		panel1c.add(" ",(Component) thumbwheel);
 		jswCheckbox checkbox1 = new jswCheckbox(this, "my checkbox");
-		panel1c.add((Component) checkbox1);
+		panel1c.add(" ",(Component) checkbox1);
 		jswToggleButton togglebutton1 = new jswToggleButton(this, "my toggle", "togglebutton1");
-		panel1c.add((Component) togglebutton1);
-		jswTextBox textfield1 = new jswTextBox(" ");
-		textfield1.addActionListener(this);
-		tabbedpanel1.addTab("TAB 1 C", (jswPanel) panel1c);
+		panel1c.add(" ",(Component) togglebutton1);
+		jswTextBox textfield1 = new jswTextBox(this," ");
+		textfield1.addActionListener(this);	
+		
+
 		jswHorizontalPanel panel1d = new jswHorizontalPanel("Panel 1D", true,true);
-
-		jswButtonandTextBox button1d = new jswButtonandTextBox(this, "my button");
-
-		panel1d.add(" FILLW ",(Component) button1d);
-
+		jswButton button1d = new jswButton(this, "mybandtb");
+		panel1d.add(" MINIMUM ",(Component) button1d);
+		jswTextBox tb1d = new jswTextBox(this, "mybandtb");
+		panel1d.add(" FILLW ",(Component) tb1d);
+		
+		tabbedpanel1.addTab("TAB 1 A", (jswPanel) panel1a);
+		tabbedpanel1.addTab("TAB 1 B", (jswPanel) panel1b);
+		tabbedpanel1.addTab("TAB 1 C", (jswPanel) panel1c);
 		tabbedpanel1.addTab("TAB 1 D", (jswPanel) panel1d);
+		
+		panel1.add( "FILLW ",tabbedpanel1);
+		
+	//	mainpanel.add("TAB 1 A", (jswPanel) panel1a);
+		
+		mainpanel.add(" FILLW  ", panel1);
+	//	mainpanel.add( "FILLW ",tabbedpanel1);
+	
+		//mainpanel.add("TAB 1 C", (jswPanel) panel1c);	
+		
+	//	mainpanel.add("TAB 1 B", (jswPanel) panel1b);
 		// ====end of panel1===
 
 		// ====start of panel2===
@@ -151,11 +165,11 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		panel2.add(" width=80 ", (Component) optionseta);
 		jswPushButtonset pushbuttonseta = new jswPushButtonset(this, "my button list", true, true);
 		jswPushButton pbr = pushbuttonseta.addNewOption("red");
-		pbr.doStyling(mwdefstyles.getStyle("redbutton"));
+		pbr.applyStyle(mwdefstyles.getStyle("redbutton"));
 		jswPushButton pbb = pushbuttonseta.addNewOption("blue");
-		pbb.doStyling(mwdefstyles.getStyle("bluebutton"));
+		pbb.applyStyle(mwdefstyles.getStyle("bluebutton"));
 		jswPushButton pbg = pushbuttonseta.addNewOption("green");
-		pbg.doStyling(mwdefstyles.getStyle("greenbutton"));
+		pbg.applyStyle(mwdefstyles.getStyle("greenbutton"));
 
 		panel2.add((Component) pushbuttonseta);
 		this.textarea = new jswTextArea("some input", true);
@@ -167,13 +181,14 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
 		// ====start of panel3==
 		jswHorizontalPanel panel3 = new jswHorizontalPanel("Panel 3", true,true);
-		panel3.addStyle("backgroundColor", "green");
+		panel3.setBackground(Color.green);
+		//panel3.applyStyle();
 
 		mainpanel.add(" FILLH MAXHEIGHT=200   ", (Component) panel3);
 		jswPanel treepanel = makeTreeExample();
 		jswTextArea textarea3 = new jswTextArea("textarea3");
 
-		String[] hhelp = jswHorizontalLayout_b.help();
+		String[] hhelp = jswHorizontalLayout.help();
 
 		textarea3.setText(hhelp);
 
@@ -309,7 +324,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 	{
 
 		jswStyles defstyles = new jswStyles("default");
-		jswStyle defaultstyle = defstyles.makeStyle("default");
+	/*	jswStyle defaultstyle = defstyles.makeStyle("default");
 		defaultstyle.putAttribute("backgroundColor", "#C0C0C0");
 		defaultstyle.putAttribute("boxbackgroundColor", "pink");
 		defaultstyle.putAttribute("foregroundColor", "#6b6a6a");
@@ -317,7 +332,8 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		defaultstyle.setFontsize(jswStyles.font_large);
 		defaultstyle.putAttribute("borderColor", "#909090");
 		defaultstyle.putAttribute("cellborderWidth", "1");
-		defaultstyle.putAttribute("cellborderColor", "#909090");
+		defaultstyle.putAttribute("cellborderColor", "#909090");*/
+		
 		jswStyle lstyle = defstyles.makeStyle("largebutton");
 		lstyle.setFontsize(jswStyles.font_large);
 		lstyle.setFontstyle(Font.BOLD);
@@ -325,10 +341,21 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		lstyle.setBackgroundcolor("PINK");
 		lstyle.setMyHeight(40);
 		lstyle.setMyWidth(80);
+		
+		jswStyle mstyle = defstyles.makeStyle("mediumbutton");
+		mstyle.setFontsize(jswStyles.font_medium);
+		mstyle.setFontstyle(Font.ITALIC);
+		mstyle.setBackgroundcolor("yellow");
+		mstyle.setMyHeight(30);
+		mstyle.setMyWidth(60);
 
-		jswStyle ostyle = defstyles.makeStyle("jswOption");
-		ostyle.putAttribute("foregroundColor", "black");
-		ostyle.putAttribute("backgroundColor", "transparent");
+		jswStyle sstyle = defstyles.makeStyle("smallbutton");
+		sstyle.setFontsize(jswStyles.font_small);
+		sstyle.setBackgroundcolor("green");
+		sstyle.setMyHeight(20);
+		sstyle.setMyWidth(40);
+
+		
 
 		jswStyle rolstyle = defstyles.makeStyle("optionset");
 		rolstyle.putAttribute("backgroundColor", "#e0ffde");
@@ -357,19 +384,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		jswStyle gbstyle = defstyles.makeStyle("greenbutton");
 		gbstyle.putAttribute("backgroundColor", "green");
 
-		jswStyle mstyle = defstyles.makeStyle("mediumbutton");
-		mstyle.setFontsize(jswStyles.font_medium);
-		mstyle.setFontstyle(Font.ITALIC);
-		mstyle.setBackgroundcolor("yellow");
-		mstyle.setMyHeight(30);
-		mstyle.setMyWidth(60);
 
-		jswStyle sstyle = defstyles.makeStyle("smallbutton");
-		sstyle.setFontsize(jswStyles.font_small);
-		sstyle.setBackgroundcolor("green");
-		mstyle.setMyHeight(20);
-		mstyle.setMyWidth(40);
-		jswStyle tastyle = defstyles.makeStyle("jswTextArea");
+		
+		/*jswStyle tastyle = defstyles.makeStyle("jswTextArea");
 		tastyle.setFontsize(jswStyles.font_small);
 		tastyle.putAttribute("boxbackgroundColor", "#EFE5E5");
 
@@ -381,9 +398,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		labstyle.setFontsize(jswStyles.font_small);
 		labstyle.putAttribute("backgroundColor", "TRANSPARENT");
 		labstyle.putAttribute("boxbackgroundColor", "TRANSPARENT");
-
 		labstyle.putAttribute("borderWidth", "0");
-
 		labstyle.putAttribute("cellborderWidth", "0");
 
 		jswStyle cbstyle = defstyles.makeStyle("jswCheckbox");
@@ -394,7 +409,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		jswStyle twstyle = defstyles.makeStyle("jswThumbwheel");
 		twstyle.setFontsize(jswStyles.font_small);
 		twstyle.putAttribute("backgroundColor", "TRANSPARENT");
-		twstyle.putAttribute("boxbackgroundColor", "TRANSPARENT");
+		twstyle.putAttribute("boxbackgroundColor", "TRANSPARENT");*/
 		return defstyles;
 	}
 

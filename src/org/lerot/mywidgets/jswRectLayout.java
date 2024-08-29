@@ -102,7 +102,7 @@ public class jswRectLayout extends jswLayout
 	}
 
 	@Override
-	public Dimension preferredLayoutSize(Container parent)
+	public Dimension preferredLayoutSize(Container  parent)
 	{
 		Insets binsets = new Insets(0, 0, 0, 0);
 		parent.getComponentCount();
@@ -121,5 +121,14 @@ public class jswRectLayout extends jswLayout
 				- binsets.left - binsets.right - shifts.width;
 		return new Dimension(prefwidth, prefheight);
 	}
+
+	
+
+/*	@Override
+	public Dimension minimumLayoutSize(jswPanel parent)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}*/
 
 }

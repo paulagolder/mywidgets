@@ -137,7 +137,7 @@ public class jswScrollLayout extends jswLayout
 	}
 
 	@Override
-	public Dimension preferredLayoutSize(Container parent)
+	public Dimension preferredLayoutSize(Container   parent)
 	{
 		Insets binsets = new Insets(0, 0, 0, 0);
 		parent.getComponentCount();
@@ -160,5 +160,19 @@ public class jswScrollLayout extends jswLayout
 				- binsets.left - binsets.right - shifts.width;
 		return new Dimension(prefwidth, prefheight);
 	}
+
+/*	@Override
+	public Dimension preferredLayoutSize(Container parent)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Dimension minimumLayoutSize(Container parent)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}*/
 
 }

@@ -1,5 +1,6 @@
 package org.lerot.mywidgets;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,45 +9,33 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
-public class jswDropDownBox extends jswHorizontalPanel
+public class jswDropDownBox extends jswPanel
 {
 
 	private static final long serialVersionUID = 1L;
 	JComboBox<String> datalist;
-	JLabel label;
 	DefaultComboBoxModel<String> listModel;
-
-	public jswDropDownBox(String inLabel, boolean haslabel, boolean hasborder)
+    boolean hasborder;
+    int bl= 100;
+    int bh= 30;
+    
+	public jswDropDownBox(String inLabel, boolean haslabel, boolean ahasborder)
 	{
-
-		super(inLabel,hasborder, haslabel);
-
-		if (haslabel)
-		{
-			label = new JLabel();
-			label.setText(inLabel);
-			add("LEFT", label);
-			label.setFont(new Font("SansSerif", Font.BOLD, 12));
-		}
+		super(inLabel);
+		setAlignmentX(Component.LEFT_ALIGNMENT);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        hasborder = ahasborder;	
 		listModel = new DefaultComboBoxModel<>();
 		datalist = new JComboBox<>(listModel);
-		datalist.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		datalist.setPreferredSize(new Dimension(100, 30));
 		datalist.addActionListener(this);
-
 		setName(inLabel);
-		if (hasborder)
-		{
-			if (haslabel) setBorder(jswStyle.makeLineBorder());
-			else
-				setBorder(jswStyle.makecborder(inLabel));
-		} else
-			setBorder(jswStyle.makeborder());
-		add("FILLW", datalist);
+		applyStyle();
+		add( datalist);
 
 	}
 
@@ -63,6 +52,28 @@ public class jswDropDownBox extends jswHorizontalPanel
 	}
 
 
+	public void applyStyle(jswStyle style)
+	{	
+		
+		datalist.setFont(style.getFont());	
+		int wd =style.getIntegerStyle("mywidth",bl);
+		if(wd > bl) bl= wd;
+		int ht =style.getIntegerStyle( "myheight",bh);
+		if(ht > bh ) bh=ht;
+		Dimension d = new Dimension(bl, bh);
+		datalist.setPreferredSize(d);
+		datalist.setMaximumSize(d);
+		datalist.setMinimumSize(d);
+		setBackground(jswStyle.TRANSPARENT);
+		setPreferredSize(d);
+		setMaximumSize(d);
+		setMinimumSize(d);		
+	}
+
+	
+	
+	
+	
 	public int getItemCount()
 	{
 		return datalist.getItemCount();
@@ -79,7 +90,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 	    mess = getSelectedValue();
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, label+":"+mess);
+		ActionEvent event = new ActionEvent(this, uniqueId, getName()+":"+mess);
 		actionlistener.actionPerformed(event);
 	}
 	
@@ -132,10 +143,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 	{
 		Dimension d1 = datalist.getPreferredSize();
 		Dimension d2 = new Dimension(0, 0);
-		if (label != null)
-		{
-			d2 = label.getPreferredSize();
-		}
+		
 		int width = d1.width + d2.width;
 		int height = d1.height;
 		if (d2.height > height) height = d2.height;
@@ -160,7 +168,7 @@ public class jswDropDownBox extends jswHorizontalPanel
 	@Override
 	public void setEnabled(boolean e)
 	{
-		label.setEnabled(e);
+		//label.setEnabled(e);
 		datalist.setEnabled(e);
 	}
 

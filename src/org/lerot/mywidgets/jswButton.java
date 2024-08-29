@@ -15,7 +15,7 @@ public class jswButton extends jswPanel implements ActionListener
 
 	private static final long serialVersionUID = 1L;
 	JButton button;
-	int bh=16;
+	int bh=30;
 	int bl=30;
 	public jswButton(ActionListener al, String label)
 	{
@@ -28,13 +28,6 @@ public class jswButton extends jswPanel implements ActionListener
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		button = new JButton(label);
-		button.setFont(new Font("SansSerif", Font.BOLD, 9));
-		int l = label.length() * 8 + 30;
-		if(l>bl)bl=l;
-		Dimension d = new Dimension(l, 16);
-		button.setPreferredSize(d);
-		button.setMaximumSize(d);
-		button.setMinimumSize(d);
 		button.addActionListener(this);
 		actionlistener = al;
 		button.setActionCommand(command);
@@ -44,11 +37,14 @@ public class jswButton extends jswPanel implements ActionListener
 	}
 
 	@Override
-	void applyStyle()
+	void applyStyle(jswStyle style)
 	{	
-			
+		//button.setFont(new Font("SansSerif", Font.BOLD, 9));
+		int l = button.getText().length() * 8 + 30;
+		if(l>bl)bl=l;	
 		button.setFont(style.getFont());
-		button.setBackground(style.getBackgroundcolor());
+	//	button.setBackground(style.getBackgroundcolor());
+		button.setBackground(style.defaultwidgetcolor);
 		button.setForeground(style.getForegroundcolor());
 		button.setBorder(style.getBorder());
 		int wd =style.getIntegerStyle("mywidth",bl);
@@ -59,7 +55,12 @@ public class jswButton extends jswPanel implements ActionListener
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
-		button.setPreferredSize(d);
+		setBackground(jswStyle.TRANSPARENT);
+		//setBackground(style.getBackgroundcolor());
+		setPreferredSize(d);
+		setMaximumSize(d);
+		setMinimumSize(d);
+		//setBorder(jswStyle.makeLineBorder(Color.green, 4));
 	}
 
 	

@@ -1,5 +1,7 @@
 package org.lerot.mywidgets;
 
+import java.awt.Component;
+import javax.swing.BoxLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeListener;
 
@@ -12,24 +14,22 @@ public class jswTabbedPanel extends jswPanel
 	public jswTabbedPanel(String name)
 	{
 		super(name);
+		setAlignmentX(Component.LEFT_ALIGNMENT);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		tabs = new JTabbedPane();
 		this.setEnabled(true);
 		tabs.setEnabled(true);
 		tabs.setVisible(true);
 		this.setVisible(true);
-		add(" FILLW ", tabs);
+		this.setBorder(jswStyle.makeLineBorder());
+		//add(" FILLW ", tabs);
+		add( tabs);
 	}
 
 
 	public jswTabbedPanel()
 	{
-		super("tabbedpane");
-		tabs = new JTabbedPane();
-		this.setEnabled(true);
-		tabs.setEnabled(true);
-		tabs.setVisible(true);
-		this.setVisible(true);
-		add(" FILLW ", tabs);
+		this("tabbedpane");
 	}
 
 	public void addTab(String name, jswPanel apanel)

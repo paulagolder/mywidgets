@@ -23,45 +23,19 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 
 	private static final long serialVersionUID = 1L;
 	int mheight = 60;
-	// JCheckBox check;
 	JSpinner value;
 	int currentvalue=-1;
 	ActionListener al=null;
-
-	public jswThumbwheel(String text, int inmin, int inmax)
-	{
-		super(text);
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		// check = new JCheckBox(text);
-		// check.setSelected(false);
-		// add(check);
-		JLabel label = new JLabel("    " + text);
-		add(label);
-		int width = text.length() * 12 + 60;
-		value = new JSpinner();
-		Integer current = inmin;
-		Integer min = inmin;
-		Integer max = inmax;
-		Integer step =1;
-		SpinnerNumberModel m_numberSpinnerModel = new SpinnerNumberModel(
-				current, min, max, step);
-		value = new JSpinner(m_numberSpinnerModel);
-		value.setMaximumSize(new Dimension(60, 30));
-
-		value.setValue(inmax);
-	    value.addChangeListener(this);
-		add(value);
-		setMinimumSize(new Dimension(width, 42));
-	}
+	private JLabel label;
+	int bh=30;
+	int bl=30;
+	
 	
 	public jswThumbwheel(ActionListener cl,String text, int inmin, int inmax)
 	{
 		super(text);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		// check = new JCheckBox(text);
-		// check.setSelected(false);
-		// add(check);
-		JLabel label = new JLabel("    " + text);
+		label = new JLabel("    " + text);
 		add(label);
 		int width = text.length() * 12 + 60;
 		value = new JSpinner();
@@ -78,7 +52,33 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 		value.addChangeListener(this);
 		al = cl;
 		setMinimumSize(new Dimension(width, 42));
+		applyStyle();
 	}
+	
+
+	@Override
+	void applyStyle(jswStyle style)
+	{	
+		//button.setFont(new Font("SansSerif", Font.BOLD, 9));
+		//int l = label.getText().length() * 8 + 30;
+		int l = label.getText().length() * 12 ;
+		if(l>bl)bl=l;	
+		label.setFont(style.getFont());
+		label.setBackground(jswStyle.defaultwidgetcolor);
+		label.setForeground(style.getForegroundcolor());
+		value.setBackground(jswStyle.defaultwidgetcolor);
+		value.setForeground(style.getForegroundcolor());
+
+		setBorder(style.getBorder());
+		setBackground(jswStyle.TRANSPARENT);
+		Dimension d = new Dimension(bl,42);
+		//setBackground(style.getBackgroundcolor());
+		setPreferredSize(d);
+		setMaximumSize(d);
+		setMinimumSize(d);
+		//setBorder(jswStyle.makeLineBorder(Color.green, 4));
+	}
+
 
 	public void addChangeListener(ChangeListener cl)
 	{

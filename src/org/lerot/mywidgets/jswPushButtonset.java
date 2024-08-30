@@ -1,13 +1,9 @@
 package org.lerot.mywidgets;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 //import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 
 public class jswPushButtonset extends jswPanel implements ActionListener
@@ -24,7 +20,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	private boolean vertical;
 
 	public jswPushButtonset(ActionListener parentListener, String name,
-			boolean isvertical, boolean border)
+			boolean isvertical, boolean border, boolean titledborder)
 	{
 		super("PBS:" + name);
 		commandroot = name;
@@ -43,11 +39,28 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 			setLayout(new jswVerticalLayout());
 		}
 
-		style.setBorderWidth(1);
+		if(titledborder)
+		{
+			style.setBorderStyle(jswStyle.TITLEDBORDER);
+		}else if (border)
+		{
+			style.setBorderStyle(jswStyle.LINEBORDER);
+		}
+		else
+		{
+			style.setBorderStyle(jswStyle.NOBORDER);
+		}
 		bg = new ButtonGroup();
 		options = new jswPushButton[10];
 		setName(name);
 		applyStyle();
+	}
+	
+
+	public jswPushButtonset(ActionListener parentListener, String name,
+			boolean isvertical, boolean hasborder)
+	{
+		this(parentListener,name,isvertical,hasborder,false);
 	}
 
 	public void applyStyle(jswStyle style)
@@ -55,7 +68,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		padding = style.getIntegerStyle("padding",padding);
 		padding = 20;
 		setBackground(style.getBackgroundcolor());
-		setBorder(style.getBorder());
+		setPanelBorder();
 			
 	}
 

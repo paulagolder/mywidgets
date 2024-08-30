@@ -30,7 +30,6 @@ public class jswVerticalLayout extends jswLayout
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public void layoutContainer(Container parent)
 	{
 

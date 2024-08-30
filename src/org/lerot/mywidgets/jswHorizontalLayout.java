@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import javax.swing.JComponent;
 import javax.swing.border.Border;
-import org.lerot.mywidgets.jswLayout.settings;
 
 public class jswHorizontalLayout extends jswLayout
 {
@@ -95,7 +94,7 @@ public class jswHorizontalLayout extends jswLayout
 				 * if (s.isTrue("FILLH")) { clayout[j].fillh = s.getInteger("FILLH");
 				 * clayout[j].minheight = d.height; }
 				 */
-            ;
+            
                      clayout[j].minwidth = d.width +  clayout[j].bdwidth;
        
 				clayout[j].minheight = d.height;

@@ -1,9 +1,7 @@
 package org.lerot.mywidgets;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
@@ -44,7 +42,7 @@ public class jswButton extends jswPanel implements ActionListener
 		if(l>bl)bl=l;	
 		button.setFont(style.getFont());
 	//	button.setBackground(style.getBackgroundcolor());
-		button.setBackground(style.defaultwidgetcolor);
+		button.setBackground(jswStyle.defaultwidgetcolor);
 		button.setForeground(style.getForegroundcolor());
 		button.setBorder(style.getBorder());
 		int wd =style.getIntegerStyle("mywidth",bl);

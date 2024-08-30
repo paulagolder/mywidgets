@@ -3,8 +3,6 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
@@ -56,7 +54,7 @@ public class jswToggleButton extends jswPanel implements ActionListener, ChangeL
 		
 	
 	    button.setFont(style.getFont());
-		button.setBackground(style.defaultwidgetcolor);
+		button.setBackground(jswStyle.defaultwidgetcolor);
 		
 		button.setForeground(style.getForegroundcolor());
 		button.setBorder(style.getBorder());
@@ -68,6 +66,7 @@ public class jswToggleButton extends jswPanel implements ActionListener, ChangeL
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
+		setBackground(jswStyle.TRANSPARENT);
 		setPreferredSize(d);
 		setMaximumSize(d);
 		setMinimumSize(d);

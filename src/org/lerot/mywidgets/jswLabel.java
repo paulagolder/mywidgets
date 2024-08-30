@@ -39,9 +39,10 @@ public class jswLabel extends jswPanel
 	{	
 				label.setFont(style.getFont());
 				label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-				label.setBackground(style.getColor("backgroundColor", Color.white));
+				label.setBackground( style.getColor("backgroundColor",jswStyle.TRANSPARENT));
 				//label.setBorder(jswStyle.makeLineBorder(Color.red, 1));
-				setBorder(jswStyle.makeLineBorder(Color.green, 4));
+				label.setBorder(style.getBorder());
+				setBackground(jswStyle.TRANSPARENT);
 	}
 	
 	

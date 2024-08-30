@@ -3,7 +3,7 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Insets;
+import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -18,6 +18,12 @@ public class jswHorizontalPanel extends jswContainer
 		this("HP:",true,false);
 	}
 
+	public jswHorizontalPanel(String title, boolean border)
+	{
+		this(title,border,false);
+	}
+
+	
 	public jswHorizontalPanel(String title, boolean border, boolean titledborder)
 	{
 		super(title);
@@ -25,24 +31,30 @@ public class jswHorizontalPanel extends jswContainer
 		setPanelname(title);
 		if(titledborder)
 		{
-			setBorder(jswStyle.makecborder(title));
-			//Insets pad = getBorderOffset();
-			this.setPadding(20,5,5,5);
-			//setBorder(BorderFactory.createEmptyBorder(pad.top, pad.left, pad.bottom, pad.right));	
-			//setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));	
+			style.setBorderStyle(jswStyle.TITLEDBORDER);
 		}else if (border)
 		{
-			setBorder(jswStyle.makeLineBorder(Color.pink, 2));
-			Border thisborder = getBorder();
-			int thk = ((LineBorder)thisborder).getThickness();
-			this.setPadding(((LineBorder)thisborder).getThickness()+1);
+			style.setBorderStyle(jswStyle.LINEBORDER);
 		}
 		else
 		{
-			setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			style.setBorderStyle(jswStyle.NOBORDER);
 		}
+		
+		applyStyle();
 	}
 
+	
+	 void applyStyle(jswStyle astyle)
+	{
+		
+		Font sfont = astyle.getFont();
+		this.setFont(sfont);
+		this.setPanelBorder();
+		this.setForeground(astyle.getColor("foregroundColor", Color.BLACK));
+		this.setBackground(astyle.getColor("backgroundColor", Color.green));
+		
+	}
 	
 
 	public void addComponent(jswPanel c)

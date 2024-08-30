@@ -9,7 +9,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
@@ -58,15 +57,22 @@ public class jswStyle
 		return new Color(0, 0, 0, 0);
 	}
 
+	static  int LINEBORDER = 1;
+	 static  int NOBORDER =0;
+	 static int TITLEDBORDER = 2;
+	
+	
 	private String defaultfontname;
 	private int defaultfontsize;
 	private int defaultfontstyle;
 	private String stylename="anon";
 	private Color defaultbackgroundcolor;
 	static Color defaultwidgetcolor;
+	static Color defaulttextboxcolor;
 	static Color TRANSPARENT;
 
 	Map<String, String> styles = new HashMap<>();
+	
 
 
 	public jswStyle()
@@ -76,6 +82,7 @@ public class jswStyle
 		defaultfontsize = 12;
 		defaultbackgroundcolor = new Color(0,0,0,125);
 		defaultwidgetcolor = new Color(200,240,240);
+		defaulttextboxcolor = new Color(240,200,200);
 		TRANSPARENT = new  Color(0,0,0,0);
 	}
 
@@ -320,6 +327,13 @@ public class jswStyle
 		putAttribute("borderWidth", (Integer.toString(border)));
 
 	}
+	
+	public void setBorderStyle(int border)
+	{
+       if(border< 0 || border > 2 ) border=0;
+		putAttribute("borderStyle", (Integer.toString(border)));
+
+	}
 
 	public void setColspan(int colspan)
 	{
@@ -479,9 +493,15 @@ public class jswStyle
 		if(borderwidth > 0) return true;
 		return false;
 	}
+	
 	int getBorderWidth()
 	{
 		return getIntegerStyle("borderWidth", 0);
+	}
+	
+	int getBorderStyle()
+	{
+		return getIntegerStyle("borderStyle", 0);
 	}
 
 	

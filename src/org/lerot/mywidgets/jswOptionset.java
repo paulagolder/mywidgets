@@ -2,12 +2,11 @@ package org.lerot.mywidgets;
 
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 //import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BoxLayout;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 
 public class jswOptionset extends jswPanel implements ActionListener
@@ -17,59 +16,56 @@ public class jswOptionset extends jswPanel implements ActionListener
 	ButtonGroup bg;
 	int no = 0;
 	jswOption[] options;
-
+	int padding = 10;
 	String commandroot;
 
 
-	public jswOptionset(ActionListener parentListener,String name, boolean isvertical)
+	public jswOptionset(ActionListener parentListener,String name, boolean isvertical,boolean border, boolean titledborder)
 	{
 		super(name);
 		commandroot = name;
 		actionlistener = parentListener;
+
 		if (!isvertical)
 		{
-			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			setAlignmentY(Component.TOP_ALIGNMENT);
+			setLayout(new jswHorizontalLayout());
 		} else
 		{
-			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-			setAlignmentX(Component.LEFT_ALIGNMENT);
+			setLayout(new jswVerticalLayout());
 		}
-		this.setBorder(jswStyle.makeLineBorder());
-		setBorder(jswStyle.makecborder(name));
+		
+		if(titledborder)
+		{
+			style.setBorderStyle(jswStyle.TITLEDBORDER);
+		}else if (border)
+		{
+			style.setBorderStyle(jswStyle.LINEBORDER);
+		}
+		else
+		{
+			style.setBorderStyle(jswStyle.NOBORDER);
+		}
 		bg = new ButtonGroup();
 		options = new jswOption[10];
 		setName(name);
+		applyStyle();
+	}
+	
+	public jswOptionset(ActionListener parentListener,String name, boolean isvertical,boolean border)
+	{
+	  this (parentListener,name,isvertical,border,false);
+	}
+
+	public void applyStyle(jswStyle style)
+	{			
+		padding = style.getIntegerStyle("padding",padding);
+		padding = 20;
+		setBackground(style.getBackgroundcolor());
+		setPanelBorder();
+			
 	}
 
 
-/*	public jswOptionset(String name, boolean isvertical, boolean border)
-
-	{
-		super(name);
-		if (!isvertical)
-		{
-			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			setAlignmentY(Component.TOP_ALIGNMENT);
-
-		} else
-		{
-			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-			setAlignmentX(Component.LEFT_ALIGNMENT);
-		}
-		if (border)
-		{
-			this.setBorder(jswStyle.makeLineBorder());
-			setBorder(jswStyle.makecborder(name));
-		} else
-		{
-
-		}
-		bg = new ButtonGroup();
-		options = new jswOption[10];
-		setName(name);
-
-	}*/
 
 
 	@Override

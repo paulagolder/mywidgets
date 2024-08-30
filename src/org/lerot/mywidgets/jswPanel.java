@@ -8,13 +8,10 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 
 public abstract class jswPanel extends JPanel  implements ActionListener
@@ -48,6 +45,7 @@ public abstract class jswPanel extends JPanel  implements ActionListener
 		style.overlay(basestyle);
 }
 
+   
 	
 	public Insets getPadding() {
 	     return padding;
@@ -90,6 +88,28 @@ public abstract class jswPanel extends JPanel  implements ActionListener
 		this.setBackground(astyle.getColor("backgroundColor", Color.green));
 		
 	}
+	
+	 void setPanelBorder()
+	 {
+		 int bs = style.getBorderStyle();
+		 if( bs== jswStyle.TITLEDBORDER)
+		 {
+			 setBorder(jswStyle.makecborder(panelname));
+			 this.setPadding(20,5,5,5);;
+		 }else if ( bs== jswStyle.LINEBORDER)
+		 {
+				setBorder(jswStyle.makeLineBorder(Color.pink, 2));
+				Border thisborder = getBorder();
+				int thk = ((LineBorder)thisborder).getThickness();
+				this.setPadding(((LineBorder)thisborder).getThickness()+1);
+		 }else
+		 {
+			 setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			 
+		 }
+		 
+		 
+	 }
 	
 	
 	

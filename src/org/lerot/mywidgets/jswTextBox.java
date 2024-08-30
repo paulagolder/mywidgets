@@ -3,14 +3,12 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class jswTextBox extends jswPanel implements ComponentListener
@@ -46,7 +44,7 @@ public class jswTextBox extends jswPanel implements ComponentListener
 
 		textbox.setFont(style.getFont());
 		textbox.setForeground(style.getColor("foregroundColor",	Color.BLACK));
-		textbox.setBackground(Color.pink);
+		textbox.setBackground(jswStyle.defaulttextboxcolor);
 		int wd =style.getIntegerStyle("mywidth",bl);
 		if(wd > bl) bl= wd;
 		int ht =style.getIntegerStyle( "myheight",bh);

@@ -5,10 +5,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JToggleButton;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -58,6 +60,8 @@ public class jswToggleButton extends jswPanel implements ActionListener, ChangeL
 		
 		button.setForeground(style.getForegroundcolor());
 		button.setBorder(style.getBorder());
+		Border  bborder = BorderFactory.createRaisedBevelBorder();
+		button.setBorder(bborder);
 		int wd =style.getIntegerStyle("mywidth",bl);
 		if(wd > bl) bl= wd;
 		int ht =style.getIntegerStyle( "myheight",bh);

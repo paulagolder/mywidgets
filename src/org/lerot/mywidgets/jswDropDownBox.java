@@ -5,12 +5,17 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
+import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+//import org.json.JSONObject;
 
 public class jswDropDownBox extends jswPanel
 {
@@ -30,12 +35,30 @@ public class jswDropDownBox extends jswPanel
         hasborder = ahasborder;	
 		listModel = new DefaultComboBoxModel<>();
 		datalist = new JComboBox<>(listModel);
-		datalist.addActionListener(this);
+	//	datalist.addActionListener(this);
 		setName(inLabel);
 		applyStyle();
 		add( datalist);
 
+
+	
+	listModel.addListDataListener(new MyListDataListener());
 	}
+
+	class MyListDataListener implements ListDataListener {
+	    public void contentsChanged(ListDataEvent e) {
+	        System.out.println("contentsChanged: " + e.getIndex0() +
+		           ", " + e.getIndex1() );
+	    }
+	    public void intervalAdded(ListDataEvent e) {
+	    	System.out.println("intervalAdded: " + e.getIndex0() +
+		           ", " + e.getIndex1() );
+	    }
+	    public void intervalRemoved(ListDataEvent e) {
+	    	System.out.println("intervalRemoved: " + e.getIndex0() +
+		           ", " + e.getIndex1() );
+	    }
+	} 
 
 	public jswDropDownBox(ActionListener c,String inlabel)
 	{
@@ -84,11 +107,17 @@ public class jswDropDownBox extends jswPanel
 		
 	public void actionPerformed(ActionEvent e)
 	{
+		 Map jo = new HashMap<String,String>();
+	     jo.put("jswtype", this.getClass().getSimpleName());
+	     jo.put("event", e.getSource().getClass().getSimpleName());
+	     jo.put("name",  ((JComboBox) e.getSource()).getName());
+	     jo.put("quality", "selected");
+	     jo.put("value", listModel.getSelectedItem().toString());
 		String mess ="";	    
 	    mess = getSelectedValue();
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, getName()+":"+mess);
+		ActionEvent event = new ActionEvent(this, uniqueId,jo.toString());
 		actionlistener.actionPerformed(event);
 	}
 	
@@ -167,7 +196,13 @@ public class jswDropDownBox extends jswPanel
 	public void setEnabled(boolean e)
 	{
 		//label.setEnabled(e);
-		datalist.setEnabled(e);
+		if(e)
+		{
+			datalist.addActionListener(this);
+		}else
+			datalist.removeActionListener(this);
+		//datalist.setEnabled(e);
+		
 	}
 
 	public void setList(String str)

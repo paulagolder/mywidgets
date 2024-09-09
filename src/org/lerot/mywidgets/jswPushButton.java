@@ -4,8 +4,17 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JToggleButton;
+import javax.swing.border.Border;
+//import org.json.JSONObject;
+
+
+
 
 public class jswPushButton extends jswPanel
 {
@@ -33,21 +42,21 @@ public class jswPushButton extends jswPanel
 		button.setVisible(true);
 	}
 
-
-	
-
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-			 
+		
+		 Map jo = new HashMap<String,String>();
+	     jo.put("jswtype", this.getClass().getSimpleName());
+	     jo.put("event", e.getSource().getClass().getSimpleName());
+	     jo.put("name",  ((AbstractButton) e.getSource()).getText());
+	     jo.put("quality", "value");
+	     jo.put("value", "buttonpressed");
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, "value = buttonpressed ");
-		actionlistener.actionPerformed(event);
-		
+		ActionEvent event = new ActionEvent(this, uniqueId, jo.toString());
+		actionlistener.actionPerformed(event);		
 	}
-
-
 
 	public void setSelected()
 	{
@@ -68,7 +77,8 @@ public class jswPushButton extends jswPanel
 		button.setFont(style.getFont());
 		button.setBackground(jswStyle.defaultwidgetcolor);
 		button.setForeground(style.getForegroundcolor());
-		button.setBorder(style.getBorder());
+		Border  bborder = BorderFactory.createRaisedBevelBorder();
+		button.setBorder(bborder);
 		int wd =style.getIntegerStyle("mywidth",bl);
 		if(wd > bl) bl= wd;
 		int ht =style.getIntegerStyle( "myheight",bh);
@@ -83,14 +93,9 @@ public class jswPushButton extends jswPanel
 		setMinimumSize(d);		
 	}
 
-	
-
 	public String getLabel()
 	{
 		return button.getText();
 	}
-
-	
-
 
 }

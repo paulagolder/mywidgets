@@ -176,13 +176,7 @@ public abstract class jswPanel extends JPanel  implements ActionListener
 	@Override
 	public void paint(Graphics g)
 	{
-		// System.out.println(" freddy ");
 		super.paint(g);
-		// g.setColor(getBackground());
-		// g.fillRect(0, 0, getSize().width, getSize().height);
-		// g.setColor(getForeground());
-		// Rectangle border = getBorderBounds();
-		// g.drawRect(border.x, border.y, border.width, border.height);
 	}
 
 	protected Rectangle getBorderBounds()
@@ -208,6 +202,11 @@ public abstract class jswPanel extends JPanel  implements ActionListener
 
 
 	public void addStyle(String attname, String avalue)
+	{
+		getStyle().putAttribute(attname,avalue);	
+	}
+	
+	public void addStyle(String attname, int avalue)
 	{
 		getStyle().putAttribute(attname,avalue);	
 	}

@@ -13,29 +13,35 @@ import javax.swing.JTextArea;
 import javax.swing.text.DefaultCaret;
 
 
-public class jswTextArea extends jswVerticalPanel   implements ActionListener
+public class jswTextArea extends jswHorizontalPanel   implements ActionListener
 {
 
     private static final long serialVersionUID = 1L;
 
-    public JTextArea textbox;
+    public JTextArea textarea;
+
+	private int bl=200;
+
+	private int bh=20;
+    
 
     public jswTextArea(String inLabel, boolean label)
     {
         super(inLabel,label);
-
-        textbox = new JTextArea("Enter text",20,30);
-        JScrollPane scrollPane = new JScrollPane(textbox);     
-        textbox.setEditable(true);
-        textbox.setLineWrap(true);
-        textbox.setWrapStyleWord(true);
-        textbox.setEnabled(true);
+        this.addStyle("indent", 10);
+        textarea = new JTextArea("Enter text",20,30);
+        JScrollPane scrollPane = new JScrollPane(textarea);     
+        textarea.setEditable(true);
+        textarea.setLineWrap(true);
+        textarea.setWrapStyleWord(true);
+        textarea.setEnabled(true);
         scrollPane.setEnabled(true);
-        DefaultCaret caret = (DefaultCaret)textbox.getCaret();
+        DefaultCaret caret = (DefaultCaret)textarea.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         setEnabled(true);
-        add("FILLH MIDDLE INDENT=10 ", scrollPane);
+        add("FILLw  ", scrollPane);
         setPreferredSize(new Dimension(100, 100));
+        applyStyle();
     }
 
     public jswTextArea(String inLabel)
@@ -43,29 +49,52 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
     	this(inLabel,true);
     	
 	}
+    
+    void applyStyle(jswStyle style)
+	{	
+    
+    	int wd =style.getIntegerStyle("mywidth",bl);
+		if(wd > bl) bl= wd;
+		int ht =style.getIntegerStyle( "myheight",bh);
+		if(ht > bh ) bh=ht;
+		Dimension d = new Dimension(bl, bh);
+			if(textarea!=null)	
+			{
+		 textarea.setFont(style.getFont());
+		 textarea.setBackground(jswStyle.TRANSPARENT);
+		 textarea.setForeground(style.getForegroundcolor());
+		 textarea.setBorder(style.getBorder());
+		 textarea.setPreferredSize(d);
+		// textbox.setMaximumSize(d);
+		 textarea.setMinimumSize(d);
+			}
+		setBackground(jswStyle.TRANSPARENT);
+		setPreferredSize(d);
+	//	setMaximumSize(d);
+		setMinimumSize(d);
+			
+	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-       String text = textbox.getText();
-       textbox.append(text + "/n");   
-       textbox.selectAll();
-
-//Make sure the new text is visible, even if there
-//was a selection in the text area.
-        textbox.setCaretPosition(textbox.getDocument().getLength());
+       String text = textarea.getText();
+       textarea.append(text + "/n");   
+       textarea.selectAll();
+        textarea.setCaretPosition(textarea.getDocument().getLength());
     }
 
 	public void addText(String text)
 	{		
-		 String atext = textbox.getText();
+		 String atext = textarea.getText();
 		 String btext = atext+"\n"+text;
-         textbox.setText(btext);		
+         textarea.setText(btext);		
 	}
 	
 
     public String getText()
     {
-        return textbox.getText();
+        return textarea.getText();
     }
 
     @Override
@@ -78,7 +107,7 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
     @Override
 	public void setEnabled(boolean e)
     {
-        textbox.setEnabled(e);
+        textarea.setEnabled(e);
     }
 
     public void setSelected(boolean b)
@@ -89,16 +118,16 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
     public void setStyle(String string)
     {
         setEnabled(true);
-        textbox.setOpaque(true);
-        textbox.setBackground(Color.LIGHT_GRAY);
-        textbox.setDisabledTextColor(Color.blue);
-        textbox.setFont(new Font("SansSerif", Font.ITALIC, 10));
+        textarea.setOpaque(true);
+        textarea.setBackground(Color.LIGHT_GRAY);
+        textarea.setDisabledTextColor(Color.blue);
+        textarea.setFont(new Font("SansSerif", Font.ITALIC, 10));
         setEnabled(false);
     }
 
     public void setText(String t)
     {
-        textbox.setText(t);
+        textarea.setText(t);
     }
 
 
@@ -109,9 +138,10 @@ public class jswTextArea extends jswVerticalPanel   implements ActionListener
 		{
 			alltext = alltext +"/n"+astring;
 		}
-		textbox.setText(alltext);		
+		textarea.setText(alltext);		
 	}
 
+	
 
 
 }

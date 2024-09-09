@@ -3,9 +3,12 @@ package org.lerot.mywidgets;
 
 
 
-	import java.awt.Component;
+	import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import javax.swing.BoxLayout;
@@ -15,9 +18,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 
@@ -33,18 +38,47 @@ import javax.swing.tree.TreeSelectionModel;
 			 */
 			private static final long serialVersionUID = 1L;
 
+
 			@Override
 			public Component getTreeCellRendererComponent(JTree tree, Object value,
 					boolean sel, boolean expanded, boolean leaf, int row,
 					boolean hasFocus)
 			{
-				
+				setFont(defaultfont);
 					setText(value.toString());
+					if(sel)
+				    	setForeground(selectedcolor);
+					else
+						setForeground(defaultcolor);
 					return this;
-				
-
 			}
 
+		}
+		
+		class MySelectionListener implements TreeSelectionListener 
+		{
+			
+			@Override
+			public void valueChanged(TreeSelectionEvent e)
+			{
+				TreePath path = e.getPath();
+				Object[] nodes = path.getPath();
+				Object nd = null;
+				for (int k=0; k < nodes.length; k++)
+				{
+					DefaultMutableTreeNode node = 
+						(DefaultMutableTreeNode)nodes[k];
+					nd = (Object)node.getUserObject();
+					//oid += "."+nd.getId();
+				}
+				Long t = System.currentTimeMillis() / 10000;
+				int uniqueId = t.intValue();
+				ActionEvent event = new ActionEvent(this, uniqueId,nd.toString());
+				System.out.println(" in tree  sl");
+				actionlistener.actionPerformed(event);
+			}
+
+			
 		}
 
 		/**
@@ -57,22 +91,23 @@ import javax.swing.tree.TreeSelectionModel;
 			System.out.print(s);
 		}
 
-		public JPanel commandPanel;
+		//public JPanel commandPanel;
 
 		int linecount;
 		String name;
 		int panelwidth = 200;
 		boolean redisplay;
 		public JTree reptree;
-		// public JPanel mainPanel;
 		public JScrollPane reptreeView;
-		public int treefont;
+		private Color defaultcolor;
+		private Color selectedcolor;
+		private Font defaultfont;
 
-		public jswTree(String inname, DefaultMutableTreeNode aNode, int intreefont)
+		public jswTree(ActionListener al, String inname, DefaultMutableTreeNode aNode)
 		{
 			super(0);
 			name = inname;
-			treefont = intreefont;
+			//treefont = intreefont;
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			if (aNode == null) reptree = new JTree();
 			else
@@ -84,30 +119,38 @@ import javax.swing.tree.TreeSelectionModel;
 			reptree.getSelectionModel().setSelectionMode(
 					TreeSelectionModel.SINGLE_TREE_SELECTION);
 			reptree.setShowsRootHandles(true);
-
+            reptree.addTreeSelectionListener(new MySelectionListener());
+        	actionlistener = al;
+            //addActionListener(this);
 			MyRenderer renderer = new MyRenderer();
 			reptree.setCellRenderer(renderer);
 
-			commandPanel = new JPanel();
-			commandPanel.setMaximumSize(new Dimension(panelwidth, 150));
-			commandPanel.setMinimumSize(new Dimension(panelwidth, 150));
-			commandPanel.setBorder(jswStyle.makecborder("Report Command Panel"));
-
 			this.add(reptreeView);
-			this.add(" HEIGTH=200 ",commandPanel);
-			this.setPreferredSize(new Dimension(panelwidth, 550));
+			this.setPreferredSize(new Dimension(panelwidth, 100));
 			this.addComponentListener(this);
 
 		}
 
 		
-
+       public void applyStyle(jswStyle astyle)
+       {
+    	   defaultcolor = astyle.getColor("foregroundcolor",Color.black);
+    	   selectedcolor = astyle.getColor("selectedcolor",Color.red);
+    	   defaultfont = astyle.getFont();
+    	   
+       }
 		
 
 
 
 		public void actionPerformed(ActionEvent e)
 		{
+			System.out.println(" in tree al");
+			
+			Long t = System.currentTimeMillis() / 10000;
+			int uniqueId = t.intValue();
+			ActionEvent event = new ActionEvent(this, uniqueId, "value = tree selection ");
+			actionlistener.actionPerformed(event);
 		}
 
 		public void addTreeModelListener(TreeModelListener tml)
@@ -140,10 +183,9 @@ import javax.swing.tree.TreeSelectionModel;
 		{
 			int ww = getWidth();
 			int hw = getHeight();
-			reptreeView.setPreferredSize(new Dimension(ww - 40, hw
-					- commandPanel.getHeight() - 30));
-			commandPanel.setPreferredSize(new Dimension(ww - 40, commandPanel
-					.getHeight()));
+			//reptreeView.setPreferredSize(new Dimension(ww - 40, hw - 30));
+			reptreeView.setPreferredSize(new Dimension(ww , hw ));
+		//	commandPanel.setPreferredSize(new Dimension(ww - 40, commandPanel.getHeight()));
 		}
 
 		@Override
@@ -151,12 +193,7 @@ import javax.swing.tree.TreeSelectionModel;
 		{
 		}
 
-		/*public Border setcborder(String label)
-		{
-			return BorderFactory.createCompoundBorder(
-					BorderFactory.createTitledBorder(label),
-					BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		}*/
+		
 	}
 
 

@@ -1,7 +1,11 @@
 package org.lerot.mywidgets;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class jswCell extends jswHorizontalPanel
 {
@@ -19,78 +23,55 @@ public class jswCell extends jswHorizontalPanel
 	}
 
 	
-/*	public void applyStyle(JComponent label, jswStyle usestyles)
+	public void applyContentStyle(jswStyle style)
 	{
-		jswStyle styles = usestyles;
-		Font sfont = styles.getFont();
+		Component content = this.getComponent(0);
+		jswPanel label=null;
+		if( content instanceof jswPanel)
+		{
+			label = (jswPanel) content;
+		}
+		Font sfont = style.getFont();
 		if (label instanceof jswLabel)
 		{
 			JLabel innerlabel = ((jswLabel) label).getLabel();
 			innerlabel.setFont(sfont);
-			innerlabel.setForeground(styles.getColor("foregroundColor",
+			innerlabel.setForeground(style.getColor("foregroundColor",
 					Color.BLACK));
-			innerlabel.setBackground(styles.getColor("backgroundColor",
+			innerlabel.setBackground(style.getColor("backgroundColor",
 					new Color(0, 0, 0, 0)));
-		} else if (label instanceof JLabel)
+		}  else if (label instanceof jswButton)
 		{
 			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(styles.getColor("backgroundColor", Color.white));
-		} else if (label instanceof jswButton)
-		{
-			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(styles.getColor("backgroundColor", Color.white));
-		} else if (label instanceof JButton)
-		{
-			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(styles.getColor("backgroundColor", Color.white));
+			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+			label.setBackground(style.getColor("backgroundColor", Color.white));
 		} else if (label instanceof jswContainer)
 		{
 			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(styles.getColor("backgroundColor", Color.white));
+			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+			label.setBackground(style.getColor("backgroundColor", Color.white));
 		} else if (label instanceof jswTextBox)
 		{
 			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
+			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
 
-			label.setBackground(styles.getColor("backgroundColor", Color.white));
+			label.setBackground(style.getColor("backgroundColor", Color.white));
 			JTextField innerlabel = ((jswTextBox) label).getTextField();
 			innerlabel.setFont(sfont);
-			innerlabel.setForeground(styles.getColor("foregroundColor",
+			innerlabel.setForeground(style.getColor("foregroundColor",
 					Color.BLACK));
 			innerlabel.setBackground(Color.pink);
-		} else if (label instanceof JTextField)
+		}  else if (label instanceof jswTable)
 		{
 			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(Color.pink);
-			label.setPreferredSize(new Dimension(300, 20));
-		} else if (label instanceof jswTable)
-		{
-			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(styles.getColor("backgroundColor", Color.green));
+			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+			label.setBackground(style.getColor("backgroundColor", Color.green));
 
-		} else if (label instanceof jswTextField)
+		}  else if (label instanceof jswCheckbox)
 		{
 			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(Color.green);
-
-		} else if (label instanceof JToggleButton)
-		{
-			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(Color.green);
-
-		} else if (label instanceof jswCheckbox)
-		{
-			label.setFont(sfont);
-			label.setForeground(styles.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(styles.getColor("backgroundColor", Color.green));
+			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+			label.setBackground(style.getColor("backgroundColor", Color.green));
 
 		} else
 		{
@@ -98,13 +79,12 @@ public class jswCell extends jswHorizontalPanel
 					+ label.getClass().getSimpleName());
 		}
 
-	}*/
+	}
 
 	@Override
 	public void applyStyle()
 	{
-		//jswStyle styles = usestyles;
-		//this.setBorder(styles.getCellBorder());
+		
 		this.setBorder(style.getBorder());
 		Font afont = style.getFont();
 		this.setFont(afont);
@@ -112,6 +92,17 @@ public class jswCell extends jswHorizontalPanel
 		this.setBackground(style.getColor("backgroundColor", new Color(0, 0,
 				0, 0)));
 	}
+	
+	public void applyStyle(jswStyle style)
+	{
+		this.setBorder(style.getBorder());
+		Font afont = style.getFont();
+		this.setFont(afont);
+		this.setForeground(style.getColor("foregroundColor", Color.BLACK));
+		this.setBackground(style.getColor("backgroundColor", new Color(0, 0,
+				0, 0)));
+	}
+
 
 	@Override
 	public String toString()

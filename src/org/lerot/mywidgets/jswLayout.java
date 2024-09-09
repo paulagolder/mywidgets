@@ -18,7 +18,9 @@ import java.util.Hashtable;
 
 public abstract class jswLayout implements LayoutManager
 {
-    Insets padding = new Insets(1,1,1,1);
+    //Insets padding = new Insets(1,1,1,1);
+	public int gap =5;
+	int layoutstyle =0;
 
 	class layout
 	{
@@ -44,6 +46,7 @@ public abstract class jswLayout implements LayoutManager
 		public int finalwidth;
 		public int bdwidth;
 		public Insets insets;
+	
 
 		public String sysprint()
 		{
@@ -96,7 +99,8 @@ public abstract class jswLayout implements LayoutManager
 	}
 
 	Hashtable<Object, settings> codeTable = new Hashtable<>();
-	private int hgap;
+	
+
 
 	public void addTag(String tag, Component comp)
 	{
@@ -445,20 +449,26 @@ public abstract class jswLayout implements LayoutManager
 			return comp.getPreferredSize();
 	}
 
-	protected int getHgap()
+	protected int getGap()
 	{
-		return hgap;
+		return gap;
 	}
 
-	protected void setHgap(int hgap)
+	protected void setGap(int gap)
 	{
-		this.hgap = hgap;
+		this.gap = gap;
 	}
 
 	public Dimension minimumLayoutSize(Component parent)
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void setIndent(int i)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 	//public abstract Dimension minimumLayoutSize(jswPanel parent);

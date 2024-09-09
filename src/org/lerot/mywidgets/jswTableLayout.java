@@ -21,8 +21,7 @@ public class jswTableLayout extends jswLayout
 		@Override
 		public String toString()
 		{
-			String out = "minwidth=" + minwidth + " position=" + position
-					+ " size=" + size;
+			String out = "minwidth=" + minwidth + " position=" + position + " size=" + size;
 			return out;
 		}
 	}
@@ -107,7 +106,7 @@ public class jswTableLayout extends jswLayout
 		}
 	}
 
-	public Dimension maximumLayoutSize(Container  parent)
+	public Dimension maximumLayoutSize(Container parent)
 	{
 		return minimumLayoutSize(parent);
 	}
@@ -129,7 +128,8 @@ public class jswTableLayout extends jswLayout
 		double width = 0;
 		for (rowcol c : columns)
 		{
-			if (c != null) width = width + c.size;
+			if (c != null)
+				width = width + c.size;
 		}
 		int bwidth = 0;
 		int bheight = 0;
@@ -148,7 +148,7 @@ public class jswTableLayout extends jswLayout
 	}
 
 	@Override
-	public Dimension preferredLayoutSize(Container  parent)
+	public Dimension preferredLayoutSize(Container parent)
 	{
 		return minimumLayoutSize(parent);
 	}
@@ -162,7 +162,8 @@ public class jswTableLayout extends jswLayout
 		{
 			rowcol cset = columns.get(ncol);
 			cwidth += cset.size;
-			if (cset.minwidth) cfixed += cset.size;
+			if (cset.minwidth)
+				cfixed += cset.size;
 		}
 		double desiredwidth = cwidth;
 		double fixedwidth = cfixed;
@@ -174,7 +175,8 @@ public class jswTableLayout extends jswLayout
 			for (int ncol = 0; ncol < maxcol; ncol++)
 			{
 				rowcol cset = columns.get(ncol);
-				if (!cset.minwidth) cset.size = cset.size * scale;
+				if (!cset.minwidth)
+					cset.size = cset.size * scale;
 				cset.position = cpos;
 				cpos += cset.size;
 				columns.set(ncol, cset);
@@ -209,15 +211,28 @@ public class jswTableLayout extends jswLayout
 				rpos += rset.size;
 			}
 		}
-		/*
-		 * if (targetheight < 1) return; if (rpos < 1) return;
-		 *
-		 * float scale = 1.0f; if (rpos < targetheight) scale = targetheight /
-		 * rpos; rpos = 0; for (int nrow = 0; nrow < maxrow; nrow++) { rowcol
-		 * rset = rows.get(nrow); if (rset != null) { rset.size = rset.size *
-		 * scale; rset.position = rpos; rpos += rset.size; rows.set(nrow, rset);
-		 * } }
-		 */
+
+		if (targetheight < 1)
+			return;
+		if (rpos < 1)
+			return;
+
+		float scale = 1.0f;
+		if (rpos < targetheight)
+			scale = targetheight / rpos;
+		rpos = 0;
+		for (int nrow = 0; nrow < maxrow; nrow++)
+		{
+			rowcol rset = rows.get(nrow);
+			if (rset != null)
+			{
+				rset.size = rset.size * scale;
+				rset.position = rpos;
+				rpos += rset.size;
+				rows.set(nrow, rset);
+			}
+		}
+
 	}
 
 	public void setRowCols(jswTable parent)
@@ -236,8 +251,10 @@ public class jswTableLayout extends jswLayout
 
 				int ncol = cell.col;
 				int nrow = cell.row;
-				if (ncol > maxcol) maxcol = ncol;
-				if (nrow > maxrow) maxrow = nrow;
+				if (ncol > maxcol)
+					maxcol = ncol;
+				if (nrow > maxrow)
+					maxrow = nrow;
 			}
 		}
 		maxcol++;
@@ -281,7 +298,8 @@ public class jswTableLayout extends jswLayout
 				jswCell cell = (jswCell) comp;
 				// settings s = getSettings(comp);
 				Dimension min = null;
-				if(cell.getComponentCount()==0) continue;
+				if (cell.getComponentCount() == 0)
+					continue;
 				Component cellcontent = cell.getComponent(0);
 				if (cellcontent instanceof jswPanel)
 				{
@@ -292,8 +310,7 @@ public class jswTableLayout extends jswLayout
 				{
 					JComponent jccomp = (JComponent) cellcontent;
 					min = jccomp.getMinimumSize();
-					System.out.println(" not jswpanel ="
-							+ comp.getClass().getName());
+					System.out.println(" not jswpanel =" + comp.getClass().getName());
 				}
 				int ncol = cell.col;
 				int nrow = cell.row;
@@ -363,20 +380,12 @@ public class jswTableLayout extends jswLayout
 
 	}
 
-/*	@Override
-	public Dimension preferredLayoutSize(Container parent)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Dimension minimumLayoutSize(Container parent)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-*/
-	
+	/*
+	 * @Override public Dimension preferredLayoutSize(Container parent) { // TODO
+	 * Auto-generated method stub return null; }
+	 * 
+	 * @Override public Dimension minimumLayoutSize(Container parent) { // TODO
+	 * Auto-generated method stub return null; }
+	 */
 
 }

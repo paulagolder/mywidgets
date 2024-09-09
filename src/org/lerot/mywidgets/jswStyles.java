@@ -4,7 +4,7 @@ import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-//import jswStyle;
+
 
 public class jswStyles
 {
@@ -69,24 +69,24 @@ public class jswStyles
 		jswWidgetStyles.putAttribute("fontsize", "14");
 		jswWidgetStyles.putAttribute("borderColor", "blue");
 
-		jswStyle jswLabelStyles = panelstyles.makeStyle("jswLabel");
+	//	jswStyle jswLabelStyles = panelstyles.makeStyle("jswLabel");
 
-		jswStyle jswButtonStyles = panelstyles.makeStyle("jswButton");
-		jswButtonStyles.putAttribute("backgroundColor", "#C0C0C0");
-		jswButtonStyles.putAttribute("fontsize", "10");
-		jswButtonStyles.putAttribute("foregroundColor", "black");
+	//	jswStyle jswButtonStyles = panelstyles.makeStyle("jswButton");
+	//	jswButtonStyles.putAttribute("backgroundColor", "#C0C0C0");
+	//	jswButtonStyles.putAttribute("fontsize", "10");
+	//	jswButtonStyles.putAttribute("foregroundColor", "black");
 
-		jswStyle jswToggleButtonStyles = panelstyles.makeStyle("jswToggleButton");
-		jswToggleButtonStyles.putAttribute("foregroundColor", "Red");
+	//	jswStyle jswToggleButtonStyles = panelstyles.makeStyle("jswToggleButton");
+	//	jswToggleButtonStyles.putAttribute("foregroundColor", "Red");
 
-		jswStyle jswTextBoxStyles = panelstyles.makeStyle("jswTextBox");
+	//	jswStyle jswTextBoxStyles = panelstyles.makeStyle("jswTextBox");
 
-		jswStyle jswTextFieldStyles = panelstyles.makeStyle("jswTextField");
+	//	jswStyle jswTextFieldStyles = panelstyles.makeStyle("jswTextField");
 
-		jswStyle jswDropDownBoxStyles = panelstyles.makeStyle("jswDropDownBox");
+	//	jswStyle jswDropDownBoxStyles = panelstyles.makeStyle("jswDropDownBox");
 
-		jswStyle jswhpStyles = panelstyles.makeStyle("jswContainer");
-		jswhpStyles.putAttribute("backgroundColor", "#C0C0C0");
+	//	jswStyle jswhpStyles = panelstyles.makeStyle("jswContainer");
+	//	jswhpStyles.putAttribute("backgroundColor", "#C0C0C0");
 
 		jswStyle jswDropDownContactBoxStyles = panelstyles.makeStyle("jswDropDownContactBox");
 		jswDropDownContactBoxStyles.putAttribute("backgroundColor", "#C0C0C0");
@@ -124,24 +124,27 @@ public class jswStyles
 		//tablestyles = jswStyles.getDefaultStyles();
 		tablestyles.name = "defaulttable";
 		jswStyle tablestyle = tablestyles.makeStyle("table");
-		tablestyle.putAttribute("backgroundColor", "#bbffac");
-		tablestyle.putAttribute("borderwidth", "3");
+		tablestyle.putAttribute("backgroundColor", "#c0d6f2");
+		tablestyle.putAttribute("borderwidth", "1");
 		tablestyle.putAttribute("borderColor", "green");
 		jswStyle cellstyle = tablestyles.makeStyle("cell");
+		cellstyle.putAttribute("backgroundColor", "#c0d6f2");
 		cellstyle.putAttribute("fontSize", "16");
 		cellstyle.putAttribute("fontStyle", Font.PLAIN);
-		cellstyle.putAttribute("borderColor", "red");
+		cellstyle.putAttribute("borderColor", "black");
 		cellstyle.putAttribute("borderWidth", 1);
-		jswStyle rowstyle = tablestyles.makeStyle("row");
-		rowstyle.putAttribute("height", "10");
+	//	jswStyle rowstyle = tablestyles.makeStyle("row");
+	//	rowstyle.putAttribute("height", "10");
 		jswStyle row0style = tablestyles.makeStyle("row_0");
-		row0style.putAttribute("fontStyle", Font.BOLD);
-		row0style.putAttribute("foregroundColor", "green");
+		row0style.putAttribute("fontStyle", Font.BOLD + Font.ITALIC);
+		row0style.putAttribute("foregroundColor", "#0e56f2");
+		jswStyle cell00style = tablestyles.makeStyle("cell_0_0");
+		cell00style.putAttribute("foregroundColor", "transparent");
 		jswStyle colstyle = tablestyles.makeStyle("col");
 		colstyle.setHorizontalAlign("RIGHT");
 		jswStyle col0style = tablestyles.makeStyle("col_0");
 		col0style.putAttribute("fontStyle", Font.BOLD);
-		col0style.putAttribute("backgroundColor", "blue");
+		col0style.putAttribute("backgroundColor", "TRANSPARENT");
 		col0style.setHorizontalAlign("LEFT");
 		
 
@@ -162,7 +165,6 @@ public class jswStyles
 
 	public void copyStyle(String toname, String fromname)
 	{
-		jswStyle astyle = null;
 		if (stylelist.containsKey(fromname))
 		{
 			jswStyle fromstyle = stylelist.get(fromname);
@@ -170,7 +172,6 @@ public class jswStyles
 			newstyle.copyAll(fromstyle);
 			this.put(newstyle);
 		}
-
 	}
 
 

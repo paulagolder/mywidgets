@@ -14,7 +14,14 @@ import javax.swing.border.MatteBorder;
 
 public class jswStyle
 {
-	protected static int counter = 0;
+	public static final int DISTRIBUTE = 1;
+	public static final int START=0;
+	public static final int END=2;
+	public static final int LINEBORDER = 1;
+	public static final int NOBORDER =0;
+	public static final int TITLEDBORDER = 2;
+	public  int counter = 0;
+	
 
 	public static jswStyle getDefaultStyle()
 	{
@@ -57,9 +64,7 @@ public class jswStyle
 		return new Color(0, 0, 0, 0);
 	}
 
-	static  int LINEBORDER = 1;
-	 static  int NOBORDER =0;
-	 static int TITLEDBORDER = 2;
+	
 	
 	
 	private String defaultfontname;
@@ -346,7 +351,8 @@ public class jswStyle
 	public void setDefaultStyle()
 	{
 		putAttribute("backgroundcolor", "transparent");
-
+		//putAttribute("backgroundcolor", "#b1b9c8");
+		
 		putAttribute("borderColor", "black");
 		putAttribute("borderWidth", "-1");
 		putAttribute("cellborderColor", "black");

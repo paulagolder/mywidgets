@@ -11,12 +11,16 @@ import java.awt.Dimension;
 //import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+//import org.json.JSONObject;
 
 public class jswThumbwheel extends jswPanel implements ChangeListener
 {
@@ -113,10 +117,17 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 	@Override
 	 public void stateChanged(ChangeEvent e)
     {
+
+		Map jo = new HashMap();
+	     jo.put("jswtype", this.getClass().getSimpleName());
+	     jo.put("event", e.getSource().getClass().getSimpleName());
+	     jo.put("name",  ((javax.swing.JSpinner ) e.getSource()).getName());
+	     jo.put("quality", "value");
+	     jo.put("value", value.getValue());
 		Long t = System.currentTimeMillis() / 10000;
 	    int uniqueId = t.intValue();
         System.out.println(value.getValue() + " ++" );
-        ActionEvent event = new ActionEvent(this, uniqueId,"value ="+value.getValue());
+        ActionEvent event = new ActionEvent(this, uniqueId,jo.toString());
         al.actionPerformed(event);
     }
 

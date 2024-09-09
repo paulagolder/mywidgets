@@ -22,7 +22,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	public jswPushButtonset(ActionListener parentListener, String name,
 			boolean isvertical, boolean border, boolean titledborder)
 	{
-		super("PBS:" + name);
+		super( name);
 		commandroot = name;
 		vertical =isvertical;
 		actionlistener = parentListener;

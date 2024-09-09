@@ -4,17 +4,19 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-
+import javax.swing.border.Border;
 
 public class jswButton extends jswPanel implements ActionListener
 {
 
 	private static final long serialVersionUID = 1L;
 	JButton button;
-	int bh=30;
-	int bl=30;
+	int bh = 30;
+	int bl = 30;
+
 	public jswButton(ActionListener al, String label)
 	{
 		this(al, label, label);
@@ -36,33 +38,32 @@ public class jswButton extends jswPanel implements ActionListener
 
 	@Override
 	void applyStyle(jswStyle style)
-	{	
-		//button.setFont(new Font("SansSerif", Font.BOLD, 9));
+	{
 		int l = button.getText().length() * 8 + 30;
-		if(l>bl)bl=l;	
+		if (l > bl)
+			bl = l;
 		button.setFont(style.getFont());
-	//	button.setBackground(style.getBackgroundcolor());
 		button.setBackground(jswStyle.defaultwidgetcolor);
 		button.setForeground(style.getForegroundcolor());
 		button.setBorder(style.getBorder());
-		int wd =style.getIntegerStyle("mywidth",bl);
-		if(wd > bl) bl= wd;
-		int ht =style.getIntegerStyle( "myheight",bh);
-		if(ht > bh ) bh=ht;
+		int wd = style.getIntegerStyle("mywidth", bl);
+		if (wd > bl)
+			bl = wd;
+		int ht = style.getIntegerStyle("myheight", bh);
+		if (ht > bh)
+			bh = ht;
 		Dimension d = new Dimension(bl, bh);
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
 		setBackground(jswStyle.TRANSPARENT);
-		//setBackground(style.getBackgroundcolor());
 		setPreferredSize(d);
 		setMaximumSize(d);
 		setMinimumSize(d);
-		//setBorder(jswStyle.makeLineBorder(Color.green, 4));
+		Border bborder = BorderFactory.createRaisedBevelBorder();
+		button.setBorder(bborder);
 	}
 
-	
-	
 	public void addActionListener(ActionListener al)
 	{
 		button.addActionListener(al);
@@ -79,7 +80,6 @@ public class jswButton extends jswPanel implements ActionListener
 		button.setActionCommand(command);
 	}
 
-
 	@Override
 	public void setEnabled(boolean b)
 	{
@@ -87,17 +87,15 @@ public class jswButton extends jswPanel implements ActionListener
 		super.setEnabled(b);
 	}
 
-	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-			 
+
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId, "value = buttonpressed ");
 		actionlistener.actionPerformed(event);
-		
-	}
 
+	}
 
 }

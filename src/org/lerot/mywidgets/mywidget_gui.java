@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Map;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.event.TreeModelEvent;
@@ -16,6 +17,8 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+
+
 
 //import org.lerot.mywidgets.jswTree;
 
@@ -45,30 +48,26 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		jswContainer apanel = new jswContainer("dummy");
 		jswStyles defstyles = jswStyles.getDefaultStyles();
 		jswStyles mwdefstyles = defaultStyles();
-		// mwdefstyles.copyStyles(defstyles);
-		// apanel.setStyles(mwdefstyles);
-		jswVerticalPanel mainpanel = new jswVerticalPanel();
+	
+		jswVerticalPanel mainpanel = new jswVerticalPanel("mainpanel",false);
+		mainpanel.setBorder(jswStyle.makeLineBorder(Color.red,4));
 		jswHorizontalPanel panel1 = new jswHorizontalPanel("Panel1", true,true);
 
 		// ====start of panel1===
 
-
 		jswTabbedPanel tabbedpanel1 = new jswTabbedPanel("tabbed panel 1");
 		jswHorizontalPanel panel1a = new jswHorizontalPanel("Panel 1 A", true,true);
-		//panel1a.setBackground(Color.pink);
 		jswButton button1 = new jswButton(this, "button_1");
-		//button1.setBorder(jswStyle.makeLineBorder(Color.blue,2));
-		//button1.applyStyle();
 		jswTextBox textbox1 = new jswTextBox(this,"textfield_1");
-		textbox1.addActionListener(this);
-		textbox1.setBackground(Color.pink);
 		textbox1.applyStyle();
 		jswDropDownBox dropdownbox1 = new jswDropDownBox(this, "dropdownbox 1");
 		Vector<String> list = new Vector<>();
 		list.add("LEFT");
 		list.add("MIDDLE");
 		list.add("RIGHT");
+		dropdownbox1.setEnabled(false);
 		dropdownbox1.setList(list);
+		dropdownbox1.setEnabled(true);
 		jswLabel label2 = new jswLabel("Label 2");
 		label2.style.setFontsize(18);
 		label2.applyStyle();
@@ -76,11 +75,8 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		panel1a.add(" WIDTH=100 ", textbox1);
 		panel1a.add(" ", (Component) dropdownbox1);
 		panel1a.add(" FILLW ", (Component) label2);
-
 		panel1a.repaint();
-
 	
-		
 		jswHorizontalPanel panel1b = new jswHorizontalPanel("Panel 1B",false,true);
 		//panel1b.setBackground(Color.lightGray);
 		jswOptionset optionset = new jswOptionset(this,"option list 1", false,true,true);
@@ -92,15 +88,11 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		jswOption go = optionset.addNewOption("green", true);
 		go.doStyling(mwdefstyles.getStyle("greenoption"));
 		panel1b.add(" FILLW ",optionset);
-		jswPushButtonset pushbuttonset = new jswPushButtonset(this, "my button list", false, true,true);
+		jswPushButtonset pushbuttonset = new jswPushButtonset(this, "my H button list", false, true,true);
 		pushbuttonset.getStyle().putAttribute("distribute",true);
-		jswPushButton rb = pushbuttonset.addNewOption("red");
-		//rb.applyStyle(mwdefstyles.getStyle("redbutton"));
-		jswPushButton bb = pushbuttonset.addNewOption("blue");
-		//bb.applyStyle(mwdefstyles.getStyle("bluebutton"));
-		jswPushButton gb = pushbuttonset.addNewOption("green");
-		//gb.applyStyle(mwdefstyles.getStyle("greenbutton"));
-		//panel1b.add((Component) pushbuttonset);
+		pushbuttonset.addNewOption("red");
+		pushbuttonset.addNewOption("blue");
+		pushbuttonset.addNewOption("green");
 		panel1b.add(" FILLW ",pushbuttonset);
 		jswButton buttonl = new jswButton(this, "large button");
 		buttonl.applyStyle(mwdefstyles.getStyle("largebutton"));
@@ -136,48 +128,41 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		tabbedpanel1.addTab("TAB 1 D", (jswPanel) panel1d);
 		
 		panel1.add( "FILLW ",tabbedpanel1);
-		
-	//	mainpanel.add("TAB 1 A", (jswPanel) panel1a);
-		
 		mainpanel.add(" FILLW  ", panel1);
-	//	mainpanel.add( "FILLW ",tabbedpanel1);
 	
-		//mainpanel.add("TAB 1 C", (jswPanel) panel1c);	
-		
-	//	mainpanel.add("TAB 1 B", (jswPanel) panel1b);
 		// ====end of panel1===
 
 		// ====start of panel2===
 		jswHorizontalPanel panel2 = new jswHorizontalPanel("Panel 2", true,true);
-		panel2.setBackground(Color.cyan);
-		jswVerticalPanel padpanel = new jswVerticalPanel("padding", true);
-		panel2.add(" width=40 ", (Component) padpanel);
+		panel2.getStyle().putAttribute("indent", 50);
 		jswOptionset optionseta = new jswOptionset(this,"my option list", true,true);
 		optionseta.setPadding(20);
-		optionseta.doStyling(mwdefstyles.getStyle("optionset"));
-		
+		optionseta.doStyling(mwdefstyles.getStyle("optionset"));	
 		jswOption ros = optionseta.addNewOption("red", true);
 		ros.doStyling(mwdefstyles.getStyle("redoption"));
-
 		jswOption rob = optionseta.addNewOption("blue", true);
 		rob.doStyling(mwdefstyles.getStyle("blueoption"));
 		jswOption rog = optionseta.addNewOption("green", true);
 		rog.doStyling(mwdefstyles.getStyle("greenoption"));
 		panel2.add(" width=80 ", (Component) optionseta);
-		jswPushButtonset pushbuttonseta = new jswPushButtonset(this, "my button list", true, true);
+		jswPushButtonset pushbuttonseta = new jswPushButtonset(this, "my V button list", true, true);
+		pushbuttonseta.getStyle().putAttribute("layoutstyle",jswStyle.DISTRIBUTE);
+		pushbuttonseta.getStyle().putAttribute("distribute",true);
+		pushbuttonseta.getStyle().putAttribute("gap",10);
+		pushbuttonseta.getStyle().putAttribute("indent",10);	
 		jswPushButton pbr = pushbuttonseta.addNewOption("red");
 		pbr.applyStyle(mwdefstyles.getStyle("redbutton"));
 		jswPushButton pbb = pushbuttonseta.addNewOption("blue");
 		pbb.applyStyle(mwdefstyles.getStyle("bluebutton"));
 		jswPushButton pbg = pushbuttonseta.addNewOption("green");
 		pbg.applyStyle(mwdefstyles.getStyle("greenbutton"));
-
-		panel2.add((Component) pushbuttonseta);
+        panel2.add(" FILLH ", pushbuttonseta);
+        
 		this.textarea = new jswTextArea("some input", true);
-		panel2.add(" WIDTH=300 FILLH INDENT=20 ", (Component) this.textarea);
+		panel2.add(" WIDTH=300 FILLH ", (Component) this.textarea);
 		jswTable table1 = makeTableExample();
-		panel2.add(" FILLW FILLH  ", (Component) table1);
-		mainpanel.add(" FILLH HEIGHT=400 ", (Component) panel2);
+		panel2.add(" FILLW FILLH  ", table1);
+		mainpanel.add(" HEIGHT=300 ", panel2);
 		// ====end of panel2==
 
 		// ====start of panel3==
@@ -185,7 +170,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		panel3.setBackground(Color.green);
 		//panel3.applyStyle();
 
-		mainpanel.add(" FILLH MAXHEIGHT=200   ", (Component) panel3);
+	
 		jswPanel treepanel = makeTreeExample();
 		jswTextArea textarea3 = new jswTextArea("textarea3");
 
@@ -199,29 +184,29 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
 		jswTextArea textarea2 = new jswTextArea("some more input");
 
-		panel3.add(" FILLW FILLH ", (Component) textarea2);
-		// panel3.add(" FILLW FILLH ", (Component)treepanel);
-		panel3.add(" FILLW FILLH ", (Component) textarea3);
+		panel3.add(" FILLW  ", textarea2);
+		panel3.add("  WIDTH=300 ", treepanel);
+		panel3.add(" FILLW ",  textarea3);
 
-		jswHorizontalPanel panel4 = new jswHorizontalPanel("Panel 4", true, false);
+		jswHorizontalPanel panel4 = new jswHorizontalPanel("Panel 4", true, true);
 		panel4.setBackground(Color.yellow);
-		
-   
-		mainpanel.add(" FILLH ", (Component) panel4);
-	
-
 		jswContainer jswContainer1 = new jswContainer("subpanel 1");
-		jswContainer1.setBackground(Color.red);
+		jswContainer1.getStyle().setBackgroundcolor("red");
+		jswContainer1.getStyle().putAttribute("myheight",150);
+		jswContainer1.applyStyle();
 		jswContainer jswContainer2 = new jswContainer("sub panel 2");
 		jswContainer2.setBackground(Color.white);
 		jswContainer jswContainer3 = new jswContainer("sub panel 3");
 		jswContainer3.setBackground(Color.blue);
 
-		panel4.add("  FILLW=30 ", jswContainer1);
-		panel4.add("  FILLW=10 ", (Component) jswContainer2);
-		panel4.add("  FILLW=30 ", (Component) jswContainer3);
+		panel4.add("  FILLW=30   ", jswContainer1);
+		panel4.add("  FILLW=10 ", jswContainer2);
+		panel4.add("  FILLW=30 ",  jswContainer3);
 		
-		add((Component) mainpanel);
+		mainpanel.add(" FILLH ",  panel4);	
+		mainpanel.add("  HEIGHT=300   ", panel3);
+	
+		add( mainpanel);
 		
 		pack();
 		addWindowListener(new WindowAdapter() {
@@ -242,12 +227,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         	jswActionPerformed(e);
         	return;
         	}
-		if (cmd.startsWith("button 1"))
-		{
-
-			jswPopUp popup1 = new jswPopUp();
-			popup1.getClass();
-		} else
+		 else
 		{
 
 			System.out.println("handling :");
@@ -264,21 +244,20 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		String cmd = e.getActionCommand();
 		String sourceclass = e.getSource().getClass().getSimpleName();
 		String sourceobject = ((jswPanel) e.getSource()).getPanelname();
-		if (sourceclass.equalsIgnoreCase("jswThumbwheel"))
-		{
-			if (this.textarea != null)
-			{
-				this.textarea.addText("jswhandling :" + ((jswThumbwheel) e.getSource()).getValue() + "\n");
-			}
-		} else
-		{
+		System.out.println("jswhandling XX:"+sourceobject+":"+sourceclass );
+		System.out.println("jswhandling XX:"+cmd );
+		
+		
+		//ObjectReader reader = new ObjectMapper().readerFor(Map.class);
+
+		//Map<String, String> map = reader.readValue("{\"foo\":\"val\"}");
 
 			System.out.println("jswhandling :"+sourceobject+":"+cmd );
 			if (this.textarea != null)
 			{
 				this.textarea.addText("jswhandling :" + sourceobject+":"+cmd + "\n");
 			}
-		}
+		
 	}
 
 	public jswPanel makeTreeExample()
@@ -289,10 +268,11 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		top.add(pm);
 		top.add(pf);
 
-		jswTree treepanel = new jswTree("my tree", top, 10);
-
-		treepanel.addTreeModelListener(this);
-		treepanel.addTreeSelectionListener(this);
+		jswTree treepanel = new jswTree(this,"my tree", top);
+		
+        treepanel.applyStyle();
+		//treepanel.addTreeModelListener(this);
+		//treepanel.addTreeSelectionListener(this);
 
 
 		return (jswPanel) treepanel;
@@ -317,6 +297,8 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 				table1.addCell(" cell:" + i + ":" + m, i, m);
 			}
 		}
+		
+		table1.applyStyle();
 		return table1;
 	}
 
@@ -385,53 +367,43 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		jswStyle gbstyle = defstyles.makeStyle("greenbutton");
 		gbstyle.putAttribute("backgroundColor", "green");
 
-
-		
-		/*jswStyle tastyle = defstyles.makeStyle("jswTextArea");
-		tastyle.setFontsize(jswStyles.font_small);
-		tastyle.putAttribute("boxbackgroundColor", "#EFE5E5");
-
-		tastyle.putAttribute("borderWidth", "1");
-		tastyle.putAttribute("borderColor", "blue");
-		tastyle.putAttribute("cellborderWidth", "1");
-
-		jswStyle labstyle = defstyles.makeStyle("jswLabel");
-		labstyle.setFontsize(jswStyles.font_small);
-		labstyle.putAttribute("backgroundColor", "TRANSPARENT");
-		labstyle.putAttribute("boxbackgroundColor", "TRANSPARENT");
-		labstyle.putAttribute("borderWidth", "0");
-		labstyle.putAttribute("cellborderWidth", "0");
-
-		jswStyle cbstyle = defstyles.makeStyle("jswCheckbox");
-		cbstyle.setFontsize(jswStyles.font_small);
-		cbstyle.putAttribute("backgroundColor", "TRANSPARENT");
-		cbstyle.putAttribute("boxbackgroundColor", "TRANSPARENT");
-
-		jswStyle twstyle = defstyles.makeStyle("jswThumbwheel");
-		twstyle.setFontsize(jswStyles.font_small);
-		twstyle.putAttribute("backgroundColor", "TRANSPARENT");
-		twstyle.putAttribute("boxbackgroundColor", "TRANSPARENT");*/
 		return defstyles;
 	}
 
 	public static jswStyles tablestyles()
 	{
 		jswStyles tablestyles = new jswStyles();
-
 		tablestyles = jswStyles.getDefaultTableStyles();
 		tablestyles.name = "defaulttable";
 		jswStyle colstyle = tablestyles.makeStyle("col");
 		colstyle.putAttribute("horizontalAlignment", "RIGHT");
-		colstyle.putAttribute("width", 80);
+		colstyle.putAttribute("width", 100);
+	/*	jswStyle colstyle2 = tablestyles.makeStyle("col_2");
+		colstyle2.putAttribute("horizontalAlignment", "LEFT");
+		colstyle2.putAttribute("width", 70);
+		colstyle2.putAttribute("backgroundcolor", "pink");
+		jswStyle colstyle3 = tablestyles.makeStyle("col_3");
+		colstyle3.putAttribute("horizontalAlignment", "RIGHT");
+		 jswStyle rowstyle = tablestyles.makeStyle("row");
+		  rowstyle.putAttribute("height", 200 ); 
+		  jswStyle row0style = tablestyles.makeStyle("row_0");
+		  row0style.putAttribute("fontstyle", Font.ITALIC ); 
+		  row0style.putAttribute("backgroundcolor", "yellow");
+			 jswStyle cellstyle = tablestyles.makeStyle("cell");
+			  cellstyle.putAttribute("foregroundcolor", "red"); 
+			  cellstyle.putAttribute("fontsize", 16); 
+		
 		jswStyle col23style = tablestyles.makeStyle("cell_3_4");
 		col23style.putAttribute("foregroundcolor", "yellow");
 		col23style.putAttribute("borderWidth", "1");
 		col23style.putAttribute("borderColor", "blue");
+		
+		/*
 		jswStyle col2style = tablestyles.makeStyle("col_2");
-		col2style.putAttribute("horizontalAlignment", "RIGHT");
+		col2style.putAttribute("horizontalAlignment", "RIGHT");*/
 
 		// col2style.putAttribute("width", 40);
-		col2style.putAttribute("foregroundcolor", "red");
+		//col2style.putAttribute("foregroundcolor", "red");
 		// jswStyle tablestyle = tablestyles.makeStyle("table");
 		// tablestyles.getStyle("table").putAttribute("backgroundColor", "red");
 		/*

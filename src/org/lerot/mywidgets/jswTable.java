@@ -1,6 +1,7 @@
 package org.lerot.mywidgets;
 
 import java.awt.Color;
+import java.awt.Component;
 
 public class jswTable extends jswPanel
 {
@@ -15,8 +16,6 @@ public class jswTable extends jswPanel
 	{
 		super(name);
 
-		
-		//jswStyle tablestyle = jswStyles.getTableStyles() ;//tablestyles.getStyle("table");
 		tablestyles.copyStyles(styles);
 		jswStyle tablestyle = styles.getStyle("table");
 		setLayout(new jswTableLayout());
@@ -34,6 +33,28 @@ public class jswTable extends jswPanel
 
 		}
 		setName(name);
+	}
+	
+	void applyStyle()
+	{
+		int nc = this.getComponentCount();
+		for(int i=0 ; i<nc ; i++)
+		{
+			
+			Component comp = this.getComponent(i);
+			if (comp instanceof jswCell)
+			{
+				jswCell acell = (jswCell)comp;
+				jswStyle astyle = getCellStyle(acell.row,acell.col);
+				if(acell.row == 4 & acell.col ==3)
+		         {
+		        	 //System.out.println("here in style");
+		         }
+				acell.applyStyle(astyle);
+				//jswStyle cstyle = getCellContentStyle(acell.row,acell.col);
+				acell.applyContentStyle(astyle);
+			}
+		}		
 	}
 
 	public void addCell(jswPanel cont, int row, int col)
@@ -64,18 +85,12 @@ public class jswTable extends jswPanel
 		jswStyle cellstyle = getCellStyle(row, col);
 		jswCell acell = new jswCell(row, col);
 		acell.applyStyle(cellstyle);
-
 		String settings = cellstyle.getStringStyle("horizontalAlign");
 		if (setting != null) settings += " " + setting + " ";
 		add(acell);
 		jswStyle cellcontentstyle = getCellContentStyle(row, col);
-
-		//acell.applyStyles(cont, cellstyle);
-		//todo cell content styling
 		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
 		cont.setBackground(new Color(0, 0, 0, 0));
-		//cont.setBorder(null);
-
 		acell.add(settings, cont);
 	}
 

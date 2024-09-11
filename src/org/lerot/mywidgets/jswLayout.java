@@ -18,10 +18,18 @@ import java.util.Hashtable;
 
 public abstract class jswLayout implements LayoutManager
 {
-    //Insets padding = new Insets(1,1,1,1);
-	public int gap =5;
-	int layoutstyle =0;
+    static final int LEFT = 0;
+	private static final  int TOP=0;
+	public static final int DISTRIBUTE = 4;
+	public static final int RIGHT = 3;
+	public static final int MIDDLE = 2;
+	public static final int BOTTOM = 0;
 
+	public int gap =5;
+	int verticallayoutstyle =jswLayout.TOP;
+	int horizontallayoutstyle =jswLayout.LEFT;
+	protected Insets padding;
+	
 	class layout
 	{
 		int cindex = -1;
@@ -471,8 +479,13 @@ public abstract class jswLayout implements LayoutManager
 		
 	}
 
-	//public abstract Dimension minimumLayoutSize(jswPanel parent);
-	
+	public static Insets getInserts(String stringStyle)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 
 }

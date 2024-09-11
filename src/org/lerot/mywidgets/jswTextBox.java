@@ -36,7 +36,6 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 		actionlistener = al;
 		textbox = new JTextField();
 		textbox.addActionListener( this);
-		//textbox.getCaret().setVisible(false);
 		textbox.addKeyListener(this);
 		if (prompt == null || prompt.isEmpty())
 		{
@@ -48,10 +47,10 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 		tp7.changeAlpha(0.5f);
 		tp7.changeStyle(Font.ITALIC);
 		tp7.setVisible(true);
-	       textbox.setEditable(true);
-	        textbox.setEnabled(true);
-	       DefaultCaret caret = (DefaultCaret)textbox.getCaret();
-	        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+	    textbox.setEditable(true);
+	    textbox.setEnabled(true);
+	    DefaultCaret caret = (DefaultCaret)textbox.getCaret();
+	    caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		add(textbox);
 		applyStyle();
 	}
@@ -73,8 +72,6 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 		textbox.setPreferredSize(d);
 		textbox.setMaximumSize(d);
 		textbox.setMinimumSize(d);
-		//setBackground(jswStyle.TRANSPARENT);
-		
 		setBackground(jswStyle.defaulttextboxcolor);
 		setPreferredSize(d);
 		setMaximumSize(d);
@@ -146,7 +143,6 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 	public void setBackground(Color c)
 	{
 		backgroundcolor = c;
-	//	if (label != null) label.setBackground(c);
 		if (textbox != null) textbox.setBackground(c);
 	}
 
@@ -160,13 +156,11 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 		if (b)
 		{
 			if (oldbgcolor == null) oldbgcolor = backgroundcolor;
-		//	if (label != null) label.setBackground(alertcolor);
 			if (textbox != null) textbox.setBackground(alertcolor);
 		} else
 		{
 			if (oldbgcolor != null)
 			{
-		//		if (label != null) label.setBackground(oldbgcolor);
 				if (textbox != null) textbox.setBackground(oldbgcolor);
 			}
 		}

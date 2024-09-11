@@ -134,9 +134,14 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
 		// ====start of panel2===
 		jswHorizontalPanel panel2 = new jswHorizontalPanel("Panel 2", true,true);
-		panel2.getStyle().putAttribute("indent", 50);
+		panel2.getStyle().putAttribute("padding", 5);
+		panel2.getStyle().putAttribute("gap", 10);
+		panel2.applyStyle();
 		jswOptionset optionseta = new jswOptionset(this,"my option list", true,true);
-		optionseta.setPadding(20);
+	//	optionseta.setPadding(20);
+		optionseta.getStyle().putAttribute("padding",10);
+		optionseta.getStyle().putAttribute("verticallayoutstyle",jswLayout.DISTRIBUTE);
+		optionseta.getStyle().putAttribute("horizontallayoutstyle",jswLayout.LEFT);
 		optionseta.doStyling(mwdefstyles.getStyle("optionset"));	
 		jswOption ros = optionseta.addNewOption("red", true);
 		ros.doStyling(mwdefstyles.getStyle("redoption"));
@@ -146,7 +151,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		rog.doStyling(mwdefstyles.getStyle("greenoption"));
 		panel2.add(" width=80 ", (Component) optionseta);
 		jswPushButtonset pushbuttonseta = new jswPushButtonset(this, "my V button list", true, true);
-		pushbuttonseta.getStyle().putAttribute("layoutstyle",jswStyle.DISTRIBUTE);
+		pushbuttonseta.getStyle().putAttribute("verticallayoutstyle",jswLayout.DISTRIBUTE);
+		pushbuttonseta.getStyle().putAttribute("horizontallayoutstyle",jswLayout.MIDDLE);
+		pushbuttonseta.getStyle().putAttribute("padding",20);
 		pushbuttonseta.getStyle().putAttribute("distribute",true);
 		pushbuttonseta.getStyle().putAttribute("gap",10);
 		pushbuttonseta.getStyle().putAttribute("indent",10);	
@@ -195,16 +202,18 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		jswContainer1.getStyle().putAttribute("myheight",150);
 		jswContainer1.applyStyle();
 		jswContainer jswContainer2 = new jswContainer("sub panel 2");
-		jswContainer2.setBackground(Color.white);
+		jswContainer2.getStyle().setBackgroundcolor("white");
+		jswContainer2.applyStyle();
 		jswContainer jswContainer3 = new jswContainer("sub panel 3");
-		jswContainer3.setBackground(Color.blue);
+		jswContainer3.getStyle().setBackgroundcolor("blue");
+		jswContainer3.applyStyle();
 
-		panel4.add("  FILLW=30   ", jswContainer1);
-		panel4.add("  FILLW=10 ", jswContainer2);
-		panel4.add("  FILLW=30 ",  jswContainer3);
+		panel4.add("  FILLW  ", jswContainer1);
+		panel4.add("  FILLW ", jswContainer2);
+		panel4.add("  FILLW ",  jswContainer3);
 		
-		mainpanel.add(" FILLH ",  panel4);	
-		mainpanel.add("  HEIGHT=300   ", panel3);
+		mainpanel.add(" FILLH  ",  panel4);	
+		mainpanel.add("  FILLH  ", panel3);
 	
 		add( mainpanel);
 		

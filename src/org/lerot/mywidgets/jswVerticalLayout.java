@@ -16,7 +16,7 @@ public class jswVerticalLayout extends jswLayout
 	private layout[] clayout = new layout[10];
 	private int componentcount = 0;
 	private boolean trace = false;
-	private int indent;
+
 
 	public jswVerticalLayout()
 	{
@@ -31,44 +31,38 @@ public class jswVerticalLayout extends jswLayout
 		if (parent instanceof jswPanel)
 		{
 
-			if (((jswPanel) parent).getName().equals("mainpanel"))
+			if (((jswPanel) parent).getName().equals("my V button list"))
 			{
 				//System.out.println(" here goes 2");
 				//trace=true;
 			}
 
 		}
-		indent = ((jswPanel) parent).getStyle().getIntegerStyle("indent", 1);
+		padding = jswPanel.getPadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
+		
+		if(trace)
+	{
+			System.out.println(" paddingy :"+padding);
+	}
 		vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
-		layoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("layoutstyle", 0);
+		verticallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("verticallayoutstyle", 0);
+		horizontallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("horizontallayoutstyle", 0);
 		componentcount = parent.getComponentCount();
 		clayout = new layout[componentcount];
 		if (componentcount == 0)
 			vgap = 0;
 		int availableHeight = 0;
 		boolean hasBottom = false, hasMiddle = false;
-		Insets insets = parent.getInsets();
-		if (parent instanceof jswPanel)
-		{
-			Border aborder = ((JComponent) parent).getBorder();
-			if (aborder != null)
-				insets = aborder.getBorderInsets(parent);
-		}
-
-	//	int x = insets.left;
-	//	int y = insets.top;
+		
 		Container theparent = null;
 		if (theparent == null)
 			theparent = parent;
 		Dimension parentSize = theparent.getSize();
 
-		int usableWidth = parentSize.width - insets.left - insets.right;
-		availableHeight = parentSize.height - insets.top - insets.bottom -indent ;
+		int usableWidth = parentSize.width - padding.left -padding.right;
+		availableHeight = parentSize.height - padding.top - padding.bottom ;
 		boolean useMinimum;
-if(trace)
-{
-	System.out.println(" avh="+availableHeight );
-}
+
 		useMinimum = preferredLayoutSize(parent).height > availableHeight;
 		useMinimum = false;
 		int j = 0;
@@ -82,8 +76,9 @@ if(trace)
 
 				clayout[j] = new layout();
 				clayout[j].cindex = i;
-				clayout[j].comp = comp;
+				clayout[j].comp = comp;		
 				Dimension d = useMinimum(comp, useMinimum);
+				clayout[j].width = d.width;
 				Border bd = ((JComponent) comp).getBorder();
 				int bdwidth = 0;
 				if (bd != null)
@@ -95,7 +90,6 @@ if(trace)
 				{
 					clayout[j].bdwidth = 0;
 					clayout[j].insets = new Insets(0, 0, 0, 0);
-					;
 				}
 				if (s.isTrue("FILLH"))
 				{
@@ -135,10 +129,7 @@ if(trace)
 					hasBottom = true;
 					clayout[j].hasBottom = true;
 				}
-				if (s.containsKey("INDENT"))
-				{
-					clayout[j].indent = indent;
-				}
+				
 				j = j + 1;
 			}
 		}
@@ -162,9 +153,7 @@ if(trace)
 
 		int cumheight = 0;
 		int fillheight = 0;
-		int scrollheight = 0;
 		int filltotal = 0;
-		int scrolltotal = 0;
 
 		for (j = 0; j < visiblecomponents; j++)
 		{
@@ -172,58 +161,50 @@ if(trace)
 			{
 				fillheight += clayout[j].height;
 				filltotal += clayout[j].fillh;
-			} else if (clayout[j].scrollh > 0)
-			{
-				scrollheight += clayout[j].height;
-				scrolltotal += clayout[j].scrollh;
-			}
-			if(trace)
-			{
-				System.out.println(" h="+j+":"+clayout[j].height );
-			}
-
+			} 
+			
 			cumheight += clayout[j].height;
-
 		}
-
 	
 		int sparespace = availableHeight - cumheight - vgap*visiblecomponents + fillheight;
 		if (sparespace > 0)
 		{
 			if (fillheight > 0)
-				fillratio = (float) (sparespace ) / (float) fillheight;
-				//fillratio = (float) (sparespace + fillheight) / (float) fillheight;
-		} else
-		{
-			if (scrollheight > 0)
-				scrollratio = (float) (availableHeight - cumheight - fillheight) / (float) scrollheight;
-		}
+				fillratio = (float) (sparespace ) / (float) fillheight;		
+		} 
 		if(trace)
 		{
-			System.out.println(" ch="+cumheight );
-			System.out.println(" fh="+fillheight );
-			System.out.println(" csp="+sparespace );
-			System.out.println(" frp="+fillratio);
+			System.out.println(" paddingx :"+padding);
 		}
 		int gap;
 		int y=0;
-		if (layoutstyle == jswStyle.DISTRIBUTE)
+		if (verticallayoutstyle == jswLayout.DISTRIBUTE)
 		{
 			gap = (sparespace + vgap*visiblecomponents )/ (visiblecomponents );
-		    y =   gap / 2 + insets.top ;
+		    y =   gap / 2 + padding.top ;
 		} else
 		{
 			gap = vgap;
-			y =   gap / 2 + insets.top + indent;		
+		
+			y =   gap / 2 +  padding.top;		
 		}
 
 	
-		//y = padding.top + clayout[0].insets.top;
-
 		for (j = 0; j < visiblecomponents; j++)
 		{
 			clayout[j].y = y;
-			clayout[j].x = clayout[0].insets.left ;
+			if (horizontallayoutstyle == jswLayout.RIGHT )
+			{
+				clayout[j].x =   padding.left+ usableWidth - clayout[j].width;
+				
+			}else if (horizontallayoutstyle == jswLayout.MIDDLE)
+			{
+				clayout[j].x= padding.left+ (usableWidth - clayout[j].width)/2;
+			}else
+			{
+				clayout[j].x = padding.left  ;
+			}
+		
 			if (clayout[j].fillh > 0)
 			{
 				clayout[j].height = (int) (clayout[j].height * fillratio);
@@ -244,7 +225,7 @@ if(trace)
 		for (j = 0; j < visiblecomponents; j++)
 		{
 			Component comp = clayout[j].comp;
-			comp.setBounds(clayout[j].x, clayout[j].y, usableWidth - 20, clayout[j].height);
+			comp.setBounds(clayout[j].x, clayout[j].y, usableWidth , clayout[j].height);
 		}
 
 	}
@@ -252,7 +233,7 @@ if(trace)
 	@Override
 	public Dimension minimumLayoutSize(Container parent)
 	{
-		indent = ((jswPanel) parent).getStyle().getIntegerStyle("indent", 1);
+		Insets padding = jswPanel.getPadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
 		vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
 		componentcount = parent.getComponentCount();
 
@@ -294,15 +275,16 @@ if(trace)
 				h += this.vgap;
 			}
 		}
-		int prefwidth = indent + insets.left + insets.right + binsets.left + binsets.right + w;
-		int prefheight = insets.top + insets.bottom + binsets.top + binsets.bottom + h;
+		
+		int prefwidth = padding.left + padding.right + w ; // binsets.left + binsets.right + w;
+		int prefheight = padding.top + padding.bottom + h ; // binsets.top + binsets.bottom + h;
 		return new Dimension(prefwidth, prefheight + 5);
 	}
 
 	@Override
 	public Dimension preferredLayoutSize(Container parent)
 	{
-		indent = ((jswPanel) parent).getStyle().getIntegerStyle("indent", 1);
+		Insets padding = jswPanel.getPadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
 		vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
 		componentcount = parent.getComponentCount();
 
@@ -350,12 +332,6 @@ if(trace)
 		return helpstring;
 	}
 
-	/*
-	 * @Override public Dimension preferredLayoutSize(Container parent) { // TODO
-	 * Auto-generated method stub return null; }
-	 * 
-	 * @Override public Dimension minimumLayoutSize(Container parent) { // TODO
-	 * Auto-generated method stub return null; }
-	 */
+	
 
 }

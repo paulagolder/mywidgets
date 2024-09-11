@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Insets;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +15,7 @@ import javax.swing.border.MatteBorder;
 
 public class jswStyle
 {
-	public static final int DISTRIBUTE = 1;
-	public static final int START=0;
-	public static final int END=2;
+	
 	public static final int LINEBORDER = 1;
 	public static final int NOBORDER =0;
 	public static final int TITLEDBORDER = 2;
@@ -266,7 +265,7 @@ public class jswStyle
 		if (styles.containsKey(stylename))
 		{
 			String value = styles.get(stylename);
-			if (value == null || value == "") return defaultstyle;
+			if (value == null || value == "" || value.equalsIgnoreCase("0")) return defaultstyle;
 			else
 				return value;
 		} else
@@ -518,6 +517,7 @@ public class jswStyle
 		FontMetrics fm = c.getFontMetrics(font);
 		return fm;
 	}
+	
 
 	
 

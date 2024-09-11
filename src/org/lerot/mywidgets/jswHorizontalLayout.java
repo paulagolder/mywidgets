@@ -15,7 +15,7 @@ public class jswHorizontalLayout extends jswLayout
 	private layout[] clayout;
 	private boolean trace;
 	int hgap = 1;
-	private int indent = 1;;
+	//private int indent = 1;;
 
 	public jswHorizontalLayout()
 	{
@@ -25,18 +25,20 @@ public class jswHorizontalLayout extends jswLayout
 	@Override
 	public void layoutContainer(Container parent)
 	{
-		
+		trace = false;
 		if(parent instanceof jswPanel)
 		{
-			if (((jswPanel)parent).getPanelname().equals("Panel 4")	)
+			if (((jswPanel)parent).getPanelname().equals("Panel 2")	)
 					{
 				//System.out.println(" here goes");
 					}
-					
+			//trace = true;
 		}
-		trace = false;
-		indent = ((jswPanel) parent).getStyle().getIntegerStyle("indent", 1);
-		hgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", hgap);
+	
+		verticallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("verticallayoutstyle", 0);
+		horizontallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("horizontallayoutstyle", 0);
+		padding = jswPanel.getPadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));		
+		hgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", hgap);	
         gap = hgap;
 		int componentcount = parent.getComponentCount();
 		clayout = new layout[componentcount];
@@ -44,12 +46,12 @@ public class jswHorizontalLayout extends jswLayout
 		boolean hasRight = false, hasMiddle = false;
 		if (componentcount < 2)
 			gap = 0;
-		Insets insets = parent.getInsets();
+	
 		if (parent instanceof jswPanel)
 		{
 			Border aborder = ((JComponent) parent).getBorder();
 			if (aborder != null)
-				insets = aborder.getBorderInsets(parent);
+				padding = aborder.getBorderInsets(parent);
 		}
 		Dimension parentSize = parent.getSize();
 		boolean useMinimum;
@@ -67,7 +69,7 @@ public class jswHorizontalLayout extends jswLayout
 				clayout[j].cindex = i;
 				clayout[j].comp = comp;
 				Dimension d = useMinimum(comp, useMinimum);
-				Border bd = ((JComponent) comp).getBorder();
+			/*	Border bd = ((JComponent) comp).getBorder();
 				if (bd != null)
 				{
 					Insets dbinsets = bd.getBorderInsets(comp);
@@ -77,8 +79,8 @@ public class jswHorizontalLayout extends jswLayout
 				{
 					clayout[j].bdwidth = 0;
 					clayout[j].insets = new Insets(0, 0, 0, 0);
-				}
-				clayout[j].minwidth = d.width + clayout[j].bdwidth;
+				}*/
+				clayout[j].minwidth = d.width ;//+ clayout[j].bdwidth;
 				clayout[j].minheight = d.height;
 				clayout[j].finalwidth = clayout[j].minwidth;
 				if (s.containsKey("WIDTH"))
@@ -95,17 +97,14 @@ public class jswHorizontalLayout extends jswLayout
 					fillweight += clayout[j].fillw;
 					// if(clayout[j].fillw < 2 )clayout[j].fillw=100;
 				}
-				if (s.containsKey("INDENT"))
-				{
-					clayout[j].indent = s.getInteger("INDENT");
-				}
+			
 				j = j + 1;
 			}
 		}
 
 		int visiblecomponents = j;
-		int usableWidth = parentSize.width -indent- insets.left - insets.right - 5 - gap * visiblecomponents;
-		availableHeight = parentSize.height - insets.top - insets.bottom;
+		int usableWidth = parentSize.width - padding.left - padding.right  - gap * visiblecomponents;
+		availableHeight = parentSize.height - padding.top - padding.bottom;
 
 		if (visiblecomponents == 1)
 		{
@@ -114,18 +113,18 @@ public class jswHorizontalLayout extends jswLayout
 			Dimension d = comp.getMinimumSize();
 			int compwidth = d.width;
 			settings s = getSettings(comp);
-			int x = insets.left + indent;
+			int x = padding.left ;
 			if (s.isTrue("RIGHT"))
-				x = -insets.right + usableWidth - compwidth;
+				x = -padding.right + usableWidth - compwidth;
 			else if (s.isTrue("MIDDLE"))
-				x = (int) (insets.left +indent + (usableWidth - compwidth) / 2.0);
+				x = (int) (padding.left + (usableWidth - compwidth) / 2.0);
 
 			if (s.isTrue("FILLW"))
 			{
 				compwidth = usableWidth;
-				x = insets.left;
+				x = padding.left;
 			}
-			comp.setBounds(x, insets.top, compwidth, availableHeight);
+			comp.setBounds(x, padding.top, compwidth, availableHeight);
 			return;
 		}
 		
@@ -146,7 +145,7 @@ public class jswHorizontalLayout extends jswLayout
 			{
 				clayout[j].finalwidth = clayout[j].width;
 			}
-			cumwidth += clayout[j].finalwidth + gap + clayout[j].bdwidth;
+			cumwidth += clayout[j].finalwidth + gap;// + clayout[j].bdwidth;
 		}
 
 		int sparespace = usableWidth - cumwidth;
@@ -155,13 +154,24 @@ public class jswHorizontalLayout extends jswLayout
 		{
 			gap = sparespace / (visiblecomponents+1);
 		} 
-		int x = indent+ insets.left + gap / 2 ;
-		int y = insets.top;
+		int x = padding.left + gap / 2 ;
+	
 
 		for (j = 0; j < visiblecomponents; j++)
 		{
-			clayout[j].y = y;
 			clayout[j].x = x;
+		/*	if (verticallayoutstyle == jswLayout.BOTTOM)
+			{
+				clayout[j].y =   padding.bottom+ availableHeight - clayout[j].height;
+				
+			}else if (verticallayoutstyle == jswLayout.MIDDLE)
+			{
+				clayout[j].y= padding.bottom+ (availableHeight - clayout[j].height)/2;
+			}else
+			{*/
+				clayout[j].y = padding.top  ;
+		/*	}*/
+
 			if (clayout[j].fillw > 0)
 			{
 				clayout[j].finalwidth = (int) (clayout[j].minwidth * fillratio);

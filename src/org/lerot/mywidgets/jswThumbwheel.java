@@ -7,41 +7,38 @@
 package org.lerot.mywidgets;
 
 
+import java.awt.Component;
 import java.awt.Dimension;
-//import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-//import org.json.JSONObject;
+
 
 public class jswThumbwheel extends jswPanel implements ChangeListener
 {
 
 	private static final long serialVersionUID = 1L;
-	int mheight = 60;
+	//int mheight = 60;
 	JSpinner value;
 	int currentvalue=-1;
 	ActionListener al=null;
 	private JLabel label;
-	int bh=30;
-	int bl=30;
-	
-	
+
 	public jswThumbwheel(ActionListener cl,String text, int inmin, int inmax)
 	{
 		super(text);
+		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		label = new JLabel("    " + text);
+		label = new JLabel( text);
 		add(label);
-		int width = text.length() * 12 + 60;
+	//	int width = text.length() * 12 + 60;
 		value = new JSpinner();
 		Integer current = inmin;
 		Integer min = inmin;
@@ -55,7 +52,7 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 		add(value);
 		value.addChangeListener(this);
 		al = cl;
-		setMinimumSize(new Dimension(width, 42));
+	//	setMinimumSize(new Dimension(width, 42));
 		applyStyle();
 	}
 	
@@ -63,24 +60,13 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 	@Override
 	void applyStyle(jswStyle style)
 	{	
-		//button.setFont(new Font("SansSerif", Font.BOLD, 9));
-		//int l = label.getText().length() * 8 + 30;
-		int l = label.getText().length() * 12 ;
-		if(l>bl)bl=l;	
 		label.setFont(style.getFont());
 		label.setBackground(jswStyle.defaultwidgetcolor);
 		label.setForeground(style.getForegroundcolor());
 		value.setBackground(jswStyle.defaultwidgetcolor);
 		value.setForeground(style.getForegroundcolor());
-
 		setBorder(style.getBorder());
 		setBackground(jswStyle.TRANSPARENT);
-		Dimension d = new Dimension(bl,42);
-		//setBackground(style.getBackgroundcolor());
-		setPreferredSize(d);
-		setMaximumSize(d);
-		setMinimumSize(d);
-		//setBorder(jswStyle.makeLineBorder(Color.green, 4));
 	}
 
 

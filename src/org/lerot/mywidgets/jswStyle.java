@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
 
 public class jswStyle
 {
@@ -33,12 +35,7 @@ public class jswStyle
 	{
 		return BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	}
-	public static Border makecborder(String label)
-	{
-		return BorderFactory.createCompoundBorder(
-				BorderFactory.createTitledBorder(label),
-				BorderFactory.createEmptyBorder(10, 5, 5, 5));
-	}
+
 	public static  MatteBorder makeCellBorder(Color col, int w)
 	{
 		return BorderFactory.createMatteBorder(0, 0, w, w, col);
@@ -66,25 +63,39 @@ public class jswStyle
 	
 	
 	
-	private String defaultfontname;
-	private int defaultfontsize;
-	private int defaultfontstyle;
-	private String stylename="anon";
-	private Color defaultbackgroundcolor;
+	static String defaultfontname;
+	static int defaultfontsize;
+	static int defaultfontstyle;
+	static String defaulttitlefontname;
+	static int defaulttitlefontsize;
+	static int defaulttitlefontstyle;
+	static String stylename="anon";
+	static Color defaultbackgroundcolor;
 	static Color defaultwidgetcolor;
 	static Color defaulttextboxcolor;
 	static Color TRANSPARENT;
 
 	Map<String, String> styles = new HashMap<>();
+	private Color defaultforegroundcolor;
+	private Color defaulttitlefontcolor;
+	static Color defaultbordercolor;
+	static int defaultborderwidth;
 	
 
 
 	public jswStyle()
 	{
+		defaultforegroundcolor = Color.black;
 		defaultfontname = "SansSerif";
 		defaultfontstyle = Font.PLAIN;
 		defaultfontsize = 12;
-		defaultbackgroundcolor = new Color(0,0,0,125);
+		defaultborderwidth = 1;
+		defaulttitlefontname = defaultfontname ;
+		defaulttitlefontstyle = defaultfontstyle ;
+		defaulttitlefontsize = defaultfontsize;
+		defaulttitlefontcolor =defaultforegroundcolor;
+		defaultbordercolor = defaultforegroundcolor;
+		defaultbackgroundcolor  = new Color(0,0,0,125);
 		defaultwidgetcolor = new Color(200,240,240);
 		defaulttextboxcolor = new Color(240,200,200);
 		TRANSPARENT = new  Color(0,0,0,0);
@@ -150,16 +161,47 @@ public class jswStyle
 		} else
 			return b;
 	}
-
-	public Border getBorder()
+	
+	public  Border makecborder(String label)
+	{
+		Font tf = getTitleFont();
+		Color bordercolor = getColor("borderColor", Color.BLACK);
+		int borderwidth = getIntegerStyle("borderWidth", defaultborderwidth);
+		 borderwidth = 1;
+		Color titlecolor = getColor("titleColor", defaulttitlefontcolor);
+	//    LineBorder lborder = new LineBorder ( bordercolor, borderwidth, true );
+	//	Integer bwidth = style.getIntegerStyle("borderwidth");
+		Color bcolor = getColor("bordercolor", jswStyle.defaultbordercolor);
+	//	setBorder(jswStyle.makeLineBorder(bcolor, bwidth));
+		 LineBorder lborder = new LineBorder ( bcolor, borderwidth , false );
+	    TitledBorder tborder = new TitledBorder ( lborder, label, TitledBorder.LEFT,
+	            TitledBorder.DEFAULT_POSITION, tf, bordercolor );
+	    tborder.setTitleColor(titlecolor);
+		return BorderFactory.createCompoundBorder(
+				tborder,
+				BorderFactory.createEmptyBorder(10, 5, 5, 5));
+	}
+	
+	public   Border makeLineborder(Insets ins)
 	{
 
 		Color bordercolor = getColor("borderColor", Color.BLACK);
-		int borderwidth = getIntegerStyle("borderWidth", 2);
+		int borderwidth = getIntegerStyle("borderWidth", defaultborderwidth);
+		Color bcolor = getColor("bordercolor", jswStyle.defaultbordercolor);
+		LineBorder lb = new LineBorder(bcolor, borderwidth,false);
+
+		return BorderFactory.createCompoundBorder(
+				lb,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5));
+	}
+
+	public Border getBorder()
+	{
+		Color bordercolor = getColor("borderColor", Color.BLACK);
+		int borderwidth = getIntegerStyle("borderWidth", 1);
 		if (borderwidth > 0) return makeLineBorder(bordercolor, borderwidth);
 		else
-			return null;
-
+			return BorderFactory.createEmptyBorder(1, 1, 1, 1);
 	}
 
 	public Border getCellBorder()
@@ -205,8 +247,21 @@ public class jswStyle
 			return new Font(fontname, fontstyle, fontsize);
 		} else
 			return new Font("SansSerif", Font.PLAIN, 10);
+	}
+	
+	public Font getTitleFont()
+	{
+		int fontsize = getIntegerStyle("titlefontsize", defaultfontsize);
+		if (fontsize > 0)
+		{
+			String fontname = getStringStyle("titlefontname", defaultfontname);
+			int fontstyle = getIntegerStyle("titlefontstyle", defaultfontstyle);
+			return new Font(fontname, fontstyle, fontsize);
+		} else
+			return new Font("SansSerif", Font.PLAIN, 10);
 
 	}
+
 
 	public Integer getIntegerStyle(String stylename)
 	{
@@ -233,10 +288,11 @@ public class jswStyle
 		if (styles.containsKey(stylename))
 		{
 			String value = styles.get(stylename);
-			if (value == null || value == "") return defaultint;
+			if (value == null || value == "" ) return defaultint;
 			try
 			{
 				Integer ivalue = Integer.parseInt(value);
+				if(ivalue<0) return defaultint;
 				return ivalue;
 			} catch (NumberFormatException nfe)
 			{
@@ -353,9 +409,9 @@ public class jswStyle
 		//putAttribute("backgroundcolor", "#b1b9c8");
 		
 		putAttribute("borderColor", "black");
-		putAttribute("borderWidth", "-1");
+		putAttribute("borderWidth", "0");
 		putAttribute("cellborderColor", "black");
-		putAttribute("cellborderWidth", "-1");
+		putAttribute("cellborderWidth", "0");
 		putAttribute("colspan", "1");
 		putAttribute("direction", "horizontal");
 		putAttribute("fontname", "SansSerif");

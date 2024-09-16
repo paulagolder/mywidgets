@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -40,7 +41,7 @@ public class jswHorizontalPanel extends jswContainer
 		{
 			style.setBorderStyle(jswStyle.NOBORDER);
 		}
-		
+	    padding = new Insets(10, 10, 10, 10); 
 		applyStyle();
 	}
 
@@ -50,22 +51,26 @@ public class jswHorizontalPanel extends jswContainer
 		
 		Font sfont = astyle.getFont();
 		this.setFont(sfont);
-		this.setPanelBorder();
+		this.setPanelBorder(astyle);
+		Border aborder = getBorder();
+		if (aborder != null)
+			padding = aborder.getBorderInsets(this);
+
 		this.setForeground(astyle.getColor("foregroundColor", Color.BLACK));
 		this.setBackground(astyle.getColor("backgroundColor", Color.green));
 		
 	}
 	
 
-	public void addComponent(jswPanel c)
+/*	public void addComponent(jswPanel c)
 	{
-		super.add(c);
+		super.add(" ",c);
 		int w = c.jswGetWidth();
 		cwidth += w;
 		if (c.jswGetHeight() > cheight) cheight = c.jswGetHeight();
 		c.setAlignmentX(Component.LEFT_ALIGNMENT);
 		c.setPreferredSize(new Dimension(cwidth, cheight));
-	}
+	}*/
 
 	@Override
 	public void setEnabled(boolean e)
@@ -78,6 +83,10 @@ public class jswHorizontalPanel extends jswContainer
 		}
 
 	}
+
+
+
+	
 
 	
 }

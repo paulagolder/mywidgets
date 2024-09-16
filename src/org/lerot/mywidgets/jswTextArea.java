@@ -75,6 +75,7 @@ public class jswTextArea extends jswPanel implements ActionListener, KeyListener
 			// textbox.setMaximumSize(d);
 			textarea.setMinimumSize(d);
 		}
+	    setBorder(style.getBorder());
 	//	setBackground(jswStyle.TRANSPARENT);
 		setBackground(jswStyle.defaulttextboxcolor);
 		setPreferredSize(d);

@@ -14,28 +14,27 @@ import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultCaret;
 
-public class jswTextBox extends jswPanel  implements KeyListener //implements ComponentListener
+public class jswTextBox extends jswPanel implements KeyListener // implements ComponentListener
 {
 
 	private static final long serialVersionUID = 1L;
-	//JLabel label;
 	public JTextField textbox;
 	Color oldbgcolor;
 	private Color backgroundcolor;
 	private Color alertcolor = Color.red;
-	int bh=30;
-	int bl=30;
+	int bh = 30;
+	int bl = 300;
 	private String prompt;
-	
+
 	public jswTextBox(ActionListener al, String inLabel)
 	{
 		super(inLabel);
-		prompt= inLabel;
+		prompt = inLabel;
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		actionlistener = al;
 		textbox = new JTextField();
-		textbox.addActionListener( this);
+		textbox.addActionListener(this);
 		textbox.addKeyListener(this);
 		if (prompt == null || prompt.isEmpty())
 		{
@@ -47,10 +46,11 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 		tp7.changeAlpha(0.5f);
 		tp7.changeStyle(Font.ITALIC);
 		tp7.setVisible(true);
-	    textbox.setEditable(true);
-	    textbox.setEnabled(true);
-	    DefaultCaret caret = (DefaultCaret)textbox.getCaret();
-	    caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		textbox.setEditable(true);
+		textbox.setEnabled(true);
+		DefaultCaret caret = (DefaultCaret) textbox.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		style.putAttribute("borderwidth",0);
 		add(textbox);
 		applyStyle();
 	}
@@ -59,36 +59,35 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 	{
 
 		setBorder(style.getBorder());
-
 		textbox.setFont(style.getFont());
-		textbox.setForeground(style.getColor("foregroundColor",	Color.BLACK));
+		textbox.setForeground(style.getColor("foregroundColor", Color.BLACK));
 		textbox.setBackground(jswStyle.defaulttextboxcolor);
 		textbox.setBackground(Color.red);
-		int wd =style.getIntegerStyle("mywidth",bl);
-		if(wd > bl) bl= wd;
-		int ht =style.getIntegerStyle( "myheight",bh);
-		if(ht > bh ) bh=ht;
-		Dimension d = new Dimension(bl+300, bh);
+		int wd = style.getIntegerStyle("mywidth", bl);
+		if (wd > bl)   bl = wd;
+		int ht = style.getIntegerStyle("myheight", bh);
+		if (ht > bh)   bh = ht;
+		Dimension d = new Dimension(bl, bh);
 		textbox.setPreferredSize(d);
-		textbox.setMaximumSize(d);
+		textbox.setMaximumSize(new Dimension(1000, bh));
 		textbox.setMinimumSize(d);
 		setBackground(jswStyle.defaulttextboxcolor);
 		setPreferredSize(d);
 		setMaximumSize(d);
-		setMinimumSize(d);		
+		setMinimumSize(d);
 	}
-		
+
 	@Override
 	public void addFocusListener(FocusListener fl)
 	{
 		textbox.addFocusListener(fl);
 	}
-	
+
 	public void addActionListener(ActionListener al)
 	{
-		textbox.addActionListener(al);		
+		textbox.addActionListener(al);
 	}
-	
+
 	@Override
 	public void addKeyListener(KeyListener kl)
 	{
@@ -125,7 +124,8 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 	@Override
 	public void repaint()
 	{
-		if (textbox != null) textbox.repaint();
+		if (textbox != null)
+			textbox.repaint();
 	}
 
 	@Override
@@ -134,16 +134,16 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 		textbox.setEnabled(e);
 	}
 
-/*	public void setLabel(String t)
-	{
-		label.setText(t);
-	}*/
+	/*
+	 * public void setLabel(String t) { label.setText(t); }
+	 */
 
 	@Override
 	public void setBackground(Color c)
 	{
 		backgroundcolor = c;
-		if (textbox != null) textbox.setBackground(c);
+		if (textbox != null)
+			textbox.setBackground(c);
 	}
 
 	public void setAlertColor(Color ac)
@@ -155,13 +155,16 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 	{
 		if (b)
 		{
-			if (oldbgcolor == null) oldbgcolor = backgroundcolor;
-			if (textbox != null) textbox.setBackground(alertcolor);
+			if (oldbgcolor == null)
+				oldbgcolor = backgroundcolor;
+			if (textbox != null)
+				textbox.setBackground(alertcolor);
 		} else
 		{
 			if (oldbgcolor != null)
 			{
-				if (textbox != null) textbox.setBackground(oldbgcolor);
+				if (textbox != null)
+					textbox.setBackground(oldbgcolor);
 			}
 		}
 	}
@@ -179,30 +182,28 @@ public class jswTextBox extends jswPanel  implements KeyListener //implements Co
 	public void setText(String t)
 	{
 		textbox.setText(t);
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		//textbox.revalidate();
-		//System.out.println("some action:" + getText());
+		// textbox.revalidate();
+		// System.out.println("some action:" + getText());
 	}
 
-	
-	
 }

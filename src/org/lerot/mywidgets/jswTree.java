@@ -102,12 +102,13 @@ import javax.swing.tree.TreeSelectionModel;
 		private Color defaultcolor;
 		private Color selectedcolor;
 		private Font defaultfont;
+		private int bl = 200;
+		private int bh = 20;
 
 		public jswTree(ActionListener al, String inname, DefaultMutableTreeNode aNode)
 		{
 			super(0);
 			name = inname;
-			//treefont = intreefont;
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			if (aNode == null) reptree = new JTree();
 			else
@@ -121,24 +122,54 @@ import javax.swing.tree.TreeSelectionModel;
 			reptree.setShowsRootHandles(true);
             reptree.addTreeSelectionListener(new MySelectionListener());
         	actionlistener = al;
-            //addActionListener(this);
 			MyRenderer renderer = new MyRenderer();
 			reptree.setCellRenderer(renderer);
-
-			this.add(reptreeView);
-			this.setPreferredSize(new Dimension(panelwidth, 100));
+			this.add(" FILLW " ,reptreeView);
+			this.setPreferredSize(new Dimension(bl, bh));
 			this.addComponentListener(this);
+			applyStyle();
 
 		}
 
 		
-       public void applyStyle(jswStyle astyle)
+       public void xapplyStyle(jswStyle astyle)
        {
     	   defaultcolor = astyle.getColor("foregroundcolor",Color.black);
     	   selectedcolor = astyle.getColor("selectedcolor",Color.red);
     	   defaultfont = astyle.getFont();
     	   
        }
+       
+   	void applyStyle(jswStyle style)
+   	{
+
+   		int wd = style.getIntegerStyle("mywidth", bl);
+   		if (wd > bl)
+   			bl = wd;
+   		int ht = style.getIntegerStyle("myheight", bh);
+   		if (ht > bh)
+   			bh = ht;
+   		Dimension d = new Dimension(bl, bh);
+   		if (reptreeView != null)
+   		{
+   			reptreeView.setBackground(Color.green);
+   			reptreeView.setFont(style.getFont());
+   			//textarea.setBackground(jswStyle.TRANSPARENT);
+   			reptreeView.setForeground(style.getForegroundcolor());
+   			reptreeView.setBackground(jswStyle.defaulttextboxcolor);
+   			reptreeView.setBorder(style.getBorder());
+   			reptreeView.setPreferredSize(d);
+   			// textbox.setMaximumSize(d);
+   			reptreeView.setMinimumSize(d);
+   		}
+   	    setBorder(style.getBorder());
+   	//	setBackground(jswStyle.TRANSPARENT);
+   		setBackground(jswStyle.defaulttextboxcolor);
+   		setPreferredSize(d);
+   		// setMaximumSize(d);
+   		setMinimumSize(d);
+
+   	}
 		
 
 

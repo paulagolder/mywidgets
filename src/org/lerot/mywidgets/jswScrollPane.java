@@ -15,36 +15,20 @@ public class jswScrollPane extends jswPanel
 	{
 		super("scrollpane");
 		target = atarget;
-		// setBorder(setLineBorder(Color.red, 4));
-		// jswScrollLayout arlayout = new jswScrollLayout(yshift, xshift, 0, 0);
-		// jswVerticalLayout arlayout = new jswVerticalLayout();// yshift,
 		jswHorizontalLayout arlayout = new jswHorizontalLayout();
-		// xshift,
-		// 0, 0);
 		this.setLayout(arlayout);
-		// this.setTag("trace");
 		window = new JScrollPane(target);
-		// window.setBorder(setLineBorder(Color.yellow, 4));
 		add(" FILLW ", window);
-		// add(window);
 	}
 
 	public jswScrollPane(jswPanel atarget)
 	{
 		super("scrollpane");
 		target = atarget;
-
-		// jswRectLayout arlayout = new jswRectLayout();
-		// jswVerticalLayout arlayout = new jswVerticalLayout();
-		// jswScrollLayout arlayout = new jswScrollLayout(0, 0, 0, 0);
 		jswHorizontalLayout arlayout = new jswHorizontalLayout();
-		// setBorder(setLineBorder(Color.red, 4));
 		this.setLayout(arlayout);
-		// this.setTag("trace");
 		window = new JScrollPane(target);
-		// window.setBorder(setLineBorder(Color.yellow, 4));
 		add(" FILLW ", window);
-		// add(window);
 	}
 
 	public void setMyBounds(int x, int y, int w, int h)

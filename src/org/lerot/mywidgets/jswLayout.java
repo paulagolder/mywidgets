@@ -23,7 +23,7 @@ public abstract class jswLayout implements LayoutManager
 	public static final int DISTRIBUTE = 4;
 	public static final int RIGHT = 3;
 	public static final int MIDDLE = 2;
-	public static final int BOTTOM = 0;
+	public static final int BOTTOM = 3;
 
 	public int gap =5;
 	int verticallayoutstyle =jswLayout.TOP;
@@ -53,7 +53,8 @@ public abstract class jswLayout implements LayoutManager
 		public int fillw;
 		public int finalwidth;
 		public int bdwidth;
-		public Insets insets;
+		//public Insets insets;
+		public int finalheight;
 	
 
 		public String sysprint()
@@ -467,7 +468,7 @@ public abstract class jswLayout implements LayoutManager
 		this.gap = gap;
 	}
 
-	public Dimension minimumLayoutSize(Component parent)
+/*	public Dimension minimumLayoutSize(Component parent)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -484,7 +485,7 @@ public abstract class jswLayout implements LayoutManager
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+*/
 
 
 

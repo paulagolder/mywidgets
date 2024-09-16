@@ -11,7 +11,6 @@ import javax.swing.border.Border;
 public class jswVerticalLayout extends jswLayout
 {
 
-	private static final int DEFAULT_VGAP = 0;
 	private int vgap;
 	private layout[] clayout = new layout[10];
 	private int componentcount = 0;
@@ -38,8 +37,8 @@ public class jswVerticalLayout extends jswLayout
 			}
 
 		}
-		padding = jswPanel.getPadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
-		
+		//padding = jswPanel.makePadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
+		padding = ((jswPanel) parent).padding;
 		if(trace)
 	{
 			System.out.println(" paddingy :"+padding);
@@ -84,12 +83,12 @@ public class jswVerticalLayout extends jswLayout
 				if (bd != null)
 				{
 					Insets dbinsets = bd.getBorderInsets(comp);
-					clayout[j].insets = dbinsets;
+					//clayout[j].insets = dbinsets;
 					clayout[j].bdwidth = dbinsets.left + dbinsets.right;
 				} else
 				{
 					clayout[j].bdwidth = 0;
-					clayout[j].insets = new Insets(0, 0, 0, 0);
+					//clayout[j].insets = new Insets(0, 0, 0, 0);
 				}
 				if (s.isTrue("FILLH"))
 				{
@@ -115,6 +114,14 @@ public class jswVerticalLayout extends jswLayout
 				if (s.isTrue("MINHEIGHT"))
 				{
 					clayout[j].minheight = s.getInteger("MINHEIGHT");
+				}
+				if (s.isTrue("MAXWIDTH"))
+				{
+					clayout[j].maxwidth = s.getInteger("MAXWIDTH");
+				}
+				if (s.isTrue("MINWIDTH"))
+				{
+					clayout[j].minwidth = s.getInteger("MINWIDITH");
 				}
 				if (s.isTrue("MIDDLE"))
 				{
@@ -233,21 +240,12 @@ public class jswVerticalLayout extends jswLayout
 	@Override
 	public Dimension minimumLayoutSize(Container parent)
 	{
-		Insets padding = jswPanel.getPadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
+		Insets padding = jswPanel.makePadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
 		vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
 		componentcount = parent.getComponentCount();
 
 		if (componentcount == 0)
 			vgap = 0;
-
-		Insets insets = parent.getInsets();
-		if (parent instanceof jswPanel)
-		{
-			Border aborder = ((JComponent) parent).getBorder();
-			if (aborder != null)
-				insets = aborder.getBorderInsets(parent);
-		}
-		Insets binsets = new Insets(0, 0, 0, 0);
 
 		int w = 0;
 		int h = 0;
@@ -278,26 +276,27 @@ public class jswVerticalLayout extends jswLayout
 		
 		int prefwidth = padding.left + padding.right + w ; // binsets.left + binsets.right + w;
 		int prefheight = padding.top + padding.bottom + h ; // binsets.top + binsets.bottom + h;
-		return new Dimension(prefwidth, prefheight + 5);
+		return new Dimension(prefwidth, prefheight);
 	}
 
 	@Override
 	public Dimension preferredLayoutSize(Container parent)
 	{
-		Insets padding = jswPanel.getPadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
+		Insets padding = jswPanel.makePadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
 		vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
 		componentcount = parent.getComponentCount();
 
 		if (componentcount == 0)
 			vgap = 0;
-		Insets binsets = new Insets(0, 0, 0, 0);
-		int ncomponents = parent.getComponentCount();
+	/*	Insets binsets = new Insets(0, 0, 0, 0);
+		
 		if (parent instanceof jswPanel)
 		{
 			Border aborder = ((JComponent) parent).getBorder();
 			if (aborder != null)
 				binsets = aborder.getBorderInsets(parent);
-		}
+		}*/
+		int ncomponents = parent.getComponentCount();
 		if (ncomponents == 0)
 			vgap = 0;
 		Insets insets = parent.getInsets();
@@ -319,8 +318,8 @@ public class jswVerticalLayout extends jswLayout
 				h += this.vgap;
 			}
 		}
-		int prefwidth = insets.left + insets.right + binsets.left + binsets.right + w;
-		int prefheight = insets.top + insets.bottom + binsets.top + binsets.bottom + h;
+		int prefwidth = insets.left + insets.right + w;//+ binsets.left + binsets.right 
+		int prefheight = insets.top + insets.bottom + h;//+ binsets.top + binsets.bottom 
 		return new Dimension(prefwidth, prefheight + 5);
 	}
 

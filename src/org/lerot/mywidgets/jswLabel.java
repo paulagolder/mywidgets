@@ -1,9 +1,3 @@
-/*
- * Created on 12-Jan-2005
- *
- * To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
 package org.lerot.mywidgets;
 
 import java.awt.Color;
@@ -19,37 +13,36 @@ public class jswLabel extends jswPanel
 	private static final long serialVersionUID = 1L;
 	JLabel label;
 
-	
-
 	public jswLabel(String inLabel)
 	{
-		super(inLabel);	
+		super(inLabel);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setAlignmentX(Component.CENTER_ALIGNMENT);
 		label = new JLabel();
 		label.setText(inLabel);
+      //  label.setStyleAttribute("borderwidth",0);
 		add(label);
+		setStyleAttribute("borderwidth",0);
+		setStyleAttribute("bordercolor","green");
 		applyStyle();
 		this.setEnabled(true);
 	}
 
-	
 	@Override
 	void applyStyle()
-	{	
-				label.setFont(style.getFont());
-				label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-				label.setBackground( style.getColor("backgroundColor",jswStyle.TRANSPARENT));
-				//label.setBorder(jswStyle.makeLineBorder(Color.red, 1));
-				label.setBorder(style.getBorder());
-				setBackground(jswStyle.TRANSPARENT);
+	{
+		label.setFont(style.getFont());
+		label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+		label.setBackground(style.getColor("backgroundColor", jswStyle.TRANSPARENT));
+		// label.setBorder(jswStyle.makeLineBorder(Color.red, 1));
+		//label.setBorder(style.getBorder());
+		setBorder(style.getBorder());
+		setBackground(jswStyle.TRANSPARENT);
 	}
-	
-	
-	
+
 	public jswLabel(int count)
 	{
-		this(String.valueOf(count));		
+		this(String.valueOf(count));
 	}
 
 	public JLabel getLabel()
@@ -73,21 +66,23 @@ public class jswLabel extends jswPanel
 	{
 		System.out.println(" setin width  " + label.getText());
 		int setwidth = style.getIntegerStyle("mywidth", -1);
-		if (setwidth > 0) return setwidth;
+		if (setwidth > 0)
+			return setwidth;
 		System.out.println(" setwidth " + setwidth);
 		Dimension d = label.getPreferredSize();
 		System.out.println(" prefered size w=" + d.width + " h=" + d.height);
-		if (d.width > 0) return d.width;
+		if (d.width > 0)
+			return d.width;
 		else
 		{
 			d = label.getMaximumSize();
 			System.out.println(" maximum size w=" + d.width + " h=" + d.height);
-			if (d.width > 0) return d.width;
+			if (d.width > 0)
+				return d.width;
 			else
 			{
 				d = label.getMinimumSize();
-				System.out.println(" minimum size w=" + d.width + " h="
-						+ d.height);
+				System.out.println(" minimum size w=" + d.width + " h=" + d.height);
 				return d.width;
 			}
 		}

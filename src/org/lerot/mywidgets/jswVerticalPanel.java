@@ -1,7 +1,10 @@
 package org.lerot.mywidgets;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.border.Border;
 
 public class jswVerticalPanel extends jswContainer
 {
@@ -16,28 +19,53 @@ public class jswVerticalPanel extends jswContainer
 		// setBorder(setLineBorder(1));
 	}
 
-	public jswVerticalPanel(String title, boolean titledborder)
+	public jswVerticalPanel(String title, boolean border, boolean titledborder)
 	{
-		super("VP:" + title);
+		super(title);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new jswVerticalLayout());
-		// if(title.length()>0)
+		setName(title);	
+		setPanelname(title);
+		if(titledborder)
 		{
-			setName(title);
-			if (titledborder) setBorder(jswStyle.makecborder(title));
+			style.setBorderStyle(jswStyle.TITLEDBORDER);
+		}else if (border)
+		{
+			style.setBorderStyle(jswStyle.LINEBORDER);
 		}
+		else
+		{
+			style.setBorderStyle(jswStyle.NOBORDER);
+		}
+		
+		applyStyle();
 	}
 
-	public void addComponent(jswPanel c)
+	/*	public void addComponent(jswPanel c)
 	{
-		super.add(c);
+		super.add(" ",c);
 		int h = c.jswGetHeight();
 		cheight += h;
 		if (c.jswGetWidth() > cwidth) cwidth = c.jswGetWidth();
 		c.setAlignmentX(Component.LEFT_ALIGNMENT);
 		c.setPreferredSize(new Dimension(cwidth, cheight));
-	}
+	}*/
 
+	
+	 void applyStyle(jswStyle astyle)
+	{
+		
+		Font sfont = astyle.getFont();
+		this.setFont(sfont);
+		this.setPanelBorder(astyle);
+		Border aborder = getBorder();
+		if (aborder != null)
+			padding = aborder.getBorderInsets(this);
+		this.setForeground(astyle.getColor("foregroundColor", Color.BLACK));
+		this.setBackground(astyle.getColor("backgroundColor", Color.green));
+		
+	}
+	
 	
 
 }

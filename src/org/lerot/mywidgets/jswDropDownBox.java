@@ -47,16 +47,13 @@ public class jswDropDownBox extends jswPanel
 
 	class MyListDataListener implements ListDataListener {
 	    public void contentsChanged(ListDataEvent e) {
-	        System.out.println("contentsChanged: " + e.getIndex0() +
-		           ", " + e.getIndex1() );
+	        //System.out.println("contentsChanged: " + e.getIndex0() +  ", " + e.getIndex1() );
 	    }
 	    public void intervalAdded(ListDataEvent e) {
-	    	System.out.println("intervalAdded: " + e.getIndex0() +
-		           ", " + e.getIndex1() );
+	    	//System.out.println("intervalAdded: " + e.getIndex0() +  ", " + e.getIndex1() );
 	    }
 	    public void intervalRemoved(ListDataEvent e) {
-	    	System.out.println("intervalRemoved: " + e.getIndex0() +
-		           ", " + e.getIndex1() );
+	    	//System.out.println("intervalRemoved: " + e.getIndex0() + ", " + e.getIndex1() );
 	    }
 	} 
 

@@ -1,14 +1,20 @@
 package org.lerot.mywidgets;
 
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 
 public class jswOption extends jswPanel
 {
@@ -18,15 +24,16 @@ public class jswOption extends jswPanel
 	private JRadioButton button;
 	int compheight = 0;
 	boolean vertical = true;
+	private int mwidth;
+	private int nwidth;
+	private int nheight;
 
 
 	public jswOption(ActionListener al,String text, boolean vertical)
-
 	{
 		super(text);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-
 		button = new JRadioButton(text);
 		button.setSelected(false);
 		add(button);
@@ -34,14 +41,29 @@ public class jswOption extends jswPanel
 		actionlistener = al;
 		this.vertical = vertical;
 		button.setAlignmentX(Component.LEFT_ALIGNMENT);
-		this.getStyle().setBackgroundcolor("transparent");		
-
+		this.getStyle().setBackgroundcolor("transparent");	
+		this.setStyleAttribute("borderwidth", 1);
+		this.setStyleAttribute("bordercolor", "red");	
+		setPanelBorder(style);
+        applyStyle();
 	}
 
 
-
+	public void applyStyle(jswStyle style)
+	{	  
+			Font sfont = style.getFont();
+			button.setFont(sfont);	
+			Canvas c = new Canvas();
+			FontMetrics fm = c.getFontMetrics(sfont);
+			mwidth = fm.stringWidth(button.getText());
+			nwidth = button.getMinimumSize().width;
+			nheight = button.getMinimumSize().height;
+			setPanelBorder(style);
+			button.setBorder(style.getBorder());
+			button.setForeground(style.getColor("foregroundColor", Color.blue));
+			button.setBackground(style.getColor("backgroundColor", Color.red));	
+	}
 	
-
 	public String getText()
 	{
 		return getButton().getText();
@@ -91,14 +113,6 @@ public class jswOption extends jswPanel
 	}
 
 
-	public void doStyling(jswStyle style)
-	{	
-			Font sfont = style.getFont();
-			button.setFont(sfont);
-			button.setBorder(style.getBorder());
-			button.setForeground(style.getColor("foregroundColor", Color.blue));
-			button.setBackground(style.getColor("backgroundColor", Color.red));			
-	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
@@ -119,6 +133,13 @@ public class jswOption extends jswPanel
 		actionlistener.actionPerformed(event);
 
 	}
+	
+	@Override
+	public Dimension getMinimumSize()
+	{
+		//return button.getMinimumSize();
+		return new Dimension(nwidth+padding.left+padding.right,nheight+padding.top+padding.bottom);
+	}
+	}
 
 
-}

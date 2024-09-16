@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -23,13 +24,14 @@ public abstract class jswPanel extends JPanel implements ActionListener
 	protected jswStyle style;
 	private String tag = "";
 	private String marker = "";
-	private Insets padding = new Insets(1, 1, 1, 1);
+	protected Insets padding = new Insets(1, 1, 1, 1);
 	ActionListener actionlistener = null;
 
 	public jswPanel(String name)
 	{
 		panelname = name;
 		initialiseStyle(this.getClass().getSimpleName());
+		//applyStyle();
 	}
 
 	public jswPanel(int count)
@@ -50,7 +52,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
 		return padding;
 	}
 
-	public static Insets getPadding(String ins)
+	public static Insets makePadding(String ins)
 	{
 		Insets padding = null;
 		Vector<Integer> pvs = new Vector<Integer>();
@@ -82,7 +84,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
 	
 	public void setPadding(String instr)
 	{
-		padding = getPadding(instr);
+		padding = makePadding(instr);
 	}
 
 	public void setPadding()
@@ -112,31 +114,60 @@ public abstract class jswPanel extends JPanel implements ActionListener
 
 		Font sfont = astyle.getFont();
 		this.setFont(sfont);
-		this.setBorder(astyle.getBorder());
+		this.setPanelBorder(astyle);
+	
+			Border aborder = getBorder();
+			if (aborder != null)
+				padding = aborder.getBorderInsets(this);
+	
 		this.setForeground(astyle.getColor("foregroundColor", Color.BLACK));
 		this.setBackground(astyle.getColor("backgroundColor", Color.green));
 
 	}
 
-	void setPanelBorder()
+	void setPanelBorder(jswStyle style)
 	{
 		int bs = style.getBorderStyle();
 		if (bs == jswStyle.TITLEDBORDER)
 		{
-			setBorder(jswStyle.makecborder(panelname));
-			this.setPadding(15, 5, 5, 5);
-			;
+			Border bd = style.makecborder(panelname);		
+			setBorder(bd);		
+			this.setPadding(bd.getBorderInsets(this));
 		} else if (bs == jswStyle.LINEBORDER)
 		{
-			setBorder(jswStyle.makeLineBorder(Color.pink, 2));
-			Border thisborder = getBorder();
-			int thk = ((LineBorder) thisborder).getThickness();
-			this.setPadding(((LineBorder) thisborder).getThickness() + 1);
+			setBorder(style.makeLineborder(new Insets(20,20,20,20)));
+			this.setPadding(10, 10, 10, 10);
 		} else
 		{
 			setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			this.setPadding(1, 1, 1, 1);
 		}
 
+	}
+	
+	private void setPadding(Insets borderInsets)
+	{
+		padding = borderInsets;
+		
+	}
+
+	public void setStyleAttribute(String string, int i)
+	{
+		style.putAttribute(string,i);
+		
+	}
+	
+	public void setStyleAttribute(String string, String string2)
+	{
+		style.putAttribute(string,string2);
+		
+	}
+	
+	void setFontStyle(String font, int fonttype, int fontsize)
+	{
+		style.setFontsize(fontsize);
+		style.setFontstyle(fonttype);
+		style.setFontname(font);		
 	}
 
 	public String getPanelname()

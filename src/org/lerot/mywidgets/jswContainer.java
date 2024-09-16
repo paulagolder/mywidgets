@@ -6,7 +6,7 @@ public class jswContainer extends jswPanel
 {
 
 	private static final long serialVersionUID = 1L;
-	int cheight = 0, cwidth = 0;
+//	int cheight = 0, cwidth = 0;
 	int bl=30;
 	int bh=30;
 

@@ -1,10 +1,15 @@
 package org.lerot.mywidgets;
 
+import java.awt.Dimension;
+import java.awt.LayoutManager;
 //import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.JComponent;
+import javax.swing.border.Border;
+import org.lerot.mywidgets.jswLayout.settings;
 
 public class jswPushButtonset extends jswPanel implements ActionListener
 {
@@ -13,45 +18,41 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	ActionListener actionlistener;
 	ButtonGroup bg;
 	int no = 0;
-	int padding = 10;
-	jswPushButton[] options;
+	jswPushButton[] buttons;
 	String commandroot;
 
-	private boolean vertical;
+	private boolean isvertical;
 
 	public jswPushButtonset(ActionListener parentListener, String name,
 			boolean isvertical, boolean border, boolean titledborder)
 	{
 		super( name);
 		commandroot = name;
-		vertical =isvertical;
+		this.isvertical =isvertical;
 		actionlistener = parentListener;
 		if (!isvertical)
 		{
-			//setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			//setAlignmentY(Component.TOP_ALIGNMENT);
 			setLayout(new jswHorizontalLayout());
-			// setMaximumSize(new Dimension(0, 45));
 		} else
 		{
-			//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-			//setAlignmentX(Component.CENTER_ALIGNMENT);
 			setLayout(new jswVerticalLayout());
 		}
-
+		style.putAttribute("verticallayoutstyle" , jswLayout.MIDDLE);
 		if(titledborder)
 		{
 			style.setBorderStyle(jswStyle.TITLEDBORDER);
+			style.setBorderWidth(1);
 		}else if (border)
 		{
 			style.setBorderStyle(jswStyle.LINEBORDER);
+			style.setBorderWidth(1);
 		}
 		else
 		{
 			style.setBorderStyle(jswStyle.NOBORDER);
 		}
 		bg = new ButtonGroup();
-		options = new jswPushButton[10];
+		buttons = new jswPushButton[10];
 		setName(name);
 		applyStyle();
 	}
@@ -65,20 +66,17 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 
 	public void applyStyle(jswStyle style)
 	{			
-		padding = style.getIntegerStyle("padding",padding);
-		padding = 20;
 		setBackground(style.getBackgroundcolor());
-		setPanelBorder();
-			
+		setPanelBorder(style);
+		setBorder(style.getBorder());;			
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// Object action = e.getSource();
 		for (int i = 0; i < no; i++)
 		{
-			jswPushButton on = options[i];
+			jswPushButton on = buttons[i];
 			if (on.isSelected())
 			{
 				// on.setEnabled(true);
@@ -90,27 +88,14 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		actionlistener.actionPerformed(e);
 	}
 
-	public jswPushButton addNewOption(String text)
+	public jswPushButton addNewButton(String text)
 	{
-		int pad = padding;
-		
-		/*	if(no==0)
-		{
-			pad = padding/2;
-		}
-	
-			if(vertical)
-			     add(Box.createVerticalStrut(padding));
-			else
-				add(Box.createHorizontalStrut(padding));	
-		*/
 		jswPushButton on = new jswPushButton(this, text);
 		on.button.addActionListener(this);
 		on.button.setActionCommand(commandroot + ":" + text);
 		bg.add(on.button);
-		options[no] = on;
-		add(on);
-		
+		buttons[no] = on;
+		add(on);		
 		no = no + 1;
 		return on;
 	}
@@ -119,7 +104,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	{
 		for (int i = 0; i < no; i++)
 		{
-			jswPushButton on = options[i];
+			jswPushButton on = buttons[i];
 			if (on.isSelected()) return on.getLabel();
 		}
 		return "";
@@ -144,7 +129,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	{
 		for (int i = 0; i < no; i++)
 		{
-			jswPanel on = options[i];
+			jswPanel on = buttons[i];
 			on.setEnabled(e);
 		}
 	}
@@ -153,7 +138,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	{
 		for (int i = 0; i < no; i++)
 		{
-			jswPushButton on = options[i];
+			jswPushButton on = buttons[i];
 
 			if (on.getLabel().equalsIgnoreCase(value))
 
@@ -169,5 +154,75 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		}
 
 	}
+	
+	@Override
+	public Dimension getMinimumSize()
+	{
+		int width = 0;
+		int height = 0;		
+		Integer vgap = getStyle().getIntegerStyle("gap", 1);
+		Integer hgap = getStyle().getIntegerStyle("gap", 1);
+		LayoutManager lm = this.getLayout();
+		settings s = ((jswLayout) lm).getSettings(this);
+		int minwidth = 0;
+			int mywidth=0;
+			if (s.containsKey("WIDTH"))
+			{
+				mywidth = s.getInteger("WIDTH");
+			}
+			if (s.containsKey("MINWIDTH"))
+			{
+				minwidth = s.getInteger("MINWIDTH");
+			}
+			if (minwidth > mywidth ) mywidth = minwidth;
+			int minheight = 0;
+			int myheight=0;
+			if (s.containsKey("HEIGHT"))
+			{
+				myheight = s.getInteger("HEIGHT");
+			}
+			if (s.containsKey("MINHEIGHT"))
+			{
+				minheight = s.getInteger("MINHEIGHT");
+			}
+			if (minheight > myheight ) myheight= minheight;
+		if (isvertical)
+		{
+			for (int i = 0; i < no; i++)
+			{
+				
+				jswPushButton on =  buttons[i];
+				Dimension d = on.getMinimumSize();
+				height += d.height + vgap;
+				if (width < d.width ) width = d.width;			
+			}
+			width = width + padding.left+padding.right;
+			height = height + padding.top + padding.bottom;
+		} else
+		{
+			for (int i = 0; i < no; i++)
+			{
+				jswPushButton on =  buttons[i];
+				Dimension d = on.getMinimumSize();
+				width += d.width + hgap;
+				if (height < d.height ) height = d.height;			
+			}
+			width = width + padding.left+padding.right ;		
+			height = height + padding.top + padding.bottom;
+		}
+		if (width < mywidth )width = mywidth;
+		if(height <myheight) height=myheight;
+		Dimension d = new Dimension(width,height);
+		return d;		
+	}
+		
+	
+	@Override
+	public Dimension getPreferredSize()
+	{
+		return getMinimumSize();
+	}
+
+
 
 }

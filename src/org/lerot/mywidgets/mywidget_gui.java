@@ -164,7 +164,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		jswOption rog = optionseta.addNewOption("green", true);
 		rog.applyStyle(mwdefstyles.getStyle("greenoption"));
 		optionseta.applyStyle();
-		panel2.add("  ", optionseta);
+		panel2.add("  ", optionseta); 
 		jswPushButtonset pushbuttonseta = new jswPushButtonset(this, "my V button list", true, true, true);
 		pushbuttonseta.setStyleAttribute("verticallayoutstyle", jswLayout.DISTRIBUTE);
 		pushbuttonseta.setStyleAttribute("horizontallayoutstyle", jswLayout.MIDDLE);
@@ -180,7 +180,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		this.textarea = new jswTextArea("some input", true);
 		panel2.add(" WIDTH=300 FILLH ", (Component) this.textarea);
 		jswTable table1 = makeTableExample();
-		panel2.add(" FILLW FILLH  ", table1);
+		panel2.add(" width=400 FILLH  ", table1);
 		mainpanel.add(" HEIGHT=300 ", panel2);
 		// ====end of panel2==
 
@@ -293,25 +293,26 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
 	public jswTable makeTableExample()
 	{
-		jswTable table1 = new jswTable("table 1", tablestyles());
+		jswStyles defstyles = jswStyles.getDefaultTableStyles();
+		jswTable table1 = new jswTable("table 1", defstyles);
 		for (int k = 0; k < 10; k++)
 		{
 			table1.addCell(" row " + k, k, 0);
-		}
+		}	
 		for (int j = 1; j < 5; j++)
 		{
 			table1.addCell(" col:" + j, 0, j);
 		}
 		for (int i = 1; i < 10; i++)
 		{
-
 			for (int m = 1; m < 5; m++)
 			{
-				table1.addCell(" cell:" + i + ":" + m, i, m);
+				jswCell acell = table1.addCell(" cell:" + i + ":" + m, i, m);
+				acell.applyStyle();
+				acell.applyContentStyle();
 			}
 		}
-
-		table1.applyStyle();
+		table1.applyAllStyles();
 		return table1;
 	}
 
@@ -319,17 +320,6 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 	{
 
 		jswStyles defstyles = new jswStyles("default");
-		/*
-		 * jswStyle defaultstyle = defstyles.makeStyle("default");
-		 * defaultstyle.putAttribute("backgroundColor", "#C0C0C0");
-		 * defaultstyle.putAttribute("boxbackgroundColor", "pink");
-		 * defaultstyle.putAttribute("foregroundColor", "#6b6a6a");
-		 * defaultstyle.putAttribute("borderWidth", "1");
-		 * defaultstyle.setFontsize(jswStyles.font_large);
-		 * defaultstyle.putAttribute("borderColor", "#909090");
-		 * defaultstyle.putAttribute("cellborderWidth", "1");
-		 * defaultstyle.putAttribute("cellborderColor", "#909090");
-		 */
 
 		jswStyle lstyle = defstyles.makeStyle("largebutton");
 		lstyle.setFontsize(jswStyles.font_large);
@@ -388,7 +378,13 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 		tablestyles.name = "defaulttable";
 		jswStyle colstyle = tablestyles.makeStyle("col");
 		colstyle.putAttribute("horizontalAlignment", "RIGHT");
-		colstyle.putAttribute("width", 100);
+		colstyle.putAttribute("width", 50);
+		colstyle.putAttribute("foregroundcolor", "yellow");
+		
+		jswStyle col23style = tablestyles.makeStyle("cell_3_4");
+		 col23style.putAttribute("foregroundcolor", "yellow");
+		  col23style.putAttribute("borderWidth", "1");
+		  col23style.putAttribute("borderColor", "blue");
 		/*
 		 * jswStyle colstyle2 = tablestyles.makeStyle("col_2");
 		 * colstyle2.putAttribute("horizontalAlignment", "LEFT");

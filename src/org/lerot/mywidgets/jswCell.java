@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class jswCell extends jswHorizontalPanel
+public class jswCell extends jswPanel //jswHorizontalPanel
 {
 
 	private static final long serialVersionUID = 1L;
@@ -18,13 +19,19 @@ public class jswCell extends jswHorizontalPanel
 
 	public jswCell(int irow, int icol)
 	{
+		super("acell");
 		row = irow;
 		col = icol;
+		setAlignmentX(Component.LEFT_ALIGNMENT);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 	}
 
 	
+	@Override
 	public void applyContentStyle(jswStyle style)
 	{
+		
+		//System.out.println(" setting styles for "+ this.getClass().getSimpleName());
 		Component content = this.getComponent(0);
 		jswPanel label=null;
 		if( content instanceof jswPanel)
@@ -81,17 +88,7 @@ public class jswCell extends jswHorizontalPanel
 
 	}
 
-	@Override
-	public void applyStyle()
-	{
-		
-		this.setBorder(style.getBorder());
-		Font afont = style.getFont();
-		this.setFont(afont);
-		this.setForeground(style.getColor("foregroundColor", Color.BLACK));
-		this.setBackground(style.getColor("backgroundColor", new Color(0, 0,
-				0, 0)));
-	}
+
 	
 	public void applyStyle(jswStyle style)
 	{
@@ -99,6 +96,7 @@ public class jswCell extends jswHorizontalPanel
 		Font afont = style.getFont();
 		this.setFont(afont);
 		this.setForeground(style.getColor("foregroundColor", Color.BLACK));
+		//this.setForeground(Color.red);
 		this.setBackground(style.getColor("backgroundColor", new Color(0, 0,
 				0, 0)));
 	}
@@ -107,6 +105,6 @@ public class jswCell extends jswHorizontalPanel
 	@Override
 	public String toString()
 	{
-		return "CELL " + row + " " + col;
+		return "CELL " + row + " " + col + "="+ this.getComponent(0).toString();
 	}
 }

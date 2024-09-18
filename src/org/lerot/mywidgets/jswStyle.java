@@ -69,18 +69,17 @@ public class jswStyle
 	static String defaulttitlefontname;
 	static int defaulttitlefontsize;
 	static int defaulttitlefontstyle;
-	static String stylename="anon";
 	static Color defaultbackgroundcolor;
 	static Color defaultwidgetcolor;
 	static Color defaulttextboxcolor;
 	static Color TRANSPARENT;
-
-	Map<String, String> styles = new HashMap<>();
 	private Color defaultforegroundcolor;
 	private Color defaulttitlefontcolor;
 	static Color defaultbordercolor;
 	static int defaultborderwidth;
 	
+	 String stylename="anon";
+	Map<String, String> attributes = new HashMap<>();
 
 
 	public jswStyle()
@@ -111,7 +110,7 @@ public class jswStyle
 	{
 		if (basestyles == null) return;
 
-		for (Map.Entry<String, String> entry : basestyles.styles.entrySet())
+		for (Map.Entry<String, String> entry : basestyles.attributes.entrySet())
 		{
 			String key = entry.getKey();
 			String value = entry.getValue();
@@ -150,9 +149,9 @@ public class jswStyle
 	public boolean getBooleanStyle(String stylename, boolean b)
 	{
 		stylename = stylename.toLowerCase();
-		if (styles.containsKey(stylename))
+		if (attributes.containsKey(stylename))
 		{
-			String value = styles.get(stylename);
+			String value = attributes.get(stylename);
 			if (value == null || value == "") return b;
 			value = value.toLowerCase();
 			if (value.startsWith("t")) return true;
@@ -266,9 +265,9 @@ public class jswStyle
 	public Integer getIntegerStyle(String stylename)
 	{
 		stylename = stylename.toLowerCase();
-		if (styles.containsKey(stylename))
+		if (attributes.containsKey(stylename))
 		{
-			String value = styles.get(stylename);
+			String value = attributes.get(stylename);
 			if (value == null || value == "") return null;
 			try
 			{
@@ -285,9 +284,9 @@ public class jswStyle
 	public Integer getIntegerStyle(String stylename, int defaultint)
 	{
 		stylename = stylename.toLowerCase();
-		if (styles.containsKey(stylename))
+		if (attributes.containsKey(stylename))
 		{
-			String value = styles.get(stylename);
+			String value = attributes.get(stylename);
 			if (value == null || value == "" ) return defaultint;
 			try
 			{
@@ -305,9 +304,9 @@ public class jswStyle
 	String getStringStyle(String stylename)
 	{
 		stylename = stylename.toLowerCase();
-		if (styles.containsKey(stylename))
+		if (attributes.containsKey(stylename))
 		{
-			String value = styles.get(stylename);
+			String value = attributes.get(stylename);
 			if (value == null || value == "") return null;
 			else
 				return value;
@@ -318,9 +317,9 @@ public class jswStyle
 	public String getStringStyle(String stylename, String defaultstyle)
 	{
 		stylename = stylename.toLowerCase();
-		if (styles.containsKey(stylename))
+		if (attributes.containsKey(stylename))
 		{
-			String value = styles.get(stylename);
+			String value = attributes.get(stylename);
 			if (value == null || value == "" || value.equalsIgnoreCase("0")) return defaultstyle;
 			else
 				return value;
@@ -353,7 +352,7 @@ public class jswStyle
 
 	public void putAttribute(String attribute, String value)
 	{
-		styles.put(attribute.toLowerCase(), value);
+		attributes.put(attribute.toLowerCase(), value);
 	}
 	
 	public void putAttribute(String attribute, boolean b)

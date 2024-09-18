@@ -35,6 +35,7 @@ public class jswTableLayout extends jswLayout
 	int maxrow = 0;
 
 	private Vector<rowcol> rows;
+	private String trace;
 
 	public jswTableLayout()
 	{
@@ -55,10 +56,14 @@ public class jswTableLayout extends jswLayout
 	@Override
 	public void layoutContainer(Container parent)
 	{
+		trace = "table x";
 		if (parent instanceof jswPanel)
 		{
 			String marker = ((jswPanel) parent).getMarker();
-
+		}
+		if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
+		{
+			System.out.println("traceing " + trace);
 		}
 		int ncomponents = parent.getComponentCount();
 		if (ncomponents == 0)
@@ -66,11 +71,12 @@ public class jswTableLayout extends jswLayout
 			this.hgap = 0;
 		}
 		Insets insets = parent.getInsets();
-		Dimension parentSize = parent.getParent().getSize();
+		padding = ((jswPanel) parent).padding;
+	//	Dimension parentSize = parent.getParent().getSize();
+		Dimension parentSize = parent.getSize();
 		int usableWidth = parentSize.width - insets.left - insets.right - 2;
 		// paul fix replace by border width?
 		// - (fixedwidth);
-
 		int availableHeight = parentSize.height - insets.top - insets.bottom;
 		setRowCols((jswTable) parent);
 		scaleRows(availableHeight);
@@ -78,11 +84,13 @@ public class jswTableLayout extends jswLayout
 		for (int i = 0; i < ncomponents; i++)
 		{
 			Component comp = parent.getComponent(i);
-			// getSettings(comp);
-
 			if (comp instanceof jswCell)
 			{
 				jswCell cell = (jswCell) comp;
+				if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
+				{
+					//System.out.println(cell.toString());
+				}
 				int ncol = cell.col;
 				int nrow = cell.row;
 				int colspan = cell.colspan;
@@ -100,7 +108,9 @@ public class jswTableLayout extends jswLayout
 					}
 
 				} else
+				{
 					width = (int) colsettings.size;
+				}
 				comp.setBounds((x), (y), (width), (height));
 			}
 		}

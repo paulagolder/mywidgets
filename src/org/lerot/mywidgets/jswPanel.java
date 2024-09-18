@@ -109,6 +109,18 @@ public abstract class jswPanel extends JPanel implements ActionListener
 		applyStyle(style);
 	}
 
+	
+	void applyContentStyle()
+	{
+		applyContentStyle(style);
+	}
+
+	
+	protected void applyContentStyle(jswStyle style2)
+	{	
+		applyStyle(style);
+	};
+
 	void applyStyle(jswStyle astyle)
 	{
 

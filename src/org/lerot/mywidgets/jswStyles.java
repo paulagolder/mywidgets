@@ -37,10 +37,11 @@ public class jswStyles
 
 		for (Entry<String, jswStyle> entry : source.stylelist.entrySet())
 		{
-			jswStyle nstyle = new jswStyle();
-			nstyle.copyAll(entry.getValue());
+			
+			jswStyle astyle =entry.getValue();
+			jswStyle nstyle = new jswStyle(astyle.getStyleName());
+			nstyle.copyAll(astyle);
 			this.put(nstyle);
-
 		}
 
 	}
@@ -121,7 +122,6 @@ public class jswStyles
 	{
 		jswStyles tablestyles = new jswStyles();
 
-		//tablestyles = jswStyles.getDefaultStyles();
 		tablestyles.name = "defaulttable";
 		jswStyle tablestyle = tablestyles.makeStyle("table");
 		tablestyle.putAttribute("backgroundColor", "#c0d6f2");
@@ -133,13 +133,13 @@ public class jswStyles
 		cellstyle.putAttribute("fontStyle", Font.PLAIN);
 		cellstyle.putAttribute("borderColor", "black");
 		cellstyle.putAttribute("borderWidth", 1);
-	//	jswStyle rowstyle = tablestyles.makeStyle("row");
-	//	rowstyle.putAttribute("height", "10");
 		jswStyle row0style = tablestyles.makeStyle("row_0");
 		row0style.putAttribute("fontStyle", Font.BOLD + Font.ITALIC);
 		row0style.putAttribute("foregroundColor", "#0e56f2");
 		jswStyle cell00style = tablestyles.makeStyle("cell_0_0");
 		cell00style.putAttribute("foregroundColor", "transparent");
+		jswStyle cell43style = tablestyles.makeStyle("cell_4_3");
+		cell43style.putAttribute("foregroundColor", "red");
 		jswStyle colstyle = tablestyles.makeStyle("col");
 		colstyle.setHorizontalAlign("RIGHT");
 		jswStyle col0style = tablestyles.makeStyle("col_0");
@@ -147,7 +147,6 @@ public class jswStyles
 		col0style.putAttribute("backgroundColor", "TRANSPARENT");
 		col0style.setHorizontalAlign("LEFT");
 		
-
 		return tablestyles;
 	}
 

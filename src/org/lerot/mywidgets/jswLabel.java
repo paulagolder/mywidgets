@@ -109,5 +109,12 @@ public class jswLabel extends jswPanel
 	{
 		label.setText(t);
 	}
+	
+	public String toString()
+	{
+		
+		return label.getText();
+		
+	}
 
 }

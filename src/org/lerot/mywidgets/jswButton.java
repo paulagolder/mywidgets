@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -29,7 +30,7 @@ public class jswButton extends jswPanel implements ActionListener
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		button = new JButton(label);
 		button.addActionListener(this);
-		actionlistener = al;
+	    	actionlistener = al;
 		button.setActionCommand(command);
 		add(button);
 		applyStyle();
@@ -90,10 +91,11 @@ public class jswButton extends jswPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-
+	
+		HashMap<String,String> am = jswPanel.createActionMap(this, e) ;
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, "value = buttonpressed ");
+		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
 		actionlistener.actionPerformed(event);
 
 	}

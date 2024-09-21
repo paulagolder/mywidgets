@@ -8,7 +8,10 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
+import java.util.Map.Entry;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -300,6 +303,35 @@ public abstract class jswPanel extends JPanel implements ActionListener
 		ActionEvent event = new ActionEvent(this, uniqueId, "jswPanel action");
 		actionlistener.actionPerformed(event);
 
+	}
+
+	public static  Map<String, String> parseActionCommand(String cmd)
+	{
+		cmd = cmd.replace("{", " ");
+	    cmd	=	cmd.replace("}", "");
+		String str[] = cmd.split(",");
+		Map<String,String> actioncmd = new HashMap<String,String>();
+		String[] cmdelement = null;
+		for(String astr : str)
+		{	
+			cmdelement = astr.split("=");		
+			if(cmdelement.length==2)
+	     		 actioncmd.put(cmdelement[0].trim(), cmdelement[1].trim());
+			else
+				actioncmd.put(cmdelement[0].trim(), "null");
+		}
+		return actioncmd;		
+	}
+	
+	public static HashMap<String, String> createActionMap(jswPanel apanel, ActionEvent e)
+	{
+	HashMap<String,String> action = new HashMap<String,String>();
+	action.put("actiontype", "jswTable action");
+	action.put("source", e.getSource().getClass().getSimpleName());
+	action.put("handlerclass", apanel.getClass().getSimpleName());
+	action.put("handlername", apanel.getPanelname());
+	action.put("commandstring", e.getActionCommand());
+	return action;
 	}
 
 }

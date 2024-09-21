@@ -10,6 +10,7 @@ import java.awt.FontMetrics;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -127,9 +128,13 @@ public class jswOption extends jswPanel
            // button.setText("ON");  
             mess = "option OFF";
         }	 
+	    HashMap<String, String> am = jswPanel.createActionMap(this, e);
+	    am.put( "command" , button.getActionCommand());
+	    am.put( "value" ,mess);
+	    System.out.println(am.toString());
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, "value =" + button.getActionCommand()+mess);
+		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
 		actionlistener.actionPerformed(event);
 
 	}

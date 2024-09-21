@@ -4,13 +4,17 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultCaret;
 
@@ -29,6 +33,7 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 	public jswTextBox(ActionListener al, String inLabel)
 	{
 		super(inLabel);
+		setPanelname(inLabel);
 		prompt = inLabel;
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -55,6 +60,20 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		applyStyle();
 	}
 
+	
+	public void actionPerformed(ActionEvent e)
+	{
+
+	     HashMap<String, String> am = jswPanel.createActionMap(this, e);
+		am.put("quality", "selected");
+		am.put("value", '"'+getText()+'"');
+		Long t = System.currentTimeMillis() / 10000;
+		int uniqueId = t.intValue();
+		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
+		actionlistener.actionPerformed(event);
+	}
+	
+	
 	void applyStyle()
 	{
 
@@ -64,7 +83,8 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		textbox.setBackground(jswStyle.defaulttextboxcolor);
 		textbox.setBackground(Color.red);
 		int wd = style.getIntegerStyle("mywidth", bl);
-		if (wd > bl)   bl = wd;
+		//if (wd > bl)   bl = wd;
+		bl=wd;
 		int ht = style.getIntegerStyle("myheight", bh);
 		if (ht > bh)   bh = ht;
 		Dimension d = new Dimension(bl, bh);

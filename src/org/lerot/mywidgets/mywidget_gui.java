@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.event.TreeModelEvent;
@@ -257,20 +259,13 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
 	public void jswActionPerformed(ActionEvent e)
 	{
-		String cmd = e.getActionCommand();
-		String sourceclass = e.getSource().getClass().getSimpleName();
-		String sourceobject = ((jswPanel) e.getSource()).getPanelname();
-		System.out.println("jswhandling XX:" + sourceobject + ":" + sourceclass);
-		System.out.println("jswhandling XX:" + cmd);
-
-		// ObjectReader reader = new ObjectMapper().readerFor(Map.class);
-
-		// Map<String, String> map = reader.readValue("{\"foo\":\"val\"}");
-
-		System.out.println("jswhandling :" + sourceobject + ":" + cmd);
+		String cmd = e.getActionCommand();		
+		System.out.println("handling :"+cmd);
+		Map<String, String> actioncmd = jswPanel.parseActionCommand(cmd);
+			
 		if (this.textarea != null)
 		{
-			this.textarea.addText("jswhandling :" + sourceobject + ":" + cmd + "\n");
+			this.textarea.addText("jswhandling :" + actioncmd + "\n");
 		}
 
 	}
@@ -294,7 +289,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 	public jswTable makeTableExample()
 	{
 		jswStyles defstyles = jswStyles.getDefaultTableStyles();
-		jswTable table1 = new jswTable("table 1", defstyles);
+		jswTable table1 = new jswTable(this,"table 1", defstyles);
 		for (int k = 0; k < 10; k++)
 		{
 			table1.addCell(" row " + k, k, 0);
@@ -312,6 +307,28 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 				acell.applyContentStyle();
 			}
 		}
+		
+		table1.removeCell(2,1);
+		jswButton abutton = new jswButton(table1,"press me");
+		jswCell acell = table1.addCell(abutton, 2, 1);
+		table1.removeCell(3,1);
+		jswDropDownBox addb = new jswDropDownBox(table1,"select");
+		jswCell bcell = table1.addCell(addb, 3, 1);
+		addb.setEnabled(false);
+		addb.addItem("LEFT");
+		addb.addItem("MIDDLE");
+		addb.addItem("RIGHT");
+		addb.setEnabled(true);
+		table1.removeCell(4,1);
+		jswTextBox textbox = new jswTextBox(table1,"text");
+		textbox.style.setMyWidth( 100);
+		textbox.applyStyle();
+		jswCell ccell = table1.addCell(textbox, 4, 1);
+		table1.removeCell(5,1);
+		jswOption opt = new jswOption(table1,"show total",false);
+		jswCell ocell = table1.addCell(opt, 5, 1);
+		
+		
 		table1.applyAllStyles();
 		return table1;
 	}

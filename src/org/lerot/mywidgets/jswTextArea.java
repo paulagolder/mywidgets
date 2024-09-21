@@ -167,7 +167,6 @@ public class jswTextArea extends jswPanel implements ActionListener, KeyListener
 	public void keyReleased(KeyEvent e)
 	{
 		
-		System.out.println(" bonkers");
         String text = textarea.getText();
 		textarea.setText("");
 		textarea.repaint();

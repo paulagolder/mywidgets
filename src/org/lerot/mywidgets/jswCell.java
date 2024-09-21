@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -17,11 +20,12 @@ public class jswCell extends jswPanel //jswHorizontalPanel
 	int row;
 	int width = 0;
 
-	public jswCell(int irow, int icol)
+	public jswCell(ActionListener al,int irow, int icol)
 	{
 		super("acell");
 		row = irow;
 		col = icol;
+		actionlistener = al;
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 	}
@@ -30,8 +34,6 @@ public class jswCell extends jswPanel //jswHorizontalPanel
 	@Override
 	public void applyContentStyle(jswStyle style)
 	{
-		
-		//System.out.println(" setting styles for "+ this.getClass().getSimpleName());
 		Component content = this.getComponent(0);
 		jswPanel label=null;
 		if( content instanceof jswPanel)
@@ -61,7 +63,6 @@ public class jswCell extends jswPanel //jswHorizontalPanel
 		{
 			label.setFont(sfont);
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-
 			label.setBackground(style.getColor("backgroundColor", Color.white));
 			JTextField innerlabel = ((jswTextBox) label).getTextField();
 			innerlabel.setFont(sfont);
@@ -80,16 +81,35 @@ public class jswCell extends jswPanel //jswHorizontalPanel
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
 			label.setBackground(style.getColor("backgroundColor", Color.green));
 
-		} else
+		} else if (label instanceof jswDropDownBox)
+		{
+			label.setFont(sfont);
+			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+			label.setBackground(style.getColor("backgroundColor", Color.green));
+		}else
 		{
 			System.out.println(" not setting styles for "
 					+ label.getClass().getSimpleName());
-		}
-
+		}		
 	}
 
 
-	
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		
+		HashMap<String,String> am = jswPanel.createActionMap(this, e);
+		System.out.println(" in cell action "
+				+ this.row+":"+(" "+this.col));
+		am.put("column", (" "+this.col));
+		am.put("row", (" "+this.row));
+		Long t = System.currentTimeMillis() / 10000;
+		int uniqueId = t.intValue();
+		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
+		actionlistener.actionPerformed(event);
+
+	}
+
 	public void applyStyle(jswStyle style)
 	{
 		this.setBorder(style.getBorder());

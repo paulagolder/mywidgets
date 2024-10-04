@@ -30,7 +30,7 @@ public class jswButton extends jswPanel implements ActionListener
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		button = new JButton(label);
 		button.addActionListener(this);
-	    	actionlistener = al;
+	    actionlistener = al;
 		button.setActionCommand(command);
 		add(button);
 		applyStyle();
@@ -91,7 +91,7 @@ public class jswButton extends jswPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-	
+	   System.out.println(" button==== ");
 		HashMap<String,String> am = jswPanel.createActionMap(this, e) ;
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();

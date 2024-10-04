@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JToggleButton;
@@ -78,23 +79,13 @@ public class jswToggleButton extends jswPanel implements ActionListener, ChangeL
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
-	{
-		String mess ="";
-	 /*   if (button.isSelected())  
-	    {
-            button.setText("OFF");  
-            mess = "Button Off";
-	    }
-        else  
-        {
-        	button.setText("      ");
-            button.setText(label);  
-            mess = "Button On";
-        }	 */
+	{	
 	    button.repaint();
+	    HashMap<String,String> am = jswPanel.createActionMap(this, e) ;
+	    am.put("value",button.getActionCommand());
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, "value =" + button.getActionCommand()+mess);
+		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
 		actionlistener.actionPerformed(event);
 
 

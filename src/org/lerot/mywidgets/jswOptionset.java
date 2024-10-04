@@ -2,19 +2,13 @@ package org.lerot.mywidgets;
 
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
-import java.awt.LayoutManager;
-//import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.border.Border;
-import org.lerot.mywidgets.jswLayout.layout;
-import org.lerot.mywidgets.jswLayout.settings;
+//import org.lerot.mywidgets.jswLayout.settings;
 
 public class jswOptionset extends jswPanel implements ActionListener
 {
@@ -72,22 +66,18 @@ public class jswOptionset extends jswPanel implements ActionListener
 		setBackground(style.getBackgroundcolor());
 		style.setBorderWidth(1);	
 	    padding = new Insets(10, 20, 10, 10);   
-	 
 		Font sfont = style.getTitleFont();
 		this.setFont(sfont);
 		setPanelBorder(style);
 		this.setForeground(style.getColor("foregroundColor", Color.blue));
 		this.setBackground(style.getColor("backgroundColor", Color.red));	
 		setMinimumSize(getMinimumSize());
-		//setMinimumSize(new Dimension(800,10000));
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-
-
 		for (int i = 0; i < no; i++)
 		{
 			jswOption on = options[i];
@@ -186,26 +176,27 @@ public class jswOptionset extends jswPanel implements ActionListener
 		int height = 0;		
 		Integer vgap = getStyle().getIntegerStyle("gap", 1);
 		Integer hgap = getStyle().getIntegerStyle("gap", 1);
-		LayoutManager lm = this.getLayout();
-		settings s = ((jswLayout) lm).getSettings(this);
+		//LayoutManager lm = this.getLayout();
+		//settings s = ((jswLayout) lm).getSettings(this);
+		jswStyle s = this.getStyle();
 		int minwidth = 0;
 			int mywidth=0;
-			if (s.containsKey("WIDTH"))
+			if (s.hasAttribute("WIDTH"))
 			{
 				mywidth = s.getInteger("WIDTH");
 			}
-			if (s.containsKey("MINWIDTH"))
+			if (s.hasAttribute("MINWIDTH"))
 			{
 				minwidth = s.getInteger("MINWIDTH");
 			}
 			if (minwidth > mywidth ) mywidth = minwidth;
 			int minheight = 0;
 			int myheight=0;
-			if (s.containsKey("HEIGHT"))
+			if (s.hasAttribute("HEIGHT"))
 			{
 				myheight = s.getInteger("HEIGHT");
 			}
-			if (s.containsKey("MINHEIGHT"))
+			if (s.hasAttribute("MINHEIGHT"))
 			{
 				minheight = s.getInteger("MINHEIGHT");
 			}
@@ -246,13 +237,6 @@ public class jswOptionset extends jswPanel implements ActionListener
 		System.out.println("xy "+getMinimumSize());
 		return getMinimumSize();
 	}
-
-
-	
-	
-
-	
-
 
 
 }

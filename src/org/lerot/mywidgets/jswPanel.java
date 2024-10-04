@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-import java.util.Map.Entry;
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.TreeSelectionEvent;
+import org.lerot.mywidgets.jswTree.MySelectionListener;
 
 public abstract class jswPanel extends JPanel implements ActionListener
 
@@ -300,7 +300,8 @@ public abstract class jswPanel extends JPanel implements ActionListener
 	{
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, "jswPanel action");
+	    HashMap<String,String> am = jswPanel.createActionMap(this, e) ;
+		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
 		actionlistener.actionPerformed(event);
 
 	}
@@ -333,5 +334,29 @@ public abstract class jswPanel extends JPanel implements ActionListener
 	action.put("commandstring", e.getActionCommand());
 	return action;
 	}
+	
+	public static HashMap<String, String> createActionMap(jswPanel apanel,ChangeEvent e)
+	{
+	HashMap<String,String> action = new HashMap<String,String>();
+	action.put("actiontype", "jswTable action");
+	action.put("source", e.getSource().getClass().getSimpleName());
+	action.put("handlerclass", apanel.getClass().getSimpleName());
+	action.put("handlername", apanel.getPanelname());
+	action.put("commandstring", "change event");
+	return action;
+	}
+
+	public static HashMap<String, String>  createActionMap(MySelectionListener apanel, TreeSelectionEvent e)
+	{
+		HashMap<String,String> action = new HashMap<String,String>();
+		action.put("actiontype", "jswTable action");
+		action.put("source", e.getSource().getClass().getSimpleName());
+		action.put("handlerclass", apanel.getClass().getSimpleName());
+		action.put("handlername", e.getSource().getClass().getSimpleName());
+		action.put("commandstring", "TreeSelection");
+		return action;
+	}
+
+
 
 }

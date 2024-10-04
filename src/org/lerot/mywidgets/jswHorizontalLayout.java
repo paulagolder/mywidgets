@@ -10,9 +10,11 @@ import javax.swing.border.Border;
 public class jswHorizontalLayout extends jswLayout
 {
 
-	private layout[] clayout;
+
 	private String trace;
 	int hgap = 1;
+	//private layoutRecord[] layoutTable;
+
 
 	public jswHorizontalLayout()
 	{
@@ -22,91 +24,56 @@ public class jswHorizontalLayout extends jswLayout
 	@Override
 	public void layoutContainer(Container parent)
 	{
-		trace = "none";
-		//trace = "option list 1";
-
+		trace = "xxx";
 		verticallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("verticallayoutstyle", 0);
 		horizontallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("horizontallayoutstyle", 0);
 		hgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", hgap);
 		padding = ((jswPanel) parent).padding;
-
 		gap = hgap;
-		int componentcount = parent.getComponentCount();
-		clayout = new layout[componentcount];
-		int availableHeight = 0;
+	//	int componentcount = parent.getComponentCount();
+		//layoutTable = new layoutRecord[componentcount];
+		int availableHeight ;
 		boolean hasRight = false, hasMiddle = false;
-		if (componentcount < 2)
-			gap = 0;
+
 		if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
 		{
 			System.out.println("traceing " + trace);
 		}
-	//	Dimension parentSize = parent.getMinimumSize();
 		Dimension parentSize = parent.getSize();
-		boolean useMinimum;
-		useMinimum = true;
 		if (parent instanceof jswPanel)
 		{
 			if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
-			{
-				System.out.println("traceing " + trace);
-				System.out.println("x " + parentSize + ":" + padding + ":" + gap);
-			}
-
+				System.out.println(" {" + parentSize + "} :" + padding + ":" + gap);
 		}
-		int j = 0;
-		for (int i = 0; i < componentcount; i++)
-		{
-			Component comp = parent.getComponent(i);
-			settings s = getSettings(comp);
-			if (comp.isVisible())
-			{
-				clayout[j] = new layout();
-				clayout[j].cindex = i;
-				clayout[j].comp = comp;
-			
-				if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
-				{
-					System.out.println("traceing x " + trace);
-				}
-				Dimension d = useMinimum(comp, useMinimum);
-				clayout[j].minwidth = d.width;// + clayout[j].bdwidth;
-				clayout[j].finalheight = d.height;
-				clayout[j].finalwidth = d.width;
-				if (s.containsKey("WIDTH"))
-				{
-					clayout[j].width = s.getInteger("WIDTH");
-				}
-				if (s.containsKey("MINWIDTH"))
-				{
-					clayout[j].minwidth = s.getInteger("MINWIDTH");
-				}
-				if (s.isTrue("FILLW"))
-				{
-					clayout[j].fillw = s.getInteger("FILLW");
-				}
-				j = j + 1;
-			}
-		}
-
-		int visiblecomponents = j;
+		makeLayout(parent);
+		if (visibleComponents < 2)
+			gap = 0;
 		int usableWidth = parentSize.width - padding.left - padding.right;// - gap * (visiblecomponents-1);
 		availableHeight = parentSize.height - padding.top - padding.bottom;
-		// availableHeight = parentSize.height ;
-
-		if (visiblecomponents == 1)
+		if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
 		{
-			Component comp = clayout[0].comp;
+			System.out.println(" " + availableHeight + " : " +usableWidth);
+		}
+
+		if (visibleComponents == 1)
+		{
+			Component comp = layoutTable[0].comp;
 			Dimension d = comp.getMinimumSize();
-			int compwidth = d.width;
-			settings s = getSettings(comp);
+			int compwidth =  layoutTable[0].finalwidth;
+		//	settings s = getSettings(comp);
+			jswStyle s;
+			if(comp instanceof jswPanel)
+			{
+				 s = ((jswPanel) comp).getStyle();
+			}else
+				s= new jswStyle();
 			int x = padding.left;
-			if (s.isTrue("RIGHT"))
+			if (horizontallayoutstyle==jswLayout.RIGHT)
 				x = -padding.right + usableWidth - compwidth;
-			else if (s.isTrue("MIDDLE"))
+			else if (horizontallayoutstyle==jswLayout.MIDDLE)
 				x = (int) (padding.left + (usableWidth - compwidth) / 2.0);
 
-			if (s.isTrue("FILLW"))
+			if (s.hasAttribute("FILLW"))
 			{
 				compwidth = usableWidth;
 				x = padding.left;
@@ -119,19 +86,19 @@ public class jswHorizontalLayout extends jswLayout
 		float fillratio = 1;
 		int fillwidth = 0;
 
-		for (j = 0; j < visiblecomponents; j++)
+		for (int j = 0; j < visibleComponents; j++)
 		{
-			clayout[j].finalwidth = clayout[j].minwidth;
-			if (clayout[j].fillw > 0)
+			layoutTable[j].finalwidth = layoutTable[j].minwidth;
+			if (layoutTable[j].fillw > 0)
 			{
-				clayout[j].finalwidth = (int) (clayout[j].minwidth) ;
-				fillwidth += clayout[j].finalwidth;
+				layoutTable[j].finalwidth = (int) (layoutTable[j].minwidth) ;
+				fillwidth += layoutTable[j].finalwidth;
 			}
-			if (clayout[j].width > 0)
+			if (layoutTable[j].width > 0)
 			{
-				clayout[j].finalwidth = clayout[j].width;
+				layoutTable[j].finalwidth = layoutTable[j].width;
 			}
-			cumwidth += clayout[j].finalwidth + gap;// + clayout[j].bdwidth;
+			cumwidth += layoutTable[j].finalwidth + gap;// + clayout[j].bdwidth;
 		}
 
 		int sparespace = usableWidth - cumwidth;
@@ -143,10 +110,8 @@ public class jswHorizontalLayout extends jswLayout
 
 		if (horizontallayoutstyle == jswLayout.DISTRIBUTE)
 		{
-			gap = sparespace / (visiblecomponents - 1);
+			gap = sparespace / (visibleComponents - 1);
 		}
-		if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
-			System.out.println("z " + gap);
 
 		int x = padding.left; // + gap / 2 ;
 		if (sparespace < 1)
@@ -155,37 +120,34 @@ public class jswHorizontalLayout extends jswLayout
 			fillratio = 0;
 			x = padding.left;
 		}
-		for (j = 0; j < visiblecomponents; j++)
+		for (int j = 0; j < visibleComponents; j++)
 		{
-			clayout[j].x = x;
+			layoutTable[j].x = x;
 			if (verticallayoutstyle == jswLayout.BOTTOM)
 			{
-				clayout[j].y = padding.bottom + availableHeight - clayout[j].finalheight;
+				layoutTable[j].y = padding.bottom + availableHeight - layoutTable[j].finalheight;
 			} else if (verticallayoutstyle == jswLayout.MIDDLE)
 			{
-				clayout[j].y = padding.bottom + (availableHeight - clayout[j].finalheight) / 2;
+				layoutTable[j].y =padding.top + (availableHeight - layoutTable[j].finalheight) / 2;
 			} else
 			{
-				clayout[j].y = padding.top;
+				layoutTable[j].y = padding.top;
 			}
-			if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
-				System.out.println("x=" + x + " y=" + clayout[j].y+ "fw="+clayout[j].minwidth);
-
-			if (fillratio > 0 && fillratio < 20 && clayout[j].fillw >0)
+			if (fillratio > 0 && fillratio < 20 && layoutTable[j].fillw >0)
 			{
-				clayout[j].finalwidth = (int) (clayout[j].minwidth * fillratio);
+				layoutTable[j].finalwidth = (int) (layoutTable[j].minwidth * fillratio);
 			}
-			x = x + clayout[j].finalwidth + gap;// + clayout[j].bdwidth;
-			;
+			x = x + layoutTable[j].finalwidth + gap;// + clayout[j].bdwidth;
+
 		}
 
-		for (j = 0; j < visiblecomponents; j++)
+		for (int j = 0; j < visibleComponents; j++)
 		{
-			Component comp = clayout[j].comp;
-			 comp.setBounds(clayout[j].x, clayout[j].y, clayout[j].finalwidth, availableHeight);
+			Component comp = layoutTable[j].comp;
+			 comp.setBounds(layoutTable[j].x, layoutTable[j].y, layoutTable[j].finalwidth, availableHeight);
 			//comp.setBounds(clayout[j].x, clayout[j].y, clayout[j].finalwidth, clayout[j].finalheight);
 			if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
-				System.out.println("y2 " + clayout[j].x + ":" + clayout[j].y + ":" + clayout[j].finalwidth + ":"
+				System.out.println("y2 " + layoutTable[j].x + ":" + layoutTable[j].y + ":" + layoutTable[j].finalwidth + ":"
 						+ availableHeight);
 
 		}
@@ -264,11 +226,20 @@ public class jswHorizontalLayout extends jswLayout
 		return new Dimension(insets.left + insets.right + w, insets.top + insets.bottom + h);
 	}
 
-	public static String[] help()
+	public static String[] getHelp()
 	{
-		String[] helpstring = new String[2];
-		helpstring[0] = "lHorizontal Layout Help";
-		helpstring[1] = "line 2";
+		String[] helpstring = new String[10];
+		helpstring[0] = "Horizontal Layout Help";
+		helpstring[1] = "Recognised keywords";
+		helpstring[2] = "..WIDTH";
+		helpstring[3] = "..MINWIDTH";
+		helpstring[4] = "..FILLW";
+		helpstring[5] = "..RIGHT";
+		helpstring[6] = "..MIGGLE";
+		helpstring[7] = "RecognisedStyles";
+		helpstring[8] = "    horizontallayoutstyle";
+		helpstring[9] = "        jswLayout.DISTRIBUTE";
+
 		return helpstring;
 	}
 

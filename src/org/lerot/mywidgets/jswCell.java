@@ -2,7 +2,6 @@ package org.lerot.mywidgets;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -86,7 +85,14 @@ public class jswCell extends jswPanel //jswHorizontalPanel
 			label.setFont(sfont);
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
 			label.setBackground(style.getColor("backgroundColor", Color.green));
-		}else
+		}
+		else if (label instanceof jswOption)
+		{
+			label.setFont(sfont);
+			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+			label.setBackground(style.getColor("backgroundColor", Color.green));
+		}
+		else
 		{
 			System.out.println(" not setting styles for "
 					+ label.getClass().getSimpleName());
@@ -99,8 +105,6 @@ public class jswCell extends jswPanel //jswHorizontalPanel
 	{
 		
 		HashMap<String,String> am = jswPanel.createActionMap(this, e);
-		System.out.println(" in cell action "
-				+ this.row+":"+(" "+this.col));
 		am.put("column", (" "+this.col));
 		am.put("row", (" "+this.row));
 		Long t = System.currentTimeMillis() / 10000;

@@ -5,11 +5,8 @@ import java.awt.LayoutManager;
 //import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
-import javax.swing.border.Border;
-import org.lerot.mywidgets.jswLayout.settings;
+//import org.lerot.mywidgets.jswLayout.settings;
 
 public class jswPushButtonset extends jswPanel implements ActionListener
 {
@@ -88,17 +85,23 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		actionlistener.actionPerformed(e);
 	}
 
-	public jswPushButton addNewButton(String text)
+	public jswPushButton addNewButton(String text, String command)
 	{
 		jswPushButton on = new jswPushButton(this, text);
 		on.button.addActionListener(this);
-		on.button.setActionCommand(commandroot + ":" + text);
+		on.button.setActionCommand(commandroot + ":" + command);
 		bg.add(on.button);
 		buttons[no] = on;
 		add(on);		
 		no = no + 1;
 		return on;
 	}
+
+	public jswPushButton addNewButton(String text)
+	{
+       return addNewButton(text,text);
+	}
+
 
 	public String getSelected()
 	{
@@ -163,25 +166,26 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		Integer vgap = getStyle().getIntegerStyle("gap", 1);
 		Integer hgap = getStyle().getIntegerStyle("gap", 1);
 		LayoutManager lm = this.getLayout();
-		settings s = ((jswLayout) lm).getSettings(this);
+	//	settings s = ((jswLayout) lm).getSettings(this);
+		jswStyle s = this.getStyle();
 		int minwidth = 0;
 			int mywidth=0;
-			if (s.containsKey("WIDTH"))
+			if (s.hasAttribute("WIDTH"))
 			{
 				mywidth = s.getInteger("WIDTH");
 			}
-			if (s.containsKey("MINWIDTH"))
+			if (s.hasAttribute("MINWIDTH"))
 			{
 				minwidth = s.getInteger("MINWIDTH");
 			}
 			if (minwidth > mywidth ) mywidth = minwidth;
 			int minheight = 0;
 			int myheight=0;
-			if (s.containsKey("HEIGHT"))
+			if (s.hasAttribute("HEIGHT"))
 			{
 				myheight = s.getInteger("HEIGHT");
 			}
-			if (s.containsKey("MINHEIGHT"))
+			if (s.hasAttribute("MINHEIGHT"))
 			{
 				minheight = s.getInteger("MINHEIGHT");
 			}

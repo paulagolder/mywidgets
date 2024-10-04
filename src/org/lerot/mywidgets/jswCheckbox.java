@@ -7,14 +7,11 @@
 package org.lerot.mywidgets;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
-import javax.swing.border.Border;
 
 public class jswCheckbox extends jswPanel
 {
@@ -90,11 +87,11 @@ public class jswCheckbox extends jswPanel
         {  
             mess = "unchecked";
         }	 
-		HashMap<String,String> action = jswPanel.createActionMap(this, e) ;
-		action.put("status", mess);
+		HashMap<String,String> am = jswPanel.createActionMap(this, e) ;
+		am.put("status", mess);
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, getPanelname() + ":"+mess);
+		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
 		actionlistener.actionPerformed(event);
 	}
 

@@ -7,15 +7,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.border.Border;
 
 public class jswOption extends jswPanel
 {
@@ -42,6 +39,7 @@ public class jswOption extends jswPanel
 		actionlistener = al;
 		this.vertical = vertical;
 		button.setAlignmentX(Component.LEFT_ALIGNMENT);
+		button.setAlignmentY(Component.TOP_ALIGNMENT);
 		this.getStyle().setBackgroundcolor("transparent");	
 		this.setStyleAttribute("borderwidth", 1);
 		this.setStyleAttribute("bordercolor", "red");	
@@ -142,9 +140,9 @@ public class jswOption extends jswPanel
 	@Override
 	public Dimension getMinimumSize()
 	{
-		//return button.getMinimumSize();
 		return new Dimension(nwidth+padding.left+padding.right,nheight+padding.top+padding.bottom);
 	}
+	
 	}
 
 

@@ -58,10 +58,6 @@ public class jswTable extends jswPanel implements ActionListener
 			{
 				jswCell acell = (jswCell)comp;
 				jswStyle astyle = getCellStyle(acell.row,acell.col);
-				if(acell.row == 4 & acell.col ==3)
-		         {
-		        	 System.out.println("here in style");
-		         }
 				acell.applyStyle(astyle);
 			//	jswStyle cstyle = getCellContentStyle(acell.row,acell.col);
 				jswStyle cstyle = getCellStyle(acell.row,acell.col);
@@ -92,10 +88,6 @@ public class jswTable extends jswPanel implements ActionListener
 
 	public jswCell addCell(jswPanel cont, String setting, int row, int col)
 	{
-         if(row == 4 & col ==3)
-         {
-        	 System.out.println("here43");
-         }
 		jswStyle cellstyle = getCellStyle(row, col);
 		jswCell acell = new jswCell(this,row, col);		
 		String settings = cellstyle.getStringStyle("horizontalAlign");
@@ -108,10 +100,6 @@ public class jswTable extends jswPanel implements ActionListener
 		acell.add(settings, cont);
 		acell.add( cont);
 		cont.style.setForegroundcolor("red");
-		 if(row == 4 & col ==3)
-         {
-        	 System.out.println("here43");
-         }
 		cont.applyStyle(cellstyle);
 	//	acell.applyContentStyle(acell.style);
 		return acell;
@@ -173,12 +161,12 @@ public class jswTable extends jswPanel implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		
-		HashMap<String,String> action = jswPanel.createActionMap(this, e);
+		HashMap<String,String> am = jswPanel.createActionMap(this, e);
 
 		
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId,action.toString());
+		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
 		actionlistener.actionPerformed(event);
 
 	}

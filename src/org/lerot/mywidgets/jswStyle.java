@@ -114,7 +114,7 @@ public class jswStyle
 		{
 			String key = entry.getKey();
 			String value = entry.getValue();
-			if (value != null && value != "")
+			if (value != null && value.equalsIgnoreCase(""))
 			{
 				putAttribute(key, value);
 			}
@@ -152,7 +152,7 @@ public class jswStyle
 		if (attributes.containsKey(stylename))
 		{
 			String value = attributes.get(stylename);
-			if (value == null || value == "") return b;
+			if (value == null || value.equalsIgnoreCase("") ) return b;
 			value = value.toLowerCase();
 			if (value.startsWith("t")) return true;
 			else
@@ -268,7 +268,7 @@ public class jswStyle
 		if (attributes.containsKey(stylename))
 		{
 			String value = attributes.get(stylename);
-			if (value == null || value == "") return null;
+			if (value == null || value.equalsIgnoreCase("") ) return null;
 			try
 			{
 				Integer ivalue = Integer.parseInt(value);
@@ -287,7 +287,7 @@ public class jswStyle
 		if (attributes.containsKey(stylename))
 		{
 			String value = attributes.get(stylename);
-			if (value == null || value == "" ) return defaultint;
+			if (value == null || value.equalsIgnoreCase("" )) return defaultint;
 			try
 			{
 				Integer ivalue = Integer.parseInt(value);
@@ -307,7 +307,7 @@ public class jswStyle
 		if (attributes.containsKey(stylename))
 		{
 			String value = attributes.get(stylename);
-			if (value == null || value == "") return null;
+			if (value == null || value.equalsIgnoreCase("") ) return null;
 			else
 				return value;
 		} else
@@ -320,7 +320,7 @@ public class jswStyle
 		if (attributes.containsKey(stylename))
 		{
 			String value = attributes.get(stylename);
-			if (value == null || value == "" || value.equalsIgnoreCase("0")) return defaultstyle;
+			if (value == null || value.equalsIgnoreCase("" )|| value.equalsIgnoreCase("0")) return defaultstyle;
 			else
 				return value;
 		} else
@@ -500,28 +500,23 @@ public class jswStyle
 
 	public void setMyWidth(int myWidth)
 	{
-
 		putAttribute("myWidth", (Integer.toString(myWidth)));
-
 	}
 
 
 	public void setPadding(int padding)
 	{
 		putAttribute("padding", String.valueOf(padding) );
-
 	}
 
 	public void setRowcount(int intvalue)
 	{
 		putAttribute("rowcount", String.valueOf(intvalue));
-
 	}
 
 	public void setRowspan(int intvalue)
 	{
 		putAttribute("rowspan", String.valueOf(intvalue));
-
 	}
 
 
@@ -572,11 +567,34 @@ public class jswStyle
 		FontMetrics fm = c.getFontMetrics(font);
 		return fm;
 	}
-	
-
-	
-
-	
 
 
+    public boolean hasAttribute(String stylename)
+    {
+		stylename = stylename.toLowerCase();
+		if (attributes.containsKey(stylename))
+		{
+			 return true;
+		} else
+			return false;
+    }
+
+	public Integer  getInteger(String stylename)
+	{
+		stylename = stylename.toLowerCase();
+		if (attributes.containsKey(stylename))
+		{
+			String value = attributes.get(stylename);
+			if (value == null || value.equalsIgnoreCase("") ) return 0;
+			try
+			{
+				Integer ivalue = Integer.parseInt(value);
+				return ivalue;
+			} catch (NumberFormatException nfe)
+			{
+				return 0;
+			}
+		} else
+			return 0;
+	}
 }

@@ -5,13 +5,11 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.Map;
-import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JToggleButton;
 import javax.swing.border.Border;
-//import org.json.JSONObject;
+
 
 
 
@@ -46,15 +44,13 @@ public class jswPushButton extends jswPanel
 	public void actionPerformed(ActionEvent e)
 	{
 		
-		 Map jo = new HashMap<String,String>();
-	     jo.put("jswtype", this.getClass().getSimpleName());
-	     jo.put("event", e.getSource().getClass().getSimpleName());
-	     jo.put("name",  ((AbstractButton) e.getSource()).getText());
-	     jo.put("quality", "value");
-	     jo.put("value", "buttonpressed");
+		 
+			HashMap<String,String> am = jswPanel.createActionMap(this, e) ;
+	     am.put("quality", "value");
+	     am.put("value", "buttonpressed");
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, jo.toString());
+		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
 		actionlistener.actionPerformed(event);		
 	}
 

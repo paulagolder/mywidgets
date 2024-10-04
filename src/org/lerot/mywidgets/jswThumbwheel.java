@@ -11,7 +11,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -104,16 +103,13 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 	 public void stateChanged(ChangeEvent e)
     {
 
-		Map jo = new HashMap();
-	     jo.put("jswtype", this.getClass().getSimpleName());
-	     jo.put("event", e.getSource().getClass().getSimpleName());
-	     jo.put("name",  ((javax.swing.JSpinner ) e.getSource()).getName());
-	     jo.put("quality", "value");
-	     jo.put("value", value.getValue());
+		Map am = jswPanel.createActionMap(this, e);
+	     am.put("name",  ((javax.swing.JSpinner ) e.getSource()).getName());
+	     am.put("quality", "value");
+	     am.put("value", value.getValue());
 		Long t = System.currentTimeMillis() / 10000;
 	    int uniqueId = t.intValue();
-        System.out.println(value.getValue() + " ++" );
-        ActionEvent event = new ActionEvent(this, uniqueId,jo.toString());
+        ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
         al.actionPerformed(event);
     }
 

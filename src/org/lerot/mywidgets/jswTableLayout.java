@@ -390,12 +390,6 @@ public class jswTableLayout extends jswLayout
 
 	}
 
-	/*
-	 * @Override public Dimension preferredLayoutSize(Container parent) { // TODO
-	 * Auto-generated method stub return null; }
-	 * 
-	 * @Override public Dimension minimumLayoutSize(Container parent) { // TODO
-	 * Auto-generated method stub return null; }
-	 */
+
 
 }

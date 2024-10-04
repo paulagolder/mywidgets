@@ -4,17 +4,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
-import javax.swing.JComponent;
-import javax.swing.JScrollPane;
-import javax.swing.border.Border;
 
 public class jswVerticalLayout extends jswLayout
 {
 
 	private int vgap;
-	private layout[] clayout = new layout[10];
 	private int componentcount = 0;
-	private boolean trace = false;
+	private String trace;
 
 
 	public jswVerticalLayout()
@@ -25,214 +21,120 @@ public class jswVerticalLayout extends jswLayout
 	@Override
 	public void layoutContainer(Container parent)
 	{
-		trace=false;
+		trace = "panel2b";
 
 		if (parent instanceof jswPanel)
 		{
-
-			if (((jswPanel) parent).getName().equals("my V button list"))
+			if (((jswPanel) parent).getName().equals(trace))
 			{
-				//System.out.println(" here goes 2");
-				//trace=true;
+				System.out.println("tracing "+trace);
 			}
-
 		}
-		//padding = jswPanel.makePadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
 		padding = ((jswPanel) parent).padding;
-		if(trace)
-	{
-			System.out.println(" paddingy :"+padding);
-	}
+
+		jswStyle parentstyle = ((jswPanel) parent).getStyle();
 		vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
 		verticallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("verticallayoutstyle", 0);
 		horizontallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("horizontallayoutstyle", 0);
-		componentcount = parent.getComponentCount();
-		clayout = new layout[componentcount];
-		if (componentcount == 0)
-			vgap = 0;
 		int availableHeight = 0;
 		boolean hasBottom = false, hasMiddle = false;
-		
-		Container theparent = null;
-		if (theparent == null)
-			theparent = parent;
-		Dimension parentSize = theparent.getSize();
-
+		Dimension parentSize = parent.getSize();
 		int usableWidth = parentSize.width - padding.left -padding.right;
 		availableHeight = parentSize.height - padding.top - padding.bottom ;
 		boolean useMinimum;
 
-		useMinimum = preferredLayoutSize(parent).height > availableHeight;
-		useMinimum = false;
-		int j = 0;
-		for (int i = 0; i < componentcount; i++)
+		makeLayout(parent);
+
+		if (((jswPanel) parent).getName().equals(trace))
 		{
-			Component comp = parent.getComponent(i);
-
-			settings s = getSettings(comp);
-			if (comp.isVisible())
-			{
-
-				clayout[j] = new layout();
-				clayout[j].cindex = i;
-				clayout[j].comp = comp;		
-				Dimension d = useMinimum(comp, useMinimum);
-				clayout[j].width = d.width;
-				Border bd = ((JComponent) comp).getBorder();
-				int bdwidth = 0;
-				if (bd != null)
-				{
-					Insets dbinsets = bd.getBorderInsets(comp);
-					//clayout[j].insets = dbinsets;
-					clayout[j].bdwidth = dbinsets.left + dbinsets.right;
-				} else
-				{
-					clayout[j].bdwidth = 0;
-					//clayout[j].insets = new Insets(0, 0, 0, 0);
-				}
-				if (s.isTrue("FILLH"))
-				{
-					clayout[j].fillh = s.getInteger("FILLH");
-					if (clayout[j].fillh < 1)
-						clayout[j].fillh = 100;
-					clayout[j].minheight = d.height;
-				} else if (s.isTrue("SCROLLH"))
-				{
-					clayout[j].scrollh = s.getInteger("SCROLLH");
-					if (clayout[j].scrollh < 1)
-						clayout[j].scrollh = 100;
-					clayout[j].minheight = d.height;
-				} else
-				{
-					clayout[j].minheight = d.height;
-				}
-				clayout[j].height = clayout[j].minheight;
-				if (s.isTrue("MAXHEIGHT"))
-				{
-					clayout[j].maxheight = s.getInteger("MAXHEIGHT");
-				}
-				if (s.isTrue("MINHEIGHT"))
-				{
-					clayout[j].minheight = s.getInteger("MINHEIGHT");
-				}
-				if (s.isTrue("MAXWIDTH"))
-				{
-					clayout[j].maxwidth = s.getInteger("MAXWIDTH");
-				}
-				if (s.isTrue("MINWIDTH"))
-				{
-					clayout[j].minwidth = s.getInteger("MINWIDITH");
-				}
-				if (s.isTrue("MIDDLE"))
-				{
-					hasMiddle = true;
-					clayout[j].hasMiddle = true;
-				} else if (hasMiddle)
-				{
-					clayout[j].hasBottom = true;
-				}
-				if (s.isTrue("BOTTOM"))
-				{
-					hasBottom = true;
-					clayout[j].hasBottom = true;
-				}
-				
-				j = j + 1;
-			}
+			System.out.println(" :");
 		}
-		int visiblecomponents = j;
-		if (visiblecomponents < 1)
+		if (visibleComponents== 0)
+			vgap = 0;
+		if (visibleComponents < 1)
 			return;
 		double fillratio = 1.0;
 		double scrollratio = 1.0;
 
-		if (visiblecomponents == 1)
+		if (visibleComponents == 1)
 		{
-			Component comp = clayout[0].comp;
-			// if (comp instanceof JScrollPane)
-			// {
-			// ((JScrollPane) comp).setBounds(clayout[0].x + clayout[0].indent, 20,
-			// usableWidth, availableHeight);
-			// } else
-			comp.setBounds(clayout[0].x + clayout[0].indent, 0, usableWidth, availableHeight);
+			Component comp = layoutTable[0].comp;
+			comp.setBounds(layoutTable[0].x + layoutTable[0].indent, 0, usableWidth, availableHeight);
 			return;
 		}
 
 		int cumheight = 0;
 		int fillheight = 0;
-		int filltotal = 0;
+		//int filltotal = 0;
 
-		for (j = 0; j < visiblecomponents; j++)
+		for (int j = 0; j < visibleComponents; j++)
 		{
-			if (clayout[j].fillh > 0)
+			if (layoutTable[j].fillh > 0)
 			{
-				fillheight += clayout[j].height;
-				filltotal += clayout[j].fillh;
-			} 
-			
-			cumheight += clayout[j].height;
+				fillheight += layoutTable[j].finalheight;
+			}
+			cumheight += layoutTable[j].finalheight;
 		}
 	
-		int sparespace = availableHeight - cumheight - vgap*visiblecomponents + fillheight;
+		int sparespace = availableHeight - cumheight - vgap*visibleComponents + fillheight;
 		if (sparespace > 0)
 		{
 			if (fillheight > 0)
 				fillratio = (float) (sparespace ) / (float) fillheight;		
-		} 
-		if(trace)
+		}
+		if (((jswPanel) parent).getName().equals(trace))
 		{
-			System.out.println(" paddingx :"+padding);
+			System.out.println(" padding :"+padding);
 		}
 		int gap;
 		int y=0;
 		if (verticallayoutstyle == jswLayout.DISTRIBUTE)
 		{
-			gap = (sparespace + vgap*visiblecomponents )/ (visiblecomponents );
+			gap = (sparespace + vgap*visibleComponents )/ (visibleComponents );
 		    y =   gap / 2 + padding.top ;
 		} else
 		{
 			gap = vgap;
-		
 			y =   gap / 2 +  padding.top;		
 		}
 
 	
-		for (j = 0; j < visiblecomponents; j++)
+		for (int j = 0; j < visibleComponents; j++)
 		{
-			clayout[j].y = y;
+			layoutTable[j].y = y;
 			if (horizontallayoutstyle == jswLayout.RIGHT )
 			{
-				clayout[j].x =   padding.left+ usableWidth - clayout[j].width;
+				layoutTable[j].x =   padding.left+ usableWidth - layoutTable[j].finalwidth;
 				
 			}else if (horizontallayoutstyle == jswLayout.MIDDLE)
 			{
-				clayout[j].x= padding.left+ (usableWidth - clayout[j].width)/2;
+				layoutTable[j].x= padding.left+ (usableWidth - layoutTable[j].finalwidth)/2;
 			}else
 			{
-				clayout[j].x = padding.left  ;
+				layoutTable[j].x = padding.left  ;
 			}
 		
-			if (clayout[j].fillh > 0)
+			if (layoutTable[j].fillh > 0)
 			{
-				clayout[j].height = (int) (clayout[j].height * fillratio);
-			} else if (clayout[j].scrollh > 0)
-			{
-				clayout[j].height = (int) (clayout[j].height * scrollratio);
+				layoutTable[j].finalheight = (int) (layoutTable[j].finalheight * fillratio);
 			} else
 			{
-				clayout[j].height = clayout[j].height;
+				layoutTable[j].finalheight = layoutTable[j].finalheight;
 			}
-			if (clayout[j].maxheight > 0 & clayout[j].height > clayout[j].maxheight)
+			if (layoutTable[j].maxheight > 0 & layoutTable[j].finalheight > layoutTable[j].maxheight)
 			{
-				clayout[j].height = clayout[j].maxheight;
+				layoutTable[j].finalheight = layoutTable[j].maxheight;
 			}
-			y = y + clayout[j].height + gap ;//+ clayout[j].bdwidth;
+			y = y + layoutTable[j].finalheight + gap ;//+ clayout[j].bdwidth;
 		}
 
-		for (j = 0; j < visiblecomponents; j++)
+		for (int j = 0; j < visibleComponents; j++)
 		{
-			Component comp = clayout[j].comp;
-			comp.setBounds(clayout[j].x, clayout[j].y, usableWidth , clayout[j].height);
+			Component comp = layoutTable[j].comp;
+			comp.setBounds(layoutTable[j].x, layoutTable[j].y, usableWidth , layoutTable[j].finalheight);
+			if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
+				System.out.println("y2 " + layoutTable[j].x + ":" + layoutTable[j].y + ":" +  usableWidth + ":"
+						+ layoutTable[j].finalheight);
 		}
 
 	}
@@ -255,7 +157,8 @@ public class jswVerticalLayout extends jswLayout
 			Component comp = parent.getComponent(i);
 			if (!comp.isVisible())
 				continue;
-			settings s = getSettings(comp);
+			//settings s = getSettings(comp);
+			jswStyle s = ((jswPanel)comp).getStyle();
 			int maxheight = s.getInteger("HEIGHT");
 			Dimension d = comp.getMinimumSize();
 			if (w < d.width)
@@ -288,14 +191,6 @@ public class jswVerticalLayout extends jswLayout
 
 		if (componentcount == 0)
 			vgap = 0;
-	/*	Insets binsets = new Insets(0, 0, 0, 0);
-		
-		if (parent instanceof jswPanel)
-		{
-			Border aborder = ((JComponent) parent).getBorder();
-			if (aborder != null)
-				binsets = aborder.getBorderInsets(parent);
-		}*/
 		int ncomponents = parent.getComponentCount();
 		if (ncomponents == 0)
 			vgap = 0;
@@ -323,11 +218,27 @@ public class jswVerticalLayout extends jswLayout
 		return new Dimension(prefwidth, prefheight + 5);
 	}
 
-	public static String[] help()
+	public static String[] getHelp()
 	{
-		String[] helpstring = new String[2];
-		helpstring[0] = "line 1";
-		helpstring[1] = "line 2";
+		String[] helpstring = new String[13];
+		helpstring[0] = "Vertical Layout Help";
+		helpstring[1] = "Recognised keywords";
+		helpstring[2] = "..WIDTH";
+		helpstring[3] = "..MINWIDTH";
+		helpstring[3] = "..MAXWIDTH";
+		helpstring[3] = "..MINHEIGHT";
+		helpstring[3] = "..MAXHEIGHT";
+		helpstring[4] = "..FILLW";
+		helpstring[5] = "..RIGHT";
+		helpstring[6] = "..MIDDLE";
+		helpstring[7] = "..BOTTOM";
+		helpstring[8] = "RecognisedStyles";
+		helpstring[9] = "    horizontallayoutstyle";
+		helpstring[10] = "        jswLayout.DISTRIBUTE";
+		helpstring[11] = "        jswLayout.RIGHT";
+		helpstring[12] = "        jswLayout.MIDDLE";
+
+
 		return helpstring;
 	}
 

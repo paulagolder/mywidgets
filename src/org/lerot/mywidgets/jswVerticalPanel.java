@@ -10,13 +10,7 @@ public class jswVerticalPanel extends jswContainer
 
 	private static final long serialVersionUID = 1L;
 
-	public jswVerticalPanel()
-	{
-		super("VP:");
-		setAlignmentX(Component.LEFT_ALIGNMENT);
-		setLayout(new jswVerticalLayout());
-		// setBorder(setLineBorder(1));
-	}
+
 
 	public jswVerticalPanel(String title, boolean border, boolean titledborder)
 	{
@@ -36,24 +30,11 @@ public class jswVerticalPanel extends jswContainer
 		{
 			style.setBorderStyle(jswStyle.NOBORDER);
 		}
-		
 		applyStyle();
 	}
 
-	/*	public void addComponent(jswPanel c)
+    public void applyStyle(jswStyle astyle)
 	{
-		super.add(" ",c);
-		int h = c.jswGetHeight();
-		cheight += h;
-		if (c.jswGetWidth() > cwidth) cwidth = c.jswGetWidth();
-		c.setAlignmentX(Component.LEFT_ALIGNMENT);
-		c.setPreferredSize(new Dimension(cwidth, cheight));
-	}*/
-
-	
-	 void applyStyle(jswStyle astyle)
-	{
-		
 		Font sfont = astyle.getFont();
 		this.setFont(sfont);
 		this.setPanelBorder(astyle);
@@ -62,9 +43,6 @@ public class jswVerticalPanel extends jswContainer
 			padding = aborder.getBorderInsets(this);
 		this.setForeground(astyle.getColor("foregroundColor", Color.BLACK));
 		this.setBackground(astyle.getColor("backgroundColor", Color.green));
-		
 	}
-	
-	
 
 }

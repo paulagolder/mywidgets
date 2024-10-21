@@ -68,11 +68,10 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
 		actionlistener.actionPerformed(event);
 	}
-	
-	
-	void applyStyle()
-	{
 
+
+    public void applyStyle()
+	{
 		setBorder(style.getBorder());
 		textbox.setFont(style.getFont());
 		textbox.setForeground(style.getColor("foregroundColor", Color.BLACK));

@@ -42,8 +42,8 @@ public class jswHorizontalPanel extends jswContainer
 		applyStyle();
 	}
 
-	
-	 void applyStyle(jswStyle astyle)
+
+	public void applyStyle(jswStyle astyle)
 	{
 		
 		Font sfont = astyle.getFont();

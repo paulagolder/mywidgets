@@ -48,14 +48,24 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
         mainpanel = new jswVerticalPanel("mainpanel", false, true);
         mainpanel.setBorder(jswStyle.makeLineBorder(Color.red, 4));
+        jswHorizontalPanel titlepanel = new jswHorizontalPanel("title", true, true);
+        mainpanel.add(" FILLW  ", titlepanel);
+        jswLabel maintitle = new jswLabel("test Gui");
+        maintitle.setStyleAttribute("fontsize", 16);
+        maintitle.setStyleAttribute("foregroundcolor", "red");
+        titlepanel.add(" middle ", maintitle);
+        jswDate date = new jswDate("test Gui");
+        date.setStyleAttribute("borderwidth", 3);
+        titlepanel.add(" rightt ", date);
+        date.applyStyle();
+        maintitle.applyStyle();
+        maintitle.getStyle().printList();
         jswHorizontalPanel panel1 = new jswHorizontalPanel("Panel1", true, true);
 
         // ====start of panel1===
 
         jswTabbedPanel tabbedpanel1 = new jswTabbedPanel("tabbed panel 1");
         jswHorizontalPanel panel1a = new jswHorizontalPanel("Panel 1A", true, true);
-        //panel1a.setStyleAttribute("gap",2);
-        //panel1a.setStyleAttribute("verticallayoutstyle",jswLayout.MIDDLE);
         panel1a.applyStyle();
         jswButton button1 = new jswButton(this, "button_1");
         jswTextBox textbox1 = new jswTextBox(this, "textfield_1");
@@ -154,8 +164,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         panel2.setStyleAttribute("gap", 10);
         panel2.setStyleAttribute("titlecolor", "green");
         panel2.setStyleAttribute("titlefontsize", 20);
+        panel2.setBackground(Color.pink);
         panel2.applyStyle();
-        jswOptionset optionseta = new jswOptionset(this, "my option list", true, true);
+        jswOptionset optionseta = new jswOptionset(this, "panel2a", true, true);
         optionseta.setStyleAttribute("verticallayoutstyle", jswLayout.DISTRIBUTE);
         optionseta.setStyleAttribute("horizontallayoutstyle", jswLayout.LEFT);
         jswOption ros = optionseta.addNewOption("red", true);
@@ -166,7 +177,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         rog.applyStyle(mwdefstyles.getStyle("greenoption"));
         optionseta.applyStyle();
         panel2.add("  ", optionseta);
-        jswPushButtonset pushbuttonseta = new jswPushButtonset(this, "helpbuttons", true, true, true);
+        jswPushButtonset pushbuttonseta = new jswPushButtonset(this, "panel2b", true, true, true);
         pushbuttonseta.setStyleAttribute("verticallayoutstyle", jswLayout.DISTRIBUTE);
         pushbuttonseta.setStyleAttribute("horizontallayoutstyle", jswLayout.MIDDLE);
         pushbuttonseta.applyStyle();
@@ -174,23 +185,30 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         pbr.applyStyle(mwdefstyles.getStyle("redbutton"));
         jswPushButton pbb = pushbuttonseta.addNewButton("verticalLayout Help", "vhelp");
         pbb.applyStyle(mwdefstyles.getStyle("bluebutton"));
-
         panel2.add(" FILLH ", pushbuttonseta);
-        jswVerticalPanel panel2b = new jswVerticalPanel("panel2b", true, false);
-        panel2b.setBorder(jswStyle.makeLineBorder(Color.red,3));
-        panel2b.applyStyle();
-        this.textarea = new jswTextArea("some input", true);
-        panel2b.add(" WIDTH=301 HEIGHT=501 FILLH FILLW ", this.textarea);
-        // panel2b.add(" FILLV ",this.textarea );
-        jswButton clear = new jswButton(this, "CLEAR");
 
-        panel2b.add("  ", clear);
-        panel2.add(" ", panel2b);
+        /*===============================panel2c================*/
+        jswVerticalPanel panel2c = new jswVerticalPanel("panel2c", true, false);
+        this.textarea = new jswTextArea("some input", true);
+        this.textarea.setBorder(jswStyle.makeLineBorder(Color.yellow, 3));
+        // this.textarea.setStyleAttribute("minwidth",300);
+        this.textarea.applyStyle();
+        panel2c.add("  MINHEIGHT=501 FILLH FILLW WIDTH=500 MIDDLE ", this.textarea);
+        jswButton clear = new jswButton(this, "CLEAR");
+        panel2c.add("  ", clear);
+        panel2c.setStyleAttribute("horizontallayoutstyle", jswLayout.MIDDLE);
+        // panel2b.setStyleAttribute("minwidth",400);
+        panel2c.setStyleAttribute("BackgroundColor", "blue");
+        panel2c.setStyleAttribute("BorderWidth", 3);
+        panel2c.applyStyle();
+        panel2.add(" MINWIDTH=200 maxwidth=400   FILLW ", panel2c);
+        /*===============================panel2c================*/
         jswTable table1 = makeTableExample();
-        panel2.add(" width=400 FILLH  ", table1);
-        panel2b.setStyleAttribute("horizontallayoutstyle", jswLayout.MIDDLE);
-        panel2b.applyStyle();
-        mainpanel.add(" HEIGHT=300 ", panel2);
+        table1.setStyleAttribute("borderwidth", 3);
+        table1.setStyleAttribute("bordercolor", "red");
+        table1.applyStyle();
+        panel2.add(" width=400  ", table1);
+        mainpanel.add(" FILLH MINHEIGHT=300 FILLW ", panel2);
         // ====end of panel2==
 
         // ====start of panel3==
@@ -198,16 +216,20 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         panel3.setBackground(Color.green);
         jswPanel treepanel = makeTreeExample();
         jswTextArea textarea2 = new jswTextArea("some more input");
+        textarea2.setMinimumSize(new Dimension(10, 10));
+        textarea2.applyStyle();
         jswSplitPane splitpane = new jswSplitPane(this, "splitpane1", false, treepanel, textarea2);
-        splitpane.setStyleAttribute("myheight", 300);
+        splitpane.setStyleAttribute("height", 300);
         splitpane.applyStyle();
         splitpane.setMinimumSize(new Dimension(800, 200));
         panel3.add(" FILLW ", splitpane);
+        mainpanel.add("  HEIGHT=400  FILLW ", panel3);
+        // ====start of panel4===
         jswHorizontalPanel panel4 = new jswHorizontalPanel("Panel 4", true, true);
-        panel4.setBackground(Color.yellow);
+        panel4.getStyle().setBackgroundcolor("yellow");
         jswContainer jswContainer1 = new jswContainer("subpanel 1");
         jswContainer1.getStyle().setBackgroundcolor("red");
-        jswContainer1.setStyleAttribute("myheight", 100);
+        jswContainer1.setStyleAttribute("height", 100);
         jswContainer1.applyStyle();
         jswContainer jswContainer2 = new jswContainer("sub panel 2");
         jswContainer2.getStyle().setBackgroundcolor("white");
@@ -215,11 +237,13 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         jswContainer jswContainer3 = new jswContainer("sub panel 3");
         jswContainer3.getStyle().setBackgroundcolor("blue");
         jswContainer3.applyStyle();
-
         panel4.add("  FILLW  ", jswContainer1);
         panel4.add("  FILLW ", jswContainer2);
         panel4.add("  FILLW ", jswContainer3);
-        mainpanel.add("  HEIGHT=400  ", panel3);
+
+        mainpanel.add(" HEIGHT=100  FILLW  ", panel4);
+        panel4.applyStyle();
+        mainpanel.repaint();
         add(mainpanel);
         pack();
         addWindowListener(new WindowAdapter()
@@ -416,7 +440,6 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         col23style.putAttribute("foregroundcolor", "yellow");
         col23style.putAttribute("borderWidth", "1");
         col23style.putAttribute("borderColor", "blue");
-
         return tablestyles;
     }
 

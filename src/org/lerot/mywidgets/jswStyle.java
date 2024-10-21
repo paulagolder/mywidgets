@@ -123,6 +123,20 @@ public class jswStyle
 		setStyleName(basestyles.getStyleName());
 	}
 
+	public void printList()
+	{
+		if (attributes == null) return;
+
+		for (Map.Entry<String, String> entry : attributes.entrySet())
+		{
+			String key = entry.getKey();
+			String value = entry.getValue();
+			System.out.println(key + "::" + value);
+
+		}
+
+	}
+
 	public Color getBackgroundcolor()
 	{
 		return getColor("backgroundcolor", defaultbackgroundcolor);

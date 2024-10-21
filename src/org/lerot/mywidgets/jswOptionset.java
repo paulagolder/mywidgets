@@ -234,8 +234,63 @@ public class jswOptionset extends jswPanel implements ActionListener
 	@Override
 	public Dimension getPreferredSize()
 	{
-		System.out.println("xy "+getMinimumSize());
-		return getMinimumSize();
+        int width = 0;
+        int height = 0;
+        Integer vgap = getStyle().getIntegerStyle("gap", 1);
+        Integer hgap = getStyle().getIntegerStyle("gap", 1);
+        //LayoutManager lm = this.getLayout();
+        //settings s = ((jswLayout) lm).getSettings(this);
+        jswStyle s = this.getStyle();
+        int minwidth = 0;
+        int mywidth = 0;
+        if (s.hasAttribute("WIDTH"))
+        {
+            mywidth = s.getInteger("WIDTH");
+        }
+        if (s.hasAttribute("MINWIDTH"))
+        {
+            minwidth = s.getInteger("MINWIDTH");
+        }
+        if (minwidth > mywidth) mywidth = minwidth;
+        int minheight = 0;
+        int myheight = 0;
+        if (s.hasAttribute("HEIGHT"))
+        {
+            myheight = s.getInteger("HEIGHT");
+        }
+        if (s.hasAttribute("MINHEIGHT"))
+        {
+            minheight = s.getInteger("MINHEIGHT");
+        }
+        if (minheight > myheight) myheight = minheight;
+        if (isvertical)
+        {
+            for (int i = 0; i < no; i++)
+            {
+                jswOption on = options[i];
+                Dimension d = on.getMinimumSize();
+                height += d.height + vgap;
+                if (width < d.width) width = d.width;
+            }
+            width = width + padding.left + padding.right;
+            height = height + padding.top + padding.bottom;
+        } else
+        {
+            for (int i = 0; i < no; i++)
+            {
+                jswOption on = options[i];
+                Dimension d = on.getMinimumSize();
+                width += d.width + hgap;
+                if (height < d.height) height = d.height;
+            }
+            width = width + padding.left + padding.right;
+            height = height + padding.top + padding.bottom;
+            ;
+        }
+        if (width < mywidth) width = mywidth;
+        if (height < myheight) height = myheight;
+        Dimension d = new Dimension(width, height);
+        return d;
 	}
 
 

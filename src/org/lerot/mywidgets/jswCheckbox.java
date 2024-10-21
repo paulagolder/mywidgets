@@ -41,8 +41,8 @@ public class jswCheckbox extends jswPanel
 		applyStyle();
 	}
 
-	
-	void applyStyle(jswStyle style)
+
+    public void applyStyle(jswStyle style)
 	{		
 		check.setFont(style.getFont());
 		check.setBackground(jswStyle.TRANSPARENT);

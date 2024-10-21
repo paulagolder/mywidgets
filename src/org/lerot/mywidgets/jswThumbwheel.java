@@ -57,7 +57,7 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 	
 
 	@Override
-	void applyStyle(jswStyle style)
+    public void applyStyle(jswStyle style)
 	{	
 		label.setFont(style.getFont());
 		label.setBackground(jswStyle.defaultwidgetcolor);

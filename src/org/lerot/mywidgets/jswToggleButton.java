@@ -46,7 +46,7 @@ public class jswToggleButton extends jswPanel implements ActionListener, ChangeL
 		button.setVisible(true);
 	}
 
-  void applyStyle()
+    public void applyStyle()
   {
 	 
     //  EventQueue.invokeLater(new TogglTst());

@@ -14,8 +14,8 @@ public class jswContainer extends jswPanel
 	{
 		super("C:" + name);
 	}
-	
-	void applyStyle(jswStyle astyle)
+
+	public void applyStyle(jswStyle astyle)
 	{
 	
 				int wd =style.getIntegerStyle("mywidth",bl);

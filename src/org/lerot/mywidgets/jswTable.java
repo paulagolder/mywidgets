@@ -34,8 +34,8 @@ public class jswTable extends jswPanel implements ActionListener
 		setName(name);
 		applyStyle();
 	}
-	
-	void applyStyle(jswStyle astyle)
+
+    public void applyStyle(jswStyle astyle)
 	{
 		Color bcolor = astyle.getColor("backgroundColor", Color.BLUE);
 		setBackground(bcolor);

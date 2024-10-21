@@ -106,7 +106,7 @@ public class jswTree extends jswPanel implements ComponentListener
 		applyStyle();
 	}
 
-	void applyStyle(jswStyle style)
+    public void applyStyle(jswStyle style)
 	{
 		int wd = style.getIntegerStyle("mywidth", bl);
 		if (wd > bl)

@@ -13,7 +13,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
-import java.awt.LayoutManager;
 
 public abstract class jswLayout implements LayoutManager
 {
@@ -23,6 +22,7 @@ public abstract class jswLayout implements LayoutManager
     public static final int RIGHT = 3;
     public static final int MIDDLE = 2;
     public static final int BOTTOM = 3;
+    public static final int NULL = -1;
 
     public int gap = 5;
     int verticallayoutstyle = jswLayout.TOP;
@@ -30,24 +30,23 @@ public abstract class jswLayout implements LayoutManager
     protected Insets padding;
     private String status;
     protected layoutRecord[] layoutTable;
-   // private int visiblecomponents;
    protected int visibleComponents;
 
     public class layoutRecord
     {
+        public int finalheight;
+        public int finalwidth;
         int cindex = -1;
         int x = 0;
         int y = 0;
-
         int height = 0;
         int width = 0;
         int maxwidth = 0;
         int minwidth = 0;
         int maxheight = 0;
         int minheight = 0;
-        int finalwidth;
-        int bdwidth;
-        int finalheight;
+        //    int imputedminwidth;
+        //     int imputedminheight;
         Component comp = null;
         int fillw;
         int fillh;
@@ -59,8 +58,8 @@ public abstract class jswLayout implements LayoutManager
         public String toString()
         {
             String outline = comp.getClass().getName() + ":" + fillw + "\n:"
-                    + minwidth + ":" + width + ":" + maxwidth + ":" + finalwidth + "\n:"
-                    + minheight + ":" + height + ":" + maxheight + ":" + finalheight;
+                    + minwidth + ":" + width + ":" + maxwidth + ":" + "\n:"
+                    + minheight + ":" + height + ":" + maxheight + ":";
             return outline;
         }
 
@@ -71,7 +70,8 @@ public abstract class jswLayout implements LayoutManager
         int componentcount = parent.getComponentCount();
         int j = 0;
         layoutRecord[] clayout = new layoutRecord[componentcount];
-        for (int i = 0; i < componentcount; i++)
+        int i;
+        for (i = 0; i < componentcount; i++)
         {
             Component comp = parent.getComponent(i);
             if (comp.isVisible())
@@ -86,11 +86,12 @@ public abstract class jswLayout implements LayoutManager
                 clayout[j] = new layoutRecord();
                 clayout[j].cindex = i;
                 clayout[j].comp = comp;
-                Dimension d = comp.getMinimumSize();
+                Dimension d = ((jswPanel) comp).getMinimumSize();
                 clayout[j].minwidth = d.width;
-                clayout[j].finalheight = d.height;
-                clayout[j].finalwidth = d.width;
                 clayout[j].minheight = d.height;
+                Dimension dp = ((jswPanel) comp).getPreferredSize();
+                clayout[j].width = dp.width;
+                clayout[j].height = dp.height;
                 if (s.hasAttribute("WIDTH"))
                 {
                     clayout[j].width = s.getInteger("WIDTH");
@@ -147,7 +148,17 @@ public abstract class jswLayout implements LayoutManager
             atoken = tagp.getToken();
             if(atoken != null)
             {
-                ((jswPanel) comp).setStyleAttribute(atoken[0], atoken[1]);
+                if (atoken[0].equalsIgnoreCase("middle"))
+                {
+                    ((jswPanel) comp).setStyleAttribute("horizontalalignstyle", jswLayout.MIDDLE);
+                } else if (atoken[0].equalsIgnoreCase("right"))
+                {
+                    ((jswPanel) comp).setStyleAttribute("horizontalalignstyle", jswLayout.RIGHT);
+                } else if (atoken[0].equalsIgnoreCase("left"))
+                {
+                    ((jswPanel) comp).setStyleAttribute("horizontalalignstyle", jswLayout.LEFT);
+                } else
+                    ((jswPanel) comp).setStyleAttribute(atoken[0], atoken[1]);
             }
         }
         
@@ -221,8 +232,23 @@ public abstract class jswLayout implements LayoutManager
     }
 
 
+    public Dimension imputedMinimunSize()
+    {
+        int minwidth = Integer.MAX_VALUE;
+        int minheight = Integer.MAX_VALUE;
+        for (int j = 0; j < visibleComponents; j++)
+        {
+            if (layoutTable[j].minwidth > 0 && minwidth > layoutTable[j].minwidth) minwidth = layoutTable[j].minwidth;
+            if (layoutTable[j].width > 0 && minwidth > layoutTable[j].width) minwidth = layoutTable[j].width;
+            if (layoutTable[j].minheight > 0 && minheight > layoutTable[j].minheight)
+                minheight = layoutTable[j].minheight;
+            if (layoutTable[j].height > 0 && minheight > layoutTable[j].height) minheight = layoutTable[j].height;
 
-
+            layoutTable[j].finalheight = minheight;
+            layoutTable[j].finalwidth = minwidth;
+        }
+        return new Dimension(minwidth, minheight);
+    }
 
 
 }

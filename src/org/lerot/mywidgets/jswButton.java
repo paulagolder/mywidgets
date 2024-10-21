@@ -38,7 +38,7 @@ public class jswButton extends jswPanel implements ActionListener
 	}
 
 	@Override
-	void applyStyle(jswStyle style)
+    public void applyStyle(jswStyle style)
 	{
 		int l = button.getText().length() * 8 + 30;
 		if (l > bl)

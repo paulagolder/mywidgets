@@ -42,7 +42,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
 		this(String.valueOf(count));
 	}
 
-	void initialiseStyle(String stylename)
+	public void initialiseStyle(String stylename)
 	{
 		style = new jswStyle();
 		style.setDefaultStyle();
@@ -107,24 +107,24 @@ public abstract class jswPanel extends JPanel implements ActionListener
 
 	}
 
-	void applyStyle()
+	public void applyStyle()
 	{
 		applyStyle(style);
 	}
 
-	
-	void applyContentStyle()
+
+	public void applyContentStyle()
 	{
 		applyContentStyle(style);
 	}
 
-	
-	protected void applyContentStyle(jswStyle style2)
+
+	public void applyContentStyle(jswStyle style2)
 	{	
 		applyStyle(style);
 	};
 
-	void applyStyle(jswStyle astyle)
+	public void applyStyle(jswStyle astyle)
 	{
 
 		Font sfont = astyle.getFont();
@@ -140,7 +140,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
 
 	}
 
-	void setPanelBorder(jswStyle style)
+	public void setPanelBorder(jswStyle style)
 	{
 		int bs = style.getBorderStyle();
 		if (bs == jswStyle.TITLEDBORDER)
@@ -177,8 +177,8 @@ public abstract class jswPanel extends JPanel implements ActionListener
 		style.putAttribute(string,string2);
 		
 	}
-	
-	void setFontStyle(String font, int fonttype, int fontsize)
+
+	public void setFontStyle(String font, int fonttype, int fontsize)
 	{
 		style.setFontsize(fontsize);
 		style.setFontstyle(fonttype);

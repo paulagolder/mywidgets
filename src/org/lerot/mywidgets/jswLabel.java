@@ -1,8 +1,6 @@
 package org.lerot.mywidgets;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.*;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,12 +14,21 @@ public class jswLabel extends jswPanel
 	public jswLabel(String inLabel)
 	{
 		super(inLabel);
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		setAlignmentX(Component.CENTER_ALIGNMENT);
+		//setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		BorderLayout layout = new BorderLayout();
+		layout.setHgap(10);
+		layout.setVgap(10);
+		setLayout(layout);
+		//	setAlignmentX(Component.CENTER_ALIGNMENT);
 		label = new JLabel();
 		label.setText(inLabel);
+		//	label.setAlignmentX(CENTER_ALIGNMENT);
+		label.setBackground(Color.blue);
+		//panel.setLayout(layout);
+		//	panel.add(new JButton("Center"),BorderLayout.CENTER);
       //  label.setStyleAttribute("borderwidth",0);
-		add(label);
+		//add(label);
+		add(label, BorderLayout.CENTER);
 		setStyleAttribute("borderwidth",0);
 		setStyleAttribute("bordercolor","green");
 		applyStyle();
@@ -29,11 +36,12 @@ public class jswLabel extends jswPanel
 	}
 
 	@Override
-	void applyStyle()
+	public void applyStyle(jswStyle style)
 	{
 		label.setFont(style.getFont());
 		label.setForeground(style.getColor("foregroundColor", Color.BLACK));
 		label.setBackground(style.getColor("backgroundColor", jswStyle.TRANSPARENT));
+		//	label.setBackground(Color.pink);
 		// label.setBorder(jswStyle.makeLineBorder(Color.red, 1));
 		//label.setBorder(style.getBorder());
 		setBorder(style.getBorder());

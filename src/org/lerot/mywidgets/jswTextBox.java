@@ -51,18 +51,17 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		textbox.setEnabled(true);
 		DefaultCaret caret = (DefaultCaret) textbox.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		style.putAttribute("borderwidth",0);
+		style.putAttribute("borderwidth", 0);
 		add(textbox);
 		applyStyle();
 	}
 
-	
+
 	public void actionPerformed(ActionEvent e)
 	{
-
-	     HashMap<String, String> am = jswPanel.createActionMap(this, e);
+		HashMap<String, String> am = jswPanel.createActionMap(this, e);
 		am.put("quality", "selected");
-		am.put("value", '"'+getText()+'"');
+		am.put("value", '"' + getText() + '"');
 		am.put("name", '"' + getName() + '"');
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
@@ -82,7 +81,7 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		if (wd > bl) bl = wd;
 		//bl=wd;
 		int ht = style.getIntegerStyle("myheight", bh);
-		if (ht > bh)   bh = ht;
+		if (ht > bh) bh = ht;
 		Dimension d = new Dimension(bl, bh);
 		textbox.setPreferredSize(d);
 		textbox.setMaximumSize(new Dimension(1000, bh));

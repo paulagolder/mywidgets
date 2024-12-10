@@ -13,9 +13,9 @@ public class jswHorizontalLayout extends jswLayout
 
     private String trace;
     int hgap = 1;
-    private int right = 2;
-    private int middle = 1;
-    private int left = 0;
+    private final int right = 2;
+    private final int middle = 1;
+    private final int left = 0;
     //private layoutRecord[] layoutTable;
 
 
@@ -118,7 +118,7 @@ public class jswHorizontalLayout extends jswLayout
             }
             if (layoutTable[j].fillw > 0)
             {
-                layoutTable[j].minwidth = (int) (layoutTable[j].minwidth);
+                layoutTable[j].minwidth = layoutTable[j].minwidth;
                 fillwidth += layoutTable[j].minwidth;
             }
             cumwidth += layoutTable[j].minwidth + gap;// + clayout[j].bdwidth;

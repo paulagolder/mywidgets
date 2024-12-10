@@ -109,10 +109,10 @@ public abstract class jswLayout implements LayoutManager
                     clayout[j].align = alignposition;
                 }
 
-                Dimension d = ((jswPanel) comp).getMinimumSize();
+                Dimension d = comp.getMinimumSize();
                 clayout[j].minwidth = d.width;
                 clayout[j].minheight = d.height;
-                Dimension dp = ((jswPanel) comp).getPreferredSize();
+                Dimension dp = comp.getPreferredSize();
                 clayout[j].width = dp.width;
                 clayout[j].height = dp.height;
                 if (s.hasAttribute("WIDTH"))
@@ -173,15 +173,15 @@ public abstract class jswLayout implements LayoutManager
             {
                 if (atoken[0].equalsIgnoreCase("middle"))
                 {
-                    ((jswPanel) comp).setStyleAttribute("horizontalalignstyle", jswLayout.MIDDLE);
+                    comp.setStyleAttribute("horizontalalignstyle", jswLayout.MIDDLE);
                 } else if (atoken[0].equalsIgnoreCase("right"))
                 {
-                    ((jswPanel) comp).setStyleAttribute("horizontalalignstyle", jswLayout.RIGHT);
+                    comp.setStyleAttribute("horizontalalignstyle", jswLayout.RIGHT);
                 } else if (atoken[0].equalsIgnoreCase("left"))
                 {
-                    ((jswPanel) comp).setStyleAttribute("horizontalalignstyle", jswLayout.LEFT);
+                    comp.setStyleAttribute("horizontalalignstyle", jswLayout.LEFT);
                 } else
-                    ((jswPanel) comp).setStyleAttribute(atoken[0], atoken[1]);
+                    comp.setStyleAttribute(atoken[0], atoken[1]);
             }
         }
         

@@ -22,8 +22,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class mywidget_gui extends JFrame implements ActionListener, TreeModelListener, TreeSelectionListener
 {
     public static mywidget_gui mframe;
-    private jswTextArea textarea;
-    private jswVerticalPanel mainpanel;
+    private final jswTextArea textarea;
+    private final jswVerticalPanel mainpanel;
 
     public static void main(String[] args)
     {
@@ -118,9 +118,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         buttonm.applyStyle(mwdefstyles.getStyle("mediumbutton"));
         jswButton buttons = new jswButton(this, "small");
         buttons.applyStyle(mwdefstyles.getStyle("smallbutton"));
-        panel1b.add(" ", (Component) buttonl);
-        panel1b.add((Component) buttonm);
-        panel1b.add((Component) buttons);
+        panel1b.add(" ", buttonl);
+        panel1b.add(buttonm);
+        panel1b.add(buttons);
 
         jswHorizontalPanel panel1c = new jswHorizontalPanel("Panel 1C", true, true);
         jswThumbwheel thumbwheel1 = new jswThumbwheel(this, "thumbwheel 1", 5, 10);
@@ -139,7 +139,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         checkbox1.applyStyle();
         panel1c.add(" ", checkbox1);
         jswToggleButton togglebutton1 = new jswToggleButton(this, "my toggle", "togglebutton1");
-        panel1c.add(" ", (Component) togglebutton1);
+        panel1c.add(" ", togglebutton1);
         jswTextBox textfield1 = new jswTextBox(this, " ");
         textfield1.addActionListener(this);
 
@@ -311,6 +311,14 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
                 return;
             }
         }
+        if (actioncmd.get("handlerclass").equalsIgnoreCase("jswCell"))
+        {
+            if (actioncmd.get("commandstring").equalsIgnoreCase("mouseclick"))
+            {
+                textarea.setText(" cell clicked row =" + actioncmd.get("row") + " column =" + actioncmd.get("column") + " content=" + actioncmd.get("cellcontent"));
+                return;
+            }
+        }
         if (this.textarea != null)
         {
             this.textarea.addText("jswhandling :" + actioncmd + "\n");
@@ -328,7 +336,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         jswTree treepanel = new jswTree(this, "my tree", top);
         //treepanel.setStyleAttribute("myheight", "300");
         treepanel.applyStyle();
-        return (jswPanel) treepanel;
+        return treepanel;
     }
 
     public jswTable makeTableExample()
@@ -349,7 +357,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         {
             for (int m = 1; m < 5; m++)
             {
-                jswCell acell = table1.addCell(" cell:" + i + ":" + m, i, m);
+                jswLabel alabel = new jswLabel(" cell:" + i + ":" + m);
+                jswCell acell = table1.addCell(alabel, i, m);
+                alabel.addMouseListener(acell);
                 acell.applyStyle();
                 acell.applyContentStyle();
             }

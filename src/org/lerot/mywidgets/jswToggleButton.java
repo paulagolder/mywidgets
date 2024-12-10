@@ -19,7 +19,7 @@ public class jswToggleButton extends jswPanel implements ActionListener, ChangeL
 {
 	private static final long serialVersionUID = 1L;
 	JToggleButton button;
-	private String label;
+    private final String label;
 
 
 	public jswToggleButton(ActionListener al, String alabel)

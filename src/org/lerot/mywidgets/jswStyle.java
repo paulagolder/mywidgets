@@ -162,9 +162,7 @@ public class jswStyle
 			String value = attributes.get(stylename);
 			if (value == null || value.equalsIgnoreCase("") ) return b;
 			value = value.toLowerCase();
-			if (value.startsWith("t")) return true;
-			else
-				return false;
+			return value.startsWith("t");
 		} else
 			return b;
 	}
@@ -541,8 +539,7 @@ public class jswStyle
 	public boolean hasBorder()
 	{
 		int borderwidth = getBorderWidth();
-		if(borderwidth > 0) return true;
-		return false;
+		return borderwidth > 0;
 	}
 	
 	int getBorderWidth()
@@ -568,11 +565,7 @@ public class jswStyle
     public boolean hasAttribute(String stylename)
     {
 		stylename = stylename.toLowerCase();
-		if (attributes.containsKey(stylename))
-		{
-			 return true;
-		} else
-			return false;
+		return attributes.containsKey(stylename);
     }
 
 	public Integer  getInteger(String stylename)

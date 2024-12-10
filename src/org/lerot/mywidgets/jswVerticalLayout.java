@@ -25,7 +25,7 @@ public class jswVerticalLayout extends jswLayout
 
 		if (parent instanceof jswPanel)
 		{
-			if (((jswPanel) parent).getName().equals(trace))
+			if (parent.getName().equals(trace))
 			{
 				System.out.println("tracing "+trace);
 			}
@@ -79,7 +79,7 @@ public class jswVerticalLayout extends jswLayout
 			if (fillheight > 0)
 				fillratio = (float) (sparespace ) / (float) fillheight;		
 		}
-		if (((jswPanel) parent).getName().equals(trace))
+		if (parent.getName().equals(trace))
 		{
 			System.out.println(" padding :"+padding);
 		}
@@ -95,7 +95,7 @@ public class jswVerticalLayout extends jswLayout
 			y =   gap / 2 +  padding.top;		
 		}
 
-        if (((jswPanel) parent).getName().equals(trace))
+		if (parent.getName().equals(trace))
         {
             System.out.println("tracing " + trace);
         }
@@ -168,7 +168,7 @@ public class jswVerticalLayout extends jswLayout
 		vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
 		componentcount = parent.getComponentCount();
 
-        if (((jswPanel) parent).getName().equals(trace))
+		if (parent.getName().equals(trace))
         {
             System.out.println("tracing " + trace);
         }

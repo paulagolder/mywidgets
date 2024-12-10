@@ -7,7 +7,7 @@ public class jswScrollPane extends jswPanel
 
 	private static final long serialVersionUID = 1L;
 	JScrollPane window;
-	private jswPanel target;
+    private final jswPanel target;
 	int xshift = 0;
 	int yshift = 0;
 

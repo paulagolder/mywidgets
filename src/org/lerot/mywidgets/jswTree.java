@@ -54,7 +54,7 @@ public class jswTree extends jswPanel implements ComponentListener
 			for (int k = 0; k < nodes.length; k++)
 			{
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) nodes[k];
-				nd = (Object) node.getUserObject();
+				nd = node.getUserObject();
 				// oid += "."+nd.getId();
 			}
 			Long t = System.currentTimeMillis() / 10000;

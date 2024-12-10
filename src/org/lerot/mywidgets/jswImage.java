@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -24,7 +25,7 @@ public class jswImage
 		public void parseToImage() throws IOException
 		{
 			String base64str = encodedimage.replaceAll("\\\\n", "\n");
-			byte[] base64 = base64str.getBytes(Charset.forName("UTF-8"));
+			byte[] base64 = base64str.getBytes(StandardCharsets.UTF_8);
 			byte[] decoded = java.util.Base64.getDecoder().decode(base64);
 			image = ImageIO.read(new ByteArrayInputStream(decoded));
 
@@ -151,7 +152,7 @@ public class jswImage
 		{
 			// Reading a Image file from file system
 			FileInputStream imageInFile = new FileInputStream(file);
-			byte imageData[] = new byte[(int) file.length()];
+			byte[] imageData = new byte[(int) file.length()];
 			imageInFile.read(imageData);
 
 			// Converting Image byte array into Base64 String

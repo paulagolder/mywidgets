@@ -3,27 +3,24 @@ package org.lerot.mywidgets;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.HashMap;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
-public class jswCell extends jswPanel //jswHorizontalPanel
+public class jswCell extends jswPanel implements MouseListener
 {
 
 	private static final long serialVersionUID = 1L;
-	int col;
+	private int col;
 	int colspan = 1;
-	int row;
+	private int row;
 	int width = 0;
 
 	public jswCell(ActionListener al,int irow, int icol)
 	{
 		super("acell");
-		row = irow;
-		col = icol;
+		setRow(irow);
+		setCol(icol);
 		actionlistener = al;
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -99,19 +96,16 @@ public class jswCell extends jswPanel //jswHorizontalPanel
 		}		
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		
 		HashMap<String,String> am = jswPanel.createActionMap(this, e);
-		am.put("column", (" "+this.col));
-		am.put("row", (" "+this.row));
+		am.put("column", (" " + this.getCol()));
+		am.put("row", (" " + this.getRow()));
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
 		actionlistener.actionPerformed(event);
-
 	}
 
 	public void applyStyle(jswStyle style)
@@ -129,6 +123,83 @@ public class jswCell extends jswPanel //jswHorizontalPanel
 	@Override
 	public String toString()
 	{
-		return "CELL " + row + " " + col + "="+ this.getComponent(0).toString();
+		return "CELL " + getRow() + " " + getCol() + "=" + this.getComponent(0).toString();
+	}
+
+	public int getRow()
+	{
+		return row;
+	}
+
+	public void setRow(int row)
+	{
+		this.row = row;
+	}
+
+	public int getCol()
+	{
+		return col;
+	}
+
+	public void setCol(int col)
+	{
+		this.col = col;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{
+		//System.out.println(" clicker "+((JPanel)e.getSource()).getClass().getName());
+		Object source = e.getSource();
+		if (source instanceof jswPanel)
+		{
+			jswPanel panel = ((jswPanel) e.getSource());
+			String pname = panel.getPanelname();
+			//System.out.println( this);
+			//HashMap<String, Integer> coords = new HashMap<String, Integer> () ;
+			//coords.put("r",this.getRow());
+			HashMap<String, String> am = jswPanel.createActionMap(this, e);
+			am.put("column", (" " + this.getCol()));
+			am.put("row", (" " + this.getRow()));
+			am.put("action", "jswCell");
+			if (source instanceof jswLabel)
+			{
+				String text = ((jswLabel) source).getText();
+				am.put("cellcontent", text);
+			}
+			if (source instanceof jswTextBox)
+			{
+				String text = ((jswTextBox) source).getText();
+				am.put("cellcontent", text);
+			}
+			Long t = System.currentTimeMillis() / 10000;
+			int uniqueId = t.intValue();
+			ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
+			actionlistener.actionPerformed(event);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e)
+	{
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e)
+	{
+
 	}
 }

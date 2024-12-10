@@ -14,10 +14,10 @@ import static java.lang.Boolean.TRUE;
 public class jswSplitPane extends jswContainer
 {
 
-	private JSplitPane splitpane;
-	private boolean isvertical;
-	private jswPanel panel2;
-	private jswPanel panel1;
+    private final JSplitPane splitpane;
+    private final boolean isvertical;
+    private final jswPanel panel2;
+    private final jswPanel panel1;
 
 	public jswSplitPane(ActionListener parentListener, String name, boolean isvertical, jswPanel panela,
 			jswPanel panelb)

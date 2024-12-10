@@ -29,12 +29,12 @@ public class jswTableLayout extends jswLayout
 	public static final int CENTER = 0;
 	private static final int DEFAULT_HGAP = 0;
 	private static final int DEFAULT_VGAP = 0;
-	private Vector<rowcol> columns;
+	private final Vector<rowcol> columns;
 	private int hgap;
 	int maxcol = 0;
 	int maxrow = 0;
 
-	private Vector<rowcol> rows;
+	private final Vector<rowcol> rows;
 	private String trace;
 
 	public jswTableLayout()
@@ -84,15 +84,14 @@ public class jswTableLayout extends jswLayout
 		for (int i = 0; i < ncomponents; i++)
 		{
 			Component comp = parent.getComponent(i);
-			if (comp instanceof jswCell)
+			if (comp instanceof jswCell cell)
 			{
-				jswCell cell = (jswCell) comp;
 				if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
 				{
 					//System.out.println(cell.toString());
 				}
-				int ncol = cell.col;
-				int nrow = cell.row;
+				int ncol = cell.getCol();
+				int nrow = cell.getRow();
 				int colspan = cell.colspan;
 				rowcol rowsettings = rows.get(nrow);
 				int y = (int) rowsettings.position + insets.top;
@@ -255,12 +254,11 @@ public class jswTableLayout extends jswLayout
 		for (int i = 0; i < ncomponents; i++)
 		{
 			Component comp = parent.getComponent(i);
-			if (comp instanceof jswCell)
+			if (comp instanceof jswCell cell)
 			{
-				jswCell cell = (jswCell) comp;
 
-				int ncol = cell.col;
-				int nrow = cell.row;
+				int ncol = cell.getCol();
+				int nrow = cell.getRow();
 				if (ncol > maxcol)
 					maxcol = ncol;
 				if (nrow > maxrow)
@@ -303,17 +301,15 @@ public class jswTableLayout extends jswLayout
 		for (int i = 0; i < ncomponents; i++)
 		{
 			Component comp = parent.getComponent(i);
-			if (comp instanceof jswCell)
+			if (comp instanceof jswCell cell)
 			{
-				jswCell cell = (jswCell) comp;
 				// settings s = getSettings(comp);
 				Dimension min = null;
 				if (cell.getComponentCount() == 0)
 					continue;
 				Component cellcontent = cell.getComponent(0);
-				if (cellcontent instanceof jswPanel)
+				if (cellcontent instanceof jswPanel jccomp)
 				{
-					jswPanel jccomp = (jswPanel) cellcontent;
 					min = jccomp.getMinimumSize();
 
 				} else
@@ -322,8 +318,8 @@ public class jswTableLayout extends jswLayout
 					min = jccomp.getMinimumSize();
 					System.out.println(" not jswpanel =" + comp.getClass().getName());
 				}
-				int ncol = cell.col;
-				int nrow = cell.row;
+				int ncol = cell.getCol();
+				int nrow = cell.getRow();
 				int colspan = cell.colspan;
 				int width = cell.width;
 				if (width > min.width)

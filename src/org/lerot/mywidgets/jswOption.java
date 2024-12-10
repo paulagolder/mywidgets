@@ -129,7 +129,7 @@ public class jswOption extends jswPanel
 	    HashMap<String, String> am = jswPanel.createActionMap(this, e);
 	    am.put( "command" , button.getActionCommand());
 	    am.put( "value" ,mess);
-	    System.out.println(am.toString());
+        System.out.println(am);
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());

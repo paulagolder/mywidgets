@@ -10,7 +10,7 @@ import javax.swing.border.Border;
 public class jswRectLayout extends jswLayout
 {
 
-	private Shifts shifts;
+	private final Shifts shifts;
 
 	class Shifts
 	{
@@ -60,7 +60,7 @@ public class jswRectLayout extends jswLayout
 				- binsets.left - binsets.right - shifts.width;
 		int availableHeight = parentSize.height - insets.top - insets.bottom
 				- binsets.top - binsets.bottom - shifts.height;
-		availableHeight = availableHeight - 0;
+		availableHeight = availableHeight;
 		for (Component ncomponent : parent.getComponents())
 		{
 			ncomponent.setBounds(x, y, usableWidth, availableHeight);

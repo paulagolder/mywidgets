@@ -54,13 +54,12 @@ public class jswTable extends jswPanel implements ActionListener
 		for(int i=0 ; i<nc ; i++)
 		{		
 			Component comp = this.getComponent(i);
-			if (comp instanceof jswCell)
+			if (comp instanceof jswCell acell)
 			{
-				jswCell acell = (jswCell)comp;
-				jswStyle astyle = getCellStyle(acell.row,acell.col);
+				jswStyle astyle = getCellStyle(acell.getRow(), acell.getCol());
 				acell.applyStyle(astyle);
 			//	jswStyle cstyle = getCellContentStyle(acell.row,acell.col);
-				jswStyle cstyle = getCellStyle(acell.row,acell.col);
+				jswStyle cstyle = getCellStyle(acell.getRow(), acell.getCol());
 				acell.applyContentStyle(cstyle);
 			}
 		}		
@@ -142,10 +141,9 @@ public class jswTable extends jswPanel implements ActionListener
 			try
 			{
 			Component comp = this.getComponent(i);
-			if (comp instanceof jswCell)
+				if (comp instanceof jswCell acell)
 			{
-				jswCell acell = (jswCell)comp;
-				if(acell.row == row & acell.col ==col)
+				if (acell.getRow() == row & acell.getCol() == col)
 		         {
 		        	 this.remove(comp);
 		         }
@@ -160,10 +158,8 @@ public class jswTable extends jswPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		
+		//System.out.println("voila");
 		HashMap<String,String> am = jswPanel.createActionMap(this, e);
-
-		
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());

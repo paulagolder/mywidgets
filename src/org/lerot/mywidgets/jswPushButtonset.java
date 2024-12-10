@@ -18,7 +18,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	jswPushButton[] buttons;
 	String commandroot;
 
-	private boolean isvertical;
+    private final boolean isvertical;
 
 	public jswPushButtonset(ActionListener parentListener, String name,
 			boolean isvertical, boolean border, boolean titledborder)
@@ -65,8 +65,8 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	{			
 		setBackground(style.getBackgroundcolor());
 		setPanelBorder(style);
-		setBorder(style.getBorder());;			
-	}
+        setBorder(style.getBorder());
+    }
 
 	@Override
 	public void actionPerformed(ActionEvent e)
@@ -122,9 +122,7 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 	public boolean isSelected(String selvalue)
 	{
 		String selectedstring = getSelected();
-		if (selectedstring.equalsIgnoreCase(selvalue)) return true;
-		else
-			return false;
+        return selectedstring.equalsIgnoreCase(selvalue);
 	}
 
 	@Override

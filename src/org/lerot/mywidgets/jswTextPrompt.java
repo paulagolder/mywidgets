@@ -31,11 +31,11 @@ import javax.swing.text.JTextComponent;
 		{
 			ALWAYS,
 			FOCUS_GAINED,
-			FOCUS_LOST;
+			FOCUS_LOST
 		}
 
-		private JTextComponent component;
-		private Document document;
+		private final JTextComponent component;
+		private final Document document;
 
 		private Show show;
 		private boolean showPromptOnce;
@@ -180,19 +180,13 @@ import javax.swing.text.JTextComponent;
 
 	        if (component.hasFocus())
 	        {
-	        	if (show == Show.ALWAYS
-	        	||  show ==	Show.FOCUS_GAINED)
-	        		setVisible( true );
-	        	else
-	        		setVisible( false );
+				setVisible(show == Show.ALWAYS
+						|| show == Show.FOCUS_GAINED);
 	        }
 	        else
 	        {
-	        	if (show == Show.ALWAYS
-	        	||  show ==	Show.FOCUS_LOST)
-	        		setVisible( true );
-	        	else
-	        		setVisible( false );
+				setVisible(show == Show.ALWAYS
+						|| show == Show.FOCUS_LOST);
 	        }
 		}
 

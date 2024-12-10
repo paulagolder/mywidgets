@@ -91,13 +91,11 @@ public class jswButton extends jswPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-	   System.out.println(" button==== ");
 		HashMap<String,String> am = jswPanel.createActionMap(this, e) ;
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
 		actionlistener.actionPerformed(event);
-
 	}
 
 }

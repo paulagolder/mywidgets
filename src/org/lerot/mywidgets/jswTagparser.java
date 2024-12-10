@@ -4,7 +4,7 @@ package org.lerot.mywidgets;
 
 public class jswTagparser
 {
-    private int maxtags;
+    private final int maxtags;
     int index;
     private String nexttoken;
     String[] tags;
@@ -38,8 +38,7 @@ public class jswTagparser
 
     public boolean notfinished()
     {
-        if (maxtags == 0 || index > maxtags - 1) return false;
-        else return true;
+        return maxtags != 0 && index <= maxtags - 1;
     }
 }
 

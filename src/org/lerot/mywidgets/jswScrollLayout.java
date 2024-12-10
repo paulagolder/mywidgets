@@ -10,7 +10,7 @@ import javax.swing.border.Border;
 public class jswScrollLayout extends jswLayout
 {
 
-	private Shifts shifts;
+	private final Shifts shifts;
 
 	class Shifts
 	{
@@ -79,7 +79,7 @@ public class jswScrollLayout extends jswLayout
 				- binsets.left - binsets.right - shifts.width;
 		int availableHeight = parentSize.height - insets.top - insets.bottom
 				- binsets.top - binsets.bottom - shifts.height;
-		availableHeight = availableHeight - 0;
+		availableHeight = availableHeight;
 		// System.out.println(" laying out insets=" + insets);
 		// System.out.println(" laying out binsets=" + binsets);
 		// System.out.println(" laying out parent=" + pname + " : "

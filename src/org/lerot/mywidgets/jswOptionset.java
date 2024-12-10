@@ -19,7 +19,7 @@ public class jswOptionset extends jswPanel implements ActionListener
 	jswOption[] options;
 	String commandroot;
 
-	private boolean isvertical;
+    private final boolean isvertical;
 
 
 	public jswOptionset(ActionListener parentListener,String name, boolean isvertical,boolean border, boolean titledborder)
@@ -137,9 +137,7 @@ public class jswOptionset extends jswPanel implements ActionListener
 	public boolean isSelected(String selvalue)
 	{
 		String selectedstring = getSelected();
-		if (selectedstring.equalsIgnoreCase(selvalue)) return true;
-		else
-			return false;
+        return selectedstring.equalsIgnoreCase(selvalue);
 	}
 
 	@Override
@@ -221,9 +219,9 @@ public class jswOptionset extends jswPanel implements ActionListener
 				width += d.width + hgap;
 				if (height < d.height ) height = d.height;			
 			}
-			width = width + padding.left+padding.right ;	
-			height = height + padding.top + padding.bottom;;
-		}
+			width = width + padding.left+padding.right ;
+            height = height + padding.top + padding.bottom;
+        }
 		if (width < mywidth )width = mywidth;
 		if(height <myheight) height=myheight;
 		Dimension d = new Dimension(width,height);
@@ -285,7 +283,6 @@ public class jswOptionset extends jswPanel implements ActionListener
             }
             width = width + padding.left + padding.right;
             height = height + padding.top + padding.bottom;
-            ;
         }
         if (width < mywidth) width = mywidth;
         if (height < myheight) height = myheight;

@@ -28,7 +28,7 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 	JSpinner value;
 	int currentvalue=-1;
 	ActionListener al=null;
-	private JLabel label;
+	private final JLabel label;
 
 	public jswThumbwheel(ActionListener cl,String text, int inmin, int inmax)
 	{

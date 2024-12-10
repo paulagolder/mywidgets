@@ -36,6 +36,7 @@ public abstract class jswLayout implements LayoutManager
     {
         public int finalheight;
         public int finalwidth;
+        public int align;
         int cindex = -1;
         int x = 0;
         int y = 0;
@@ -57,9 +58,10 @@ public abstract class jswLayout implements LayoutManager
 
         public String toString()
         {
-            String outline = comp.getClass().getName() + ":" + fillw + "\n:"
+            String outline = comp.getClass().getName() + "\n:" + fillw + ":" + fillh + "\n:"
                     + minwidth + ":" + width + ":" + maxwidth + ":" + "\n:"
-                    + minheight + ":" + height + ":" + maxheight + ":";
+                    + minheight + ":" + height + ":" + maxheight + ":" + "\n:"
+                    + align + ":";
             return outline;
         }
 
@@ -73,9 +75,13 @@ public abstract class jswLayout implements LayoutManager
         int i;
         for (i = 0; i < componentcount; i++)
         {
+            int alignposition = jswLayout.LEFT;
             Component comp = parent.getComponent(i);
             if (comp.isVisible())
             {
+                clayout[j] = new layoutRecord();
+                clayout[j].cindex = i;
+                clayout[j].comp = comp;
                 jswStyle s;
                 if(comp instanceof jswPanel)
                 {
@@ -83,9 +89,26 @@ public abstract class jswLayout implements LayoutManager
                 }
                 else
                     s=new jswStyle();
-                clayout[j] = new layoutRecord();
-                clayout[j].cindex = i;
-                clayout[j].comp = comp;
+                Integer horizontalalign = s.getInteger("horizontalalignstyle");
+                if (alignposition == jswLayout.LEFT)
+                {
+                    if (horizontalalign != null)
+                    {
+                        alignposition = horizontalalign;
+                    }
+                    clayout[j].align = alignposition;
+                } else if (alignposition == jswLayout.MIDDLE)
+                {
+                    if (horizontalalign != null && horizontalalign == jswLayout.RIGHT)
+                    {
+                        alignposition = horizontalalign;
+                    }
+                    clayout[j].align = alignposition;
+                } else
+                {
+                    clayout[j].align = alignposition;
+                }
+
                 Dimension d = ((jswPanel) comp).getMinimumSize();
                 clayout[j].minwidth = d.width;
                 clayout[j].minheight = d.height;

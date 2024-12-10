@@ -19,15 +19,9 @@ public class jswLabel extends jswPanel
 		layout.setHgap(10);
 		layout.setVgap(10);
 		setLayout(layout);
-		//	setAlignmentX(Component.CENTER_ALIGNMENT);
 		label = new JLabel();
 		label.setText(inLabel);
-		//	label.setAlignmentX(CENTER_ALIGNMENT);
 		label.setBackground(Color.blue);
-		//panel.setLayout(layout);
-		//	panel.add(new JButton("Center"),BorderLayout.CENTER);
-      //  label.setStyleAttribute("borderwidth",0);
-		//add(label);
 		add(label, BorderLayout.CENTER);
 		setStyleAttribute("borderwidth",0);
 		setStyleAttribute("bordercolor","green");
@@ -41,9 +35,6 @@ public class jswLabel extends jswPanel
 		label.setFont(style.getFont());
 		label.setForeground(style.getColor("foregroundColor", Color.BLACK));
 		label.setBackground(style.getColor("backgroundColor", jswStyle.TRANSPARENT));
-		//	label.setBackground(Color.pink);
-		// label.setBorder(jswStyle.makeLineBorder(Color.red, 1));
-		//label.setBorder(style.getBorder());
 		setBorder(style.getBorder());
 		setBackground(jswStyle.TRANSPARENT);
 	}

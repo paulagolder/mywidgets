@@ -338,7 +338,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
 	public static HashMap<String, String> createActionMap(jswPanel apanel,ChangeEvent e)
 	{
 	HashMap<String,String> action = new HashMap<String,String>();
-	action.put("actiontype", "jswTable action");
+		action.put("actiontype", "jswTable change");
 	action.put("source", e.getSource().getClass().getSimpleName());
 	action.put("handlerclass", apanel.getClass().getSimpleName());
 	action.put("handlername", apanel.getPanelname());
@@ -349,7 +349,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
 	public static HashMap<String, String>  createActionMap(MySelectionListener apanel, TreeSelectionEvent e)
 	{
 		HashMap<String,String> action = new HashMap<String,String>();
-		action.put("actiontype", "jswTable action");
+		action.put("actiontype", "jswTable selection");
 		action.put("source", e.getSource().getClass().getSimpleName());
 		action.put("handlerclass", apanel.getClass().getSimpleName());
 		action.put("handlername", e.getSource().getClass().getSimpleName());

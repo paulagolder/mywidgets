@@ -60,9 +60,7 @@ public class jswStyle
 		return new Color(0, 0, 0, 0);
 	}
 
-	
-	
-	
+
 	static String defaultfontname;
 	static int defaultfontsize;
 	static int defaultfontstyle;
@@ -114,11 +112,10 @@ public class jswStyle
 		{
 			String key = entry.getKey();
 			String value = entry.getValue();
-			if (value != null && value.equalsIgnoreCase(""))
+			if (value != null && !value.equalsIgnoreCase(""))
 			{
 				putAttribute(key, value);
 			}
-
 		}
 		setStyleName(basestyles.getStyleName());
 	}
@@ -126,15 +123,12 @@ public class jswStyle
 	public void printList()
 	{
 		if (attributes == null) return;
-
 		for (Map.Entry<String, String> entry : attributes.entrySet())
 		{
 			String key = entry.getKey();
 			String value = entry.getValue();
 			System.out.println(key + "::" + value);
-
 		}
-
 	}
 
 	public Color getBackgroundcolor()
@@ -396,31 +390,24 @@ public class jswStyle
 
 	public void setBorderWidth(int border)
 	{
-
 		putAttribute("borderWidth", (Integer.toString(border)));
-
 	}
 	
 	public void setBorderStyle(int border)
 	{
        if(border< 0 || border > 2 ) border=0;
 		putAttribute("borderStyle", (Integer.toString(border)));
-
 	}
 
 	public void setColspan(int colspan)
 	{
-
 		putAttribute("colspan", (Integer.toString(colspan)));
-
-
 	}
 
 	public void setDefaultStyle()
 	{
 		putAttribute("backgroundcolor", "transparent");
 		//putAttribute("backgroundcolor", "#b1b9c8");
-		
 		putAttribute("borderColor", "black");
 		putAttribute("borderWidth", "0");
 		putAttribute("cellborderColor", "black");
@@ -461,9 +448,7 @@ public class jswStyle
 
 	public void setFontsize(int fontsize)
 	{
-
 		putAttribute("fontsize", (Integer.toString(fontsize)));
-
 	}
 
 	public void setFontstyle(int fontstyle)
@@ -478,10 +463,7 @@ public class jswStyle
 
 	public void setHeadingborder(int headingborder)
 	{
-
 		putAttribute("headingborder", (Integer.toString(headingborder)));
-
-
 	}
 
 	public void setHorizontalAlign(String ahorizontalAlign)

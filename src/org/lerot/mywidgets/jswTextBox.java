@@ -63,6 +63,7 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 	     HashMap<String, String> am = jswPanel.createActionMap(this, e);
 		am.put("quality", "selected");
 		am.put("value", '"'+getText()+'"');
+		am.put("name", '"' + getName() + '"');
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
@@ -78,8 +79,8 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		textbox.setBackground(jswStyle.defaulttextboxcolor);
 		textbox.setBackground(Color.red);
 		int wd = style.getIntegerStyle("mywidth", bl);
-		//if (wd > bl)   bl = wd;
-		bl=wd;
+		if (wd > bl) bl = wd;
+		//bl=wd;
 		int ht = style.getIntegerStyle("myheight", bh);
 		if (ht > bh)   bh = ht;
 		Dimension d = new Dimension(bl, bh);
@@ -219,6 +220,17 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 	{
 		// textbox.revalidate();
 		// System.out.println("some action:" + getText());
+	}
+
+	public Dimension getMinimumSize()
+	{
+		Dimension minsize = textbox.getPreferredSize();
+		jswStyle s = this.getStyle();
+		int minwidth = minsize.width;
+		int minheight = minsize.height;
+		Dimension d = new Dimension(minwidth - 40, minheight - 40);
+		//System.out.println("size textarea"+d);
+		return d;
 	}
 
 }

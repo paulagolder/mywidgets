@@ -51,15 +51,16 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         jswHorizontalPanel titlepanel = new jswHorizontalPanel("title", true, true);
         mainpanel.add(" FILLW  ", titlepanel);
         jswLabel maintitle = new jswLabel("test Gui");
-        maintitle.setStyleAttribute("fontsize", 16);
-        maintitle.setStyleAttribute("foregroundcolor", "red");
+        maintitle.setStyleAttribute("fontsize", 18);
+        maintitle.setStyleAttribute("foregroundcolor", "black");
+        maintitle.setStyleAttribute("borderwidth", 0);
         titlepanel.add(" middle ", maintitle);
-        jswDate date = new jswDate("test Gui");
-        date.setStyleAttribute("borderwidth", 3);
-        titlepanel.add(" rightt ", date);
+        jswDate date = new jswDate("dd  MM yyyy");
+        //date.setStyleAttribute("borderwidth", 3);
+        titlepanel.add(" right ", date);
         date.applyStyle();
         maintitle.applyStyle();
-        maintitle.getStyle().printList();
+        //     maintitle.getStyle().printList();
         jswHorizontalPanel panel1 = new jswHorizontalPanel("Panel1", true, true);
 
         // ====start of panel1===
@@ -198,7 +199,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         panel2c.add("  ", clear);
         panel2c.setStyleAttribute("horizontallayoutstyle", jswLayout.MIDDLE);
         // panel2b.setStyleAttribute("minwidth",400);
-        panel2c.setStyleAttribute("BackgroundColor", "blue");
+        //   panel2c.setStyleAttribute("BackgroundColor", "blue");
         panel2c.setStyleAttribute("BorderWidth", 3);
         panel2c.applyStyle();
         panel2.add(" MINWIDTH=200 maxwidth=400   FILLW ", panel2c);
@@ -208,6 +209,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         table1.setStyleAttribute("bordercolor", "red");
         table1.applyStyle();
         panel2.add(" width=400  ", table1);
+        table1.repaint();
+        table1.validate();
+        panel2.validate();
         mainpanel.add(" FILLH MINHEIGHT=300 FILLW ", panel2);
         // ====end of panel2==
 
@@ -244,6 +248,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         mainpanel.add(" HEIGHT=100  FILLW  ", panel4);
         panel4.applyStyle();
         mainpanel.repaint();
+        mainpanel.validate();
         add(mainpanel);
         pack();
         addWindowListener(new WindowAdapter()
@@ -285,7 +290,8 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         }
         if (actioncmd.get("handlerclass").equalsIgnoreCase("jswPushButton"))
         {
-            if (actioncmd.get("commandstring").equalsIgnoreCase("helpbuttons:hhelp"))
+            String cs = actioncmd.get("commandstring");
+            if (cs.contains("hhelp"))
             {
                 textarea.setText("");
                 String[] helplist = jswHorizontalLayout.getHelp();
@@ -294,7 +300,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
                     textarea.addText(help);
                 }
                 return;
-            } else if (actioncmd.get("commandstring").equalsIgnoreCase("helpbuttons:vhelp"))
+            } else if (cs.contains("vhelp"))
             {
                 textarea.setText("");
                 String[] helplist = jswVerticalLayout.getHelp();
@@ -329,7 +335,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
     {
         jswStyles defstyles = jswStyles.getDefaultTableStyles();
         jswTable table1 = new jswTable(this, "table 1", defstyles);
-        for (int k = 0; k < 10; k++)
+        table1.addCell(" corner ", 0, 0);
+
+        for (int k = 1; k < 10; k++)
         {
             table1.addCell(" row " + k, k, 0);
         }
@@ -366,7 +374,6 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         table1.removeCell(5, 1);
         jswOption opt = new jswOption(table1, "show total", false);
         jswCell ocell = table1.addCell(opt, 5, 1);
-
 
         table1.applyAllStyles();
         return table1;

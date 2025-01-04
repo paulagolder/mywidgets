@@ -35,6 +35,9 @@ public class jswButton extends jswPanel implements ActionListener
 		add(button);
 		applyStyle();
 		button.setVisible(true);
+
+
+		setSize(400,400);  //sets the width and height of the frame
 	}
 
 	@Override
@@ -47,6 +50,8 @@ public class jswButton extends jswPanel implements ActionListener
 		button.setBackground(jswStyle.defaultwidgetcolor);
 		button.setForeground(style.getForegroundcolor());
 		button.setBorder(style.getBorder());
+		Border bborder = BorderFactory.createRaisedBevelBorder();
+		button.setBorder(bborder);
 		int wd = style.getIntegerStyle("mywidth", bl);
 		if (wd > bl)
 			bl = wd;
@@ -61,8 +66,8 @@ public class jswButton extends jswPanel implements ActionListener
 		setPreferredSize(d);
 		setMaximumSize(d);
 		setMinimumSize(d);
-		Border bborder = BorderFactory.createRaisedBevelBorder();
-		button.setBorder(bborder);
+		setSize(d);  //sets the width and height of the frame
+
 	}
 
 	public void addActionListener(ActionListener al)

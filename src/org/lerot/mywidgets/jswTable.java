@@ -91,14 +91,15 @@ public class jswTable extends jswPanel implements ActionListener
 		jswCell acell = new jswCell(this,row, col);		
 		String settings = cellstyle.getStringStyle("horizontalAlign");
 		if (setting != null) settings += " " + setting + " ";
+		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
+		cont.setBackground(new Color(0, 0, 0, 0));
+		acell.setPadding(5,5,5,15);
+		acell.add(settings, cont);
+		acell.add( cont);
 		cont.addActionListener(acell); 
 		add(acell);
 		jswStyle cellcontentstyle = getCellContentStyle(row, col);
-		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
-		cont.setBackground(new Color(0, 0, 0, 0));
-		acell.add(settings, cont);
-		acell.add( cont);
-		cont.style.setForegroundcolor("red");
+		//cont.style.setForegroundcolor("red");
 		cont.applyStyle(cellstyle);
 	//	acell.applyContentStyle(acell.style);
 		return acell;
@@ -158,13 +159,12 @@ public class jswTable extends jswPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		//System.out.println("voila");
 		HashMap<String,String> am = jswPanel.createActionMap(this, e);
+		am.put("tablename",getPanelname());
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
 		actionlistener.actionPerformed(event);
-
 	}
 
 

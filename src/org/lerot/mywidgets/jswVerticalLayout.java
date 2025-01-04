@@ -1,5 +1,7 @@
 package org.lerot.mywidgets;
 
+import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -21,7 +23,10 @@ public class jswVerticalLayout extends jswLayout
 	@Override
 	public void layoutContainer(Container parent)
 	{
-        trace = "xxx";
+		if(((jswPanel) parent).trace)
+		{
+			trace=  ((jswPanel) parent).getPanelname();
+		}
 
 		if (parent instanceof jswPanel)
 		{
@@ -39,14 +44,14 @@ public class jswVerticalLayout extends jswLayout
 		int availableHeight = 0;
 		boolean hasBottom = false, hasMiddle = false;
 		Dimension parentSize = parent.getSize();
-        //int grosswidth =  parentSize.width;
-        //int grossheight = parentSize.height;
 		int usableWidth = parentSize.width - padding.left -padding.right;
 		availableHeight = parentSize.height - padding.top - padding.bottom ;
-        //boolean useMinimum;
-
 		makeLayout(parent);
+		if (parent.getName().equals(trace))
+		{
+			System.out.println("tracing "+trace);
 
+		}
 		if (visibleComponents== 0)
 			vgap = 0;
 		if (visibleComponents < 1)
@@ -56,14 +61,14 @@ public class jswVerticalLayout extends jswLayout
 		if (visibleComponents == 1)
 		{
 			Component comp = layoutTable[0].comp;
-			comp.setBounds(layoutTable[0].x + layoutTable[0].indent, 0, usableWidth, availableHeight);
+			comp.setBounds(layoutTable[0].x + padding.left, padding.top, usableWidth, availableHeight);
 			return;
 		}
 
 		int cumheight = 0;
 		int fillheight = 0;
 
-        Dimension mind = imputedMinimunSize();
+        //Dimension mind = imputedMinimunSize();
 		for (int j = 0; j < visibleComponents; j++)
 		{
 			if (layoutTable[j].fillh > 0)
@@ -71,6 +76,11 @@ public class jswVerticalLayout extends jswLayout
                 fillheight += layoutTable[j].minheight;
 			}
             cumheight += layoutTable[j].minheight;
+			if (parent.getName().equals(trace))
+			{
+
+				System.out.println(layoutTable[j].toString());
+			}
 		}
 	
 		int sparespace = availableHeight - cumheight - vgap*visibleComponents + fillheight;
@@ -81,6 +91,9 @@ public class jswVerticalLayout extends jswLayout
 		}
 		if (parent.getName().equals(trace))
 		{
+
+			System.out.println(availableHeight+":"+cumheight+":"+fillheight);
+			System.out.println(sparespace+":"+fillheight);
 			System.out.println(" padding :"+padding);
 		}
 		int gap;
@@ -97,7 +110,7 @@ public class jswVerticalLayout extends jswLayout
 
 		if (parent.getName().equals(trace))
         {
-            System.out.println("tracing " + trace);
+            System.out.println("tracing 2 " + trace);
         }
 		for (int j = 0; j < visibleComponents; j++)
 		{
@@ -140,69 +153,51 @@ public class jswVerticalLayout extends jswLayout
 			Component comp = layoutTable[j].comp;
             comp.setBounds(layoutTable[j].x, layoutTable[j].y, layoutTable[j].finalwidth, layoutTable[j].finalheight);
 			if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
-                System.out.println("x:y:w:h " + layoutTable[j].x + ":" + layoutTable[j].y + ":" + layoutTable[j].finalwidth + ":"
+                System.out.println("x:y:w:h " +((jswPanel) comp).getPanelname()+":"+ layoutTable[j].x + ":" + layoutTable[j].y + ":" + layoutTable[j].finalwidth + ":"
 						+ layoutTable[j].finalheight);
 		}
 
 	}
 
+
 	@Override
 	public Dimension minimumLayoutSize(Container parent)
 	{
-        Insets padding = ((jswPanel) parent).getPadding();
-        //Insets padding = jswPanel.makePadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
-        vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
-
-        if (visibleComponents < 2)
-            vgap = 0;
-        Dimension mind = this.imputedMinimunSize();
-
-        int prefwidth = padding.left + padding.right + mind.width; // binsets.left + binsets.right + w;
-        int prefheight = padding.top + padding.bottom + mind.height + vgap * (visibleComponents - 1); // binsets.top + binsets.bottom + h;
-        return new Dimension(prefwidth, prefheight);
-    }
-
-    public Dimension xminimumLayoutSize(Container parent)
-    {
-		Insets padding = jswPanel.makePadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
-		vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
-		componentcount = parent.getComponentCount();
-
-		if (parent.getName().equals(trace))
-        {
-            System.out.println("tracing " + trace);
-        }
-		if (componentcount == 0)
-			vgap = 0;
+		Insets insets = parent.getInsets();
+		if (parent instanceof jswPanel)
+		{
+			Border aborder = ((JComponent) parent).getBorder();
+			if (aborder != null)
+				insets = aborder.getBorderInsets(parent);
+		}
+		int ncomponents = parent.getComponentCount();
+		if (ncomponents == 0)
+			this.setGap(0);
+		setGap(this.getGap());
 		int w = 0;
 		int h = 0;
-		int desiredheight = 0;
-		for (int i = 0; i < componentcount; i++)
+
+		for (int i = 0; i < ncomponents; i++)
 		{
 			Component comp = parent.getComponent(i);
 			if (!comp.isVisible())
 				continue;
-			jswStyle s = ((jswPanel)comp).getStyle();
-			int maxheight = s.getInteger("HEIGHT");
 			Dimension d = comp.getMinimumSize();
 			if (w < d.width)
 			{
 				w = d.width;
-			}
-			desiredheight = d.height;
-			if (maxheight > 0 && d.height > maxheight)
-				desiredheight = maxheight;
-			h += desiredheight;
+			} // if
+			h += d.height;
 			if (i != 0)
 			{
-				h += this.vgap;
-			}
-		}
-
-		int prefwidth = padding.left + padding.right + w ; // binsets.left + binsets.right + w;
-		int prefheight = padding.top + padding.bottom + h ; // binsets.top + binsets.bottom + h;
-		return new Dimension(prefwidth, prefheight);
+				h += this.getGap();
+			} // if
+		} // for
+		return new Dimension(insets.left + insets.right + w, insets.top + insets.bottom + h);
 	}
+
+
+
 
 
 	@Override
@@ -243,7 +238,7 @@ public class jswVerticalLayout extends jswLayout
 
 	public static String[] getHelp()
 	{
-        String[] helpstring = new String[16];
+        String[] helpstring = new String[19];
 		helpstring[0] = "Vertical Layout Help";
 		helpstring[1] = "Recognised keywords";
 		helpstring[2] = "..WIDTH";
@@ -260,6 +255,9 @@ public class jswVerticalLayout extends jswLayout
         helpstring[13] = "        jswLayout.DISTRIBUTE";
         helpstring[14] = "        jswLayout.RIGHT";
         helpstring[15] = "        jswLayout.MIDDLE";
+		helpstring[16] = "    verticallayoutstyle";
+		helpstring[17] = "        jswLayout.DISTRIBUTE";
+		helpstring[18] = "        jswLayout.MIDDLE";
 
 		return helpstring;
 	}

@@ -16,14 +16,13 @@ import javax.swing.text.DefaultCaret;
 
 public class jswTextBox extends jswPanel implements KeyListener // implements ComponentListener
 {
-
 	private static final long serialVersionUID = 1L;
 	public JTextField textbox;
 	Color oldbgcolor;
 	private Color backgroundcolor;
 	private Color alertcolor = Color.red;
 	int bh = 30;
-	int bl = 300;
+	int bl = 30;
 	private String prompt;
 
 	public jswTextBox(ActionListener al, String inLabel)
@@ -60,9 +59,8 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 	public void actionPerformed(ActionEvent e)
 	{
 		HashMap<String, String> am = jswPanel.createActionMap(this, e);
-		am.put("quality", "selected");
-		am.put("value", '"' + getText() + '"');
-		am.put("name", '"' + getName() + '"');
+		am.put("textboxvalue", getText() );
+		am.put("panelname",  getPanelname() );
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
@@ -70,7 +68,7 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 	}
 
 
-    public void applyStyle()
+    public void applyStyle(jswStyle style)
 	{
 		setBorder(style.getBorder());
 		textbox.setFont(style.getFont());

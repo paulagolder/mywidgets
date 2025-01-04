@@ -9,32 +9,40 @@ import javax.swing.border.Border;
 
 public class jswHorizontalLayout extends jswLayout
 {
+    public String getTrace()
+    {
+        return trace;
+    }
 
+    public void setTrace(String trace)
+    {
+        this.trace = trace;
+    }
 
-    private String trace;
+    private String trace = "xxxx";
     int hgap = 1;
     private final int right = 2;
     private final int middle = 1;
     private final int left = 0;
-    //private layoutRecord[] layoutTable;
-
 
     public jswHorizontalLayout()
     {
 
     }
 
+
     @Override
     public void layoutContainer(Container parent)
     {
-        trace = "titlexx";
+        if(((jswPanel) parent).trace)
+        {
+            trace=  ((jswPanel) parent).getPanelname();
+        }
         verticallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("verticallayoutstyle", 0);
         horizontallayoutstyle = ((jswPanel) parent).getStyle().getIntegerStyle("horizontallayoutstyle", 0);
         hgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", hgap);
         padding = ((jswPanel) parent).padding;
         gap = hgap;
-        //	int componentcount = parent.getComponentCount();
-        //layoutTable = new layoutRecord[componentcount];
 
         boolean hasRight = false, hasMiddle = false;
         Dimension parentSize = parent.getSize();
@@ -46,7 +54,7 @@ public class jswHorizontalLayout extends jswLayout
         }
 
         makeLayout(parent);
-        Dimension ms = imputedMinimunSize();
+        //Dimension ms = imputedMinimunSize();
         if (visibleComponents < 2)
             gap = 0;
         int usableWidth = parentSize.width - padding.left - padding.right;
@@ -77,8 +85,6 @@ public class jswHorizontalLayout extends jswLayout
                     x = -padding.right + usableWidth - compwidth;
                 else if (horizontalalignstyle == jswLayout.MIDDLE)
                     x = (int) (padding.left + (usableWidth - compwidth) / 2.0);
-
-
             }
 
             if (s.hasAttribute("FILLW"))
@@ -150,6 +156,8 @@ public class jswHorizontalLayout extends jswLayout
         if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
         {
             System.out.println("tracing 2 " + trace);
+            System.out.println("padding " + padding.toString());
+            System.out.println("VLS " + verticallayoutstyle);
         }
         status = left;
         for (int j = 0; j < visibleComponents; j++)
@@ -302,7 +310,7 @@ public class jswHorizontalLayout extends jswLayout
         helpstring[7] = "RecognisedStyles";
         helpstring[8] = "    horizontallayoutstyle";
         helpstring[9] = "        jswLayout.DISTRIBUTE";
-        helpstring[10] = "   horizontalalignstyle";
+        helpstring[10] = "   verticalalignstyle";
         helpstring[11] = "       jswLayout.TOP";
         helpstring[12] = "       jswLayout.MIDDLE";
         helpstring[13] = "       jswLayout.BOTTOM";

@@ -10,8 +10,6 @@ public class jswVerticalPanel extends jswContainer
 
 	private static final long serialVersionUID = 1L;
 
-
-
 	public jswVerticalPanel(String title, boolean border, boolean titledborder)
 	{
 		super(title);

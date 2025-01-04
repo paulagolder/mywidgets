@@ -79,8 +79,10 @@ public class jswTableLayout extends jswLayout
 		// - (fixedwidth);
 		int availableHeight = parentSize.height - insets.top - insets.bottom;
 		setRowCols((jswTable) parent);
-		scaleRows(availableHeight);
-		scaleColumns(usableWidth);
+		//scaleRows(availableHeight);
+		scaleRows(0);
+		//scaleColumns(usableWidth);
+		scaleColumns(0);
 		for (int i = 0; i < ncomponents; i++)
 		{
 			Component comp = parent.getComponent(i);
@@ -97,7 +99,7 @@ public class jswTableLayout extends jswLayout
 				int y = (int) rowsettings.position + insets.top;
 				int height = (int) rowsettings.size; // +insets.top+insets.bottom;
 				rowcol colsettings = columns.get(ncol);
-				int x = (int) colsettings.position + insets.left;
+				int x = (int) colsettings.position + insets.left+padding.left;
 				int width = 0;
 				if (colspan > 1)
 				{
@@ -108,7 +110,7 @@ public class jswTableLayout extends jswLayout
 
 				} else
 				{
-					width = (int) colsettings.size;
+					width = (int) colsettings.size+padding.left+padding.right;
 				}
 				comp.setBounds((x), (y), (width), (height));
 			}
@@ -174,9 +176,24 @@ public class jswTableLayout extends jswLayout
 			if (cset.minwidth)
 				cfixed += cset.size;
 		}
+
 		double desiredwidth = cwidth;
 		double fixedwidth = cfixed;
 		double scale = 1;
+		if(targetwidth<1)
+		{
+			int cpos = 0;
+			for (int ncol = 0; ncol < maxcol; ncol++)
+			{
+				rowcol cset = columns.get(ncol);
+				if (!cset.minwidth)
+					cset.size = cset.size * scale;
+				cset.position = cpos;
+				cpos += cset.size;
+				columns.set(ncol, cset);
+			}
+			return;
+		}
 		if (targetwidth > desiredwidth)
 		{
 			scale = (targetwidth - fixedwidth) / (desiredwidth - fixedwidth);
@@ -311,7 +328,6 @@ public class jswTableLayout extends jswLayout
 				if (cellcontent instanceof jswPanel jccomp)
 				{
 					min = jccomp.getMinimumSize();
-
 				} else
 				{
 					JComponent jccomp = (JComponent) cellcontent;

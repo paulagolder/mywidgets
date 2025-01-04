@@ -42,7 +42,6 @@ public class jswHorizontalPanel extends jswContainer
 		applyStyle();
 	}
 
-
 	public void applyStyle(jswStyle astyle)
 	{
 		
@@ -57,17 +56,6 @@ public class jswHorizontalPanel extends jswContainer
 		this.setBackground(astyle.getColor("backgroundColor", Color.green));
 		
 	}
-	
-
-/*	public void addComponent(jswPanel c)
-	{
-		super.add(" ",c);
-		int w = c.jswGetWidth();
-		cwidth += w;
-		if (c.jswGetHeight() > cheight) cheight = c.jswGetHeight();
-		c.setAlignmentX(Component.LEFT_ALIGNMENT);
-		c.setPreferredSize(new Dimension(cwidth, cheight));
-	}*/
 
 	@Override
 	public void setEnabled(boolean e)
@@ -81,10 +69,5 @@ public class jswHorizontalPanel extends jswContainer
 
 	}
 
-
-
-	
-
-	
 }
 

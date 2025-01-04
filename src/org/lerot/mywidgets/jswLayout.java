@@ -30,7 +30,7 @@ public abstract class jswLayout implements LayoutManager
     protected Insets padding;
     private String status;
     protected layoutRecord[] layoutTable;
-   protected int visibleComponents;
+   protected int visibleComponents=0;
 
     public class layoutRecord
     {
@@ -72,6 +72,7 @@ public abstract class jswLayout implements LayoutManager
         int componentcount = parent.getComponentCount();
         int j = 0;
         layoutRecord[] clayout = new layoutRecord[componentcount];
+        visibleComponents=0;
         int i;
         for (i = 0; i < componentcount; i++)
         {
@@ -259,6 +260,8 @@ public abstract class jswLayout implements LayoutManager
     {
         int minwidth = Integer.MAX_VALUE;
         int minheight = Integer.MAX_VALUE;
+       // minwidth=0;
+       // minheight=0;
         for (int j = 0; j < visibleComponents; j++)
         {
             if (layoutTable[j].minwidth > 0 && minwidth > layoutTable[j].minwidth) minwidth = layoutTable[j].minwidth;
@@ -269,6 +272,17 @@ public abstract class jswLayout implements LayoutManager
 
             layoutTable[j].finalheight = minheight;
             layoutTable[j].finalwidth = minwidth;
+        }
+        if(minheight < 0 || minheight>100000)
+        {
+            System.out.println( " minimumsize error "+minheight);
+            if(layoutTable!=null)
+            {
+                for (int j = 0; j < layoutTable.length; j++)
+                {
+                    System.out.println(layoutTable[j].toString());
+                }
+            }
         }
         return new Dimension(minwidth, minheight);
     }

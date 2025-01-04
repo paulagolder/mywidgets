@@ -24,6 +24,18 @@ public abstract class jswPanel extends JPanel implements ActionListener
 
 {
     private static final long serialVersionUID = 1L;
+
+    public boolean isTrace()
+    {
+        return trace;
+    }
+
+    public void setTrace(boolean trace)
+    {
+        this.trace = trace;
+    }
+
+    public boolean trace;
     private String panelname;
     private final int setHeight = 0;
     private final int setWidth = 0;
@@ -204,7 +216,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
         return false;
     }
 
-    public int jswGetHeight()
+ /*   public int jswGetHeight()
     {
         if (setHeight > 0)
             return setHeight;
@@ -224,7 +236,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
         }
     }
 
-    public int jswGetWidth()
+   public int jswGetWidth()
     {
         if (setWidth > 0)
             return setWidth;
@@ -242,7 +254,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
                 return d.width;
             }
         }
-    }
+    }*/
 
     public void setPanelname(String panelname)
     {
@@ -305,6 +317,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
         Long t = System.currentTimeMillis() / 10000;
         int uniqueId = t.intValue();
         HashMap<String, String> am = jswPanel.createActionMap(this, e);
+        am.put("panelhandled",this.getPanelname());
         ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
         actionlistener.actionPerformed(event);
     }

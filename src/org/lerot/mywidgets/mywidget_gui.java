@@ -208,7 +208,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         table1.setStyleAttribute("borderwidth", 3);
         table1.setStyleAttribute("bordercolor", "red");
         table1.applyStyle();
-        panel2.add(" width=400  ", table1);
+        panel2.add("  ", table1);
         table1.repaint();
         table1.validate();
         panel2.validate();
@@ -318,6 +318,11 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
                 textarea.setText(" cell clicked row =" + actioncmd.get("row") + " column =" + actioncmd.get("column") + " content=" + actioncmd.get("cellcontent"));
                 return;
             }
+            if (actioncmd.get("commandstring").equalsIgnoreCase("actionevent"))
+            {
+                textarea.setText(" action event =" + actioncmd.get("row") + " column =" + actioncmd.get("column") + " content=" + actioncmd.get("cellcontent"));
+                return;
+            }
         }
         if (this.textarea != null)
         {
@@ -366,7 +371,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         }
 
         table1.removeCell(2, 1);
-        jswButton abutton = new jswButton(table1, "press me");
+        jswButton abutton = new jswButton(table1, "press me","pressme");
         jswCell acell = table1.addCell(abutton, 2, 1);
         table1.removeCell(3, 1);
         jswDropDownBox addb = new jswDropDownBox(table1, "select");

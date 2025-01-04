@@ -100,6 +100,8 @@ public class jswCell extends jswPanel implements MouseListener
 	public void actionPerformed(ActionEvent e)
 	{
 		HashMap<String,String> am = jswPanel.createActionMap(this, e);
+		am.put("source","jswCell");
+		am.put("panelname",this.getPanelname());
 		am.put("column", (" " + this.getCol()));
 		am.put("row", (" " + this.getRow()));
 		Long t = System.currentTimeMillis() / 10000;

@@ -60,8 +60,8 @@ public class jswLabel extends jswPanel
 		return false;
 	}
 
-	@Override
-	public int jswGetWidth()
+	/*@Override
+public int jswGetWidth()
 	{
 		System.out.println(" setin width  " + label.getText());
 		int setwidth = style.getIntegerStyle("mywidth", -1);
@@ -85,7 +85,7 @@ public class jswLabel extends jswPanel
 				return d.width;
 			}
 		}
-	}
+	}*/
 
 	@Override
 	public void setEnabled(boolean e)
@@ -96,7 +96,6 @@ public class jswLabel extends jswPanel
 	public void setIcon(ImageIcon icon)
 	{
 		label.setIcon(icon);
-
 	}
 
 	public void setSelected(boolean b)
@@ -111,9 +110,7 @@ public class jswLabel extends jswPanel
 	
 	public String toString()
 	{
-		
 		return label.getText();
-		
 	}
 
 }

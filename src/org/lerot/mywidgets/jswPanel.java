@@ -1,7 +1,6 @@
 package org.lerot.mywidgets;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
@@ -19,6 +18,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.TreeSelectionEvent;
 
 import org.lerot.mywidgets.jswTree.MySelectionListener;
+
+//import static org.odftoolkit.odfdom.dom.attribute.style.StyleNumFormatAttribute.Value.i;
 
 public abstract class jswPanel extends JPanel implements ActionListener
 
@@ -111,10 +112,9 @@ public abstract class jswPanel extends JPanel implements ActionListener
         setPadding(5);
     }
 
-    public void setPadding(int i, int j, int k, int l)
+    public void setPadding(int top, int left, int bottom, int right)
     {
-        padding = new Insets(i, j, k, l);
-
+        padding = new Insets(top, left, bottom, right);
     }
 
     public void addActionListener(ActionListener al)
@@ -216,45 +216,6 @@ public abstract class jswPanel extends JPanel implements ActionListener
         return false;
     }
 
- /*   public int jswGetHeight()
-    {
-        if (setHeight > 0)
-            return setHeight;
-        Dimension d = getPreferredSize();
-        if (d.height > 0)
-            return d.height;
-        else
-        {
-            d = getMaximumSize();
-            if (d.height > 0)
-                return d.height;
-            else
-            {
-                d = getMinimumSize();
-                return d.height;
-            }
-        }
-    }
-
-   public int jswGetWidth()
-    {
-        if (setWidth > 0)
-            return setWidth;
-        Dimension d = getPreferredSize();
-        if (d.width > 0)
-            return d.width;
-        else
-        {
-            d = getMaximumSize();
-            if (d.width > 0)
-                return d.width;
-            else
-            {
-                d = getMinimumSize();
-                return d.width;
-            }
-        }
-    }*/
 
     public void setPanelname(String panelname)
     {
@@ -340,11 +301,10 @@ public abstract class jswPanel extends JPanel implements ActionListener
         return actioncmd;
     }
 
-
     protected static HashMap<String, String> createActionMap(jswPanel apanel, MouseEvent e)
     {
         HashMap<String, String> action = new HashMap<String, String>();
-        action.put("actiontype", "jswpanel action");
+        action.put("actiontype", "jswpanel mouseevent");
         action.put("source", e.getSource().getClass().getSimpleName());
         action.put("handlerclass", apanel.getClass().getSimpleName());
         action.put("handlername", apanel.getPanelname());
@@ -355,19 +315,34 @@ public abstract class jswPanel extends JPanel implements ActionListener
     public static HashMap<String, String> createActionMap(jswPanel apanel, ActionEvent e)
     {
         HashMap<String, String> action = new HashMap<String, String>();
-        action.put("actiontype", "jswTable action");
+      //  HashMap<String, String>   action = parseActionCommand(e.getActionCommand());
+        action.put("actiontype", "jswpanel actionevent");
         action.put("source", e.getSource().getClass().getSimpleName());
         action.put("handlerclass", apanel.getClass().getSimpleName());
         action.put("handlername", apanel.getPanelname());
         action.put("commandstring", "actionevent");
-        action.put("command", e.getActionCommand());
+        String cmd =   e.getActionCommand();
+        if(cmd.contains("{"))
+        {
+            Map<String, String> cmdmap = parseActionCommand(cmd);
+            for (Map.Entry<String, String> entry : cmdmap.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                action.put(key+"jsw",value);
+            }
+
+        }else
+        {
+            action.put("command", e.getActionCommand());
+        }
+        //action.put("commandx",  e.getActionCommand());
         return action;
     }
 
     public static HashMap<String, String> createActionMap(jswPanel apanel, ChangeEvent e)
     {
         HashMap<String, String> action = new HashMap<String, String>();
-        action.put("actiontype", "jswTable change");
+        action.put("actiontype", "jswpanel  changeevent");
         action.put("source", e.getSource().getClass().getSimpleName());
         action.put("handlerclass", apanel.getClass().getSimpleName());
         action.put("handlername", apanel.getPanelname());
@@ -378,7 +353,7 @@ public abstract class jswPanel extends JPanel implements ActionListener
     public static HashMap<String, String> createActionMap(MySelectionListener apanel, TreeSelectionEvent e)
     {
         HashMap<String, String> action = new HashMap<String, String>();
-        action.put("actiontype", "jswTable selection");
+        action.put("actiontype", "jswpanel  selection");
         action.put("source", e.getSource().getClass().getSimpleName());
         action.put("handlerclass", apanel.getClass().getSimpleName());
         action.put("handlername", e.getSource().getClass().getSimpleName());

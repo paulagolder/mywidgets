@@ -121,7 +121,6 @@ public class jswCell extends jswPanel implements MouseListener
 				0, 0)));
 	}
 
-
 	@Override
 	public String toString()
 	{
@@ -151,15 +150,11 @@ public class jswCell extends jswPanel implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		//System.out.println(" clicker "+((JPanel)e.getSource()).getClass().getName());
 		Object source = e.getSource();
 		if (source instanceof jswPanel)
 		{
 			jswPanel panel = ((jswPanel) e.getSource());
 			String pname = panel.getPanelname();
-			//System.out.println( this);
-			//HashMap<String, Integer> coords = new HashMap<String, Integer> () ;
-			//coords.put("r",this.getRow());
 			HashMap<String, String> am = jswPanel.createActionMap(this, e);
 			am.put("column", (" " + this.getCol()));
 			am.put("row", (" " + this.getRow()));
@@ -176,6 +171,7 @@ public class jswCell extends jswPanel implements MouseListener
 			}
 			Long t = System.currentTimeMillis() / 10000;
 			int uniqueId = t.intValue();
+			System.out.println("+++"+am.toString());
 			ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
 			actionlistener.actionPerformed(event);
 		}

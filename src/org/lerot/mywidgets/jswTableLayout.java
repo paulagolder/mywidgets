@@ -125,6 +125,7 @@ public class jswTableLayout extends jswLayout
 	@Override
 	public Dimension minimumLayoutSize(Container parent)
 	{
+		padding = ((jswPanel)parent).getPadding();
 		int ncomponents = parent.getComponentCount();
 		if (ncomponents == 0)
 		{
@@ -155,7 +156,7 @@ public class jswTableLayout extends jswLayout
 			}
 		}
 		// System.out.format(" tablesize %d %d %n", (int) width, (int) height);
-		return new Dimension((int) width + bwidth, (int) height + bheight);
+		return new Dimension((int) width + bwidth+padding.left+padding.right, (int) height + bheight+padding.top+padding.bottom);
 	}
 
 	@Override

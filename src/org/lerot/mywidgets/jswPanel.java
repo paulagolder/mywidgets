@@ -316,11 +316,12 @@ public abstract class jswPanel extends JPanel implements ActionListener
     {
         HashMap<String, String> action = new HashMap<String, String>();
       //  HashMap<String, String>   action = parseActionCommand(e.getActionCommand());
-        action.put("actiontype", "jswpanel actionevent");
+        action.put("actiontype", "actionevent");
         action.put("source", e.getSource().getClass().getSimpleName());
         action.put("handlerclass", apanel.getClass().getSimpleName());
         action.put("handlername", apanel.getPanelname());
         action.put("commandstring", "actionevent");
+        action.put( e.getSource().getClass().getSimpleName(),e.getSource().getClass().getSimpleName());
         String cmd =   e.getActionCommand();
         if(cmd.contains("{"))
         {
@@ -328,12 +329,12 @@ public abstract class jswPanel extends JPanel implements ActionListener
             for (Map.Entry<String, String> entry : cmdmap.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
-                action.put(key+"jsw",value);
+                action.put(key,value);
             }
-
+            action.put("command","action");
         }else
         {
-            action.put("command", e.getActionCommand());
+            action.put("command", cmd);
         }
         //action.put("commandx",  e.getActionCommand());
         return action;

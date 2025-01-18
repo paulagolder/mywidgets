@@ -139,7 +139,8 @@ public class jswTree extends jswPanel implements ComponentListener
 	{
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		Map am = jswPanel.createActionMap(this, e);
+		Map<String,String> am = jswPanel.createActionMap(this, e);
+		am.put("jswTree",((jswTree)e.getSource()).getPanelname());
 		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
 		actionlistener.actionPerformed(event);
 	}

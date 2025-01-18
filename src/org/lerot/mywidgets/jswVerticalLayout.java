@@ -164,6 +164,7 @@ public class jswVerticalLayout extends jswLayout
 	public Dimension minimumLayoutSize(Container parent)
 	{
 		Insets insets = parent.getInsets();
+		padding = ( (jswPanel)parent).getPadding();
 		if (parent instanceof jswPanel)
 		{
 			Border aborder = ((JComponent) parent).getBorder();
@@ -193,7 +194,9 @@ public class jswVerticalLayout extends jswLayout
 				h += this.getGap();
 			} // if
 		} // for
-		return new Dimension(insets.left + insets.right + w, insets.top + insets.bottom + h);
+		int width = padding.left + padding.right + insets.left + insets.right + w;
+		int height= padding.top + padding.bottom+insets.top + insets.bottom + h;
+		return new Dimension(width,height);
 	}
 
 

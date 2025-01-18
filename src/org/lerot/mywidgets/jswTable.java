@@ -161,7 +161,7 @@ public class jswTable extends jswPanel implements ActionListener
 	{
 		HashMap<String,String> am = jswPanel.createActionMap(this, e);
 		am.put("tablename",getPanelname());
-		System.out.println("+-+"+am);
+		//System.out.println("+-+"+am);
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());

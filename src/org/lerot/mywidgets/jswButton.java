@@ -67,7 +67,6 @@ public class jswButton extends jswPanel implements ActionListener
 		setMaximumSize(d);
 		setMinimumSize(d);
 		setSize(d);  //sets the width and height of the frame
-
 	}
 
 	public void addActionListener(ActionListener al)

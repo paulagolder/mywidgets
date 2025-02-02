@@ -27,30 +27,42 @@ public class jswVerticalLayout extends jswLayout
 		{
 			trace=  ((jswPanel) parent).getPanelname();
 		}
-
+		String parentname = "XXXX";
 		if (parent instanceof jswPanel)
 		{
-			if (parent.getName().equals(trace))
+			if (parent.getName()!=null)
 			{
-				System.out.println("tracing "+trace);
+				parentname= parent.getName();
+				if (parentname.equals(trace))
+				{
+					System.out.println("tracing " + trace);
+				}
 			}
 		}
 		padding = ((jswPanel) parent).padding;
 
 		jswStyle parentstyle = ((jswPanel) parent).getStyle();
-        vgap = parentstyle.getIntegerStyle("gap", vgap);
-        verticallayoutstyle = parentstyle.getIntegerStyle("verticallayoutstyle", 0);
-        horizontallayoutstyle = parentstyle.getIntegerStyle("horizontallayoutstyle", 0);
+		if(parentstyle == null)
+		{
+			verticallayoutstyle=jswLayout.TOP;
+			horizontallayoutstyle = jswLayout.MIDDLE;
+		}else
+		{
+			vgap = parentstyle.getIntegerStyle("gap", vgap);
+			verticallayoutstyle = parentstyle.getIntegerStyle("verticallayoutstyle", 0);
+			horizontallayoutstyle = parentstyle.getIntegerStyle("horizontallayoutstyle", 0);
+		}
 		int availableHeight = 0;
 		boolean hasBottom = false, hasMiddle = false;
 		Dimension parentSize = parent.getSize();
 		int usableWidth = parentSize.width - padding.left -padding.right;
 		availableHeight = parentSize.height - padding.top - padding.bottom ;
 		makeLayout(parent);
-		if (parent.getName().equals(trace))
+		if (parentname.equals(trace))
 		{
-			System.out.println("tracing "+trace);
-
+			System.out.println("tracing 2"+trace);
+			System.out.println(usableWidth+":"+availableHeight);
+			System.out.println(visibleComponents);
 		}
 		if (visibleComponents== 0)
 			vgap = 0;
@@ -76,9 +88,8 @@ public class jswVerticalLayout extends jswLayout
                 fillheight += layoutTable[j].minheight;
 			}
             cumheight += layoutTable[j].minheight;
-			if (parent.getName().equals(trace))
+			if (parentname.equals(trace))
 			{
-
 				System.out.println(layoutTable[j].toString());
 			}
 		}
@@ -89,7 +100,7 @@ public class jswVerticalLayout extends jswLayout
 			if (fillheight > 0)
 				fillratio = (float) (sparespace ) / (float) fillheight;		
 		}
-		if (parent.getName().equals(trace))
+		if (parentname.equals(trace))
 		{
 
 			System.out.println(availableHeight+":"+cumheight+":"+fillheight);
@@ -108,7 +119,7 @@ public class jswVerticalLayout extends jswLayout
 			y =   gap / 2 +  padding.top;		
 		}
 
-		if (parent.getName().equals(trace))
+		if (parentname.equals(trace))
         {
             System.out.println("tracing 2 " + trace);
         }
@@ -152,7 +163,7 @@ public class jswVerticalLayout extends jswLayout
 		{
 			Component comp = layoutTable[j].comp;
             comp.setBounds(layoutTable[j].x, layoutTable[j].y, layoutTable[j].finalwidth, layoutTable[j].finalheight);
-			if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
+			if (parentname.equalsIgnoreCase(trace))
                 System.out.println("x:y:w:h " +((jswPanel) comp).getPanelname()+":"+ layoutTable[j].x + ":" + layoutTable[j].y + ":" + layoutTable[j].finalwidth + ":"
 						+ layoutTable[j].finalheight);
 		}
@@ -206,8 +217,16 @@ public class jswVerticalLayout extends jswLayout
 	@Override
 	public Dimension preferredLayoutSize(Container parent)
 	{
-		Insets padding = jswPanel.makePadding(((jswPanel) parent).getStyle().getStringStyle("padding", "1"));
-		vgap = ((jswPanel) parent).getStyle().getIntegerStyle("gap", vgap);
+		Insets padding =new Insets(2,2,2,2);
+		jswStyle astyle = ((jswPanel) parent).getStyle();
+		if (astyle != null)
+		{
+			String apadding = astyle.getStringStyle("padding", "1");
+			 padding = jswPanel.makePadding(apadding);
+			vgap = (astyle.getIntegerStyle("gap", vgap));
+		}
+
+
 		componentcount = parent.getComponentCount();
 
 		if (componentcount == 0)

@@ -1,6 +1,7 @@
 package org.lerot.mywidgets;
 
-import javax.swing.JScrollPane;
+import javax.swing.*;
+import java.awt.*;
 
 public class jswScrollPane extends jswPanel
 {
@@ -15,10 +16,14 @@ public class jswScrollPane extends jswPanel
 	{
 		super("scrollpane");
 		target = atarget;
-		jswHorizontalLayout arlayout = new jswHorizontalLayout();
-		this.setLayout(arlayout);
+	//	jswHorizontalLayout arlayout = new jswHorizontalLayout();
+	//	this.setLayout(arlayout);
+		setAlignmentX(Component.LEFT_ALIGNMENT);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		window = new JScrollPane(target);
-		add(" FILLW ", window);
+		add( window);
+		applyStyle();
+		window.setVisible(true);
 	}
 
 	public jswScrollPane(jswPanel atarget)

@@ -17,19 +17,16 @@ import javax.swing.border.TitledBorder;
 
 public class jswStyle
 {
-	
 	public static final int LINEBORDER = 1;
 	public static final int NOBORDER =0;
 	public static final int TITLEDBORDER = 2;
 	public  int counter = 0;
-	
 
 	public static jswStyle getDefaultStyle()
 	{
 		jswStyle newstyle = new jswStyle();
 		newstyle.setDefaultStyle();
 		return newstyle;
-		
 	}
 	public static Border makeborder()
 	{

@@ -34,7 +34,7 @@ public class jswDropDownBox extends jswPanel
 		hasborder = ahasborder;
 		listModel = new DefaultComboBoxModel<>();
 		datalist = new JComboBox<>(listModel);
-			datalist.addActionListener(this);
+		datalist.addActionListener(this);
 		setName(inLabel);
 		actionlistener = al;
 		applyStyle();
@@ -62,6 +62,17 @@ public class jswDropDownBox extends jswPanel
 			// );
 		}
 	}
+
+	public void addActionListener(ActionListener al, String actionmessage)
+	{
+		datalist.addActionListener(al);
+		datalist.setActionCommand(actionmessage);
+	}
+
+	public void removeActionListener(ActionListener al)
+	{
+		datalist.removeActionListener(al);
+	};
 
 	public jswDropDownBox(ActionListener c, String inlabel)
 	{
@@ -112,7 +123,8 @@ public class jswDropDownBox extends jswPanel
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
-		actionlistener.actionPerformed(event);
+		if(actionlistener != null)
+		   actionlistener.actionPerformed(event);
 	}
 
 	public void addList(Vector<String> list)
@@ -132,7 +144,6 @@ public class jswDropDownBox extends jswPanel
 
 		if (al.length > 0)
 			datalist.addActionListener(al[0]);
-
 	}
 
 	public void addList(ArrayList<String> list)

@@ -25,7 +25,7 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 	int bl = 30;
 	private String prompt;
 
-	public jswTextBox(ActionListener al, String inLabel)
+	public jswTextBox(ActionListener al, String inLabel, int mywidth)
 	{
 		super(inLabel);
 		setPanelname(inLabel);
@@ -48,6 +48,8 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		tp7.setVisible(true);
 		textbox.setEditable(true);
 		textbox.setEnabled(true);
+		this.setStyleAttribute("mywidth", mywidth);
+		this.setStyleAttribute("myheight", 40);
 		DefaultCaret caret = (DefaultCaret) textbox.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		style.putAttribute("borderwidth", 0);
@@ -55,6 +57,10 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		applyStyle();
 	}
 
+	public jswTextBox(ActionListener al, String inLabel)
+	{
+		this(al, inLabel, 100);
+	}
 
 	public void actionPerformed(ActionEvent e)
 	{

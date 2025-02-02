@@ -83,12 +83,12 @@ public abstract class jswLayout implements LayoutManager
                 clayout[j] = new layoutRecord();
                 clayout[j].cindex = i;
                 clayout[j].comp = comp;
-                jswStyle s;
+                jswStyle s=null;
                 if(comp instanceof jswPanel)
                 {
                     s = ((jswPanel) comp).getStyle();
                 }
-                else
+               if(s == null)
                     s=new jswStyle();
                 Integer horizontalalign = s.getInteger("horizontalalignstyle");
                 if (alignposition == jswLayout.LEFT)

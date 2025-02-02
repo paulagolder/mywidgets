@@ -18,7 +18,7 @@ public class jswOption extends jswPanel
 {
 
 	private static final long serialVersionUID = 1L;
-	JPanel box;
+	//JPanel box;
 	private JRadioButton button;
 	int compheight = 0;
 	boolean vertical = true;
@@ -77,19 +77,12 @@ public class jswOption extends jswPanel
 	@Override
 	public void setEnabled(boolean e)
 	{
-		int nc = box.getComponentCount();
-		for (int i = 0; i < nc; i++)
-		{
-			Component c = box.getComponent(i);
-			c.setEnabled(e);
-		}
 		getButton().setEnabled(e);
 	}
 
 	public void setSelected()
 	{
 		setSelected(true);
-
 	}
 
 	public void setSelected(boolean sel)
@@ -140,7 +133,7 @@ public class jswOption extends jswPanel
 	@Override
 	public Dimension getMinimumSize()
 	{
-		return new Dimension(nwidth+padding.left+padding.right,nheight+padding.top+padding.bottom);
+		return new Dimension(nwidth+padding.left+padding.right+20,nheight+padding.top+padding.bottom);
 	}
 	
 	}

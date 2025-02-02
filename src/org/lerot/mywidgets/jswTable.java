@@ -24,8 +24,7 @@ public class jswTable extends jswPanel implements ActionListener
 		int borderwidth = style.getIntegerStyle("borderWidth", 0);
 		if (borderwidth > 0)
 		{
-			Color bordercolor = style
-					.getColor("bordercolor", Color.yellow);
+			Color bordercolor = style.getColor("bordercolor", Color.yellow);
 			this.setBorder(jswStyle.makeLineBorder(bordercolor, borderwidth));
 		} else
 		{
@@ -42,8 +41,7 @@ public class jswTable extends jswPanel implements ActionListener
 		int borderwidth = astyle.getIntegerStyle("borderWidth", 0);
 		if (borderwidth > 0)
 		{
-			Color bordercolor = astyle
-					.getColor("bordercolor", Color.yellow);
+			Color bordercolor = astyle.getColor("bordercolor", Color.yellow);
 			this.setBorder(jswStyle.makeLineBorder(bordercolor, borderwidth));
 		} 
 	}
@@ -134,6 +132,14 @@ public class jswTable extends jswPanel implements ActionListener
 		return colstyle;
 	}
 
+	public jswStyle getRowStyle(int row)
+	{
+		jswStyle rowstyle = new jswStyle();
+		rowstyle.overlay(tablestyles.getStyle("row"));
+		rowstyle.overlay(tablestyles.getStyle("col_" + row));
+		return rowstyle;
+	}
+
 	public void removeCell(int row, int col)
 	{
 		int nc = this.getComponentCount();
@@ -165,7 +171,8 @@ public class jswTable extends jswPanel implements ActionListener
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
-		actionlistener.actionPerformed(event);
+		if(actionlistener != null)
+		  actionlistener.actionPerformed(event);
 	}
 
 

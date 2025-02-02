@@ -13,7 +13,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 //import org.apache.commons.codec.binary.Base64;
-import org.imgscalr.Scalr;
+//import org.imgscalr.Scalr;
+//import org.imgscalr.*;
 
 public class jswImage
 {
@@ -52,9 +53,9 @@ public class jswImage
 			int width = image.getWidth();
 			float scale = targetheight / (float) height;
 			int targetwidth = (int) (width * scale);
-			BufferedImage scaledimage = Scalr.resize(image,
-					Scalr.Method.BALANCED, targetwidth, getTargetheight());
-			image = scaledimage;
+		//	BufferedImage scaledimage = Scalr.resize(image,
+		//			Scalr.Method.BALANCED, targetwidth, getTargetheight());
+		//	image = scaledimage;
 		}
 
 	}

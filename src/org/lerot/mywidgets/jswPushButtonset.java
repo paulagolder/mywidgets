@@ -1,7 +1,6 @@
 package org.lerot.mywidgets;
 
-import java.awt.Dimension;
-import java.awt.LayoutManager;
+import java.awt.*;
 //import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -96,6 +95,8 @@ public class jswPushButtonset extends jswPanel implements ActionListener
 		no = no + 1;
 		return on;
 	}
+
+
 
 	public jswPushButton addNewButton(String text)
 	{

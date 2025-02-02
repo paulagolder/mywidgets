@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import javax.swing.ButtonGroup;
 //import org.lerot.mywidgets.jswLayout.settings;
 
@@ -78,19 +79,26 @@ public class jswOptionset extends jswPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		String seloption ="";
 		for (int i = 0; i < no; i++)
 		{
 			jswOption on = options[i];
 			if (on.isSelected())
 			{
-
+				seloption=on.getTag();
 				//on.setEnabled(true);
 			} else
 			{
 				//on.setEnabled(false);
 			}
 		}
-		actionlistener.actionPerformed(e);
+		HashMap<String, String> am = jswPanel.createActionMap(this, e);
+		am.put("command", "optionselected");
+		am.put("value", seloption);
+		Long t = System.currentTimeMillis() / 10000;
+		int uniqueId = t.intValue();
+		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
+		actionlistener.actionPerformed(event);
 	}
 	
 	public jswOption addNewOption(String text, boolean vertical)
@@ -102,6 +110,20 @@ public class jswOptionset extends jswPanel implements ActionListener
 		bg.add(on.getButton());
 		options[no] = on;
 		on.setTag(text);
+		add(on);
+		no = no + 1;
+		return on;
+	}
+
+	public jswOption addNewOption(String label,String tag, boolean vertical)
+	{
+		jswOption on = new jswOption(this,label, vertical);
+		on.getButton().setActionCommand(commandroot + ":" + tag);
+		on.getButton().addActionListener(this);
+		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
+		bg.add(on.getButton());
+		options[no] = on;
+		on.setTag(tag);
 		add(on);
 		no = no + 1;
 		return on;

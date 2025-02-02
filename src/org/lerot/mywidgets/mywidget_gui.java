@@ -70,6 +70,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         panel1a.applyStyle();
         jswButton button1 = new jswButton(this, "button_1");
         jswTextBox textbox1 = new jswTextBox(this, "textfield_1");
+        textbox1.setStyleAttribute("mywidth",200);
         textbox1.applyStyle();
         jswDropDownBox dropdownbox1 = new jswDropDownBox(this, "dropdownbox 1");
         Vector<String> list = new Vector<>();
@@ -147,8 +148,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         jswButton button1d = new jswButton(this, "mybutton");
         panel1d.add("  ", button1d);
         jswTextBox tb1d = new jswTextBox(this, "mytextbox");
-        panel1d.add(" FILLW WIDTH=600 ", tb1d);
-
+        panel1d.add(" FILLW  ", tb1d);
+        tb1d.setStyleAttribute("mywidth",600);
+        tb1d.applyStyle();
         tabbedpanel1.addTab("TAB 1 A", panel1a);
         tabbedpanel1.addTab("TAB 1 B", panel1b);
         tabbedpanel1.addTab("TAB 1 C", panel1c);
@@ -192,9 +194,12 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         jswVerticalPanel panel2c = new jswVerticalPanel("panel2c", true, false);
         this.textarea = new jswTextArea("some input", true);
         this.textarea.setBorder(jswStyle.makeLineBorder(Color.yellow, 3));
-        // this.textarea.setStyleAttribute("minwidth",300);
-        this.textarea.applyStyle();
-        panel2c.add("  MINHEIGHT=501 FILLH FILLW WIDTH=500 MIDDLE ", this.textarea);
+        panel2c.add("  MINHEIGHT=501 FILLH FILLW MIDDLE ", this.textarea);
+        this.textarea.setStyleAttribute("mywidth",300);
+        this.textarea.setStyleAttribute("myheight",300);
+      //  textarea.setMinimumSize(new Dimension(10, 10));
+        textarea.applyStyle();
+
         jswButton clear = new jswButton(this, "CLEAR");
         panel2c.add("  ", clear);
         panel2c.setStyleAttribute("horizontallayoutstyle", jswLayout.MIDDLE);
@@ -208,7 +213,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         table1.setStyleAttribute("borderwidth", 3);
         table1.setStyleAttribute("bordercolor", "red");
         table1.applyStyle();
-        panel2.add("  ", table1);
+        panel2.add(" FILLW ", table1);
         table1.repaint();
         table1.validate();
         panel2.validate();
@@ -228,6 +233,8 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         splitpane.setMinimumSize(new Dimension(800, 200));
         panel3.add(" FILLW ", splitpane);
         mainpanel.add("  HEIGHT=400  FILLW ", panel3);
+
+
         // ====start of panel4===
         jswHorizontalPanel panel4 = new jswHorizontalPanel("Panel 4", true, true);
         panel4.getStyle().setBackgroundcolor("yellow");
@@ -349,7 +356,6 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         jswStyles defstyles = jswStyles.getDefaultTableStyles();
         jswTable table1 = new jswTable(this, "table 1", defstyles);
         table1.addCell(" corner ", 0, 0);
-
         for (int k = 1; k < 10; k++)
         {
             table1.addCell(" row " + k, k, 0);

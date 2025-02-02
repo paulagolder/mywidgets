@@ -15,6 +15,7 @@ public class jswCell extends jswPanel implements MouseListener
 	int colspan = 1;
 	private int row;
 	int width = 0;
+	int height = 0;
 
 	public jswCell(ActionListener al,int irow, int icol)
 	{
@@ -26,7 +27,6 @@ public class jswCell extends jswPanel implements MouseListener
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 	}
 
-	
 	@Override
 	public void applyContentStyle(jswStyle style)
 	{
@@ -62,8 +62,7 @@ public class jswCell extends jswPanel implements MouseListener
 			label.setBackground(style.getColor("backgroundColor", Color.white));
 			JTextField innerlabel = ((jswTextBox) label).getTextField();
 			innerlabel.setFont(sfont);
-			innerlabel.setForeground(style.getColor("foregroundColor",
-					Color.BLACK));
+			innerlabel.setForeground(style.getColor("foregroundColor",Color.BLACK));
 			innerlabel.setBackground(Color.pink);
 		}  else if (label instanceof jswTable)
 		{
@@ -91,8 +90,7 @@ public class jswCell extends jswPanel implements MouseListener
 		}
 		else
 		{
-			System.out.println(" not setting styles for "
-					+ label.getClass().getSimpleName());
+			System.out.println(" not setting styles for "+ label.getClass().getSimpleName());
 		}		
 	}
 
@@ -102,8 +100,8 @@ public class jswCell extends jswPanel implements MouseListener
 		HashMap<String,String> am = jswPanel.createActionMap(this, e);
 		am.put("source","jswCell");
 		am.put("panelname",this.getPanelname());
-		am.put("column", (" " + this.getCol()));
-		am.put("row", (" " + this.getRow()));
+		am.put("column", " " + this.getCol());
+		am.put("row"," " + this.getRow());
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());

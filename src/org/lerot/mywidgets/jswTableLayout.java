@@ -14,14 +14,14 @@ public class jswTableLayout extends jswLayout
 
 	private class rowcol
 	{
-		public boolean minwidth;
+		public boolean minsize;
 		protected double position;
 		protected double size;
 
 		@Override
 		public String toString()
 		{
-			String out = "minwidth=" + minwidth + " position=" + position + " size=" + size;
+			String out = "minsize=" + minsize + " position=" + position + " size=" + size;
 			return out;
 		}
 	}
@@ -81,8 +81,8 @@ public class jswTableLayout extends jswLayout
 		setRowCols((jswTable) parent);
 		//scaleRows(availableHeight);
 		scaleRows(0);
-		//scaleColumns(usableWidth);
-		scaleColumns(0);
+		scaleColumns(usableWidth);
+		//scaleColumns(0);
 		for (int i = 0; i < ncomponents; i++)
 		{
 			Component comp = parent.getComponent(i);
@@ -155,7 +155,6 @@ public class jswTableLayout extends jswLayout
 				bwidth = insts.left + insts.right;
 			}
 		}
-		// System.out.format(" tablesize %d %d %n", (int) width, (int) height);
 		return new Dimension((int) width + bwidth+padding.left+padding.right, (int) height + bheight+padding.top+padding.bottom);
 	}
 
@@ -174,7 +173,7 @@ public class jswTableLayout extends jswLayout
 		{
 			rowcol cset = columns.get(ncol);
 			cwidth += cset.size;
-			if (cset.minwidth)
+			if (cset.minsize)
 				cfixed += cset.size;
 		}
 
@@ -187,7 +186,7 @@ public class jswTableLayout extends jswLayout
 			for (int ncol = 0; ncol < maxcol; ncol++)
 			{
 				rowcol cset = columns.get(ncol);
-				if (!cset.minwidth)
+				if (!cset.minsize)
 					cset.size = cset.size * scale;
 				cset.position = cpos;
 				cpos += cset.size;
@@ -202,7 +201,7 @@ public class jswTableLayout extends jswLayout
 			for (int ncol = 0; ncol < maxcol; ncol++)
 			{
 				rowcol cset = columns.get(ncol);
-				if (!cset.minwidth)
+				if (!cset.minsize)
 					cset.size = cset.size * scale;
 				cset.position = cpos;
 				cpos += cset.size;
@@ -239,14 +238,11 @@ public class jswTableLayout extends jswLayout
 			}
 		}
 
-		if (targetheight < 1)
-			return;
-		if (rpos < 1)
-			return;
+		if (targetheight < 1)return;
+		if (rpos < 1) return;
 
 		float scale = 1.0f;
-		if (rpos < targetheight)
-			scale = targetheight / rpos;
+		if (rpos < targetheight) scale = targetheight / rpos;
 		rpos = 0;
 		for (int nrow = 0; nrow < maxrow; nrow++)
 		{
@@ -264,6 +260,7 @@ public class jswTableLayout extends jswLayout
 
 	public void setRowCols(jswTable parent)
 	{
+		Insets padding = parent.getPadding();
 		rows.clear();
 		columns.clear();
 		maxrow = 0;
@@ -274,13 +271,10 @@ public class jswTableLayout extends jswLayout
 			Component comp = parent.getComponent(i);
 			if (comp instanceof jswCell cell)
 			{
-
 				int ncol = cell.getCol();
 				int nrow = cell.getRow();
-				if (ncol > maxcol)
-					maxcol = ncol;
-				if (nrow > maxrow)
-					maxrow = nrow;
+				if (ncol > maxcol)	maxcol = ncol;
+				if (nrow > maxrow)	maxrow = nrow;
 			}
 		}
 		maxcol++;
@@ -293,6 +287,20 @@ public class jswTableLayout extends jswLayout
 			rset.size = 0;
 			rset.position = 0;
 			rows.set(nrow, rset);
+			jswStyle rowstyle = parent.getRowStyle(nrow);
+			if (rowstyle != null)
+			{
+				int height = rowstyle.getIntegerStyle("height", 0);
+				rset.minsize = rowstyle.getBooleanStyle("minheight", false);
+				if (height > 0)
+				{
+					rset.size = height;
+					rset.minsize = true;
+				}
+			} else
+			{
+				rset.minsize = false;
+			}
 		}
 		for (int ncol = 0; ncol < maxcol; ncol++)
 		{
@@ -303,15 +311,15 @@ public class jswTableLayout extends jswLayout
 			if (colstyle != null)
 			{
 				int width = colstyle.getIntegerStyle("width", 0);
-				cset.minwidth = colstyle.getBooleanStyle("minwidth", false);
+				cset.minsize = colstyle.getBooleanStyle("minwidth", false);
 				if (width > 0)
 				{
 					cset.size = width;
-					cset.minwidth = true;
+					cset.minsize = true;
 				}
 			} else
 			{
-				cset.minwidth = false;
+				cset.minsize = false;
 			}
 			columns.set(ncol, cset);
 			//
@@ -321,7 +329,6 @@ public class jswTableLayout extends jswLayout
 			Component comp = parent.getComponent(i);
 			if (comp instanceof jswCell cell)
 			{
-				// settings s = getSettings(comp);
 				Dimension min = null;
 				if (cell.getComponentCount() == 0)
 					continue;
@@ -335,6 +342,8 @@ public class jswTableLayout extends jswLayout
 					min = jccomp.getMinimumSize();
 					System.out.println(" not jswpanel =" + comp.getClass().getName());
 				}
+				min.width = min.width+padding.left+padding.right;
+				min.height = min.height+padding.top+padding.bottom;
 				int ncol = cell.getCol();
 				int nrow = cell.getRow();
 				int colspan = cell.colspan;
@@ -344,9 +353,13 @@ public class jswTableLayout extends jswLayout
 					min.width = width;
 					System.out.println(" Setting width =" + width);
 				}
+				if (width < min.width)
+				{
+					//min.width = width;
+					//System.out.println(" Setting width =" + width);
+				}
 				if (ncol > -1 && nrow > -1)
 				{
-
 					rowcol rset = rows.get(nrow);
 					if (rset.size < min.height)
 					{
@@ -356,7 +369,6 @@ public class jswTableLayout extends jswLayout
 
 					if (colspan > 1)
 					{
-
 						double sharedwidth = min.width / colspan;
 						for (int c = ncol; c < ncol + colspan; c++)
 						{
@@ -376,7 +388,6 @@ public class jswTableLayout extends jswLayout
 							columns.set(ncol, cset);
 						}
 					}
-
 				}
 			}
 		}
@@ -384,14 +395,14 @@ public class jswTableLayout extends jswLayout
 		{
 			rowcol cset = columns.get(ncol);
 			jswStyle colstyle = parent.getColStyle(ncol);
-			cset.minwidth = false;
+			cset.minsize = false;
 			if (colstyle != null)
 			{
 				int width = colstyle.getIntegerStyle("width", 0);
-				cset.minwidth = colstyle.getBooleanStyle("minwidth", false);
+				cset.minsize = colstyle.getBooleanStyle("minwidth", false);
 				if (width > 0)
 				{
-					cset.minwidth = true;
+					cset.minsize = true;
 					if (width > cset.size)
 					{
 						cset.size = width;
@@ -400,9 +411,6 @@ public class jswTableLayout extends jswLayout
 			}
 			columns.set(ncol, cset);
 		}
-
 	}
-
-
 
 }

@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -285,41 +286,41 @@ public abstract class jswPanel extends JPanel implements ActionListener
 
     public static Map<String, String> parseActionCommand(String cmd)
     {
-        cmd = cmd.replace("{", " ");
-        cmd = cmd.replace("}", "");
-        String[] str = cmd.split(",");
         Map<String, String> actioncmd = new HashMap<String, String>();
-        String[] cmdelement = null;
-        for (String astr : str)
+        if(cmd.startsWith("{"))
         {
-            cmdelement = astr.split("=");
-            if (cmdelement.length == 2)
-                actioncmd.put(cmdelement[0].trim(), cmdelement[1].trim());
-            else
-                actioncmd.put(cmdelement[0].trim(), "null");
+            cmd = cmd.replace("{", " ");
+            cmd = cmd.replace("}", "");
+            String[] str = cmd.split(",");
+
+            String[] cmdelement = null;
+            for (String astr : str)
+            {
+                cmdelement = astr.split("=");
+                if (cmdelement.length == 2)
+                    actioncmd.put(cmdelement[0].trim(), cmdelement[1].trim());
+                else
+                    actioncmd.put(cmdelement[0].trim(), "null");
+            }
         }
+        else
+            actioncmd.put("command",cmd);
+
         return actioncmd;
     }
 
     protected static HashMap<String, String> createActionMap(jswPanel apanel, MouseEvent e)
     {
-        HashMap<String, String> action = new HashMap<String, String>();
+        HashMap<String, String> action =  createBaseActionMap(apanel,e);
         action.put("actiontype", "jswpanel mouseevent");
-        action.put("source", e.getSource().getClass().getSimpleName());
-        action.put("handlerclass", apanel.getClass().getSimpleName());
-        action.put("handlername", apanel.getPanelname());
         action.put("commandstring", "mouseclick");
         return action;
     }
 
     public static HashMap<String, String> createActionMap(jswPanel apanel, ActionEvent e)
     {
-        HashMap<String, String> action = new HashMap<String, String>();
-      //  HashMap<String, String>   action = parseActionCommand(e.getActionCommand());
+        HashMap<String, String> action =  createBaseActionMap(apanel,e);
         action.put("actiontype", "actionevent");
-        action.put("source", e.getSource().getClass().getSimpleName());
-        action.put("handlerclass", apanel.getClass().getSimpleName());
-        action.put("handlername", apanel.getPanelname());
         action.put("commandstring", "actionevent");
         action.put( e.getSource().getClass().getSimpleName(),e.getSource().getClass().getSimpleName());
         String cmd =   e.getActionCommand();
@@ -342,25 +343,43 @@ public abstract class jswPanel extends JPanel implements ActionListener
 
     public static HashMap<String, String> createActionMap(jswPanel apanel, ChangeEvent e)
     {
-        HashMap<String, String> action = new HashMap<String, String>();
+        HashMap<String, String> action =  createBaseActionMap(apanel,e);
         action.put("actiontype", "jswpanel  changeevent");
-        action.put("source", e.getSource().getClass().getSimpleName());
-        action.put("handlerclass", apanel.getClass().getSimpleName());
-        action.put("handlername", apanel.getPanelname());
         action.put("commandstring", "change event");
         return action;
     }
 
-    public static HashMap<String, String> createActionMap(MySelectionListener apanel, TreeSelectionEvent e)
+    public static HashMap<String, String> createBaseActionMap(jswPanel apanel, EventObject e)
     {
         HashMap<String, String> action = new HashMap<String, String>();
-        action.put("actiontype", "jswpanel  selection");
         action.put("source", e.getSource().getClass().getSimpleName());
         action.put("handlerclass", apanel.getClass().getSimpleName());
         action.put("handlername", e.getSource().getClass().getSimpleName());
-        action.put("commandstring", "TreeSelection");
+        action.put( e.getSource().getClass().getSimpleName(),e.getSource().getClass().getSimpleName());
+        if(e.getSource() instanceof  jswPanel)
+        {
+            action.put("sourcetag", ((jswPanel) e.getSource()).getTag());
+        }
+
         return action;
     }
 
+   public static HashMap<String, String> createActionMap(MySelectionListener apanel, TreeSelectionEvent e)
+    {
+
+        HashMap<String, String> action = new HashMap<String, String>();
+        action.put("source", e.getSource().getClass().getSimpleName());
+        action.put("handlerclass", apanel.getClass().getSimpleName());
+        action.put("handlername", e.getSource().getClass().getSimpleName());
+        action.put( e.getSource().getClass().getSimpleName(),e.getSource().getClass().getSimpleName());
+        if(e.getSource() instanceof  jswPanel)
+        {
+            action.put("sourcetag", ((jswPanel) e.getSource()).getTag());
+        }
+            action.put("actiontype", "jswpanel  selection");
+            action.put("commandstring", "TreeSelection");
+            return action;
+
+    }
 
 }

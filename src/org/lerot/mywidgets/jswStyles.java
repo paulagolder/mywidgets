@@ -31,7 +31,6 @@ public class jswStyles
 		return cstyles;
 	}
 
-
 	public void copyStyles(jswStyles source)
 	{
 		for (Entry<String, jswStyle> entry : source.stylelist.entrySet())
@@ -42,7 +41,6 @@ public class jswStyles
 			this.put(nstyle);
 		}
 	}
-
 
 	void put(jswStyle nstyle)
 	{
@@ -96,6 +94,7 @@ public class jswStyles
 		//tablestyle.putAttribute("backgroundColor", "#c0d6f2");
 		tablestyle.putAttribute("borderwidth", "1");
 		tablestyle.putAttribute("borderColor", "green");
+		tablestyle.putAttribute("padding", 10);
 		jswStyle cellstyle = tablestyles.makeStyle("cell");
 		cellstyle.putAttribute("backgroundColor", "#c0d6f2");
 		cellstyle.putAttribute("fontSize", "12");
@@ -111,15 +110,19 @@ public class jswStyles
 		cell00style.putAttribute("foregroundColor", "transparent");
 		jswStyle colstyle = tablestyles.makeStyle("col");
 		colstyle.setHorizontalAlign("RIGHT");
+
 		jswStyle col0style = tablestyles.makeStyle("col_0");
 		col0style.putAttribute("fontStyle", Font.BOLD);
 		col0style.putAttribute("fontSize", "16");
+		col0style.putAttribute("minwidth", true);
 		col0style.putAttribute("backgroundColor", "PINK");
 		col0style.setHorizontalAlign("LEFT");
-		
+
+		jswStyle col3style = tablestyles.makeStyle("col_3");
+		col3style.putAttribute("minwidth", true);
+
 		return tablestyles;
 	}
-
 
 	public jswStyle getStyle(String name)
 	{
@@ -132,7 +135,6 @@ public class jswStyles
 		return astyle;
 	}
 
-
 	public void copyStyle(String toname, String fromname)
 	{
 		if (stylelist.containsKey(fromname))
@@ -143,7 +145,6 @@ public class jswStyles
 			this.put(newstyle);
 		}
 	}
-
 
 	public jswStyle makeStyle(String name)
 	{

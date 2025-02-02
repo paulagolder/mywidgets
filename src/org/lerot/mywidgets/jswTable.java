@@ -24,8 +24,7 @@ public class jswTable extends jswPanel implements ActionListener
 		int borderwidth = style.getIntegerStyle("borderWidth", 0);
 		if (borderwidth > 0)
 		{
-			Color bordercolor = style
-					.getColor("bordercolor", Color.yellow);
+			Color bordercolor = style.getColor("bordercolor", Color.yellow);
 			this.setBorder(jswStyle.makeLineBorder(bordercolor, borderwidth));
 		} else
 		{
@@ -42,8 +41,7 @@ public class jswTable extends jswPanel implements ActionListener
 		int borderwidth = astyle.getIntegerStyle("borderWidth", 0);
 		if (borderwidth > 0)
 		{
-			Color bordercolor = astyle
-					.getColor("bordercolor", Color.yellow);
+			Color bordercolor = astyle.getColor("bordercolor", Color.yellow);
 			this.setBorder(jswStyle.makeLineBorder(bordercolor, borderwidth));
 		} 
 	}
@@ -132,6 +130,14 @@ public class jswTable extends jswPanel implements ActionListener
 		colstyle.overlay(tablestyles.getStyle("col"));
 		colstyle.overlay(tablestyles.getStyle("col_" + col));
 		return colstyle;
+	}
+
+	public jswStyle getRowStyle(int row)
+	{
+		jswStyle rowstyle = new jswStyle();
+		rowstyle.overlay(tablestyles.getStyle("row"));
+		rowstyle.overlay(tablestyles.getStyle("col_" + row));
+		return rowstyle;
 	}
 
 	public void removeCell(int row, int col)

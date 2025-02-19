@@ -98,11 +98,7 @@ public class jswTextArea extends jswPanel implements ActionListener, KeyListener
 		return textarea.getText();
 	}
 
-	@Override
-	public boolean isSelected()
-	{
-		return false;
-	}
+
 
 	@Override
 	public void setEnabled(boolean e)

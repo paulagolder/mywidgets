@@ -11,23 +11,21 @@ import java.util.HashMap;
 import javax.swing.ButtonGroup;
 //import org.lerot.mywidgets.jswLayout.settings;
 
-public class jswOptionset extends jswPanel implements ActionListener
+public class jswOptionset extends jswWidget implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
-
 	ButtonGroup bg;
 	int no = 0;
 	jswOption[] options;
 	String commandroot;
-
     private final boolean isvertical;
-
+	private String selectedoption;
 
 	public jswOptionset(ActionListener parentListener,String name, boolean isvertical,boolean border, boolean titledborder)
 	{
 		super(name);
 		commandroot = name;
-		actionlistener = parentListener;
+		setActionListener(parentListener);
         this.isvertical = isvertical;
 		if (!isvertical)
 		{
@@ -79,13 +77,13 @@ public class jswOptionset extends jswPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		String seloption ="";
+		setSelectedoption("");
 		for (int i = 0; i < no; i++)
 		{
 			jswOption on = options[i];
 			if (on.isSelected())
 			{
-				seloption=on.getTag();
+				setSelectedoption(on.getTag());
 				//on.setEnabled(true);
 			} else
 			{
@@ -94,17 +92,16 @@ public class jswOptionset extends jswPanel implements ActionListener
 		}
 		HashMap<String, String> am = jswPanel.createActionMap(this, e);
 		am.put("command", "optionselected");
-		am.put("value", seloption);
+		am.put("value", getSelectedoption());
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
-		actionlistener.actionPerformed(event);
+		ActionEvent event = new ActionEvent(this, uniqueId, e.getActionCommand());
+		getActionlistener().actionPerformed(event);
 	}
 	
 	public jswOption addNewOption(String text, boolean vertical)
 	{
-		jswOption on = new jswOption(this,text, vertical);		
-		on.getButton().setActionCommand(commandroot + ":" + text);
+		jswOption on = new jswOption(this,text, vertical,commandroot);
 		on.getButton().addActionListener(this);
 		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
 		bg.add(on.getButton());
@@ -117,8 +114,7 @@ public class jswOptionset extends jswPanel implements ActionListener
 
 	public jswOption addNewOption(String label,String tag, boolean vertical)
 	{
-		jswOption on = new jswOption(this,label, vertical);
-		on.getButton().setActionCommand(commandroot + ":" + tag);
+		jswOption on = new jswOption(this,label, vertical,commandroot);
 		on.getButton().addActionListener(this);
 		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
 		bg.add(on.getButton());
@@ -150,11 +146,7 @@ public class jswOptionset extends jswPanel implements ActionListener
 		return "";
 	}
 
-	@Override
-	public boolean isSelected()
-	{
-		return true;
-	}
+
 
 	public boolean isSelected(String selvalue)
 	{
@@ -313,4 +305,13 @@ public class jswOptionset extends jswPanel implements ActionListener
 	}
 
 
+	public String getSelectedoption()
+	{
+		return selectedoption;
+	}
+
+	public void setSelectedoption(String selectedoption)
+	{
+		this.selectedoption = selectedoption;
+	}
 }

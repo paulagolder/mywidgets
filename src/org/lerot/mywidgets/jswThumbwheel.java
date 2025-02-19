@@ -1,17 +1,9 @@
-/*
- * Created on 09-Jan-2005
- *
- * To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
 package org.lerot.mywidgets;
-
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -19,18 +11,20 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
-public class jswThumbwheel extends jswPanel implements ChangeListener
+public class jswThumbwheel extends jswWidget implements ChangeListener
 {
-
 	private static final long serialVersionUID = 1L;
-	//int mheight = 60;
 	JSpinner value;
 	int currentvalue=-1;
 	ActionListener al=null;
 	private final JLabel label;
 
 	public jswThumbwheel(ActionListener cl,String text, int inmin, int inmax)
+	{
+		this(cl, text, inmin, inmin, text);
+	}
+
+	public jswThumbwheel(ActionListener cl,String text, int inmin, int inmax, String actioncommand)
 	{
 		super(text);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -50,11 +44,11 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 		value.setValue(inmax);
 		add(value);
 		value.addChangeListener(this);
+		setActionCommand(actioncommand);
 		al = cl;
 	//	setMinimumSize(new Dimension(width, 42));
 		applyStyle();
 	}
-	
 
 	@Override
     public void applyStyle(jswStyle style)
@@ -68,23 +62,14 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 		setBackground(jswStyle.TRANSPARENT);
 	}
 
-
 	public void addChangeListener(ChangeListener cl)
 	{
 		value.addChangeListener(cl);
-
 	}
-
 
 	public int getValue()
 	{
 		return ((Integer) value.getValue()).intValue();
-	}
-
-	@Override
-	public boolean isSelected()
-	{
-		return true;
 	}
 
 	@Override
@@ -100,18 +85,20 @@ public class jswThumbwheel extends jswPanel implements ChangeListener
 	}
 
 	@Override
-	 public void stateChanged(ChangeEvent e)
+	public void stateChanged(ChangeEvent e)
     {
-
-		Map am = jswPanel.createActionMap(this, e);
-	     am.put("name",  ((javax.swing.JSpinner ) e.getSource()).getName());
-	     am.put("quality", "value");
-	     am.put("value", value.getValue());
+		setSelection(value.getValue().toString());
 		Long t = System.currentTimeMillis() / 10000;
 	    int uniqueId = t.intValue();
-        ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
+		System.out.println(" in thumbwheel :"+getActionCommand());
+        jswActionEvent event = new jswActionEvent(this, uniqueId,getActionCommand());
         al.actionPerformed(event);
     }
 
 
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+
+	}
 }

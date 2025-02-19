@@ -13,17 +13,22 @@ import java.util.HashMap;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 
-public class jswCheckbox extends jswPanel
+public class jswCheckbox extends jswWidget
 {
 
 	private static final long serialVersionUID = 1L;
 	JCheckBox check;
 	int bh=30;
 	int bl=30;
-	
 
 
 	public jswCheckbox(ActionListener al, String label)
+	{
+		this(al,label,label);
+
+	}
+
+	public jswCheckbox(ActionListener al, String label, String actioncommand)
 	{
 		super(label);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -33,11 +38,10 @@ public class jswCheckbox extends jswPanel
 		check.setSelected(false);
 		check.setAlignmentX(Component.LEFT_ALIGNMENT);
 		check.addActionListener(this);
-		actionlistener = al;
+		setActionListener(al);
+		setActionCommand(actioncommand);
 		check.setActionCommand(label);
 		add(check);
-		//this.setBorder(jswStyle.makeLineBorder(Color.red, 3));
-		//setMinimumSize(new Dimension(width, 40));
 		applyStyle();
 	}
 
@@ -47,30 +51,8 @@ public class jswCheckbox extends jswPanel
 		check.setFont(style.getFont());
 		check.setBackground(jswStyle.TRANSPARENT);
 		check.setForeground(style.getForegroundcolor());
-		check.setBorder(style.getBorder());		
-	/*	FontMetrics fm = style.getFontMetrics();
-		int fw = fm.charsWidth(check.getText().toCharArray(),0,check.getText().length());
-		bl= fw +40;
-		int wd =style.getIntegerStyle("mywidth",bl);
-		if(wd > bl) bl= wd;
-		int ht =style.getIntegerStyle( "myheight",bh);
-		if(ht > bh ) bh=ht;
-		Dimension d = new Dimension(bl, bh);
-		check.setPreferredSize(d);
-		check.setMaximumSize(d);
-		check.setMinimumSize(d);
-		this.setPanelBorder(style);		
-		Border aborder = getBorder();
-		if (aborder != null)
-			padding = aborder.getBorderInsets(this);
-		setBackground(jswStyle.TRANSPARENT);
-		setPreferredSize(d);
-		setMaximumSize(d);
-		setMinimumSize(d); */
+		check.setBorder(style.getBorder());
 		setBorder(style.getBorder());
-	//	Border aborder = getBorder();
-	//	if (aborder != null)
-	//		padding = aborder.getBorderInsets(this);
 		setBackground(jswStyle.TRANSPARENT);
 	}
 	
@@ -86,13 +68,12 @@ public class jswCheckbox extends jswPanel
         else  
         {  
             mess = "unchecked";
-        }	 
-		HashMap<String,String> am = jswPanel.createActionMap(this, e) ;
-		am.put("status", mess);
+        }
+		setSelection(mess);
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
-		actionlistener.actionPerformed(event);
+		jswActionEvent event = new jswActionEvent(this, uniqueId, getActionCommand());
+		getActionlistener().actionPerformed(event);
 	}
 
 	@Override

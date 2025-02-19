@@ -28,7 +28,7 @@ public class jswSplitPane extends jswContainer
 		panel2 = panelb;
 		setAlignmentX(Component.CENTER_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		actionlistener = parentListener;
+	//actionlistener = parentListener;
 		this.isvertical = isvertical;
 
 		if (!isvertical)

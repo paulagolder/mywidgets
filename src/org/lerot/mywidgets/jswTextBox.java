@@ -14,7 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultCaret;
 
-public class jswTextBox extends jswPanel implements KeyListener // implements ComponentListener
+public class jswTextBox extends jswWidget implements KeyListener // implements ComponentListener
 {
 	private static final long serialVersionUID = 1L;
 	public JTextField textbox;
@@ -25,14 +25,16 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 	int bl = 30;
 	private String prompt;
 
-	public jswTextBox(ActionListener al, String inLabel, int mywidth)
+
+	public jswTextBox(ActionListener al, String name, int mywidth,String actioncommand)
 	{
-		super(inLabel);
-		setPanelname(inLabel);
-		prompt = inLabel;
+		super(name);
+		setPanelname(name);
+		prompt = name;
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		actionlistener = al;
+		setActionListener(al);
+		setActionCommand(actioncommand);
 		textbox = new JTextField();
 		textbox.addActionListener(this);
 		textbox.addKeyListener(this);
@@ -57,22 +59,22 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		applyStyle();
 	}
 
-	public jswTextBox(ActionListener al, String inLabel)
+	public jswTextBox(ActionListener al, String name)
 	{
-		this(al, inLabel, 100);
+		this(al, name, 100,name);
 	}
 
+
+	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		HashMap<String, String> am = jswPanel.createActionMap(this, e);
-		am.put("textboxvalue", getText() );
-		am.put("panelname",  getPanelname() );
+		setSelection(getText());
+        System.out.println(" in text box :"+getSelection());
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
-		actionlistener.actionPerformed(event);
+		jswActionEvent event = new jswActionEvent(this, uniqueId, getActionCommand());
+		getActionlistener().actionPerformed(event);
 	}
-
 
     public void applyStyle(jswStyle style)
 	{
@@ -134,11 +136,7 @@ public class jswTextBox extends jswPanel implements KeyListener // implements Co
 		return textbox;
 	}
 
-	@Override
-	public boolean isSelected()
-	{
-		return false;
-	}
+
 
 	@Override
 	public void repaint()

@@ -30,11 +30,11 @@ public class jswTableLayout extends jswLayout
 	private static final int DEFAULT_HGAP = 0;
 	private static final int DEFAULT_VGAP = 0;
 	private final Vector<rowcol> columns;
+	private final Vector<rowcol> rows;
 	private int hgap;
 	int maxcol = 0;
 	int maxrow = 0;
 
-	private final Vector<rowcol> rows;
 	private String trace;
 
 	public jswTableLayout()
@@ -63,7 +63,7 @@ public class jswTableLayout extends jswLayout
 		}
 		if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
 		{
-			System.out.println("traceing " + trace);
+			System.out.println("tracing " + trace);
 		}
 		int ncomponents = parent.getComponentCount();
 		if (ncomponents == 0)
@@ -301,6 +301,7 @@ public class jswTableLayout extends jswLayout
 			{
 				rset.minsize = false;
 			}
+			rows.set(nrow, rset);
 		}
 		for (int ncol = 0; ncol < maxcol; ncol++)
 		{

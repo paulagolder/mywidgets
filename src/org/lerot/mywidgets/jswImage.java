@@ -12,9 +12,7 @@ import java.util.Base64;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-//import org.apache.commons.codec.binary.Base64;
-//import org.imgscalr.Scalr;
-//import org.imgscalr.*;
+
 
 public class jswImage
 {
@@ -38,24 +36,18 @@ public class jswImage
 			int height = image.getHeight();
 			BufferedImage newImage = new BufferedImage(height, width,
 					image.getType());
-
 			for (int i = 0; i < width; i++)
 				for (int j = 0; j < height; j++)
 					newImage.setRGB(height - 1 - j, i, image.getRGB(i, j));
-
 			image = newImage;
 		}
 
 		public void ScaleImage(int targetheight) throws IOException
 		{
-
 			int height = image.getHeight();
 			int width = image.getWidth();
 			float scale = targetheight / (float) height;
 			int targetwidth = (int) (width * scale);
-		//	BufferedImage scaledimage = Scalr.resize(image,
-		//			Scalr.Method.BALANCED, targetwidth, getTargetheight());
-		//	image = scaledimage;
 		}
 
 	}
@@ -80,7 +72,6 @@ public class jswImage
 		encodedimage = null;
 		setTargetheight(0);
 		setRotation(0);
-
 	}
 
 	public jswImage(String base64string)
@@ -106,7 +97,6 @@ public class jswImage
 		{
 			lbl = new jswLabel(" image not parsed ");
 		}
-
 		return lbl;
 	}
 
@@ -123,7 +113,6 @@ public class jswImage
 
 	public String getEncodedImage()
 	{
-
 		return encodedimage;
 	}
 
@@ -137,31 +126,17 @@ public class jswImage
 		return targetheight;
 	}
 
-	/**
-	 * @desc Image manipulation - Conversion
-	 *
-	 * @filename ImageManipulation.java
-	 * @author Jeevanandam M.
-	 * @copyright myjeeva.com
-	 */
-
 	public void importfile(String filename)
 	{
-
 		File file = new File(filename);
 		try
 		{
-			// Reading a Image file from file system
 			FileInputStream imageInFile = new FileInputStream(file);
 			byte[] imageData = new byte[(int) file.length()];
 			imageInFile.read(imageData);
-
-			// Converting Image byte array into Base64 String
 			String imageDataString = encodeImage(imageData);
-
 			imageInFile.close();
 			encodedimage = imageDataString;
-
 			System.out.println("Image Successfully Manipulated!");
 		} catch (FileNotFoundException e)
 		{
@@ -170,7 +145,6 @@ public class jswImage
 		{
 			System.out.println("Exception while reading the Image " + ioe);
 		}
-
 	}
 
 	void setRotation(int rotation)

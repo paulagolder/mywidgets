@@ -54,11 +54,7 @@ public class jswLabel extends jswPanel
 		return label.getText();
 	}
 
-	@Override
-	public boolean isSelected()
-	{
-		return false;
-	}
+
 
 	/*@Override
 public int jswGetWidth()

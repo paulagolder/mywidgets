@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -11,9 +13,10 @@ import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 
 
-public class jswPushButton extends jswPanel
+public class jswPushButton extends jswWidget //implements ItemListener
 {
     private static final long serialVersionUID = 1L;
+    //private final String command;
     JToggleButton button;
     int bh = 30;
     int bl = 30;
@@ -30,23 +33,23 @@ public class jswPushButton extends jswPanel
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         button = new JToggleButton(label);
         button.addActionListener(this);
-        actionlistener = al;
-        button.setActionCommand(command);
+        setActionListener(al);
+        setActionCommand(command);
+       // setTag(command);
+         button.setActionCommand(command);
+      //  this.command = command;
         add(button);
         applyStyle();
         button.setVisible(true);
     }
 
-    @Override
+   @Override
     public void actionPerformed(ActionEvent e)
     {
-        HashMap<String, String> am = jswPanel.createActionMap(this, e);
-        am.put("quality", "value");
-        am.put("value", "buttonpressed");
         Long t = System.currentTimeMillis() / 10000;
         int uniqueId = t.intValue();
-        ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
-        actionlistener.actionPerformed(event);
+        jswActionEvent event = new jswActionEvent(this, uniqueId, e.getActionCommand());
+        getActionlistener().actionPerformed(event);
     }
 
     public void setSelected()
@@ -88,4 +91,8 @@ public class jswPushButton extends jswPanel
         return button.getText();
     }
 
+    public void itemStateChanged(ItemEvent evt)
+    {
+        System.out.println(" Selecting x "+button.getText());
+    }
 }

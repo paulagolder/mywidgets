@@ -14,20 +14,18 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-public class jswOption extends jswPanel
+public class jswOption extends jswWidget
 {
 
 	private static final long serialVersionUID = 1L;
-	//JPanel box;
 	private JRadioButton button;
-	int compheight = 0;
 	boolean vertical = true;
 	private int mwidth;
 	private int nwidth;
 	private int nheight;
 
 
-	public jswOption(ActionListener al,String text, boolean vertical)
+	public jswOption(ActionListener al,String text, boolean vertical,String command)
 	{
 		super(text);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -36,7 +34,8 @@ public class jswOption extends jswPanel
 		button.setSelected(false);
 		add(button);
 		button.addActionListener(this);
-		actionlistener = al;
+		button.setActionCommand(command);
+		setActionListener(al);
 		this.vertical = vertical;
 		button.setAlignmentX(Component.LEFT_ALIGNMENT);
 		button.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -74,6 +73,8 @@ public class jswOption extends jswPanel
 		return getButton().isSelected();
 	}
 
+
+
 	@Override
 	public void setEnabled(boolean e)
 	{
@@ -93,7 +94,6 @@ public class jswOption extends jswPanel
 	public void setText(String string)
 	{
 		getButton().setText(string);
-
 	}
 
 	public JRadioButton getButton() {
@@ -112,22 +112,21 @@ public class jswOption extends jswPanel
 	    if (button.isSelected())  
 	    {
            // button.setText("OFF");  
-            mess = "option ON";
+            mess = "ON";
 	    }
         else  
         {
            // button.setText("ON");  
-            mess = "option OFF";
+            mess = "OFF";
         }	 
-	    HashMap<String, String> am = jswPanel.createActionMap(this, e);
-	    am.put( "command" , button.getActionCommand());
-	    am.put( "value" ,mess);
-        System.out.println(am);
+	 //   HashMap<String, String> am = jswPanel.createActionMap(this, e);
+	 //   am.put( "command" , "optionselected");
+	 //   am.put( "value" ,mess);
+		setSelection(mess);
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
-		actionlistener.actionPerformed(event);
-
+		ActionEvent event = new ActionEvent(this, uniqueId,e.getActionCommand());
+		getActionlistener().actionPerformed(event);
 	}
 	
 	@Override

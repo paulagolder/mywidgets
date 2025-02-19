@@ -4,13 +4,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.util.Map;
 
-public class jswTable extends jswPanel implements ActionListener
+public class jswTable extends jswWidget implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
+	private final ActionListener actionlistener;
 
 	jswStyles tablestyles = new jswStyles();
+	private jswCell selectedCell;
 
 	public jswTable(ActionListener al, String name, jswStyles styles)
 	{
@@ -63,27 +65,23 @@ public class jswTable extends jswPanel implements ActionListener
 		}		
 	}
 
-	public jswCell  addCell(jswPanel cont, int row, int col)
-	{
-		jswCell acell = addCell(cont, null, row, col);
-		return acell;
-	}
+
 
 	public jswCell addCell(Integer anint, int row, int col)
 	{
 		jswLabel alabel = new jswLabel(anint);
-		jswCell acell = addCell(alabel,row,col);
+		jswCell acell = addCell(alabel," ",row,col);
 		return acell;
 	}
 
 	public jswCell addCell(String astring, int row, int col)
 	{
 		jswLabel alabel = new jswLabel(astring);
-		jswCell acell = addCell(alabel,row,col);
+		jswCell acell = addCell(alabel," ",row,col);
 		return acell;
 	}
 
-	public jswCell addCell(jswPanel cont, String setting, int row, int col)
+	public jswCell addCell(jswWidget cont, String setting, int row, int col)
 	{
 		jswStyle cellstyle = getCellStyle(row, col);
 		jswCell acell = new jswCell(this,row, col);		
@@ -94,12 +92,48 @@ public class jswTable extends jswPanel implements ActionListener
 		acell.setPadding(5,5,5,15);
 		acell.add(settings, cont);
 		acell.add( cont);
-		cont.addActionListener(acell); 
+		add(acell);
+		cont.setActionListener(acell);
+		jswStyle cellcontentstyle = getCellContentStyle(row, col);
+		cont.applyStyle(cellstyle);
+		return acell;
+	}
+
+    public jswCell addCell(jswPanel cont,  int row, int col)
+	{
+		return addCell(cont," ",row,col);
+	}
+
+	public jswCell addCell(int row, int col)
+	{
+		jswStyle cellstyle = getCellStyle(row, col);
+		jswCell acell = new jswCell(this,row, col);
+		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
+		acell.setPadding(5,5,5,15);
+		add(acell);
+		return acell;
+	}
+
+
+	public jswCell  addCell(jswWidget cont, int row, int col)
+	{
+		return addCell(cont, " ", row, col);
+	}
+
+	public jswCell addCell(jswPanel cont, String setting, int row, int col)
+	{
+		jswStyle cellstyle = getCellStyle(row, col);
+		jswCell acell = new jswCell(this,row, col);
+		String settings = cellstyle.getStringStyle("horizontalAlign");
+		if (setting != null) settings += " " + setting + " ";
+		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
+		cont.setBackground(new Color(0, 0, 0, 0));
+		acell.setPadding(5,5,5,15);
+		acell.add(settings, cont);
+		acell.add( cont);
 		add(acell);
 		jswStyle cellcontentstyle = getCellContentStyle(row, col);
-		//cont.style.setForegroundcolor("red");
 		cont.applyStyle(cellstyle);
-	//	acell.applyContentStyle(acell.style);
 		return acell;
 	}
 
@@ -136,7 +170,7 @@ public class jswTable extends jswPanel implements ActionListener
 	{
 		jswStyle rowstyle = new jswStyle();
 		rowstyle.overlay(tablestyles.getStyle("row"));
-		rowstyle.overlay(tablestyles.getStyle("col_" + row));
+		rowstyle.overlay(tablestyles.getStyle("row_" + row));
 		return rowstyle;
 	}
 
@@ -165,18 +199,21 @@ public class jswTable extends jswPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		HashMap<String,String> am = jswPanel.createActionMap(this, e);
-		am.put("tablename",getPanelname());
-		//System.out.println("+-+"+am);
+		setSelectedCell((jswCell)e.getSource());
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
+		jswActionEvent event = new jswActionEvent(this, uniqueId,e.getActionCommand());
 		if(actionlistener != null)
-		  actionlistener.actionPerformed(event);
+	        actionlistener.actionPerformed(event);
 	}
 
+	public jswCell getSelectedCell()
+	{
+		return selectedCell;
+	}
 
-
-
-
+	public void setSelectedCell(jswCell selectedCell)
+	{
+		this.selectedCell = selectedCell;
+	}
 }

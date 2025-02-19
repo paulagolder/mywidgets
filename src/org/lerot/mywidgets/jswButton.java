@@ -10,7 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 
-public class jswButton extends jswPanel implements ActionListener
+public class jswButton extends jswWidget
 {
 
 	private static final long serialVersionUID = 1L;
@@ -30,13 +30,12 @@ public class jswButton extends jswPanel implements ActionListener
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		button = new JButton(label);
 		button.addActionListener(this);
-	    actionlistener = al;
+	    setActionListener(al);
 		button.setActionCommand(command);
 		add(button);
+		setTag(command);
 		applyStyle();
 		button.setVisible(true);
-
-
 		setSize(400,400);  //sets the width and height of the frame
 	}
 
@@ -62,6 +61,7 @@ public class jswButton extends jswPanel implements ActionListener
 		button.setPreferredSize(d);
 		button.setMaximumSize(d);
 		button.setMinimumSize(d);
+		//button.setActionListener(this);
 		setBackground(jswStyle.TRANSPARENT);
 		setPreferredSize(d);
 		setMaximumSize(d);
@@ -80,6 +80,19 @@ public class jswButton extends jswPanel implements ActionListener
 		button.setActionCommand(actionmessage);
 	}
 
+	public void setInternalActionListener(ActionListener al)
+	{
+		ActionListener[] listeners = button.getActionListeners();
+		for (ActionListener listener : listeners) {
+			button.removeActionListener(listener);
+		}
+		listeners = button.getActionListeners();
+		button.addActionListener(al);
+	}
+
+
+
+
 	public void setActionCommand(String command)
 	{
 		button.setActionCommand(command);
@@ -95,11 +108,22 @@ public class jswButton extends jswPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		HashMap<String,String> am = jswPanel.createActionMap(this, e) ;
 		Long t = System.currentTimeMillis() / 10000;
+		setSelection(getTag());
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
-		actionlistener.actionPerformed(event);
+		System.out.println(" in button");
+		String command = e.getActionCommand();
+		jswActionEvent event = new jswActionEvent(this, uniqueId, command);
+		getActionlistener().actionPerformed(event);
 	}
 
+
+	public void listActionListeners()
+	{
+		System.out.println(" jswbutton :"+this.getActionlistener());
+		for ( ActionListener al : button.getActionListeners())
+		{
+			System.out.println(" +button :"+al);
+		}
+	}
 }

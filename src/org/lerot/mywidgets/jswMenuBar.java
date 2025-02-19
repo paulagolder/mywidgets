@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 
-public class jswMenuBar extends jswPanel
+public class jswMenuBar extends jswWidget
 {
 
     private final JMenuBar menuBar;

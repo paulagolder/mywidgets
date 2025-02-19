@@ -5,17 +5,20 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.*;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.*;
 
-public class jswCell extends jswPanel implements MouseListener
+public class jswCell extends jswWidget implements  MouseListener
 {
 
 	private static final long serialVersionUID = 1L;
+	private final ActionListener actionlistener;
 	private int col;
 	int colspan = 1;
 	private int row;
 	int width = 0;
 	int height = 0;
+	private Object actionSource;
 
 	public jswCell(ActionListener al,int irow, int icol)
 	{
@@ -94,17 +97,13 @@ public class jswCell extends jswPanel implements MouseListener
 		}		
 	}
 
-	@Override
+
 	public void actionPerformed(ActionEvent e)
 	{
-		HashMap<String,String> am = jswPanel.createActionMap(this, e);
-		am.put("source","jswCell");
-		am.put("panelname",this.getPanelname());
-		am.put("column", " " + this.getCol());
-		am.put("row"," " + this.getRow());
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId,am.toString());
+		setSelection(((jswWidget)e.getSource()).getSelection());
+		ActionEvent event = new ActionEvent(this, uniqueId,e.getActionCommand());
 		actionlistener.actionPerformed(event);
 	}
 
@@ -122,7 +121,7 @@ public class jswCell extends jswPanel implements MouseListener
 	@Override
 	public String toString()
 	{
-		return "CELL " + getRow() + " " + getCol() + "=" + this.getComponent(0).toString();
+		return "CELL " + getRow() + " " + getCol() + "=" + this.getComponent(0).getClass().getSimpleName();
 	}
 
 	public int getRow()
@@ -203,5 +202,15 @@ public class jswCell extends jswPanel implements MouseListener
 	public void mouseExited(MouseEvent e)
 	{
 
+	}
+
+	public Object getActionSource()
+	{
+		return actionSource;
+	}
+
+	public void setActionSource(Object actionSource)
+	{
+		this.actionSource = actionSource;
 	}
 }

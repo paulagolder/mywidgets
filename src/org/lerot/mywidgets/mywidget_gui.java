@@ -25,21 +25,6 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
     private final jswTextArea textarea;
     private final jswVerticalPanel mainpanel;
 
-    public static void main(String[] args)
-    {
-        (mframe = new mywidget_gui(800, 400)).addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent e)
-            {
-                System.exit(0);
-            }
-        });
-        mframe.setLocation(50, 50);
-        mframe.setMinimumSize(new Dimension(800, 400));
-        mframe.pack();
-        mframe.setVisible(true);
-    }
-
     public mywidget_gui(int w, int h)
     {
         jswContainer apanel = new jswContainer("dummy");
@@ -69,8 +54,8 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         jswHorizontalPanel panel1a = new jswHorizontalPanel("Panel 1A", true, true);
         panel1a.applyStyle();
         jswButton button1 = new jswButton(this, "button_1");
-        jswTextBox textbox1 = new jswTextBox(this, "textfield_1",200);
-        jswDropDownBox dropdownbox1 = new jswDropDownBox(this, "dropdownbox 1");
+        jswTextBox textbox1 = new jswTextBox(this, "textfield_1", 200,"textfield1");
+        jswDropDownBox dropdownbox1 = new jswDropDownBox(this, "dropdownbox1");
         Vector<String> list = new Vector<>();
         list.add("LEFT");
         list.add("MIDDLE");
@@ -90,14 +75,14 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
         jswHorizontalPanel panel1b = new jswHorizontalPanel("Panel 1B", false, true);
 
-        jswOptionset optionset = new jswOptionset(this, "option list 1", false, true, false);
+        jswOptionset optionset = new jswOptionset(this, "optionpanel1", false, true, false);
         optionset.setStyleAttribute("horizontallayoutstyle", jswLayout.DISTRIBUTE);
         optionset.setStyleAttribute("verticallayoutstyle", jswLayout.MIDDLE);
 
         jswOption ro = optionset.addNewOption("red", true);
-       // ro.getStyle().setBorderWidth(3);
+        // ro.getStyle().setBorderWidth(3);
 
-       // ro.applyStyle();
+        // ro.applyStyle();
         ro.applyStyle(mwdefstyles.getStyle("redoption"));
         jswOption bo = optionset.addNewOption("blue", true);
         bo.applyStyle(mwdefstyles.getStyle("blueoption"));
@@ -105,7 +90,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         go.applyStyle(mwdefstyles.getStyle("greenoption"));
         panel1b.add("   ", optionset);
 
-        jswPushButtonset pushbuttonset = new jswPushButtonset(this, "button list 1", false, true, false);
+        jswPushButtonset pushbuttonset = new jswPushButtonset(this, "colourlist1", false, true, false);
         pushbuttonset.addNewButton("red");
         pushbuttonset.addNewButton("blue");
         pushbuttonset.addNewButton("green");
@@ -122,14 +107,14 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         panel1b.add(buttons);
 
         jswHorizontalPanel panel1c = new jswHorizontalPanel("Panel 1C", true, true);
-        jswThumbwheel thumbwheel1 = new jswThumbwheel(this, "thumbwheel 1", 5, 10);
+        jswThumbwheel thumbwheel1 = new jswThumbwheel(this, "thumbwheel 1", 5, 10,"thumbwheel1");
         thumbwheel1.getStyle().setBorderStyle(jswStyle.LINEBORDER);
         thumbwheel1.getStyle().setBorderWidth(4);
         thumbwheel1.getStyle().setBordercolor("blue");
         thumbwheel1.setFontStyle("SansSerif", Font.BOLD, 18);
         thumbwheel1.applyStyle();
         panel1c.add(" ", thumbwheel1);
-        jswCheckbox checkbox1 = new jswCheckbox(this, "my checkbox");
+        jswCheckbox checkbox1 = new jswCheckbox(this, "my checkbox","mycheckbox");
         checkbox1.getStyle().setBorderStyle(jswStyle.LINEBORDER);
         checkbox1.getStyle().setBorderWidth(4);
         checkbox1.getStyle().setBordercolor("green");
@@ -139,16 +124,16 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         panel1c.add(" ", checkbox1);
         jswToggleButton togglebutton1 = new jswToggleButton(this, "my toggle", "togglebutton1");
         panel1c.add(" ", togglebutton1);
-      //  jswTextBox textfield1 = new jswTextBox(this, " ");
+        //  jswTextBox textfield1 = new jswTextBox(this, " ");
         //textfield1.addActionListener(this);
 
         jswHorizontalPanel panel1d = new jswHorizontalPanel("Panel 1D", true, true);
         jswButton button1d = new jswButton(this, "mybutton");
         panel1d.add("  ", button1d);
-        jswTextBox tb1d = new jswTextBox(this, "mytextbox",600);
+        jswTextBox tb1d = new jswTextBox(this, "mytextbox", 600,"mytextbox2");
         panel1d.add(" FILLW  ", tb1d);
-       // tb1d.setStyleAttribute("mywidth",600);
-      //  tb1d.applyStyle();
+        // tb1d.setStyleAttribute("mywidth",600);
+        //  tb1d.applyStyle();
         tabbedpanel1.addTab("TAB 1 A", panel1a);
         tabbedpanel1.addTab("TAB 1 B", panel1b);
         tabbedpanel1.addTab("TAB 1 C", panel1c);
@@ -167,7 +152,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         panel2.setStyleAttribute("titlefontsize", 20);
         panel2.setBackground(Color.pink);
         panel2.applyStyle();
-        jswOptionset optionseta = new jswOptionset(this, "panel2a", true, true);
+        jswOptionset optionseta = new jswOptionset(this, "optionpanel2", true, true);
         optionseta.setStyleAttribute("verticallayoutstyle", jswLayout.DISTRIBUTE);
         optionseta.setStyleAttribute("horizontallayoutstyle", jswLayout.LEFT);
         jswOption ros = optionseta.addNewOption("red", true);
@@ -193,9 +178,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         this.textarea = new jswTextArea("some input", true);
         this.textarea.setBorder(jswStyle.makeLineBorder(Color.yellow, 3));
         panel2c.add("  MINHEIGHT=501 FILLH FILLW MIDDLE ", this.textarea);
-        this.textarea.setStyleAttribute("mywidth",300);
-        this.textarea.setStyleAttribute("myheight",300);
-      //  textarea.setMinimumSize(new Dimension(10, 10));
+        this.textarea.setStyleAttribute("mywidth", 300);
+        this.textarea.setStyleAttribute("myheight", 300);
+        //  textarea.setMinimumSize(new Dimension(10, 10));
         textarea.applyStyle();
 
         jswButton clear = new jswButton(this, "CLEAR");
@@ -265,137 +250,19 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         });
     }
 
-    public void actionPerformed(ActionEvent e)
+    public static void main(String[] args)
     {
-        String cmd = e.getActionCommand();
-        String sourceclass = e.getSource().getClass().getSimpleName();
-        if (sourceclass.startsWith("jsw"))
+        (mframe = new mywidget_gui(800, 400)).addWindowListener(new WindowAdapter()
         {
-            this.jswActionPerformed(e);
-        } else
-        {
-            if (this.textarea != null)
+            public void windowClosing(WindowEvent e)
             {
-                this.textarea.addText("handling :" + e.getActionCommand() + "\n");
+                System.exit(0);
             }
-        }
-    }
-
-    public void jswActionPerformed(ActionEvent e)
-    {
-        String cmd = e.getActionCommand();
-        Map<String, String> actioncmd = jswPanel.parseActionCommand(cmd);
-        if (actioncmd.get("handlerclass").equalsIgnoreCase("jswButton"))
-        {
-            if (actioncmd.get("commandstring").equalsIgnoreCase("CLEAR"))
-            {
-                textarea.setText("");
-                return;
-            }
-        }
-        if (actioncmd.get("handlerclass").equalsIgnoreCase("jswPushButton"))
-        {
-            String cs = actioncmd.get("commandstring");
-            if (cs.contains("hhelp"))
-            {
-                textarea.setText("");
-                String[] helplist = jswHorizontalLayout.getHelp();
-                for (String help : helplist)
-                {
-                    textarea.addText(help);
-                }
-                return;
-            } else if (cs.contains("vhelp"))
-            {
-                textarea.setText("");
-                String[] helplist = jswVerticalLayout.getHelp();
-                for (String help : helplist)
-                {
-                    textarea.addText(help);
-                }
-                return;
-            }
-        }
-        if (actioncmd.get("handlerclass").equalsIgnoreCase("jswCell"))
-        {
-            if (actioncmd.get("commandstring").equalsIgnoreCase("mouseclick"))
-            {
-                textarea.setText(" cell clicked row =" + actioncmd.get("row") + " column =" + actioncmd.get("column") + " content=" + actioncmd.get("cellcontent"));
-                return;
-            }
-            if (actioncmd.get("commandstring").equalsIgnoreCase("actionevent"))
-            {
-                textarea.setText(" action event =" + actioncmd.get("row") + " column =" + actioncmd.get("column") + " content=" + actioncmd.get("cellcontent"));
-                return;
-            }
-        }
-        if (this.textarea != null)
-        {
-            this.textarea.addText("jswhandling :" + actioncmd + "\n");
-        }
-
-    }
-
-    public jswPanel makeTreeExample()
-    {
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode("Duke Charles *the Bold* Of Burgundy 1433-1477");
-        DefaultMutableTreeNode pm = new DefaultMutableTreeNode("Duke Philipp III Of Burgundy 1396-1467");
-        DefaultMutableTreeNode pf = new DefaultMutableTreeNode("Princess Isabel Of Portugal 1396-");
-        top.add(pm);
-        top.add(pf);
-        jswTree treepanel = new jswTree(this, "my tree", top);
-        //treepanel.setStyleAttribute("myheight", "300");
-        treepanel.applyStyle();
-        return treepanel;
-    }
-
-    public jswTable makeTableExample()
-    {
-        jswStyles defstyles = jswStyles.getDefaultTableStyles();
-        jswTable table1 = new jswTable(this, "table 1", defstyles);
-        table1.addCell(" corner ", 0, 0);
-        for (int k = 1; k < 10; k++)
-        {
-            table1.addCell(" row " + k, k, 0);
-        }
-        for (int j = 1; j < 5; j++)
-        {
-            table1.addCell(" col:" + j, 0, j);
-        }
-        for (int i = 1; i < 10; i++)
-        {
-            for (int m = 1; m < 5; m++)
-            {
-                jswLabel alabel = new jswLabel(" cell:" + i + ":" + m);
-                jswCell acell = table1.addCell(alabel, i, m);
-                alabel.addMouseListener(acell);
-                acell.applyStyle();
-                acell.applyContentStyle();
-            }
-        }
-
-        table1.removeCell(2, 1);
-        jswButton abutton = new jswButton(table1, "press me","pressme");
-        jswCell acell = table1.addCell(abutton, 2, 1);
-        table1.removeCell(3, 1);
-        jswDropDownBox addb = new jswDropDownBox(table1, "select");
-        jswCell bcell = table1.addCell(addb, 3, 1);
-        addb.setEnabled(false);
-        addb.addItem("LEFT");
-        addb.addItem("MIDDLE");
-        addb.addItem("RIGHT");
-        addb.setEnabled(true);
-        table1.removeCell(4, 1);
-        jswTextBox textbox = new jswTextBox(table1, "text",100);
-     //   textbox.style.setMyWidth(100);
-     //   textbox.applyStyle();
-        jswCell ccell = table1.addCell(textbox, 4, 1);
-        table1.removeCell(5, 1);
-        jswOption opt = new jswOption(table1, "show total", false);
-        jswCell ocell = table1.addCell(opt, 5, 1);
-
-        table1.applyAllStyles();
-        return table1;
+        });
+        mframe.setLocation(50, 50);
+        mframe.setMinimumSize(new Dimension(800, 400));
+        mframe.pack();
+        mframe.setVisible(true);
     }
 
     public static jswStyles defaultStyles()
@@ -467,6 +334,282 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         col23style.putAttribute("borderWidth", "1");
         col23style.putAttribute("borderColor", "blue");
         return tablestyles;
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        //Map<String, String> cmd = jswPanel.parseActionCommand(e.getActionCommand());
+        // String cmd = e.getActionCommand();
+        String sourceclass = e.getSource().getClass().getSimpleName();
+        if (sourceclass.startsWith("jsw"))
+        {
+            this.jswActionPerformed(e);
+        } else
+        {
+            if (this.textarea != null)
+            {
+                System.out.println(sourceclass);
+                this.textarea.addText("handling :" + e.getActionCommand() + "\n");
+            }
+        }
+    }
+
+    public void jswActionPerformed(ActionEvent e)
+    {
+        String cmd = e.getActionCommand();
+        Map<String, String> actioncmd = jswPanel.parseActionCommand(cmd);
+        System.out.println("mywidgets gui2:" + actioncmd);
+        String action = actioncmd.get("command").toUpperCase();
+        if (action.equalsIgnoreCase("CLEAR"))
+        {
+            textarea.setText("");
+            return;
+        } else if (action.equalsIgnoreCase("buttonpressed"))
+        {
+            textarea.setText("buttonpressed");
+            return;
+        } else if (action.equalsIgnoreCase("button_1"))
+        {
+            textarea.setText("");
+            textarea.addText(action);
+            return;
+        } else if (action.equalsIgnoreCase("colourlist1"))
+        {
+            textarea.setText("");
+            jswWidget selected = (jswWidget) e.getSource();
+            String selectedobject = selected.getSelection();
+            textarea.setText("selected object " + selectedobject);
+            return;
+        } else if (action.equalsIgnoreCase("large button"))
+        {
+            textarea.setText("large button pressed");
+            return;
+        } else if (action.equalsIgnoreCase("small"))
+        {
+            textarea.setText("");
+            return;
+        } else if (action.equalsIgnoreCase("medium button"))
+        {
+            textarea.setText("");
+            return;
+        } else if (action.equalsIgnoreCase("mybutton"))
+        {
+            textarea.setText("button pressed " + action);
+            return;
+        } else if (action.equalsIgnoreCase("panel2b"))
+        {
+            textarea.setText("");
+            jswPushButtonset selected = (jswPushButtonset) e.getSource();
+            String selectedobject = selected.selection;
+            textarea.setText("selected object " + selectedobject);
+
+            if (action.equalsIgnoreCase("vhelp"))
+            {
+                textarea.setText("");
+                String[] helplist = jswVerticalLayout.getHelp();
+                for (String help : helplist)
+                {
+                    textarea.addText(help);
+                }
+                return;
+            } else if (action.equalsIgnoreCase("hhelp"))
+            {
+                textarea.setText("");
+                String[] helplist = jswHorizontalLayout.getHelp();
+                for (String help : helplist)
+                {
+                    textarea.addText(help);
+                }
+                return;
+            }
+        } else if (action.equalsIgnoreCase("mycheckbox"))
+        {
+            textarea.setText("");
+            String sel = ((jswCheckbox) (e.getSource())).getSelection();
+            textarea.addText("checkbox :"+sel);
+            return;
+        } else if (action.equalsIgnoreCase("optionpanel1"))
+        {
+            textarea.setText("");
+            textarea.addText("option selected: " + ((jswOptionset) (e.getSource())).getSelectedoption());
+            return;
+        } else if (action.equalsIgnoreCase("optionpanel2"))
+        {
+            textarea.setText("");
+            textarea.addText("option selected: " + ((jswOptionset) (e.getSource())).getSelectedoption());
+            return;
+        } else if (action.equalsIgnoreCase("dropdownbox1"))
+        {
+            textarea.setText("");
+            textarea.addText("option selected: " + ((jswWidget) (e.getSource())).getSelection());
+            return;
+        } else if (action.equalsIgnoreCase("dropdownbox2"))
+        {
+            textarea.setText("");
+            jswCell selectedcell = ((jswTable) (e.getSource())).getSelectedCell();
+            textarea.addText("row selected: " + (selectedcell.getRow()));
+            textarea.addText("col selected: " + (selectedcell.getCol()));
+            jswWidget actionsource = (jswWidget) selectedcell;
+            textarea.addText("selected: " + actionsource.getSelection());
+            return;
+        } else if (action.equalsIgnoreCase("pressme"))
+        {
+            textarea.setText("");
+            jswCell selectedcell = ((jswTable) (e.getSource())).getSelectedCell();
+            textarea.addText("row selected: " + (selectedcell.getRow()));
+            textarea.addText("col selected: " + (selectedcell.getCol()));
+            jswWidget actionsource = (jswWidget) (selectedcell);
+            textarea.addText("button pressed  " + selectedcell.getSelection());
+            return;
+        } else if (action.equalsIgnoreCase("togglebutton1"))
+        {
+            textarea.setText("");
+            jswToggleButton button = (jswToggleButton) e.getSource();
+            textarea.addText("button pressed  " + button.isSelected());
+            return;
+        } else if (action.equalsIgnoreCase("togglebutton1"))
+        {
+            textarea.setText("");
+            jswToggleButton button = (jswToggleButton) e.getSource();
+            textarea.addText("button pressed  " + button.isSelected());
+            return;
+        } else if (action.equalsIgnoreCase("textfield_1"))
+        {
+            textarea.setText("");
+            jswTextBox box = (jswTextBox) e.getSource();
+            textarea.addText("text entry " + box.getSelection());
+            return;
+        } else if (action.equalsIgnoreCase("thumbwheel1"))
+        {
+            textarea.setText("");
+            jswThumbwheel box = (jswThumbwheel) e.getSource();
+            textarea.addText("thumbwheel " + box.getSelection());
+            return;
+        } else if (action.equalsIgnoreCase("mytextbox"))
+        {
+            textarea.setText("");
+            jswTextBox box = (jswTextBox) e.getSource();
+            textarea.addText("mytextbox " + box.getSelection());
+            return;
+        } else if (action.equalsIgnoreCase("mytextbox2"))
+        {
+            textarea.setText("");
+            jswTextBox box = (jswTextBox) e.getSource();
+            textarea.addText("mytextbox2" + box.getSelection());
+            return;
+        }else if (action.equalsIgnoreCase("textbox3"))
+        {
+            textarea.setText("");
+            jswCell selectedcell = ((jswTable) (e.getSource())).getSelectedCell();
+            textarea.addText("row selected: " + (selectedcell.getRow()));
+            textarea.addText("col selected: " + (selectedcell.getCol()));
+            jswWidget actionsource = (jswWidget) (selectedcell);
+            System.out.println(actionsource.getClass().getName());
+            textarea.addText("text entry :  " + selectedcell.getSelection());
+            return;
+        }else if (action.equalsIgnoreCase("showtotal"))
+        {
+            textarea.setText("");
+            jswCell selectedcell = ((jswTable) (e.getSource())).getSelectedCell();
+            textarea.addText("row selected: " + (selectedcell.getRow()));
+            textarea.addText("col selected: " + (selectedcell.getCol()));
+           // jswWidget actionsource = (jswWidget) (selectedcell);
+            textarea.addText(action + ":"+ selectedcell.getSelection());
+            return;
+        }
+        else if (action.equalsIgnoreCase("booking"))
+        {
+            textarea.setText("");
+            jswCell selectedcell = ((jswTable) (e.getSource())).getSelectedCell();
+            textarea.addText("row selected: " + (selectedcell.getRow()));
+            textarea.addText("col selected: " + (selectedcell.getCol()));
+            jswWidget actionsource = (jswWidget) (selectedcell);
+            textarea.addText("option selected  " + selectedcell.getSelection());
+            return;
+        }  else if (action.equalsIgnoreCase("textfield1"))
+        {
+            textarea.setText("");
+            jswWidget selectedcell = (jswWidget) ((e.getSource()));
+         //   textarea.addText("row selected: " + (selectedcell.getRow()));
+        //    textarea.addText("col selected: " + (selectedcell.getCol()));
+            jswWidget actionsource = (jswWidget) (selectedcell);
+            textarea.addText("text entered :" + selectedcell.getSelection());
+            return;
+        } else if (action.equalsIgnoreCase("mytree1"))
+        {
+            textarea.setText("");
+            jswWidget selectedcell = (jswWidget) ((e.getSource()));
+            jswWidget actionsource = (jswWidget) (selectedcell);
+            textarea.addText("tree node selected :" + selectedcell.getSelection());
+            return;
+        }
+        if (this.textarea != null)
+        {
+            this.textarea.addText("jswhandling :" + actioncmd + "\n");
+        }
+
+    }
+
+    public jswPanel makeTreeExample()
+    {
+        DefaultMutableTreeNode top = new DefaultMutableTreeNode("Duke Charles *the Bold* Of Burgundy 1433-1477");
+        DefaultMutableTreeNode pm = new DefaultMutableTreeNode("Duke Philipp III Of Burgundy 1396-1467");
+        DefaultMutableTreeNode pf = new DefaultMutableTreeNode("Princess Isabel Of Portugal 1396-");
+        top.add(pm);
+        top.add(pf);
+        jswTree treepanel = new jswTree(this, "my tree", top,"mytree1");
+        //treepanel.setStyleAttribute("myheight", "300");
+        treepanel.applyStyle();
+        return treepanel;
+    }
+
+    public jswTable makeTableExample()
+    {
+        jswStyles defstyles = jswStyles.getDefaultTableStyles();
+        jswTable table1 = new jswTable(this, "table 1", defstyles);
+        table1.addCell(" corner ", 0, 0);
+        for (int k = 1; k < 10; k++)
+        {
+            table1.addCell(" row " + k, k, 0);
+        }
+        for (int j = 1; j < 5; j++)
+        {
+            table1.addCell(" col:" + j, 0, j);
+        }
+        for (int i = 1; i < 10; i++)
+        {
+            for (int m = 1; m < 5; m++)
+            {
+                jswLabel alabel = new jswLabel(" cell:" + i + ":" + m);
+                jswCell acell = table1.addCell(alabel, " ", i, m);
+                alabel.addMouseListener(acell);
+                acell.applyStyle();
+                acell.applyContentStyle();
+            }
+        }
+
+        table1.removeCell(2, 1);
+        jswButton abutton = new jswButton(null, "press me", "pressme");
+        jswCell acell = table1.addCell(abutton, " ", 2, 1);
+        abutton.setActionListener(acell);
+        abutton.listActionListeners();
+        table1.removeCell(3, 1);
+        jswDropDownBox addb = new jswDropDownBox(table1, "dropdownbox2");
+        jswCell bcell = table1.addCell(addb, 3, 1);
+        addb.setEnabled(false);
+        addb.addItem("LEFT");
+        addb.addItem("MIDDLE");
+        addb.addItem("RIGHT");
+        addb.setEnabled(true);
+        table1.removeCell(4, 1);
+        jswTextBox textbox = new jswTextBox(this, "text", 100,"textbox3");
+        textbox.setTag("tb1");
+        jswCell ccell = table1.addCell(textbox, 4, 1);
+        table1.removeCell(5, 1);
+        jswOption opt = new jswOption(table1, "show total", false, "showtotal");
+        jswCell ocell = table1.addCell(opt, 5, 1);
+        table1.applyAllStyles();
+        return table1;
     }
 
     @Override

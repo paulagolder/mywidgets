@@ -22,7 +22,7 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-public class jswTree extends jswPanel implements ComponentListener
+public class jswTree extends jswWidget implements ComponentListener
 {
 
 	private class MyRenderer extends JLabel implements TreeCellRenderer
@@ -43,7 +43,7 @@ public class jswTree extends jswPanel implements ComponentListener
 		}
 	}
 
-	class MySelectionListener implements TreeSelectionListener
+	class jswSelectionListener implements TreeSelectionListener
 	{
 		@Override
 		public void valueChanged(TreeSelectionEvent e)
@@ -51,29 +51,23 @@ public class jswTree extends jswPanel implements ComponentListener
 			TreePath path = e.getPath();
 			Object[] nodes = path.getPath();
 			Object nd = null;
+		    String oid="";
 			for (int k = 0; k < nodes.length; k++)
 			{
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) nodes[k];
 				nd = node.getUserObject();
-				// oid += "."+nd.getId();
+				oid = nd.toString();
 			}
+			setSelection(oid);
 			Long t = System.currentTimeMillis() / 10000;
-			int uniqueId = t.intValue();
-			Map am = jswPanel.createActionMap(this, e);
-			ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
-			actionlistener.actionPerformed(event);
+			int uniqueId = t.intValue();;
+			jswActionEvent event = new jswActionEvent(jswTree.this, uniqueId, getActionCommand());
+			getActionlistener().actionPerformed(event);
 		}
 	}
 
 	private static final long serialVersionUID = 1L;
-	//static void print(String s)
-	//{
-	//	System.out.print(s);
-	//}
-	//int linecount;
 	String name;
-	//int panelwidth = 200;
-	//boolean redisplay;
 	public JTree reptree;
 	public JScrollPane reptreeView;
 	private Color defaultcolor;
@@ -82,9 +76,9 @@ public class jswTree extends jswPanel implements ComponentListener
 	private int bl = 200;
 	private int bh = 20;
 
-	public jswTree(ActionListener al, String inname, DefaultMutableTreeNode aNode)
+	public jswTree(ActionListener al, String inname, DefaultMutableTreeNode aNode,String actioncommand)
 	{
-		super(0);
+		super(inname);
 		name = inname;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		if (aNode == null)
@@ -96,8 +90,9 @@ public class jswTree extends jswPanel implements ComponentListener
 		reptree.setEditable(false);
 		reptree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		reptree.setShowsRootHandles(true);
-		reptree.addTreeSelectionListener(new MySelectionListener());
-		actionlistener = al;
+		reptree.addTreeSelectionListener(new jswSelectionListener());
+		setActionListener(al);
+		setActionCommand(actioncommand);
 		MyRenderer renderer = new MyRenderer();
 		reptree.setCellRenderer(renderer);
 		this.add(" FILLW ", reptreeView);
@@ -118,7 +113,6 @@ public class jswTree extends jswPanel implements ComponentListener
 		selectedcolor = style.getColor("selectedcolor", Color.red);
 		if (reptreeView != null)
 		{
-
 			reptreeView.setBackground(Color.green);
 			reptreeView.setFont(style.getFont());
 			reptreeView.setForeground(style.getForegroundcolor());
@@ -138,11 +132,12 @@ public class jswTree extends jswPanel implements ComponentListener
 	public void actionPerformed(ActionEvent e)
 	{
 		Long t = System.currentTimeMillis() / 10000;
+		System.out.println(" action performed in jswtree ");
 		int uniqueId = t.intValue();
 		Map<String,String> am = jswPanel.createActionMap(this, e);
 		am.put("jswTree",((jswTree)e.getSource()).getPanelname());
 		ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
-		actionlistener.actionPerformed(event);
+		getActionlistener().actionPerformed(event);
 	}
 
 	public void addTreeModelListener(TreeModelListener tml)

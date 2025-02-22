@@ -90,13 +90,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 				//on.setEnabled(false);
 			}
 		}
-		HashMap<String, String> am = jswPanel.createActionMap(this, e);
-		am.put("command", "optionselected");
-		am.put("value", getSelectedoption());
-		Long t = System.currentTimeMillis() / 10000;
-		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId, e.getActionCommand());
-		getActionlistener().actionPerformed(event);
+		actionlistener.actionPerformed(e);
 	}
 	
 	public jswOption addNewOption(String text, boolean vertical)
@@ -146,7 +140,11 @@ public class jswOptionset extends jswWidget implements ActionListener
 		return "";
 	}
 
-
+	@Override
+	public boolean isSelected()
+	{
+		return true;
+	}
 
 	public boolean isSelected(String selvalue)
 	{

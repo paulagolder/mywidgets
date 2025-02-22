@@ -73,8 +73,6 @@ public class jswOption extends jswWidget
 		return getButton().isSelected();
 	}
 
-
-
 	@Override
 	public void setEnabled(boolean e)
 	{

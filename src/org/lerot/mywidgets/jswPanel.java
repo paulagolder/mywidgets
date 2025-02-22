@@ -20,16 +20,15 @@ import javax.swing.event.TreeSelectionListener;
 //import static org.odftoolkit.odfdom.dom.attribute.style.StyleNumFormatAttribute.Value.i;
 
 public abstract class jswPanel extends JPanel  //implements ActionListener
-
 {
     private static final long serialVersionUID = 1L;
+    public boolean trace;
+    private String panelname;
     private final int setHeight = 0;
     private final int setWidth = 0;
-    public boolean trace;
     protected jswStyle style;
     protected Insets padding = new Insets(1, 1, 1, 1);
-   // ActionListener actionlistener = null;
-    private String panelname;
+    // ActionListener actionlistener = null;
     private String tag = "";
     private String marker = "";
 
@@ -40,6 +39,7 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
         initialiseStyle(this.getClass().getSimpleName());
         //applyStyle();
     }
+
     public jswPanel(int count)
     {
         this(String.valueOf(count));
@@ -106,7 +106,7 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
 
     public static HashMap<String, String> createActionMap(jswPanel apanel, ActionEvent e)
     {
-       // System.out.println( "in camap "+e.getActionCommand());
+        // System.out.println( "in camap "+e.getActionCommand());
         HashMap<String, String> action = createBaseActionMap(apanel, e);
         action.put("actiontype", "ActionEvent");
         return action;
@@ -134,7 +134,7 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
 
     public static HashMap<String, String> createBaseActionMap(jswPanel apanel, EventObject e)
     {
-       // System.out.println( "in camap "+e.getActionCommand());
+        // System.out.println( "in camap "+e.getActionCommand());
         HashMap<String, String> action = new HashMap<String, String>();
         action.put("handlerclass", apanel.getClass().getSimpleName());
         action.put("handlertag", apanel.getTag());
@@ -331,7 +331,106 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
         am.put("panelhandled", this.getPanelname());
         ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
         actionlistener.actionPerformed(event);
-    }*/
+    }
 
+    public static Map<String, String> parseActionCommand(String cmd)
+    {
+        Map<String, String> actioncmd = new HashMap<String, String>();
+        if(cmd.startsWith("{"))
+        {
+            cmd = cmd.replace("{", " ");
+            cmd = cmd.replace("}", "");
+            String[] str = cmd.split(",");
+
+            String[] cmdelement = null;
+            for (String astr : str)
+            {
+                cmdelement = astr.split("=");
+                if (cmdelement.length == 2)
+                    actioncmd.put(cmdelement[0].trim(), cmdelement[1].trim());
+                else
+                    actioncmd.put(cmdelement[0].trim(), "null");
+            }
+        }
+        else
+            actioncmd.put("command",cmd);
+
+        return actioncmd;
+    }
+
+    protected static HashMap<String, String> createActionMap(jswPanel apanel, MouseEvent e)
+    {
+        HashMap<String, String> action =  createBaseActionMap(apanel,e);
+        action.put("actiontype", "jswpanel mouseevent");
+        action.put("commandstring", "mouseclick");
+        return action;
+    }
+
+    public static HashMap<String, String> createActionMap(jswPanel apanel, ActionEvent e)
+    {
+        HashMap<String, String> action =  createBaseActionMap(apanel,e);
+        action.put("actiontype", "actionevent");
+        action.put("commandstring", "actionevent");
+        action.put( e.getSource().getClass().getSimpleName(),e.getSource().getClass().getSimpleName());
+        String cmd =   e.getActionCommand();
+        if(cmd.contains("{"))
+        {
+            Map<String, String> cmdmap = parseActionCommand(cmd);
+            for (Map.Entry<String, String> entry : cmdmap.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                action.put(key,value);
+            }
+            action.put("command","action");
+        }else
+        {
+            action.put("command", cmd);
+        }
+        //action.put("commandx",  e.getActionCommand());
+        return action;
+    }
+
+    public static HashMap<String, String> createActionMap(jswPanel apanel, ChangeEvent e)
+    {
+        HashMap<String, String> action =  createBaseActionMap(apanel,e);
+        action.put("actiontype", "jswpanel  changeevent");
+        action.put("commandstring", "change event");
+        return action;
+    }
+
+    public static HashMap<String, String> createBaseActionMap(jswPanel apanel, EventObject e)
+    {
+        HashMap<String, String> action = new HashMap<String, String>();
+        action.put("source", e.getSource().getClass().getSimpleName());
+        action.put("handlerclass", apanel.getClass().getSimpleName());
+        action.put("handlername", e.getSource().getClass().getSimpleName());
+        action.put( e.getSource().getClass().getSimpleName(),e.getSource().getClass().getSimpleName());
+        if(e.getSource() instanceof  jswPanel)
+        {
+            action.put("sourcetag", ((jswPanel) e.getSource()).getTag());
+        }
+
+        return action;
+    }
+
+   public static HashMap<String, String> createActionMap(MySelectionListener apanel, TreeSelectionEvent e)
+    {
+
+        HashMap<String, String> action = new HashMap<String, String>();
+        action.put("source", e.getSource().getClass().getSimpleName());
+        action.put("handlerclass", apanel.getClass().getSimpleName());
+        action.put("handlername", e.getSource().getClass().getSimpleName());
+        action.put( e.getSource().getClass().getSimpleName(),e.getSource().getClass().getSimpleName());
+        if(e.getSource() instanceof  jswPanel)
+        {
+            action.put("sourcetag", ((jswPanel) e.getSource()).getTag());
+        }
+            action.put("actiontype", "jswpanel  selection");
+            action.put("commandstring", "TreeSelection");
+            return action;
+
+    }
+
+}*/
 
 }

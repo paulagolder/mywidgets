@@ -11,6 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 //import org.json.JSONObject;
 
 public class jswDropDownBox extends jswWidget
@@ -231,6 +236,7 @@ public class jswDropDownBox extends jswWidget
     public void setList(Map<String, Integer> list)
     {
         listModel.removeAllElements();
+		listModel.removeAllElements();
         if (list.size() > 0)
         {
             for (Entry<String, Integer> entry : list.entrySet())

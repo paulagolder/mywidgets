@@ -123,7 +123,7 @@ public class jswOption extends jswWidget
 		setSelection(mess);
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		ActionEvent event = new ActionEvent(this, uniqueId,e.getActionCommand());
+		jswActionEvent event = new jswActionEvent(this, uniqueId,e.getActionCommand());
 		getActionlistener().actionPerformed(event);
 	}
 	

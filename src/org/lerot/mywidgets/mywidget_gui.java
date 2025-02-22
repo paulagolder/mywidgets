@@ -10,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Map;
 import java.util.Vector;
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -46,10 +46,15 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         date.applyStyle();
         maintitle.applyStyle();
         //     maintitle.getStyle().printList();
+        jswHorizontalPanel panelm = new jswHorizontalPanel("Panelm", true, true);
+        jswMenuBar mb = new jswMenuBar("mainmenu", this);
+        JMenu mh = mb.addMenuHeading("MENU");
+         mb.addMenuItem( mh,"alpha", "alpha");
+        panelm.add(" ",mb);
+        mainpanel.add(" FILLW  ", panelm);
         jswHorizontalPanel panel1 = new jswHorizontalPanel("Panel1", true, true);
 
         // ====start of panel1===
-
         jswTabbedPanel tabbedpanel1 = new jswTabbedPanel("tabbed panel 1");
         jswHorizontalPanel panel1a = new jswHorizontalPanel("Panel 1A", true, true);
         panel1a.applyStyle();
@@ -80,9 +85,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         optionset.setStyleAttribute("verticallayoutstyle", jswLayout.MIDDLE);
 
         jswOption ro = optionset.addNewOption("red", true);
-        // ro.getStyle().setBorderWidth(3);
 
-        // ro.applyStyle();
         ro.applyStyle(mwdefstyles.getStyle("redoption"));
         jswOption bo = optionset.addNewOption("blue", true);
         bo.applyStyle(mwdefstyles.getStyle("blueoption"));
@@ -431,12 +434,14 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         } else if (action.equalsIgnoreCase("optionpanel1"))
         {
             textarea.setText("");
-            textarea.addText("option selected: " + ((jswOptionset) (e.getSource())).getSelectedoption());
+            jswOption os = ((jswOption) (e.getSource()));
+            textarea.addText("option selected: " + os.getTag());
             return;
         } else if (action.equalsIgnoreCase("optionpanel2"))
         {
             textarea.setText("");
-            textarea.addText("option selected: " + ((jswOptionset) (e.getSource())).getSelectedoption());
+            jswOption os = ((jswOption) (e.getSource()));
+            textarea.addText("option selected: " + os.getTag());
             return;
         } else if (action.equalsIgnoreCase("dropdownbox1"))
         {

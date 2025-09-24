@@ -1,23 +1,20 @@
 package org.lerot.mywidgets;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import javax.swing.ButtonGroup;
-//import org.lerot.mywidgets.jswLayout.settings;
 
 public class jswOptionset extends jswWidget implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	ButtonGroup bg;
 	int no = 0;
-	jswOption[] options;
-	String commandroot;
+	private jswOption[] options;
+	private String commandroot;
     private final boolean isvertical;
 	private String selectedoption;
 
@@ -73,11 +70,10 @@ public class jswOptionset extends jswWidget implements ActionListener
 		setMinimumSize(getMinimumSize());
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		setSelectedoption("");
+	/*	setSelectedoption("");
 		for (int i = 0; i < no; i++)
 		{
 			jswOption on = options[i];
@@ -90,12 +86,17 @@ public class jswOptionset extends jswWidget implements ActionListener
 				//on.setEnabled(false);
 			}
 		}
-		actionlistener.actionPerformed(e);
+        setSelection(mess);*/
+        Long t = System.currentTimeMillis() / 10000;
+        int uniqueId = t.intValue();
+        jswActionEvent event = new jswActionEvent(this, uniqueId,commandroot+":"+e.getActionCommand());
+        getActionlistener().actionPerformed(event);
+		//actionlistener.actionPerformed(e);
 	}
 	
-	public jswOption addNewOption(String text, boolean vertical)
+	public jswOption addNewOption(String text, boolean vertical,String command)
 	{
-		jswOption on = new jswOption(this,text, vertical,commandroot);
+		jswOption on = new jswOption(this,text, vertical,command);
 		on.getButton().addActionListener(this);
 		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
 		bg.add(on.getButton());
@@ -106,18 +107,30 @@ public class jswOptionset extends jswWidget implements ActionListener
 		return on;
 	}
 
-	public jswOption addNewOption(String label,String tag, boolean vertical)
+    public jswOption addNewOption(String label)
+    {
+
+        return addNewOption(label,label,label);
+    }
+
+	public jswOption addNewOption(String label,String tag)
 	{
-		jswOption on = new jswOption(this,label, vertical,commandroot);
-		on.getButton().addActionListener(this);
-		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
-		bg.add(on.getButton());
-		options[no] = on;
-		on.setTag(tag);
-		add(on);
-		no = no + 1;
-		return on;
+
+		return addNewOption(label,tag, tag);
 	}
+
+    public jswOption addNewOption(String label,String tag, String optioncommand)
+    {
+        jswOption on = new jswOption(this,label, this.isvertical,optioncommand);
+        on.getButton().addActionListener(this);
+        on.setBackground(getStyle().getColor("backgroundColor", Color.red));
+        bg.add(on.getButton());
+        options[no] = on;
+        on.setTag(tag);
+        add(on);
+        no = no + 1;
+        return on;
+    }
 
 	public String getSelected()
 	{
@@ -152,6 +165,11 @@ public class jswOptionset extends jswWidget implements ActionListener
         return selectedstring.equalsIgnoreCase(selvalue);
 	}
 
+    public boolean isSelected(int optno)
+    {
+        return  getOption(optno).isSelected();
+    }
+
 	@Override
 	public void setEnabled(boolean e)
 	{
@@ -177,8 +195,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 		jswOption on = options[i];
 		on.setSelected();
 	}
-	
-	
+
 	@Override
 	public Dimension getMinimumSize()
 	{
@@ -239,8 +256,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 		Dimension d = new Dimension(width,height);
 		return d;		
 	}
-		
-	
+
 	@Override
 	public Dimension getPreferredSize()
 	{
@@ -302,7 +318,6 @@ public class jswOptionset extends jswWidget implements ActionListener
         return d;
 	}
 
-
 	public String getSelectedoption()
 	{
 		return selectedoption;
@@ -312,4 +327,29 @@ public class jswOptionset extends jswWidget implements ActionListener
 	{
 		this.selectedoption = selectedoption;
 	}
+
+    public jswOption[] getOptions()
+    {
+        return options;
+    }
+
+    public void setOptions(jswOption[] options)
+    {
+        this.options = options;
+    }
+
+    public jswOption getOption(int optno)
+    {
+        return options[optno];
+    }
+
+    public String getCommandroot()
+    {
+        return commandroot;
+    }
+
+    public void setCommandroot(String commandroot)
+    {
+        this.commandroot = commandroot;
+    }
 }

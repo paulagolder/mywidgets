@@ -24,18 +24,19 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
     public static mywidget_gui mframe;
     private final jswTextArea textarea;
     private final jswVerticalPanel mainpanel;
+    private final jswOptionset optionseta;
 
     public mywidget_gui(int w, int h)
     {
-        jswContainer apanel = new jswContainer("dummy");
-        jswStyles defstyles = jswStyles.getDefaultStyles();
+       // jswContainer apanel = new jswContainer("dummy");
+        //jswStyles defstyles = jswStyles.getDefaultStyles();
         jswStyles mwdefstyles = defaultStyles();
 
         mainpanel = new jswVerticalPanel("mainpanel", false, true);
         mainpanel.setBorder(jswStyle.makeLineBorder(Color.red, 4));
         jswHorizontalPanel titlepanel = new jswHorizontalPanel("title", true, true);
         mainpanel.add(" FILLW  ", titlepanel);
-        jswLabel maintitle = new jswLabel("test Gui");
+        jswLabel maintitle = new jswLabel("test Gui v20250922");
         maintitle.setStyleAttribute("fontsize", 18);
         maintitle.setStyleAttribute("foregroundcolor", "black");
         maintitle.setStyleAttribute("borderwidth", 0);
@@ -84,12 +85,12 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         optionset.setStyleAttribute("horizontallayoutstyle", jswLayout.DISTRIBUTE);
         optionset.setStyleAttribute("verticallayoutstyle", jswLayout.MIDDLE);
 
-        jswOption ro = optionset.addNewOption("red", true);
+        jswOption ro = optionset.addNewOption("red");
 
         ro.applyStyle(mwdefstyles.getStyle("redoption"));
-        jswOption bo = optionset.addNewOption("blue", true);
+        jswOption bo = optionset.addNewOption("blue");
         bo.applyStyle(mwdefstyles.getStyle("blueoption"));
-        jswOption go = optionset.addNewOption("green", true);
+        jswOption go = optionset.addNewOption("green");
         go.applyStyle(mwdefstyles.getStyle("greenoption"));
         panel1b.add("   ", optionset);
 
@@ -155,14 +156,14 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         panel2.setStyleAttribute("titlefontsize", 20);
         panel2.setBackground(Color.pink);
         panel2.applyStyle();
-        jswOptionset optionseta = new jswOptionset(this, "optionpanel2", true, true);
+        optionseta = new jswOptionset(this, "optionpanel2", true, true);
         optionseta.setStyleAttribute("verticallayoutstyle", jswLayout.DISTRIBUTE);
         optionseta.setStyleAttribute("horizontallayoutstyle", jswLayout.LEFT);
-        jswOption ros = optionseta.addNewOption("red", true);
+        jswOption ros = optionseta.addNewOption("red");
         ros.applyStyle(mwdefstyles.getStyle("redoption"));
-        jswOption rob = optionseta.addNewOption("blue", true);
+        jswOption rob = optionseta.addNewOption("blue");
         rob.applyStyle(mwdefstyles.getStyle("blueoption"));
-        jswOption rog = optionseta.addNewOption("green", true);
+        jswOption rog = optionseta.addNewOption("green");
         rog.applyStyle(mwdefstyles.getStyle("greenoption"));
         optionseta.applyStyle();
         panel2.add("  ", optionseta);
@@ -170,6 +171,9 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         pushbuttonseta.setStyleAttribute("verticallayoutstyle", jswLayout.DISTRIBUTE);
         pushbuttonseta.setStyleAttribute("horizontallayoutstyle", jswLayout.MIDDLE);
         pushbuttonseta.applyStyle();
+        jswButton ols = new jswButton(this, "olist");
+        panel2.add(" FILLH ", ols);
+        ols.applyStyle(mwdefstyles.getStyle("redbutton"));
         jswPushButton pbr = pushbuttonseta.addNewButton("horizontalLayout Help", "hhelp");
         pbr.applyStyle(mwdefstyles.getStyle("redbutton"));
         jswPushButton pbb = pushbuttonseta.addNewButton("verticalLayout Help", "vhelp");
@@ -361,7 +365,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
     {
         String cmd = e.getActionCommand();
         Map<String, String> actioncmd = jswPanel.parseActionCommand(cmd);
-        System.out.println("mywidgets gui2:" + actioncmd);
+      //  System.out.println("mywidgets gui2:" + actioncmd);
         String action = actioncmd.get("command").toUpperCase();
         if (action.equalsIgnoreCase("CLEAR"))
         {
@@ -547,6 +551,13 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
             jswWidget actionsource = (jswWidget) (selectedcell);
             textarea.addText("tree node selected :" + selectedcell.getSelection());
             return;
+        }else if (action.equalsIgnoreCase("olist"))
+        {
+            if(optionseta.isSelected(2))
+                textarea.setText(" green is selected");
+            else
+                textarea.setText(" green is not selected");
+            return;
         }
         if (this.textarea != null)
         {
@@ -597,7 +608,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         jswButton abutton = new jswButton(null, "press me", "pressme");
         jswCell acell = table1.addCell(abutton, " ", 2, 1);
         abutton.setActionListener(acell);
-        abutton.listActionListeners();
+    //    abutton.listActionListeners();
         table1.removeCell(3, 1);
         jswDropDownBox addb = new jswDropDownBox(table1, "dropdownbox2");
         jswCell bcell = table1.addCell(addb, 3, 1);

@@ -35,6 +35,7 @@ public class jswOption extends jswWidget
 		add(button);
 		button.addActionListener(this);
 		button.setActionCommand(command);
+        this.setActionCommand(command);
 		setActionListener(al);
 		this.vertical = vertical;
 		button.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -123,7 +124,7 @@ public class jswOption extends jswWidget
 		setSelection(mess);
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
-		jswActionEvent event = new jswActionEvent(this, uniqueId,e.getActionCommand());
+		jswActionEvent event = new jswActionEvent(this, uniqueId,getActionCommand());
 		getActionlistener().actionPerformed(event);
 	}
 	

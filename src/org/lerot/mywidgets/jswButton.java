@@ -111,7 +111,7 @@ public class jswButton extends jswWidget
 		Long t = System.currentTimeMillis() / 10000;
 		setSelection(getTag());
 		int uniqueId = t.intValue();
-		System.out.println(" in button");
+		//System.out.println(" in button");
 		String command = e.getActionCommand();
 		jswActionEvent event = new jswActionEvent(this, uniqueId, command);
 		getActionlistener().actionPerformed(event);

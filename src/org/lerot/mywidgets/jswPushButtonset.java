@@ -68,9 +68,10 @@ public class jswPushButtonset extends jswWidget
     {
         jswPushButton source = (jswPushButton) e.getSource();
         setSelection(e.getActionCommand());
+        String compoundactioncommand = this.getActionCommand()+":"+ e.getActionCommand();
         Long t = System.currentTimeMillis() / 10000;
         int uniqueId = t.intValue();
-        jswActionEvent event = new jswActionEvent(this, uniqueId, getActionCommand());
+        jswActionEvent event = new jswActionEvent(this, uniqueId, compoundactioncommand);
         actionlistener.actionPerformed(event);
     }
 

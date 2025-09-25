@@ -341,7 +341,7 @@ public class jswTableLayout extends jswLayout
 				{
 					JComponent jccomp = (JComponent) cellcontent;
 					min = jccomp.getMinimumSize();
-					System.out.println(" not jswpanel =" + comp.getClass().getName());
+					//System.out.println(" not jswpanel =" + comp.getClass().getName());
 				}
 				min.width = min.width+padding.left+padding.right;
 				min.height = min.height+padding.top+padding.bottom;
@@ -352,7 +352,7 @@ public class jswTableLayout extends jswLayout
 				if (width > min.width)
 				{
 					min.width = width;
-					System.out.println(" Setting width =" + width);
+					//System.out.println(" Setting width =" + width);
 				}
 				if (width < min.width)
 				{

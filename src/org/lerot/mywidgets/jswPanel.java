@@ -106,7 +106,7 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
 
     public static HashMap<String, String> createActionMap(jswPanel apanel, ActionEvent e)
     {
-        // System.out.println( "in camap "+e.getActionCommand());
+        // //System.out.println( "in camap "+e.getActionCommand());
         HashMap<String, String> action = createBaseActionMap(apanel, e);
         action.put("actiontype", "ActionEvent");
         return action;
@@ -134,7 +134,7 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
 
     public static HashMap<String, String> createBaseActionMap(jswPanel apanel, EventObject e)
     {
-        // System.out.println( "in camap "+e.getActionCommand());
+        // //System.out.println( "in camap "+e.getActionCommand());
         HashMap<String, String> action = new HashMap<String, String>();
         action.put("handlerclass", apanel.getClass().getSimpleName());
         action.put("handlertag", apanel.getTag());

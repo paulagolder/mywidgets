@@ -65,7 +65,7 @@ public class jswRectLayout extends jswLayout
 		{
 			ncomponent.setBounds(x, y, usableWidth, availableHeight);
 		}
-		// System.out.println(" ");
+		// //System.out.println(" ");
 	}
 
 	@Override

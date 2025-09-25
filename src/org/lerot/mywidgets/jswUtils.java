@@ -12,11 +12,7 @@ public class jswUtils
         String[] cmdarray = text3.split(",");
         for (String acmd : cmdarray)
         {
-            //System.out.println( acmd)   ;
             String[] cmdpair = acmd.split("=");
-           // System.out.println(acmd);
-          //  System.out.println(cmdpair[0]);
-           // System.out.println(cmdpair.[1]);
             if( cmdpair.length< 2 )
             {
                 cmdmap.put(cmdpair[0].trim(), " ");
@@ -24,7 +20,6 @@ public class jswUtils
             else
              cmdmap.put(cmdpair[0].trim(), cmdpair[1].trim());
         }
-        //    System.out.println(cmdmap);
         return cmdmap;
     }
 }

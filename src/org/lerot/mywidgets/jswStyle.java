@@ -124,7 +124,7 @@ public class jswStyle
 		{
 			String key = entry.getKey();
 			String value = entry.getValue();
-			System.out.println(key + "::" + value);
+			//System.out.println(key + "::" + value);
 		}
 	}
 

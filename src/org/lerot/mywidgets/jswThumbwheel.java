@@ -90,7 +90,7 @@ public class jswThumbwheel extends jswWidget implements ChangeListener
 		setSelection(value.getValue().toString());
 		Long t = System.currentTimeMillis() / 10000;
 	    int uniqueId = t.intValue();
-		System.out.println(" in thumbwheel :"+getActionCommand());
+	//	//System.out.println(" in thumbwheel :"+getActionCommand());
         jswActionEvent event = new jswActionEvent(this, uniqueId,getActionCommand());
         al.actionPerformed(event);
     }

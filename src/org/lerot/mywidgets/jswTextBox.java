@@ -69,7 +69,7 @@ public class jswTextBox extends jswWidget implements KeyListener // implements C
 	public void actionPerformed(ActionEvent e)
 	{
 		setSelection(getText());
-        System.out.println(" in text box :"+getSelection());
+        //System.out.println(" in text box :"+getSelection());
 		Long t = System.currentTimeMillis() / 10000;
 		int uniqueId = t.intValue();
 		jswActionEvent event = new jswActionEvent(this, uniqueId, getActionCommand());
@@ -220,7 +220,7 @@ public class jswTextBox extends jswWidget implements KeyListener // implements C
 	public void keyReleased(KeyEvent e)
 	{
 		// textbox.revalidate();
-		// System.out.println("some action:" + getText());
+		// //System.out.println("some action:" + getText());
 	}
 
 	public Dimension getMinimumSize()

@@ -79,7 +79,7 @@ public class jswToggleButton extends jswWidget implements  ChangeListener
         else mess = "OFF";
      //   am.put("value", mess);
      //   am.put("command", "buttontoggled");
-	//	System.out.println("action"+am);
+	//	//System.out.println("action"+am);
         Long t = System.currentTimeMillis() / 10000;
         int uniqueId = t.intValue();
         jswActionEvent event = new jswActionEvent(this, uniqueId, e.getActionCommand());

@@ -120,10 +120,10 @@ public class jswButton extends jswWidget
 
 	public void listActionListeners()
 	{
-		System.out.println(" jswbutton :"+this.getActionlistener());
+		//System.out.println(" jswbutton :"+this.getActionlistener());
 		for ( ActionListener al : button.getActionListeners())
 		{
-			System.out.println(" +button :"+al);
+			//System.out.println(" +button :"+al);
 		}
 	}
 }

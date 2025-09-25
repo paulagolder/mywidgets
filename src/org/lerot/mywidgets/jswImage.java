@@ -137,7 +137,7 @@ public class jswImage
 			String imageDataString = encodeImage(imageData);
 			imageInFile.close();
 			encodedimage = imageDataString;
-			System.out.println("Image Successfully Manipulated!");
+			//System.out.println("Image Successfully Manipulated!");
 		} catch (FileNotFoundException e)
 		{
 			System.out.println("Image not found" + e);

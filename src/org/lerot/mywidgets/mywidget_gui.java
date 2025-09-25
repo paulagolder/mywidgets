@@ -355,7 +355,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         {
             if (this.textarea != null)
             {
-                System.out.println(sourceclass);
+                //System.out.println(sourceclass);
                 this.textarea.addText("handling :" + e.getActionCommand() + "\n");
             }
         }
@@ -365,7 +365,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
     {
         String cmd = e.getActionCommand();
         Map<String, String> actioncmd = jswPanel.parseActionCommand(cmd);
-      //  System.out.println("mywidgets gui2:" + actioncmd);
+      //  //System.out.println("mywidgets gui2:" + actioncmd);
         String action = actioncmd.get("command").toUpperCase();
         if (action.equalsIgnoreCase("CLEAR"))
         {
@@ -513,7 +513,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
             textarea.addText("row selected: " + (selectedcell.getRow()));
             textarea.addText("col selected: " + (selectedcell.getCol()));
             jswWidget actionsource = (jswWidget) (selectedcell);
-            System.out.println(actionsource.getClass().getName());
+            //System.out.println(actionsource.getClass().getName());
             textarea.addText("text entry :  " + selectedcell.getSelection());
             return;
         }else if (action.equalsIgnoreCase("showtotal"))

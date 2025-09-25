@@ -61,8 +61,8 @@ public class jswVerticalLayout extends jswLayout
 		if (parentname.equals(trace))
 		{
 			System.out.println("tracing 2"+trace);
-			System.out.println(usableWidth+":"+availableHeight);
-			System.out.println(visibleComponents);
+			//System.out.println(usableWidth+":"+availableHeight);
+			//System.out.println(visibleComponents);
 		}
 		if (visibleComponents== 0)
 			vgap = 0;
@@ -90,7 +90,7 @@ public class jswVerticalLayout extends jswLayout
             cumheight += layoutTable[j].minheight;
 			if (parentname.equals(trace))
 			{
-				System.out.println(layoutTable[j].toString());
+				//System.out.println(layoutTable[j].toString());
 			}
 		}
 	
@@ -103,9 +103,9 @@ public class jswVerticalLayout extends jswLayout
 		if (parentname.equals(trace))
 		{
 
-			System.out.println(availableHeight+":"+cumheight+":"+fillheight);
-			System.out.println(sparespace+":"+fillheight);
-			System.out.println(" padding :"+padding);
+			//System.out.println(availableHeight+":"+cumheight+":"+fillheight);
+			//System.out.println(sparespace+":"+fillheight);
+			//System.out.println(" padding :"+padding);
 		}
 		int gap;
 		int y=0;
@@ -164,8 +164,7 @@ public class jswVerticalLayout extends jswLayout
 			Component comp = layoutTable[j].comp;
             comp.setBounds(layoutTable[j].x, layoutTable[j].y, layoutTable[j].finalwidth, layoutTable[j].finalheight);
 			if (parentname.equalsIgnoreCase(trace))
-                System.out.println("x:y:w:h " +((jswPanel) comp).getPanelname()+":"+ layoutTable[j].x + ":" + layoutTable[j].y + ":" + layoutTable[j].finalwidth + ":"
-						+ layoutTable[j].finalheight);
+                System.out.println("x:y:w:h " +((jswPanel) comp).getPanelname()+":"+ layoutTable[j].x + ":" + layoutTable[j].y + ":" + layoutTable[j].finalwidth + ":"+ layoutTable[j].finalheight);
 		}
 
 	}

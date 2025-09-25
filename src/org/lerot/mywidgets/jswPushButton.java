@@ -93,6 +93,6 @@ public class jswPushButton extends jswWidget //implements ItemListener
 
     public void itemStateChanged(ItemEvent evt)
     {
-        System.out.println(" Selecting x "+button.getText());
+        //System.out.println(" Selecting x "+button.getText());
     }
 }

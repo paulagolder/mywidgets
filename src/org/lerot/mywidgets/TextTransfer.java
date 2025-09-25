@@ -16,11 +16,11 @@ public final class TextTransfer implements ClipboardOwner {
     TextTransfer textTransfer = new TextTransfer();
 
     //display what is currently on the clipboard
-    System.out.println("Clipboard contains:" + textTransfer.getClipboardContents());
+    //System.out.println("Clipboard contains:" + textTransfer.getClipboardContents());
 
     //change the contents and then re-display
     textTransfer.setClipboardContents("blah, blah, blah");
-    System.out.println("Clipboard contains:" + textTransfer.getClipboardContents());
+    //System.out.println("Clipboard contains:" + textTransfer.getClipboardContents());
   }
 
    /**
@@ -60,7 +60,7 @@ public final class TextTransfer implements ClipboardOwner {
         result = (String)contents.getTransferData(DataFlavor.stringFlavor);
       }
       catch (UnsupportedFlavorException | IOException ex){
-        System.out.println(ex);
+        //System.out.println(ex);
         ex.printStackTrace();
       }
     }

@@ -275,12 +275,12 @@ public abstract class jswLayout implements LayoutManager
         }
         if(minheight < 0 || minheight>100000)
         {
-            System.out.println( " minimumsize error "+minheight);
+            //System.out.println( " minimumsize error "+minheight);
             if(layoutTable!=null)
             {
                 for (int j = 0; j < layoutTable.length; j++)
                 {
-                    System.out.println(layoutTable[j].toString());
+                    //System.out.println(layoutTable[j].toString());
                 }
             }
         }

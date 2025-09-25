@@ -49,7 +49,7 @@ public class jswScrollLayout extends jswLayout
 		{
 			if (((jswPanel) parent).getTag().equals("trace"))
 			{
-				System.out.println("tracing");
+				//System.out.println("tracing");
 				trace = true;
 			}
 		}
@@ -57,8 +57,7 @@ public class jswScrollLayout extends jswLayout
 		while (p2 != null)
 		{
 			Dimension d = p2.getSize();
-			System.out.format(" p2 %s %d %d %n", p2.getClass().getSimpleName(),
-					d.width, d.height);
+			//System.out.format(" p2 %s %d %d %n", p2.getClass().getSimpleName(),d.width, d.height);
 			p2 = p2.getParent();
 		}
 		Insets binsets = new Insets(0, 0, 0, 0);
@@ -80,9 +79,9 @@ public class jswScrollLayout extends jswLayout
 		int availableHeight = parentSize.height - insets.top - insets.bottom
 				- binsets.top - binsets.bottom - shifts.height;
 		availableHeight = availableHeight;
-		// System.out.println(" laying out insets=" + insets);
-		// System.out.println(" laying out binsets=" + binsets);
-		// System.out.println(" laying out parent=" + pname + " : "
+		// //System.out.println(" laying out insets=" + insets);
+		// //System.out.println(" laying out binsets=" + binsets);
+		// //System.out.println(" laying out parent=" + pname + " : "
 		// + parent.getClass().getSimpleName());
 		int k = 1;
 		Component ncomponent = parent.getComponent(0);
@@ -92,13 +91,13 @@ public class jswScrollLayout extends jswLayout
 			if (maxsize.height < availableHeight) useheight = maxsize.height;
 			ncomponent.setBounds(x, y, usableWidth, useheight);
 			parent.setBounds(x, y, usableWidth, useheight);
-			System.out.println("     " + k + " "
+			/*System.out.println("     " + k + " "
 					+ ncomponent.getClass().getSimpleName()
 					+ ":: scroll layout " + pname + "  w=" + usableWidth
-					+ " h=" + useheight);
+					+ " h=" + useheight);*/
 			k++;
 		}
-		// System.out.println(" ");
+		// //System.out.println(" ");
 	}
 
 	@Override

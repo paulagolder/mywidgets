@@ -65,7 +65,7 @@ public class jswEditPanel extends jswHorizontalPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent arg0)
 	{
-		System.out.println(" happy days ");
+		//System.out.println(" happy days ");
 
 	}
 

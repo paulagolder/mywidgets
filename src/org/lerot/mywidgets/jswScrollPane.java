@@ -40,7 +40,7 @@ public class jswScrollPane extends jswPanel
 	{
 		window.setBounds(x, y, w, h);
 		this.setBounds(x, y, w, h);
-		// System.out.format(" setting bounds %d %d %d %d %n ", x, y, w, h);
+		// //System.out.format(" setting bounds %d %d %d %d %n ", x, y, w, h);
 	}
 
 	public void setHorizontalScrollBarPolicy(int policy)

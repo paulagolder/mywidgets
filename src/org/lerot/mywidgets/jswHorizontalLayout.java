@@ -50,7 +50,7 @@ public class jswHorizontalLayout extends jswLayout
         {
             System.out.println("tracing " + trace);
             //  if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
-            // System.out.println(" {" + parentSize.width + ";" + parentSize.height + "} :" + padding + ":" + gap);
+            // //System.out.println(" {" + parentSize.width + ";" + parentSize.height + "} :" + padding + ":" + gap);
         }
 
         makeLayout(parent);
@@ -156,8 +156,8 @@ public class jswHorizontalLayout extends jswLayout
         if (((jswPanel) parent).getPanelname().equalsIgnoreCase(trace))
         {
             System.out.println("tracing 2 " + trace);
-            System.out.println("padding " + padding.toString());
-            System.out.println("VLS " + verticallayoutstyle);
+            //System.out.println("padding " + padding.toString());
+            //System.out.println("VLS " + verticallayoutstyle);
         }
         status = left;
         for (int j = 0; j < visibleComponents; j++)

@@ -59,25 +59,25 @@ public class jswLabel extends jswPanel
 	/*@Override
 public int jswGetWidth()
 	{
-		System.out.println(" setin width  " + label.getText());
+		//System.out.println(" setin width  " + label.getText());
 		int setwidth = style.getIntegerStyle("mywidth", -1);
 		if (setwidth > 0)
 			return setwidth;
-		System.out.println(" setwidth " + setwidth);
+		//System.out.println(" setwidth " + setwidth);
 		Dimension d = label.getPreferredSize();
-		System.out.println(" prefered size w=" + d.width + " h=" + d.height);
+		//System.out.println(" prefered size w=" + d.width + " h=" + d.height);
 		if (d.width > 0)
 			return d.width;
 		else
 		{
 			d = label.getMaximumSize();
-			System.out.println(" maximum size w=" + d.width + " h=" + d.height);
+			//System.out.println(" maximum size w=" + d.width + " h=" + d.height);
 			if (d.width > 0)
 				return d.width;
 			else
 			{
 				d = label.getMinimumSize();
-				System.out.println(" minimum size w=" + d.width + " h=" + d.height);
+				//System.out.println(" minimum size w=" + d.width + " h=" + d.height);
 				return d.width;
 			}
 		}

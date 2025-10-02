@@ -28,25 +28,20 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
 
     public mywidget_gui(int w, int h)
     {
-       // jswContainer apanel = new jswContainer("dummy");
-        //jswStyles defstyles = jswStyles.getDefaultStyles();
         jswStyles mwdefstyles = defaultStyles();
-
         mainpanel = new jswVerticalPanel("mainpanel", false, true);
         mainpanel.setBorder(jswStyle.makeLineBorder(Color.red, 4));
         jswHorizontalPanel titlepanel = new jswHorizontalPanel("title", true, true);
         mainpanel.add(" FILLW  ", titlepanel);
-        jswLabel maintitle = new jswLabel("test Gui v20250922");
+        jswLabel maintitle = new jswLabel("test Gui v20251002");
         maintitle.setStyleAttribute("fontsize", 18);
         maintitle.setStyleAttribute("foregroundcolor", "black");
         maintitle.setStyleAttribute("borderwidth", 0);
         titlepanel.add(" middle ", maintitle);
         jswDate date = new jswDate("dd  MM yyyy");
-        //date.setStyleAttribute("borderwidth", 3);
         titlepanel.add(" right ", date);
         date.applyStyle();
         maintitle.applyStyle();
-        //     maintitle.getStyle().printList();
         jswHorizontalPanel panelm = new jswHorizontalPanel("Panelm", true, true);
         jswMenuBar mb = new jswMenuBar("mainmenu", this);
         JMenu mh = mb.addMenuHeading("MENU");
@@ -470,13 +465,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
             jswWidget actionsource = (jswWidget) (selectedcell);
             textarea.addText("button pressed  " + selectedcell.getSelection());
             return;
-        } else if (action.equalsIgnoreCase("togglebutton1"))
-        {
-            textarea.setText("");
-            jswToggleButton button = (jswToggleButton) e.getSource();
-            textarea.addText("button pressed  " + button.isSelected());
-            return;
-        } else if (action.equalsIgnoreCase("togglebutton1"))
+        }  else if (action.equalsIgnoreCase("togglebutton1"))
         {
             textarea.setText("");
             jswToggleButton button = (jswToggleButton) e.getSource();

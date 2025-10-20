@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 import javax.swing.ButtonGroup;
 
 public class jswOptionset extends jswWidget implements ActionListener
@@ -13,7 +14,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 	private static final long serialVersionUID = 1L;
 	ButtonGroup bg;
 	int no = 0;
-	private jswOption[] options;
+	private Vector<jswOption> options;
 	private String commandroot;
     private final boolean isvertical;
 	private String selectedoption;
@@ -21,6 +22,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 	public jswOptionset(ActionListener parentListener,String name, boolean isvertical,boolean border, boolean titledborder)
 	{
 		super(name);
+        options = new Vector<>();
 		commandroot = name;
 		setActionListener(parentListener);
         this.isvertical = isvertical;
@@ -46,7 +48,6 @@ public class jswOptionset extends jswWidget implements ActionListener
 			style.setBorderStyle(jswStyle.NOBORDER);
 		}
 		bg = new ButtonGroup();
-		options = new jswOption[10];
 		setName(name);
 		applyStyle();
 	}
@@ -73,20 +74,6 @@ public class jswOptionset extends jswWidget implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-	/*	setSelectedoption("");
-		for (int i = 0; i < no; i++)
-		{
-			jswOption on = options[i];
-			if (on.isSelected())
-			{
-				setSelectedoption(on.getTag());
-				//on.setEnabled(true);
-			} else
-			{
-				//on.setEnabled(false);
-			}
-		}
-        setSelection(mess);*/
         Long t = System.currentTimeMillis() / 10000;
         int uniqueId = t.intValue();
         jswActionEvent event = new jswActionEvent(this, uniqueId,commandroot+":"+e.getActionCommand());
@@ -100,7 +87,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 		on.getButton().addActionListener(this);
 		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
 		bg.add(on.getButton());
-		options[no] = on;
+		options.add(on);
 		on.setTag(text);
 		add(on);
 		no = no + 1;
@@ -125,7 +112,7 @@ public class jswOptionset extends jswWidget implements ActionListener
         on.getButton().addActionListener(this);
         on.setBackground(getStyle().getColor("backgroundColor", Color.red));
         bg.add(on.getButton());
-        options[no] = on;
+        options.add(on);
         on.setTag(tag);
         add(on);
         no = no + 1;
@@ -136,7 +123,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 	{
 		for (int i = 0; i < no; i++)
 		{
-			jswOption on = options[i];
+			jswOption on = options.get(i);
 			if (on.isSelected()) return on.getText();
 		}
 		return "";
@@ -147,7 +134,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 
 		for (int i = 0; i < no; i++)
 		{
-			jswOption on = options[i];
+			jswOption on = options.get(i);
 			if (on.isSelected()) return on.getTag();
 		}
 		return "";
@@ -175,7 +162,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 	{
 		for (int i = 0; i < no; i++)
 		{
-			jswPanel on = options[i];
+			jswPanel on = options.get(i);
 			on.setEnabled(e);
 		}
 	}
@@ -184,7 +171,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 	{
 		for (int i = 0; i < no; i++)
 		{
-			jswOption on = options[i];
+			jswOption on = options.get(i);
 			String ontext = on.getTag();
 			if (ontext.equalsIgnoreCase(j)) on.setSelected();
 		}
@@ -192,7 +179,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 
 	public void setSelected(int i)
 	{
-		jswOption on = options[i];
+		jswOption on = options.get(i);
 		on.setSelected();
 	}
 
@@ -232,7 +219,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 		{
 			for (int i = 0; i < no; i++)
 			{
-				jswOption on = options[i];
+				jswOption on = options.get(i);
 				Dimension d = on.getMinimumSize();
 				height += d.height + vgap;
 				if (width < d.width ) width = d.width;			
@@ -243,7 +230,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 		{
 			for (int i = 0; i < no; i++)
 			{
-				jswOption on = options[i];
+				jswOption on = options.get(i);
 				Dimension d = on.getMinimumSize();
 				width += d.width + hgap;
 				if (height < d.height ) height = d.height;			
@@ -293,7 +280,7 @@ public class jswOptionset extends jswWidget implements ActionListener
         {
             for (int i = 0; i < no; i++)
             {
-                jswOption on = options[i];
+                jswOption on = options.get(i);
                 Dimension d = on.getMinimumSize();
                 height += d.height + vgap;
                 if (width < d.width) width = d.width;
@@ -304,7 +291,7 @@ public class jswOptionset extends jswWidget implements ActionListener
         {
             for (int i = 0; i < no; i++)
             {
-                jswOption on = options[i];
+                jswOption on = options.get(i);
                 Dimension d = on.getMinimumSize();
                 width += d.width + hgap;
                 if (height < d.height) height = d.height;
@@ -328,19 +315,19 @@ public class jswOptionset extends jswWidget implements ActionListener
 		this.selectedoption = selectedoption;
 	}
 
-    public jswOption[] getOptions()
+    public Vector<jswOption> getOptions()
     {
         return options;
     }
 
-    public void setOptions(jswOption[] options)
+    public void setOptions(Vector<jswOption> options)
     {
         this.options = options;
     }
 
     public jswOption getOption(int optno)
     {
-        return options[optno];
+        return options.get(optno);
     }
 
     public String getCommandroot()

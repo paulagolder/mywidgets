@@ -359,9 +359,11 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
     public void jswActionPerformed(ActionEvent e)
     {
         String cmd = e.getActionCommand();
-        Map<String, String> actioncmd = jswPanel.parseActionCommand(cmd);
-      //  //System.out.println("mywidgets gui2:" + actioncmd);
-        String action = actioncmd.get("command").toUpperCase();
+       // Map<String, String> actioncmd = jswPanel.parseActionCommand(cmd);
+      //  System.out.println("mywidgets gui2:" + actioncmd);
+       // System.out.println(((jswWidget) e.getSource()).getPanelname());
+      //  String action = actioncmd.get("command").toUpperCase();
+        String action = cmd;
         if (action.equalsIgnoreCase("CLEAR"))
         {
             textarea.setText("");
@@ -550,7 +552,7 @@ public class mywidget_gui extends JFrame implements ActionListener, TreeModelLis
         }
         if (this.textarea != null)
         {
-            this.textarea.addText("jswhandling :" + actioncmd + "\n");
+            this.textarea.addText("jswhandling :" + action+ "\n");
         }
 
     }

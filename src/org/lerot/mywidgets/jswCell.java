@@ -152,30 +152,10 @@ public class jswCell extends jswWidget implements  MouseListener
 		{
 			jswPanel panel = ((jswPanel) e.getSource());
 			String pname = panel.getPanelname();
-			HashMap<String, String> am = jswPanel.createActionMap(this, e);
-			am.put("column", (" " + this.getCol()));
-			am.put("row", (" " + this.getRow()));
-			am.put("command", "mouseclick");
-			if (source instanceof jswLabel)
-			{
-				String text = ((jswLabel) source).getText();
-				am.put("cellcontent", text);
-				am.put("jswLabel",((jswPanel) source).getPanelname());
-			}
-			else if (source instanceof jswTextBox)
-			{
-				String text = ((jswTextBox) source).getText();
-				am.put("cellcontent", text);
-				am.put("jswTextbox",((jswPanel) source).getPanelname());
-			}
-			else
-			{
-				am.put(panel.getClass().getSimpleName(), ((jswPanel)panel).getPanelname());
-			}
 			Long t = System.currentTimeMillis() / 10000;
 			int uniqueId = t.intValue();
-			//System.out.println("+++"+am.toString());
-			ActionEvent event = new ActionEvent(this, uniqueId, am.toString());
+            String command = "cellclick:"+this.getCol()+":"+this.getRow();
+			ActionEvent event = new ActionEvent(this, uniqueId,command);
 			actionlistener.actionPerformed(event);
 		}
 	}

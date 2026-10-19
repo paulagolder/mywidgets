@@ -113,7 +113,6 @@ public class jswTree extends jswWidget implements ComponentListener
 		selectedcolor = style.getColor("selectedcolor", Color.red);
 		if (reptreeView != null)
 		{
-			reptreeView.setBackground(Color.green);
 			reptreeView.setFont(style.getFont());
 			reptreeView.setForeground(style.getForegroundcolor());
 			reptreeView.setBackground(jswStyle.defaulttextboxcolor);

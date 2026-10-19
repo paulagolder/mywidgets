@@ -21,6 +21,7 @@ public class jswScrollPane extends jswPanel
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		window = new JScrollPane(target);
+		inheritBackground();
 		add( window);
 		applyStyle();
 		window.setVisible(true);
@@ -33,7 +34,15 @@ public class jswScrollPane extends jswPanel
 		jswHorizontalLayout arlayout = new jswHorizontalLayout();
 		this.setLayout(arlayout);
 		window = new JScrollPane(target);
+		inheritBackground();
 		add(" FILLW ", window);
+	}
+
+	// let the scrolled content show the background of the area it sits in
+	private void inheritBackground()
+	{
+		window.setBackground(null);
+		window.getViewport().setBackground(null);
 	}
 
 	public void setMyBounds(int x, int y, int w, int h)

@@ -20,13 +20,13 @@ public class jswTable extends jswWidget implements ActionListener
 		tablestyles.copyStyles(styles);
 		style = styles.getStyle("table");
 		setLayout(new jswTableLayout());
-		Color bcolor = style.getColor("backgroundColor", Color.BLUE);
+		Color bcolor = style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor);
 		setBackground(bcolor);
 		actionlistener = al;
 		int borderwidth = style.getIntegerStyle("borderWidth", 0);
 		if (borderwidth > 0)
 		{
-			Color bordercolor = style.getColor("bordercolor", Color.yellow);
+			Color bordercolor = style.getColor("bordercolor", jswStyle.defaultbordercolor);
 			this.setBorder(jswStyle.makeLineBorder(bordercolor, borderwidth));
 		} else
 		{
@@ -38,12 +38,12 @@ public class jswTable extends jswWidget implements ActionListener
 
     public void applyStyle(jswStyle astyle)
 	{
-		Color bcolor = astyle.getColor("backgroundColor", Color.BLUE);
+		Color bcolor = astyle.getColor("backgroundColor", jswStyle.defaultbackgroundcolor);
 		setBackground(bcolor);
 		int borderwidth = astyle.getIntegerStyle("borderWidth", 0);
 		if (borderwidth > 0)
 		{
-			Color bordercolor = astyle.getColor("bordercolor", Color.yellow);
+			Color bordercolor = astyle.getColor("bordercolor", jswStyle.defaultbordercolor);
 			this.setBorder(jswStyle.makeLineBorder(bordercolor, borderwidth));
 		} 
 	}
@@ -87,8 +87,8 @@ public class jswTable extends jswWidget implements ActionListener
 		jswCell acell = new jswCell(this,row, col);		
 		String settings = cellstyle.getStringStyle("horizontalAlign");
 		if (setting != null) settings += " " + setting + " ";
-		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
-		cont.setBackground(new Color(0, 0, 0, 0));
+		acell.setBorder(jswStyle.makeCellBorder(jswStyle.defaultbordercolor, 1));
+		cont.setBackground(null);
 		acell.setPadding(5,5,5,15);
 		acell.add(settings, cont);
 		acell.add( cont);
@@ -108,7 +108,7 @@ public class jswTable extends jswWidget implements ActionListener
 	{
 		jswStyle cellstyle = getCellStyle(row, col);
 		jswCell acell = new jswCell(this,row, col);
-		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
+		acell.setBorder(jswStyle.makeCellBorder(jswStyle.defaultbordercolor, 1));
 		acell.setPadding(5,5,5,15);
 		add(acell);
 		return acell;
@@ -126,8 +126,8 @@ public class jswTable extends jswWidget implements ActionListener
 		jswCell acell = new jswCell(this,row, col);
 		String settings = cellstyle.getStringStyle("horizontalAlign");
 		if (setting != null) settings += " " + setting + " ";
-		acell.setBorder(jswStyle.makeCellBorder(Color.black,4));
-		cont.setBackground(new Color(0, 0, 0, 0));
+		acell.setBorder(jswStyle.makeCellBorder(jswStyle.defaultbordercolor, 1));
+		cont.setBackground(null);
 		acell.setPadding(5,5,5,15);
 		acell.add(settings, cont);
 		acell.add( cont);

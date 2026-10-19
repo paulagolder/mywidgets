@@ -58,7 +58,7 @@ public class jswSplitPane extends jswContainer
 		add(splitpane);
 		style.setBorderStyle(jswStyle.LINEBORDER);
 		style.setBorderWidth(1);
-		style.setBordercolor("RED");
+		style.setBordercolor(jswStyle.borderColourHex());
 		applyStyle();
 	}
 
@@ -71,7 +71,7 @@ public class jswSplitPane extends jswContainer
 		if (aborder != null)
 			padding = aborder.getBorderInsets(this);
 		this.setForeground(astyle.getColor("foregroundColor", Color.BLACK));
-		this.setBackground(astyle.getColor("backgroundColor", Color.green));
+		this.setBackground(astyle.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 		Dimension pd = new Dimension(900,800);
 		//splitpane.setMinimumSize(pd);
 		panel1.setPreferredSize(pd);

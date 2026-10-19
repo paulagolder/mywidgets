@@ -21,10 +21,9 @@ public class jswLabel extends jswPanel
 		setLayout(layout);
 		label = new JLabel();
 		label.setText(inLabel);
-		label.setBackground(Color.blue);
 		add(label, BorderLayout.CENTER);
 		setStyleAttribute("borderwidth",0);
-		setStyleAttribute("bordercolor","green");
+		setStyleAttribute("bordercolor", jswStyle.borderColourHex());
 		applyStyle();
 		this.setEnabled(true);
 	}
@@ -33,10 +32,10 @@ public class jswLabel extends jswPanel
 	public void applyStyle(jswStyle style)
 	{
 		label.setFont(style.getFont());
-		label.setForeground(style.getColor("foregroundColor", Color.BLACK));
+		label.setForeground(style.getColor("foregroundColor", style.getForegroundcolor()));
 		label.setBackground(style.getColor("backgroundColor", jswStyle.TRANSPARENT));
 		setBorder(style.getBorder());
-		setBackground(jswStyle.TRANSPARENT);
+		setOpaque(false);
 	}
 
 	public jswLabel(int count)

@@ -61,7 +61,6 @@ public class jswTextArea extends jswPanel implements ActionListener, KeyListener
         Dimension d = new Dimension(bw, bh);
 		if (textarea != null)
 		{
-			scrollPane.setBackground(Color.green);
             //	scrollPane.setMinimumSize(new Dimension (bw,bh));
 			textarea.setFont(style.getFont());
 			textarea.setForeground(style.getForegroundcolor());
@@ -115,9 +114,9 @@ public class jswTextArea extends jswPanel implements ActionListener, KeyListener
 	{
 		setEnabled(true);
 		textarea.setOpaque(true);
-		textarea.setBackground(Color.LIGHT_GRAY);
+		textarea.setBackground(jswStyle.lafColor("TextArea.inactiveBackground", Color.LIGHT_GRAY));
 		textarea.setDisabledTextColor(Color.blue);
-		textarea.setFont(new Font("SansSerif", Font.ITALIC, 10));
+		textarea.setFont(new Font("SansSerif", Font.ITALIC, jswTheme.TEXT));
 		setEnabled(false);
 	}
 

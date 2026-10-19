@@ -67,7 +67,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 		this.setFont(sfont);
 		setPanelBorder(style);
 		this.setForeground(style.getColor("foregroundColor", Color.blue));
-		this.setBackground(style.getColor("backgroundColor", Color.red));	
+		this.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));	
 		setMinimumSize(getMinimumSize());
 	}
 
@@ -85,7 +85,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 	{
 		jswOption on = new jswOption(this,text, vertical,command);
 		on.getButton().addActionListener(this);
-		on.setBackground(getStyle().getColor("backgroundColor", Color.red));
+		on.setBackground(getStyle().getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 		bg.add(on.getButton());
 		options.add(on);
 		on.setTag(text);
@@ -110,7 +110,7 @@ public class jswOptionset extends jswWidget implements ActionListener
     {
         jswOption on = new jswOption(this,label, this.isvertical,optioncommand);
         on.getButton().addActionListener(this);
-        on.setBackground(getStyle().getColor("backgroundColor", Color.red));
+        on.setBackground(getStyle().getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
         bg.add(on.getButton());
         options.add(on);
         on.setTag(tag);

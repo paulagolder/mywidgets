@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BorderFactory;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
@@ -39,7 +40,7 @@ public class jswStyle
 	}
 	public static Border makeLineBorder()
 	{
-		return BorderFactory.createLineBorder(Color.BLACK, 1);
+		return BorderFactory.createLineBorder(lafColor("Component.borderColor", Color.gray), 1);
 	}
 
 	public static Border makeLineBorder(Color col, int w)
@@ -49,7 +50,7 @@ public class jswStyle
 
 	public static Border makeLineBorder(int w)
 	{
-		return BorderFactory.createLineBorder(Color.BLACK, w);
+		return BorderFactory.createLineBorder(lafColor("Component.borderColor", Color.gray), w);
 	}
 
 	public static Color transparentColor()
@@ -79,20 +80,35 @@ public class jswStyle
 
 	public jswStyle()
 	{
-		defaultforegroundcolor = Color.black;
-		defaultfontname = "SansSerif";
+		// take defaults from the installed look and feel so widgets match it
+		Font lafFont = UIManager.getFont("Label.font");
+		defaultforegroundcolor = lafColor("Label.foreground", Color.black);
+		defaultfontname = lafFont != null ? lafFont.getFamily() : "SansSerif";
 		defaultfontstyle = Font.PLAIN;
-		defaultfontsize = 12;
+		defaultfontsize = lafFont != null ? lafFont.getSize() : 12;
 		defaultborderwidth = 1;
 		defaulttitlefontname = defaultfontname ;
 		defaulttitlefontstyle = defaultfontstyle ;
 		defaulttitlefontsize = defaultfontsize;
 		defaulttitlefontcolor =defaultforegroundcolor;
-		defaultbordercolor = defaultforegroundcolor;
-		defaultbackgroundcolor  = new Color(0,0,0,125);
-		defaultwidgetcolor = new Color(200,240,240);
-		defaulttextboxcolor = new Color(240,200,200);
+		defaultbordercolor = lafColor("Component.borderColor", Color.gray);
+		defaultbackgroundcolor  = null; // null = inherit from parent
+		defaultwidgetcolor = lafColor("Button.background", new Color(200,240,240));
+		defaulttextboxcolor = lafColor("TextField.background", Color.white);
 		TRANSPARENT = new  Color(0,0,0,0);
+	}
+
+	// the look and feel's border colour as "#rrggbb", for use in style attributes
+	public static String borderColourHex()
+	{
+		Color c = lafColor("Component.borderColor", Color.gray);
+		return String.format("#%06X", c.getRGB() & 0xFFFFFF);
+	}
+
+	static Color lafColor(String key, Color fallback)
+	{
+		Color c = UIManager.getColor(key);
+		return c != null ? c : fallback;
 	}
 
 	public jswStyle(String name)
@@ -141,7 +157,8 @@ public class jswStyle
 	
 	public Color getForegroundcolor()
 	{
-		return getColor("foregroundcolor", Color.black);
+		return getColor("foregroundcolor",
+				defaultforegroundcolor != null ? defaultforegroundcolor : Color.black);
 	}
 	
 	
@@ -167,7 +184,7 @@ public class jswStyle
 	public  Border makecborder(String label)
 	{
 		Font tf = getTitleFont();
-		Color bordercolor = getColor("borderColor", Color.BLACK);
+		Color bordercolor = getColor("borderColor", defaultbordercolor);
 		int borderwidth = getIntegerStyle("borderWidth", defaultborderwidth);
 		 borderwidth = 1;
 		Color titlecolor = getColor("titleColor", defaulttitlefontcolor);
@@ -187,7 +204,7 @@ public class jswStyle
 	public   Border makeLineborder(Insets ins)
 	{
 
-		Color bordercolor = getColor("borderColor", Color.BLACK);
+		Color bordercolor = getColor("borderColor", defaultbordercolor);
 		int borderwidth = getIntegerStyle("borderWidth", defaultborderwidth);
 		Color bcolor = getColor("bordercolor", jswStyle.defaultbordercolor);
 		LineBorder lb = new LineBorder(bcolor, borderwidth,false);
@@ -199,7 +216,7 @@ public class jswStyle
 
 	public Border getBorder()
 	{
-		Color bordercolor = getColor("borderColor", Color.BLACK);
+		Color bordercolor = getColor("borderColor", defaultbordercolor);
 		int borderwidth = getIntegerStyle("borderWidth", 1);
 		if (borderwidth > 0) return makeLineBorder(bordercolor, borderwidth);
 		else
@@ -209,7 +226,7 @@ public class jswStyle
 	public Border getCellBorder()
 	{
 
-		Color bordercolor = getColor("borderColor", Color.BLACK);
+		Color bordercolor = getColor("borderColor", defaultbordercolor);
 		int borderwidth = getIntegerStyle("borderWidth", 1);
 		return makeCellBorder(bordercolor, borderwidth);
 
@@ -248,7 +265,7 @@ public class jswStyle
 			int fontstyle = getIntegerStyle("fontstyle", defaultfontstyle);
 			return new Font(fontname, fontstyle, fontsize);
 		} else
-			return new Font("SansSerif", Font.PLAIN, 10);
+			return new Font("SansSerif", Font.PLAIN, jswTheme.TEXT);
 	}
 	
 	public Font getTitleFont()
@@ -260,7 +277,7 @@ public class jswStyle
 			int fontstyle = getIntegerStyle("titlefontstyle", defaultfontstyle);
 			return new Font(fontname, fontstyle, fontsize);
 		} else
-			return new Font("SansSerif", Font.PLAIN, 10);
+			return new Font("SansSerif", Font.PLAIN, jswTheme.TEXT);
 
 	}
 
@@ -401,16 +418,16 @@ public class jswStyle
 
 	public void setDefaultStyle()
 	{
-		putAttribute("backgroundcolor", "transparent");
+		// no default background: panels inherit their parent's, widgets use the look and feel's
 		//putAttribute("backgroundcolor", "#b1b9c8");
-		putAttribute("borderColor", "black");
+		putAttribute("borderColor", borderColourHex());
 		putAttribute("borderWidth", "0");
-		putAttribute("cellborderColor", "black");
+		putAttribute("cellborderColor", borderColourHex());
 		putAttribute("cellborderWidth", "0");
 		putAttribute("colspan", "1");
 		putAttribute("direction", "horizontal");
 		putAttribute("fontname", "SansSerif");
-		putAttribute("fontsize", "10");
+		putAttribute("fontsize", jswTheme.TEXT);
 		putAttribute("fontstyle", Font.PLAIN);
 
 		putAttribute("foregroundColor", "black");

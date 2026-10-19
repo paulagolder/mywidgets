@@ -46,50 +46,49 @@ public class jswCell extends jswWidget implements  MouseListener
 			innerlabel.setFont(sfont);
 			innerlabel.setForeground(style.getColor("foregroundColor",
 					Color.BLACK));
-			innerlabel.setBackground(style.getColor("backgroundColor",
-					new Color(0, 0, 0, 0)));
+			innerlabel.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 		}  else if (label instanceof jswButton)
 		{
 			label.setFont(sfont);
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(style.getColor("backgroundColor", Color.white));
+			label.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 		} else if (label instanceof jswContainer)
 		{
 			label.setFont(sfont);
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(style.getColor("backgroundColor", Color.white));
+			label.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 		} else if (label instanceof jswTextBox)
 		{
 			label.setFont(sfont);
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(style.getColor("backgroundColor", Color.white));
+			label.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 			JTextField innerlabel = ((jswTextBox) label).getTextField();
 			innerlabel.setFont(sfont);
 			innerlabel.setForeground(style.getColor("foregroundColor",Color.BLACK));
-			innerlabel.setBackground(Color.pink);
+			innerlabel.setBackground(jswStyle.defaulttextboxcolor);
 		}  else if (label instanceof jswTable)
 		{
 			label.setFont(sfont);
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(style.getColor("backgroundColor", Color.green));
+			label.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 
 		}  else if (label instanceof jswCheckbox)
 		{
 			label.setFont(sfont);
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(style.getColor("backgroundColor", Color.green));
+			label.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 
 		} else if (label instanceof jswDropDownBox)
 		{
 			label.setFont(sfont);
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(style.getColor("backgroundColor", Color.green));
+			label.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 		}
 		else if (label instanceof jswOption)
 		{
 			label.setFont(sfont);
 			label.setForeground(style.getColor("foregroundColor", Color.BLACK));
-			label.setBackground(style.getColor("backgroundColor", Color.green));
+			label.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 		}
 		else
 		{
@@ -114,8 +113,7 @@ public class jswCell extends jswWidget implements  MouseListener
 		this.setFont(afont);
 		this.setForeground(style.getColor("foregroundColor", Color.BLACK));
 		//this.setForeground(Color.red);
-		this.setBackground(style.getColor("backgroundColor", new Color(0, 0,
-				0, 0)));
+		this.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 	}
 
 	@Override

@@ -164,7 +164,7 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
         if (aborder != null)
             padding = aborder.getBorderInsets(this);
         this.setForeground(astyle.getColor("foregroundColor", Color.BLACK));
-        this.setBackground(astyle.getColor("backgroundColor", Color.green));
+        this.setBackground(astyle.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
     }
 
     public void setPanelBorder(jswStyle style)

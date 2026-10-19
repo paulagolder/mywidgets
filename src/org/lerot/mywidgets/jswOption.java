@@ -42,7 +42,7 @@ public class jswOption extends jswWidget
 		button.setAlignmentY(Component.TOP_ALIGNMENT);
 		this.getStyle().setBackgroundcolor("transparent");	
 		this.setStyleAttribute("borderwidth", 1);
-		this.setStyleAttribute("bordercolor", "red");	
+		this.setStyleAttribute("bordercolor", jswStyle.borderColourHex());	
 		setPanelBorder(style);
         applyStyle();
 	}
@@ -60,7 +60,7 @@ public class jswOption extends jswWidget
 			setPanelBorder(style);
 			button.setBorder(style.getBorder());
 			button.setForeground(style.getColor("foregroundColor", Color.blue));
-			button.setBackground(style.getColor("backgroundColor", Color.red));	
+			button.setBackground(style.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));	
 	}
 	
 	public String getText()

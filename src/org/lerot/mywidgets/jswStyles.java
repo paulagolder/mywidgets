@@ -8,9 +8,9 @@ import java.util.Map.Entry;
 
 public class jswStyles
 {
-	public static int font_large = 14;
-	public static int font_medium = 12;
-	public static int font_small = 10;
+	public static int font_large = jswTheme.HEADING;
+	public static int font_medium = jswTheme.TEXT;
+	public static int font_small = jswTheme.TEXT;
 	public String name;
 	public Map<String, jswStyle> stylelist = new HashMap<>();
 	public jswStyles()
@@ -56,29 +56,24 @@ public class jswStyles
 	{
 		jswStyles panelstyles = new jswStyles();
 		jswStyle jswWidgetStyles = panelstyles.makeStyle("jswWidget");
-		jswWidgetStyles.putAttribute("backgroundColor", "#e0dcdf");
-		jswWidgetStyles.putAttribute("boxbackgroundColor", "GREEN");
 		jswWidgetStyles.putAttribute("foregroundColor", "Black");
 		jswWidgetStyles.putAttribute("borderWidth", "0");
-		jswWidgetStyles.putAttribute("fontsize", "14");
-		jswWidgetStyles.putAttribute("borderColor", "blue");
+		jswWidgetStyles.putAttribute("fontsize", jswTheme.TEXT);
+		jswWidgetStyles.putAttribute("borderColor", jswStyle.borderColourHex());
 		jswStyle jswDropDownContactBoxStyles = panelstyles.makeStyle("jswDropDownContactBox");
-		jswDropDownContactBoxStyles.putAttribute("backgroundColor", "#C0C0C0");
-		jswDropDownContactBoxStyles.putAttribute("fontsize", "10");
+		jswDropDownContactBoxStyles.putAttribute("fontsize", jswTheme.TEXT);
 		jswStyle jswScrollPaneStyles = panelstyles.makeStyle("jswScrollPaneStyles");
-		jswScrollPaneStyles.putAttribute("backgroundColor", "#C0C0C0");
-		jswScrollPaneStyles.putAttribute("fontsize", "10");
+		jswScrollPaneStyles.putAttribute("fontsize", jswTheme.TEXT);
 		jswStyle jswBorderStyle = panelstyles.makeStyle("borderstyle");
 		jswBorderStyle.putAttribute("borderWidth", "1");
 		// jswBorderStyle.putAttribute("borderColor", "#C0C0C0");
-		jswBorderStyle.putAttribute("borderColor", "black");
+		jswBorderStyle.putAttribute("borderColor", jswStyle.borderColourHex());
 		jswStyle hpanelStyle = panelstyles.makeStyle("hpanelstyle");
 		hpanelStyle.putAttribute("borderWidth", "2");
-		hpanelStyle.putAttribute("borderColor", "blue");
+		hpanelStyle.putAttribute("borderColor", jswStyle.borderColourHex());
 		hpanelStyle.putAttribute("height", "100");
 		jswStyle pbStyle = panelstyles.makeStyle("jswPushButton");
-		pbStyle.putAttribute("backgroundColor", "#C0C0C0");
-		pbStyle.putAttribute("fontsize", "10");
+		pbStyle.putAttribute("fontsize", jswTheme.TEXT);
 		pbStyle.putAttribute("foregroundColor", "black");
 		jswStyle greenfont = panelstyles.makeStyle("greenfont");
 		greenfont.putAttribute("foregroundColor", "green");
@@ -93,13 +88,12 @@ public class jswStyles
 		jswStyle tablestyle = tablestyles.makeStyle("table");
 		//tablestyle.putAttribute("backgroundColor", "#c0d6f2");
 		tablestyle.putAttribute("borderwidth", "1");
-		tablestyle.putAttribute("borderColor", "green");
+		tablestyle.putAttribute("borderColor", jswStyle.borderColourHex());
 		tablestyle.putAttribute("padding", 10);
 		jswStyle cellstyle = tablestyles.makeStyle("cell");
-		cellstyle.putAttribute("backgroundColor", "#c0d6f2");
-		cellstyle.putAttribute("fontSize", "12");
+		cellstyle.putAttribute("fontSize", jswTheme.TEXT);
 		cellstyle.putAttribute("fontStyle", Font.PLAIN);
-		cellstyle.putAttribute("borderColor", "black");
+		cellstyle.putAttribute("borderColor", jswStyle.borderColourHex());
 		cellstyle.putAttribute("borderWidth", 1);
 		cellstyle.putAttribute("padding", 4);
 
@@ -113,9 +107,8 @@ public class jswStyles
 
 		jswStyle col0style = tablestyles.makeStyle("col_0");
 		col0style.putAttribute("fontStyle", Font.BOLD);
-		col0style.putAttribute("fontSize", "16");
+		col0style.putAttribute("fontSize", jswTheme.HEADING);
 		col0style.putAttribute("minwidth", true);
-		col0style.putAttribute("backgroundColor", "PINK");
 		col0style.setHorizontalAlign("LEFT");
 
 		jswStyle col3style = tablestyles.makeStyle("col_3");

@@ -65,25 +65,7 @@ public class jswPushButton extends jswWidget //implements ItemListener
 
     public void applyStyle(jswStyle style)
     {
-        int l = button.getText().length() * 8 + 30;
-        if (l > bl) bl = l;
-        button.setFont(style.getFont());
-        button.setBackground(jswStyle.defaultwidgetcolor);
-        button.setForeground(style.getForegroundcolor());
-        Border bborder = BorderFactory.createRaisedBevelBorder();
-        button.setBorder(bborder);
-        int wd = style.getIntegerStyle("mywidth", bl);
-        if (wd > bl) bl = wd;
-        int ht = style.getIntegerStyle("myheight", bh);
-        if (ht > bh) bh = ht;
-        Dimension d = new Dimension(bl, bh);
-        button.setPreferredSize(d);
-        button.setMaximumSize(d);
-        button.setMinimumSize(d);
-        setBackground(jswStyle.TRANSPARENT);
-        setPreferredSize(d);
-        setMaximumSize(d);
-        setMinimumSize(d);
+        styleButton(button, style);
     }
 
     public String getLabel()

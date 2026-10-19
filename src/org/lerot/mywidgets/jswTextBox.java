@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
@@ -81,8 +82,6 @@ public class jswTextBox extends jswWidget implements KeyListener // implements C
 		setBorder(style.getBorder());
 		textbox.setFont(style.getFont());
 		textbox.setForeground(style.getColor("foregroundColor", Color.BLACK));
-		textbox.setBackground(jswStyle.defaulttextboxcolor);
-		textbox.setBackground(Color.red);
 		int wd = style.getIntegerStyle("mywidth", bl);
 		if (wd > bl) bl = wd;
 		//bl=wd;
@@ -92,10 +91,13 @@ public class jswTextBox extends jswWidget implements KeyListener // implements C
 		textbox.setPreferredSize(d);
 		textbox.setMaximumSize(new Dimension(1000, bh));
 		textbox.setMinimumSize(d);
-		setBackground(jswStyle.defaulttextboxcolor);
-		setPreferredSize(d);
-		setMaximumSize(d);
-		setMinimumSize(d);
+		setBackground(style.getColor("backgroundColor", jswStyle.defaulttextboxcolor));
+		Insets ins = getInsets();
+		Dimension outer = new Dimension(bl + ins.left + ins.right, bh + ins.top + ins.bottom);
+		setOpaque(false);
+		setPreferredSize(outer);
+		setMaximumSize(outer);
+		setMinimumSize(outer);
 	}
 
 	@Override
@@ -158,6 +160,7 @@ public class jswTextBox extends jswWidget implements KeyListener // implements C
 	@Override
 	public void setBackground(Color c)
 	{
+		if (c == null) c = jswStyle.defaulttextboxcolor;
 		backgroundcolor = c;
 		if (textbox != null)
 			textbox.setBackground(c);

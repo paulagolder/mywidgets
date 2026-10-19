@@ -53,7 +53,7 @@ public class jswHorizontalPanel extends jswContainer
 			padding = aborder.getBorderInsets(this);
 
 		this.setForeground(astyle.getColor("foregroundColor", Color.BLACK));
-		this.setBackground(astyle.getColor("backgroundColor", Color.green));
+		this.setBackground(astyle.getColor("backgroundColor", jswStyle.defaultbackgroundcolor));
 		
 	}
 

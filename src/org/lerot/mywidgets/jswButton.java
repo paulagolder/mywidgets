@@ -42,31 +42,7 @@ public class jswButton extends jswWidget
 	@Override
     public void applyStyle(jswStyle style)
 	{
-		int l = button.getText().length() * 8 + 30;
-		if (l > bl)
-			bl = l;
-		button.setFont(style.getFont());
-		button.setBackground(jswStyle.defaultwidgetcolor);
-		button.setForeground(style.getForegroundcolor());
-		button.setBorder(style.getBorder());
-		Border bborder = BorderFactory.createRaisedBevelBorder();
-		button.setBorder(bborder);
-		int wd = style.getIntegerStyle("mywidth", bl);
-		if (wd > bl)
-			bl = wd;
-		int ht = style.getIntegerStyle("myheight", bh);
-		if (ht > bh)
-			bh = ht;
-		Dimension d = new Dimension(bl, bh);
-		button.setPreferredSize(d);
-		button.setMaximumSize(d);
-		button.setMinimumSize(d);
-		//button.setActionListener(this);
-		setBackground(jswStyle.TRANSPARENT);
-		setPreferredSize(d);
-		setMaximumSize(d);
-		setMinimumSize(d);
-		setSize(d);  //sets the width and height of the frame
+		styleButton(button, style);
 	}
 
 	public void addActionListener(ActionListener al)

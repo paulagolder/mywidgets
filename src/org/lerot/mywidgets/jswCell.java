@@ -106,6 +106,17 @@ public class jswCell extends jswWidget implements  MouseListener
 		actionlistener.actionPerformed(event);
 	}
 
+	// space between a cell's border and its content
+	public static final int LEFTPADDING = 3;
+
+	// every cell border, however it is set, gets the padding inside it
+	@Override
+	public void setBorder(javax.swing.border.Border border)
+	{
+		javax.swing.border.Border padding = BorderFactory.createEmptyBorder(0, LEFTPADDING, 0, 0);
+		super.setBorder(border == null ? padding : BorderFactory.createCompoundBorder(border, padding));
+	}
+
 	public void applyStyle(jswStyle style)
 	{
 		this.setBorder(style.getBorder());

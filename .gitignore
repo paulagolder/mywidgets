@@ -25,3 +25,12 @@ src/META-INF/
 hs_err_pid*
 replay_pid*
 **/bin/
+
+### Gradle ###
+.gradle/
+build/
+# the wrapper needs its jar, despite *.jar above
+!gradle/wrapper/gradle-wrapper.jar
+
+### Local files ###
+.idea/claudeCodeEditorTabs.xml

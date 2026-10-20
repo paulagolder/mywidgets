@@ -164,7 +164,12 @@ public abstract class jswLayout implements LayoutManager
 
     public void addTag(String tag, jswPanel comp)
     {
+        applyTags(tag, comp);
+    }
 
+    // store a tag string such as " FILLW RIGHT WIDTH=200 " in the child's style
+    public static void applyTags(String tag, jswPanel comp)
+    {
         jswTagparser tagp = new jswTagparser(tag);
         String[] atoken= {"*","*"};
         while ( tagp.notfinished() )

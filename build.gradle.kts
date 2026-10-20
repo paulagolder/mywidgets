@@ -40,6 +40,8 @@ sourceSets {
 dependencies {
     // the look and feel; projects using mywidgets get it automatically
     implementation("com.formdev:flatlaf:3.7.2")
+    // works out the vertical and horizontal panel layouts (see jswMigLayout)
+    implementation("com.miglayout:miglayout-swing:11.5.1")
 }
 
 tasks.withType<JavaCompile>().configureEach {

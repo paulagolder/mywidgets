@@ -2,12 +2,10 @@
 //
 // Everyday commands (run from the project folder):
 //   ./gradlew build     compile and build build/libs/mywidgets.jar
-//   ./gradlew deploy    build it and copy it to ../../lib/mywidgets.jar,
-//                       where raceresults and myELH pick it up
 //   ./gradlew run       start the mywidget_gui demo
 //
-// myContacts does not need deploy: it builds mywidgets from this source
-// itself (see includeBuild in myContacts/settings.gradle.kts).
+// myContacts and myELH build mywidgets from this source themselves
+// (see includeBuild in their settings.gradle.kts), so no jar is copied anywhere.
 
 plugins {
     // "java-library" is the java plugin for code that other projects use
@@ -59,11 +57,4 @@ tasks.jar {
     manifest {
         attributes["Main-Class"] = application.mainClass
     }
-}
-
-tasks.register<Copy>("deploy") {
-    group = "distribution"
-    description = "Builds mywidgets.jar and copies it to ../../lib for the IntelliJ-only projects"
-    from(tasks.jar)
-    into(layout.projectDirectory.dir("../../lib"))
 }

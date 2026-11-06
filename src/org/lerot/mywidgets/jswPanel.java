@@ -57,13 +57,13 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
         }
         if (pvs.size() == 1)
         {
-            padding = new Insets(pvs.get(0), pvs.get(0), pvs.get(0), pvs.get(0));
+            padding = jswScale.px(pvs.get(0), pvs.get(0), pvs.get(0), pvs.get(0));
         } else if (pvs.size() == 2)
         {
-            padding = new Insets(pvs.get(0), pvs.get(1), pvs.get(0), pvs.get(1));
+            padding = jswScale.px(pvs.get(0), pvs.get(1), pvs.get(0), pvs.get(1));
         } else if (pvs.size() == 4)
         {
-            padding = new Insets(pvs.get(0), pvs.get(1), pvs.get(2), pvs.get(3));
+            padding = jswScale.px(pvs.get(0), pvs.get(1), pvs.get(2), pvs.get(3));
         } else
             padding = new Insets(1, 1, 1, 1);
         return padding;
@@ -117,7 +117,7 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
 
     public void setPadding(int in)
     {
-        padding = new Insets(in, in, in, in);
+        padding = jswScale.px(in, in, in, in);
     }
 
     public void setPadding(String instr)
@@ -137,7 +137,7 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
 
     public void setPadding(int top, int left, int bottom, int right)
     {
-        padding = new Insets(top, left, bottom, right);
+        padding = jswScale.px(top, left, bottom, right);
     }
 
     public void applyStyle()
@@ -177,7 +177,7 @@ public abstract class jswPanel extends JPanel  //implements ActionListener
             this.setPadding(bd.getBorderInsets(this));
         } else if (bs == jswStyle.LINEBORDER)
         {
-            setBorder(style.makeLineborder(new Insets(20, 20, 20, 20)));
+            setBorder(style.makeLineborder(jswScale.px(20, 20, 20, 20)));
             this.setPadding(10, 10, 10, 10);
         } else
         {

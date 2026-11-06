@@ -38,7 +38,7 @@ public class jswHorizontalPanel extends jswContainer
 		{
 			style.setBorderStyle(jswStyle.NOBORDER);
 		}
-	    padding = new Insets(10, 10, 10, 10); 
+	    padding = jswScale.px(10, 10, 10, 10);
 		applyStyle();
 	}
 

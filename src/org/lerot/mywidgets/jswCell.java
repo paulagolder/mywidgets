@@ -113,7 +113,7 @@ public class jswCell extends jswWidget implements  MouseListener
 	@Override
 	public void setBorder(javax.swing.border.Border border)
 	{
-		javax.swing.border.Border padding = BorderFactory.createEmptyBorder(0, LEFTPADDING, 0, 0);
+		javax.swing.border.Border padding = BorderFactory.createEmptyBorder(0, jswScale.px(LEFTPADDING), 0, 0);
 		super.setBorder(border == null ? padding : BorderFactory.createCompoundBorder(border, padding));
 	}
 

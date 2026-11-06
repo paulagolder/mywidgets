@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
@@ -31,7 +32,7 @@ public class jswStyle
 	}
 	public static Border makeborder()
 	{
-		return BorderFactory.createEmptyBorder(5, 5, 5, 5);
+		return BorderFactory.createEmptyBorder(jswScale.px(5), jswScale.px(5), jswScale.px(5), jswScale.px(5));
 	}
 
 	public static  MatteBorder makeCellBorder(Color col, int w)
@@ -77,6 +78,11 @@ public class jswStyle
 	 String stylename="anon";
 	Map<String, String> attributes = new HashMap<>();
 
+	// attributes holding a size in pixels at 100%; they are read back scaled
+	// for the screen (see jswScale)
+	private static final Set<String> PIXELS = Set.of("width", "height", "minwidth", "minheight",
+			"maxwidth", "maxheight", "mywidth", "myheight", "gap");
+
 
 	public jswStyle()
 	{
@@ -85,7 +91,8 @@ public class jswStyle
 		defaultforegroundcolor = lafColor("Label.foreground", Color.black);
 		defaultfontname = lafFont != null ? lafFont.getFamily() : "SansSerif";
 		defaultfontstyle = Font.PLAIN;
-		defaultfontsize = lafFont != null ? lafFont.getSize() : 12;
+		// font sizes are kept at 100% and scaled in getFont
+		defaultfontsize = lafFont != null ? jswScale.unscale(lafFont.getSize()) : 12;
 		defaultborderwidth = 1;
 		defaulttitlefontname = defaultfontname ;
 		defaulttitlefontstyle = defaultfontstyle ;
@@ -198,7 +205,7 @@ public class jswStyle
 	    tborder.setTitleColor(titlecolor);
 		return BorderFactory.createCompoundBorder(
 				tborder,
-				BorderFactory.createEmptyBorder(10, 5, 5, 5));
+				BorderFactory.createEmptyBorder(jswScale.px(10), jswScale.px(5), jswScale.px(5), jswScale.px(5)));
 	}
 	
 	public   Border makeLineborder(Insets ins)
@@ -211,7 +218,7 @@ public class jswStyle
 
 		return BorderFactory.createCompoundBorder(
 				lb,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5));
+				BorderFactory.createEmptyBorder(jswScale.px(5), jswScale.px(5), jswScale.px(5), jswScale.px(5)));
 	}
 
 	public Border getBorder()
@@ -263,9 +270,9 @@ public class jswStyle
 		{
 			String fontname = getStringStyle("fontname", defaultfontname);
 			int fontstyle = getIntegerStyle("fontstyle", defaultfontstyle);
-			return new Font(fontname, fontstyle, fontsize);
+			return new Font(fontname, fontstyle, jswScale.px(fontsize));
 		} else
-			return new Font("SansSerif", Font.PLAIN, jswTheme.TEXT);
+			return new Font("SansSerif", Font.PLAIN, jswScale.px(jswTheme.TEXT));
 	}
 	
 	public Font getTitleFont()
@@ -275,14 +282,25 @@ public class jswStyle
 		{
 			String fontname = getStringStyle("titlefontname", defaultfontname);
 			int fontstyle = getIntegerStyle("titlefontstyle", defaultfontstyle);
-			return new Font(fontname, fontstyle, fontsize);
+			return new Font(fontname, fontstyle, jswScale.px(fontsize));
 		} else
-			return new Font("SansSerif", Font.PLAIN, jswTheme.TEXT);
+			return new Font("SansSerif", Font.PLAIN, jswScale.px(jswTheme.TEXT));
 
 	}
 
 
+	// a size attribute (see PIXELS) is scaled for the screen
+	private static Integer scaled(String stylename, Integer value)
+	{
+		return PIXELS.contains(stylename) ? jswScale.px(value) : value;
+	}
+
 	public Integer getIntegerStyle(String stylename)
+	{
+		return scaled(stylename.toLowerCase(), unscaledIntegerStyle(stylename));
+	}
+
+	private Integer unscaledIntegerStyle(String stylename)
 	{
 		stylename = stylename.toLowerCase();
 		if (attributes.containsKey(stylename))
@@ -301,24 +319,12 @@ public class jswStyle
 			return null;
 	}
 
+	// the default is returned as given: callers pass sizes already in pixels
 	public Integer getIntegerStyle(String stylename, int defaultint)
 	{
-		stylename = stylename.toLowerCase();
-		if (attributes.containsKey(stylename))
-		{
-			String value = attributes.get(stylename);
-			if (value == null || value.equalsIgnoreCase("" )) return defaultint;
-			try
-			{
-				Integer ivalue = Integer.parseInt(value);
-				if(ivalue<0) return defaultint;
-				return ivalue;
-			} catch (NumberFormatException nfe)
-			{
-				return defaultint;
-			}
-		} else
-			return defaultint;
+		Integer ivalue = getIntegerStyle(stylename);
+		if (ivalue == null || ivalue < 0) return defaultint;
+		return ivalue;
 	}
 
 	String getStringStyle(String stylename)
@@ -583,6 +589,11 @@ public class jswStyle
     }
 
 	public Integer  getInteger(String stylename)
+	{
+		return scaled(stylename.toLowerCase(), unscaledInteger(stylename));
+	}
+
+	private Integer unscaledInteger(String stylename)
 	{
 		stylename = stylename.toLowerCase();
 		if (attributes.containsKey(stylename))

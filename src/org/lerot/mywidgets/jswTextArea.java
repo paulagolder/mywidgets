@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
 
 public class jswTextArea extends jswPanel implements ActionListener, KeyListener
@@ -35,8 +36,8 @@ public class jswTextArea extends jswPanel implements ActionListener, KeyListener
 		textarea.setWrapStyleWord(true);
 		textarea.setEnabled(true);
 		textarea.addKeyListener(this);
-		textarea.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+		textarea.setBorder(new EmptyBorder(jswScale.px(4, 4, 4, 4)));
+        scrollPane.setBorder(new EmptyBorder(jswScale.px(4, 4, 4, 4)));
 		scrollPane.setEnabled(true);
 		DefaultCaret caret = (DefaultCaret) textarea.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
@@ -116,7 +117,7 @@ public class jswTextArea extends jswPanel implements ActionListener, KeyListener
 		textarea.setOpaque(true);
 		textarea.setBackground(jswStyle.lafColor("TextArea.inactiveBackground", Color.LIGHT_GRAY));
 		textarea.setDisabledTextColor(Color.blue);
-		textarea.setFont(new Font("SansSerif", Font.ITALIC, jswTheme.TEXT));
+		textarea.setFont(new Font("SansSerif", Font.ITALIC, jswScale.px(jswTheme.TEXT)));
 		setEnabled(false);
 	}
 

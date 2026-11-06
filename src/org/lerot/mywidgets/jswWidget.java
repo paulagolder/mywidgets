@@ -30,7 +30,7 @@ public abstract class jswWidget extends jswPanel implements ActionListener
         button.setMaximumSize(null);
         Dimension pref = button.getPreferredSize();
         int wd = Math.max(pref.width, style.getIntegerStyle("mywidth", 0));
-        int ht = Math.max(Math.max(pref.height, 30), style.getIntegerStyle("myheight", 0));
+        int ht = Math.max(Math.max(pref.height, jswScale.px(30)), style.getIntegerStyle("myheight", 0));
         Dimension d = new Dimension(wd, ht);
         button.setPreferredSize(d);
         button.setMaximumSize(d);

@@ -25,8 +25,8 @@ public class jswDropDownBox extends jswWidget
     JComboBox<String> datalist;
     DefaultComboBoxModel<String> listModel;
     boolean hasborder;
-    int bl = 100;
-    int bh = 30;
+    int bl = jswScale.px(100);
+    int bh = jswScale.px(30);
 
     public jswDropDownBox(ActionListener al, String inLabel, boolean haslabel, boolean ahasborder, String actioncommand)
     {

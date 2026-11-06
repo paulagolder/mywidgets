@@ -62,7 +62,7 @@ public class jswOptionset extends jswWidget implements ActionListener
 		setStyleAttribute("gap",2);		
 		setBackground(style.getBackgroundcolor());
 		style.setBorderWidth(1);	
-	    padding = new Insets(10, 20, 10, 10);   
+	    padding = jswScale.px(10, 20, 10, 10);
 		Font sfont = style.getTitleFont();
 		this.setFont(sfont);
 		setPanelBorder(style);

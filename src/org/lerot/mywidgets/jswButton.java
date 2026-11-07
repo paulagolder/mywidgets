@@ -74,6 +74,13 @@ public class jswButton extends jswWidget
 		button.setActionCommand(command);
 	}
 
+	// on the button itself: a tooltip on this panel is hidden by the button
+	@Override
+	public void setToolTipText(String text)
+	{
+		button.setToolTipText(text);
+	}
+
 	@Override
 	public void setEnabled(boolean b)
 	{

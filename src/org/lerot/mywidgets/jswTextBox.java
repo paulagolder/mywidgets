@@ -22,8 +22,10 @@ public class jswTextBox extends jswWidget implements KeyListener // implements C
 	Color oldbgcolor;
 	private Color backgroundcolor;
 	private Color alertcolor = Color.red;
-	int bh = 30;
-	int bl = 30;
+	// the box's size, border included: as tall as a drop-down unless a
+	// myheight asks for more
+	int bh = jswScale.px(30);
+	int bl = jswScale.px(30);
 	private String prompt;
 
 
@@ -52,7 +54,6 @@ public class jswTextBox extends jswWidget implements KeyListener // implements C
 		textbox.setEditable(true);
 		textbox.setEnabled(true);
 		this.setStyleAttribute("mywidth", mywidth);
-		this.setStyleAttribute("myheight", 40);
 		DefaultCaret caret = (DefaultCaret) textbox.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		style.putAttribute("borderwidth", 0);
@@ -87,13 +88,13 @@ public class jswTextBox extends jswWidget implements KeyListener // implements C
 		//bl=wd;
 		int ht = style.getIntegerStyle("myheight", bh);
 		if (ht > bh) bh = ht;
-		Dimension d = new Dimension(bl, bh);
-		textbox.setPreferredSize(d);
-		textbox.setMaximumSize(new Dimension(1000, bh));
-		textbox.setMinimumSize(d);
 		setBackground(style.getColor("backgroundColor", jswStyle.defaulttextboxcolor));
 		Insets ins = getInsets();
-		Dimension outer = new Dimension(bl + ins.left + ins.right, bh + ins.top + ins.bottom);
+		Dimension outer = new Dimension(bl, bh);
+		Dimension d = new Dimension(bl - ins.left - ins.right, bh - ins.top - ins.bottom);
+		textbox.setPreferredSize(d);
+		textbox.setMaximumSize(new Dimension(1000, d.height));
+		textbox.setMinimumSize(d);
 		setOpaque(false);
 		setPreferredSize(outer);
 		setMaximumSize(outer);
@@ -224,17 +225,6 @@ public class jswTextBox extends jswWidget implements KeyListener // implements C
 	{
 		// textbox.revalidate();
 		// //System.out.println("some action:" + getText());
-	}
-
-	public Dimension getMinimumSize()
-	{
-		Dimension minsize = textbox.getPreferredSize();
-		jswStyle s = this.getStyle();
-		int minwidth = minsize.width;
-		int minheight = minsize.height;
-		Dimension d = new Dimension(minwidth - 40, minheight - 40);
-		//System.out.println("size textarea"+d);
-		return d;
 	}
 
 }

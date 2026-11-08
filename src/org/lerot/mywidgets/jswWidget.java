@@ -19,7 +19,14 @@ public abstract class jswWidget extends jswPanel implements ActionListener
 
     public abstract void actionPerformed(ActionEvent e);
 
-    // style a button using the look and feel's own border and size;
+    // room beyond the label's measured width: on a screen scaled to 125% or
+    // 150% (Windows), text drawn at that scale can come out a pixel or two
+    // wider than it measured, and a button sized exactly to it then cuts its
+    // label short ("Brow…")
+    private static final int LABEL_SLACK = 8;
+
+    // style a button using the look and feel's own border and size, with a
+    // little room to spare for its label;
     // mywidth/myheight act as minimums (height defaults to 30, which the layouts expect)
     protected void styleButton(AbstractButton button, jswStyle style)
     {
@@ -29,7 +36,7 @@ public abstract class jswWidget extends jswPanel implements ActionListener
         button.setMinimumSize(null);
         button.setMaximumSize(null);
         Dimension pref = button.getPreferredSize();
-        int wd = Math.max(pref.width, style.getIntegerStyle("mywidth", 0));
+        int wd = Math.max(pref.width + jswScale.px(LABEL_SLACK), style.getIntegerStyle("mywidth", 0));
         int ht = Math.max(Math.max(pref.height, jswScale.px(30)), style.getIntegerStyle("myheight", 0));
         Dimension d = new Dimension(wd, ht);
         button.setPreferredSize(d);

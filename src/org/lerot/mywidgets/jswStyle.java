@@ -35,9 +35,10 @@ public class jswStyle
 		return BorderFactory.createEmptyBorder(jswScale.px(5), jswScale.px(5), jswScale.px(5), jswScale.px(5));
 	}
 
+	// a line under each table row; no lines between columns
 	public static  MatteBorder makeCellBorder(Color col, int w)
 	{
-		return BorderFactory.createMatteBorder(0, 0, w, w, col);
+		return BorderFactory.createMatteBorder(0, 0, w, 0, col);
 	}
 	public static Border makeLineBorder()
 	{

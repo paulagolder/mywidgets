@@ -119,7 +119,8 @@ public class jswCell extends jswWidget implements  MouseListener
 
 	public void applyStyle(jswStyle style)
 	{
-		this.setBorder(style.getBorder());
+		// a line under the row, none between columns
+		this.setBorder(style.getCellBorder());
 		Font afont = style.getFont();
 		this.setFont(afont);
 		this.setForeground(style.getColor("foregroundColor", Color.BLACK));

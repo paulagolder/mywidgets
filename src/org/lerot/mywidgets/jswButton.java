@@ -28,7 +28,7 @@ public class jswButton extends jswWidget
 		super(label);
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		button = new JButton(label);
+		button = new JButton(jswTheme.buttonText(label));
 		button.addActionListener(this);
 	    setActionListener(al);
 		button.setActionCommand(command);

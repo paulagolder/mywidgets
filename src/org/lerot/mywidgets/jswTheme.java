@@ -6,22 +6,31 @@ import java.util.Map;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-// the shared look for applications built with mywidgets: FlatLaf with a warm
-// neutral palette, slightly raised buttons, tints marking the functional areas
-// of a window and three font sizes. Call jswTheme.install() first thing in main().
+// the shared look for applications built with mywidgets: FlatLaf with a soft
+// warm off-white page, a slightly darker shade for the bars at the top and for
+// panels, flat rounded buttons, one accent colour for links and three font
+// sizes. Call jswTheme.install() first thing in main().
 public class jswTheme
 {
-	// background tints for the functional areas of a window
-	public static final String NAVAREA = "#D3D8DE";       // navigation / mode buttons
-	public static final String SELECTAREA = "#E8E1D2";    // choosing what to work on
-	public static final String DETAILAREA = "#EEECE7";    // main content
-	public static final String SECONDARYAREA = "#DFE6DE"; // supporting content
-	public static final String EDITAREA = "#EBDFDB";      // editing
-	public static final String TOOLSAREA = "#E3DFE9";     // tools and admin
+	// the palette (the same as the MyContacts viewer)
+	public static final String PAGE = "#F4F1EA";          // the page
+	public static final String SHADE = "#E9E4DA";         // bars and panels on the page
+	public static final String ACCENT = "#2F6FDB";        // links, and what can be clicked
+	public static final String MUTED = "#8A8A8E";         // labels and notes
+	public static final String HIGHLIGHT = "#DCE6F8";     // the selected button or row
 
-	public static final String BACKGROUND = "#E4E2DD";
-	public static final String BORDER = "#B4B0A8";        // panel and table outlines
-	public static final String CELLBORDER = "#CFCBC3";    // lines between table cells
+	// background tints for the functional areas of a window: the bars at the
+	// top are shaded, the content areas are the page
+	public static final String NAVAREA = SHADE;           // navigation / mode buttons
+	public static final String SELECTAREA = SHADE;        // choosing what to work on
+	public static final String DETAILAREA = PAGE;         // main content
+	public static final String SECONDARYAREA = PAGE;      // supporting content
+	public static final String EDITAREA = PAGE;           // editing
+	public static final String TOOLSAREA = PAGE;          // tools and admin
+
+	public static final String BACKGROUND = PAGE;
+	public static final String BORDER = "#D9D2C5";        // panel and table outlines
+	public static final String CELLBORDER = "#E6E0D5";    // lines between table rows
 
 	// font sizes
 	public static final int TEXT = 13;
@@ -32,16 +41,25 @@ public class jswTheme
 	{
 		FlatLaf.setGlobalExtraDefaults(Map.of(
 				"@background", BACKGROUND,
-				"@componentBackground", "#F7F6F3",
+				"@componentBackground", "#FBFAF7",
+				"@accentColor", ACCENT,
 				"Component.borderColor", BORDER,
-				"Button.startBackground", "#FBFAF8",
-				"Button.endBackground", "#E2DFD9",
-				"Button.borderColor", "#A39F97",
-				"Button.shadowWidth", "2",
-				"Button.shadowColor", "#00000030",
-				"Button.arc", "8",
-				"ToggleButton.selectedBackground", "#BFC9D4"));
+				"Component.arc", "8",
+				"Button.background", "#FBFAF7",
+				"Button.borderColor", "#CFC7B8",
+				"Button.shadowWidth", "0",
+				"Button.arc", "10",
+				"ToggleButton.selectedBackground", HIGHLIGHT));
 		FlatLightLaf.setup();
+	}
+
+	// a button label in capitals ("EDIT ME") is shown in sentence case ("Edit me");
+	// the action command keeps the label as written
+	public static String buttonText(String label)
+	{
+		if (label == null || label.length() < 3 || !label.equals(label.toUpperCase())
+				|| label.equals(label.toLowerCase())) return label;
+		return label.charAt(0) + label.substring(1).toLowerCase();
 	}
 
 	// give a panel (and the children that inherit its background) an area tint

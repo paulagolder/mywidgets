@@ -34,7 +34,9 @@ public class jswLabel extends jswPanel
 		label.setFont(style.getFont());
 		label.setForeground(style.getColor("foregroundColor", style.getForegroundcolor()));
 		label.setBackground(style.getColor("backgroundColor", jswStyle.TRANSPARENT));
-		setBorder(style.getBorder());
+		// labels have no outline: the style's border only sets the space around the text
+		java.awt.Insets in = style.getBorder().getBorderInsets(this);
+		setBorder(javax.swing.BorderFactory.createEmptyBorder(in.top, in.left, in.bottom, in.right));
 		setOpaque(false);
 	}
 
